@@ -1,0 +1,3 @@
+<project name="customer_client">
+	<import file="../../common.xml"/>
+</project>
