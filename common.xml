@@ -1,4 +1,5 @@
 <project>
+	<basename property="cur.dir"  file="${user.dir}"/>
     <property name="src.dir"      value="src"/>
     <property name="common.dir"   value="../../common/src"/>
     <property name="build.dir"    value="build"/>
@@ -8,6 +9,14 @@
 		<mkdir dir="${classes.dir}"/>
 		<javac srcdir="${common.dir}" destdir="${classes.dir}"/>
 		<javac srcdir="${src.dir}" destdir="${classes.dir}"/>
+	</target>
+
+	<target name="build" depends="compile">
+		<jar jarfile="${build.dir}/${cur.dir}.jar" basedir="${classes.dir}"/>
+	</target>
+
+	<target name="clean">
+		<delete dir="${build.dir}"/>
 	</target>
 
 	<!-- more targets -->

@@ -12,5 +12,13 @@
 		<iterate target="compile"/>
 	</target>
 
+	<target name="build">
+		<iterate target="build"/>
+	</target>
+
+	<target name="clean">
+		<iterate target="clean"/>
+	</target>
+
 	<!-- more targets -->
 </project>
