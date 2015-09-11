@@ -1,5 +1,5 @@
 <project>
-	<basename property="cur.dir"  file="${user.dir}"/>
+	<basename property="jarname"  file="${basedir}"/>
     <property name="src.dir"      value="src"/>
     <property name="common.dir"   value="../../common/src"/>
     <property name="build.dir"    value="build"/>
@@ -12,7 +12,7 @@
 	</target>
 
 	<target name="build" depends="compile">
-		<jar jarfile="${build.dir}/${cur.dir}.jar" basedir="${classes.dir}"/>
+		<jar jarfile="${build.dir}/${jarname}.jar" basedir="${classes.dir}"/>
 	</target>
 
 	<target name="clean">
