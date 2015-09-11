@@ -1,4 +1,4 @@
-<project>
+<project default="build">
 	<macrodef name="iterate">
 		<attribute name="target"/>
 		<sequential>
