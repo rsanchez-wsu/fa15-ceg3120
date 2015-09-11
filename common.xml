@@ -3,6 +3,7 @@
     <property name="src.dir"      value="src"/>
     <property name="common.dir"   value="../../common/src"/>
     <property name="build.dir"    value="build"/>
+    <property name="lib.dir"      value="lib"/>
     <property name="classes.dir"  value="${build.dir}/classes"/>
 
     <!-- Ivy Start -->
@@ -63,6 +64,8 @@
 
 	<target name="clean">
 		<delete dir="${build.dir}"/>
+        <delete dir="${lib.dir}"/>
+        <delete file="ivy.xml"/>
 	</target>
 
     <target name="test" depends="build">
