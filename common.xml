@@ -7,8 +7,8 @@
 
 	<target name="compile">
 		<mkdir dir="${classes.dir}"/>
-		<javac srcdir="${common.dir}" destdir="${classes.dir}"/>
-		<javac srcdir="${src.dir}" destdir="${classes.dir}"/>
+		<javac srcdir="${common.dir}" destdir="${classes.dir}" includeantruntime="false"/>
+		<javac srcdir="${src.dir}" destdir="${classes.dir}" includeantruntime="false"/>
 	</target>
 
 	<target name="build" depends="compile">
