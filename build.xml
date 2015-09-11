@@ -20,5 +20,9 @@
 		<iterate target="clean"/>
 	</target>
 
+	<target name="test">
+		<iterate target="test"/>
+	</target>
+
 	<!-- more targets -->
 </project>

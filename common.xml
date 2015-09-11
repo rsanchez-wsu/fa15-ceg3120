@@ -65,5 +65,9 @@
 		<delete dir="${build.dir}"/>
 	</target>
 
+    <target name="test">
+        <echo message="Testing is not implemented"/>
+    </target>
+
 	<!-- more targets -->
 </project>
