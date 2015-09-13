@@ -44,7 +44,7 @@
         <copy file="${ivy.master}" tofile="ivy.xml"/>
     </target>
 
-    <target name="resolve" depends="init-ivy, copy-ivy, init-junit">
+    <target name="resolve" depends="init-ivy, copy-ivy">
         <ivy:configure/>
         <ivy:resolve/>
         <ivy:retrieve/>
@@ -73,7 +73,9 @@
 
     <!-- JUnit End -->
 
-    <target name="compile" depends="resolve">
+    <target name="init" depends="resolve, init-junit"/>
+
+    <target name="compile" depends="init">
         <mkdir dir="${classes.dir}"/>
         <javac srcdir="${common.dir}" destdir="${classes.dir}" includeantruntime="false"/>
         <javac srcdir="${src.dir}" destdir="${classes.dir}" includeantruntime="false"/>
