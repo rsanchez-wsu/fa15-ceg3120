@@ -1,5 +1,5 @@
 <project xmlns:ivy="antlib:org.apache.ivy.ant">
-	<basename property="jarname"  file="${basedir}"/>
+    <basename property="jarname"  file="${basedir}"/>
     <property name="src.dir"      value="src"/>
     <property name="common.dir"   value="../../common/src"/>
     <property name="build.dir"    value="build"/>
@@ -44,33 +44,54 @@
         <copy file="${ivy.master}" tofile="ivy.xml"/>
     </target>
 
-    <target name="resolve" depends="init-ivy, copy-ivy">
+    <target name="resolve" depends="init-ivy, copy-ivy, init-junit">
         <ivy:configure/>
         <ivy:resolve/>
-    	<ivy:retrieve/>
+        <ivy:retrieve/>
     </target>
 
     <!-- Ivy End -->
 
-	<target name="compile" depends="resolve">
-		<mkdir dir="${classes.dir}"/>
-		<javac srcdir="${common.dir}" destdir="${classes.dir}" includeantruntime="false"/>
-		<javac srcdir="${src.dir}" destdir="${classes.dir}" includeantruntime="false"/>
-	</target>
+    <!-- JUnit Start -->
 
-	<target name="build" depends="compile">
-		<jar jarfile="${build.dir}/${jarname}.jar" basedir="${classes.dir}"/>
-	</target>
+    <target name="init-junit" depends="check-junit, install-junit"/>
 
-	<target name="clean">
-		<delete dir="${build.dir}"/>
+    <target name="check-junit">
+        <condition property="junit.installed">
+            <and>
+                <available file="${user.home}/.ant/lib/ant-junit.jar"/>
+                <available file="${user.home}/.ant/lib/junit.jar"/>
+            </and>
+        </condition>
+    </target>
+
+    <target name="install-junit" unless="junit.installed">
+        <mkdir dir="${user.home}/.ant/lib"/>
+        <get src="https://repo1.maven.org/maven2/org/apache/ant/ant-junit/1.9.4/ant-junit-1.9.4.jar" dest="${user.home}/.ant/lib/ant-junit.jar"/>
+        <get src="https://repo1.maven.org/maven2/junit/junit/4.11/junit-4.11.jar" dest="${user.home}/.ant/lib/junit.jar"/>
+    </target>
+
+    <!-- JUnit End -->
+
+    <target name="compile" depends="resolve">
+        <mkdir dir="${classes.dir}"/>
+        <javac srcdir="${common.dir}" destdir="${classes.dir}" includeantruntime="false"/>
+        <javac srcdir="${src.dir}" destdir="${classes.dir}" includeantruntime="false"/>
+    </target>
+
+    <target name="build" depends="compile">
+        <jar jarfile="${build.dir}/${jarname}.jar" basedir="${classes.dir}"/>
+    </target>
+
+    <target name="clean">
+        <delete dir="${build.dir}"/>
         <delete dir="${lib.dir}"/>
         <delete file="ivy.xml"/>
-	</target>
+    </target>
 
     <target name="test" depends="build">
         <echo message="Testing is not implemented"/>
     </target>
 
-	<!-- more targets -->
+    <!-- more targets -->
 </project>
