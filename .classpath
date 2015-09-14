@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="common/src/edu/wright/cs/fa15/ceg3120/concon/util"/>
+	<classpathentry kind="src" path="modules/contractor_client/src/edu/wright/cs/fa15/ceg3120/concon/client/contractor"/>
+	<classpathentry kind="src" path="modules/customer_client/src/edu/wright/cs/fa15/ceg3120/concon/client/customer"/>
+	<classpathentry kind="src" path="modules/server/src/edu/wright/cs/fa15/ceg3120/concon/server"/>
+	<classpathentry kind="lib" path="wrapper/wrapper.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="con" path="org.apache.ivyde.eclipse.cpcontainer.IVYDE_CONTAINER/?project=fa15-ceg3120&amp;ivyXmlPath=ivy.xml&amp;confs=*"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
