@@ -98,4 +98,3 @@ nb-configuration.xml
 modules/*/build/
 modules/*/ivy.xml
 modules/*/lib/
-*.dia~
