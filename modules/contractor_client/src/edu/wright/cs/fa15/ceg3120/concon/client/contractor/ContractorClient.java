@@ -19,6 +19,8 @@
  *
  */
 
+package edu.wright.cs.fa15.ceg3120.concon.client.contractor;
+
 public class ContractorClient {
 
 	public static void main(String[] args) {

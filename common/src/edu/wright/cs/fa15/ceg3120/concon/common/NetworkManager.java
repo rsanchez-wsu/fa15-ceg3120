@@ -19,6 +19,9 @@
  *
  */
 
-public class Core {
+package edu.wright.cs.fa15.ceg3120.concon.common;
+
+public class NetworkManager
+{
 	
 }
