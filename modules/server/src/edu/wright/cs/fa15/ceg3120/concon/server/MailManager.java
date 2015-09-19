@@ -21,7 +21,10 @@
 
 package edu.wright.cs.fa15.ceg3120.concon.server;
 
+import java.io.File;
 import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -29,6 +32,10 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+
+import org.apache.commons.mail.EmailAttachment;
+import org.apache.commons.mail.EmailException;
+import org.apache.commons.mail.MultiPartEmail;
 
 /**
  * Handles email sent by the server to notify users of status changes
@@ -38,48 +45,74 @@ import javax.mail.internet.MimeMessage;
  */
 public class MailManager {
 
-	public void SendEmail() {
-		// TODO convert this example code into a usable class
+	private final String sysHostProp = "mail.smtp.host";
+	private Properties props;
+	private String from;
+	private String host;
+	private String fromName;
+
+	public MailManager(Properties props) {
+		this.props = props;
+		this.from = props.getProperty("server_email_addr");
+		this.host = props.getProperty("mail_server_hostname");
+	}
+
+	/**
+	 * Sends an email message from the server. Used to notify users of 
+	 * status updates, internal messages, and system news items.
+	 * @param to Address of the receiving user.
+	 * @param fromName Specify the name of the email sender.
+	 */
+	public void sendEmail(String[] to, String fromName, String subject, String body, File attachmentFile) {
 		
-		// Recipient's email ID needs to be mentioned.
-		String to = "abcd@gmail.com";
-
-		// Sender's email ID needs to be mentioned
-		String from = "web@gmail.com";
-
-		// Assuming you are sending email from localhost
-		String host = "localhost";
-
 		// Get system properties
-		Properties properties = System.getProperties();
+		Properties sysProps = System.getProperties();
 
 		// Setup mail server
-		properties.setProperty("mail.smtp.host", host);
+		sysProps.setProperty(sysHostProp, host);
 
 		// Get the default Session object.
-		Session session = Session.getDefaultInstance(properties);
+		Session session = Session.getDefaultInstance(sysProps);
 
 		try {
-			// Create a default MimeMessage object.
-			MimeMessage message = new MimeMessage(session);
-
-			// Set From: header field of the header.
-			message.setFrom(new InternetAddress(from));
-
-			// Set To: header field of the header.
-			message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
-
-			// Set Subject: header field
-			message.setSubject("This is the Subject Line!");
-
-			// Now set the actual message
-			message.setText("This is actual message");
-
-			// Send message
-			Transport.send(message);
-			System.out.println("Sent message successfully....");
-		} catch (MessagingException mex) {
-			mex.printStackTrace();
+			
+			if (attachmentFile.exists()) {
+				MultiPartEmail message = new MultiPartEmail();
+				message.setFrom(from, fromName);
+				message.setMailSession(session);
+				message.addTo(to);
+				message.setSubject(subject);
+				message.setMsg(body);
+				
+				EmailAttachment attachment = new EmailAttachment();
+				attachment.setPath(attachmentFile.getPath());
+				message.attach(attachment);
+				message.send();
+			} else {
+				MimeMessage message = new MimeMessage(session);
+				message.setFrom(new InternetAddress(from));
+				for (String toAddr : to) {
+					message.addRecipient(Message.RecipientType.TO, new InternetAddress(toAddr));
+				}			
+				message.setSubject(subject);
+				message.setText(body);
+				Transport.send(message);
+			}
+			Logger.getLogger(this.getClass().getName()).info("Sent message successfully....");
+		} catch (MessagingException | EmailException mex) {
+			Logger.getLogger(this.getClass().getName()).log(Level.WARNING, "Email was not sent. ", mex);
 		}
+	}
+	
+	public void receiveEmail() {
+		// Get system properties
+		Properties sysProps = System.getProperties();
+
+		// Setup mail server
+		sysProps.setProperty(sysHostProp, host);
+
+		// Get the default Session object.
+		Session session = Session.getDefaultInstance(sysProps);
+		
 	}
 }
