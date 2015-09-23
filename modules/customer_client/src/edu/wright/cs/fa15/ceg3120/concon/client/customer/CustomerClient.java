@@ -21,9 +21,32 @@
 
 package edu.wright.cs.fa15.ceg3120.concon.client.customer;
 
-public class CustomerClient {
+import java.awt.Toolkit;
+import javax.swing.JFrame;
 
-	public static void main(String[] args) {
-		//Change to push branch? It's been a while...
-	}
+import edu.wright.cs.fa15.ceg3120.concon.common.AccountType;
+import edu.wright.cs.fa15.ceg3120.concon.common.HomeOwnerAccount;
+
+public class CustomerClient{
+
+    private static final long serialVersionUID = 1L;
+    private static final int WINDOW_WIDTH =
+            Toolkit.getDefaultToolkit().getScreenSize().width - 150;
+    private static final int WINDOW_HEIGHT =
+            Toolkit.getDefaultToolkit().getScreenSize().height - 150;
+    
+    public void buildGui() {
+        JFrame mainFrame = new JFrame("TEMP TITLE");
+        mainFrame.setSize(WINDOW_WIDTH,WINDOW_HEIGHT);
+        
+        //build UI here
+        
+        mainFrame.setVisible(true);
+    }
+    
+    //we probably don't need a main if this is launched from LogininPopUp...
+    public static void main(String[] args) {
+        HomeOwnerAccount justToRemoveWarningForNow = new HomeOwnerAccount();
+        System.out.println(justToRemoveWarningForNow.getAccountType());
+    }
 }
