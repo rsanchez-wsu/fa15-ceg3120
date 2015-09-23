@@ -24,6 +24,6 @@ package edu.wright.cs.fa15.ceg3120.concon.client.customer;
 public class CustomerClient {
 
 	public static void main(String[] args) {
-		
+		//Change to push branch? It's been a while...
 	}
 }
