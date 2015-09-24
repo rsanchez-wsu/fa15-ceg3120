@@ -21,6 +21,8 @@
 
 package edu.wright.cs.fa15.ceg3120.concon.common.data;
 
+import java.awt.Image;
+
 public class JobRequest {
 
 	/** 
@@ -34,6 +36,12 @@ public class JobRequest {
 	private String dateRangeStart;
 	/** Latest date construction can begin. */
 	private String dateRangeEnd;
+	/** What type of job this is (plumbing, electrical, etc). */
+	private String jobField;
+	/** User description of what they want done. */
+	private String jobDescr;
+	/** Images of what the future jobsite looks like now. */
+	private Image[] picsOfCurrentState;
     
 	public JobRequest() {
 		
@@ -70,6 +78,30 @@ public class JobRequest {
 
 	public void setUser(HomeOwnerAccount user) {
 		this.user = user;
+	}
+
+	public String getJobField() {
+		return jobField;
+	}
+
+	public void setJobField(String jobField) {
+		this.jobField = jobField;
+	}
+
+	public String getJobDescr() {
+		return jobDescr;
+	}
+
+	public void setJobDescr(String jobDescr) {
+		this.jobDescr = jobDescr;
+	}
+
+	public Image[] getPicsOfCurrentState() {
+		return picsOfCurrentState;
+	}
+
+	public void setPicsOfCurrentState(Image[] picsOfCurrentState) {
+		this.picsOfCurrentState = picsOfCurrentState;
 	}
 
 }
