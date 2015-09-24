@@ -21,6 +21,8 @@
 
 package edu.wright.cs.fa15.ceg3120.concon.client.customer;
 
+import edu.wright.cs.fa15.ceg3120.concon.common.data.HomeOwnerAccount;
+
 import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -29,7 +31,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.WindowConstants;
 
-import edu.wright.cs.fa15.ceg3120.concon.common.data.HomeOwnerAccount;
+
 
 public class CustomerClient{
 
@@ -68,9 +70,9 @@ public class CustomerClient{
 		custFrame.setVisible(true);
 	}//end buildGui
 	
-	//we probably don't need a main if this is launched from LogininPopUp...
+	
 	/**
-	 * t.
+	 * we probably don't need a main if this is launched from LogininPopUp...
 	 * @param args temp
 	 */
 	public static void main(String[] args) {
