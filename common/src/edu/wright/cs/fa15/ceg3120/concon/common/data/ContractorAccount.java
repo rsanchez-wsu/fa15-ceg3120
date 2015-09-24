@@ -19,30 +19,21 @@
  *
  */
 
-package edu.wright.cs.fa15.ceg3120.concon.common;
+package edu.wright.cs.fa15.ceg3120.concon.common.data;
 
-public class HomeOwnerAccount extends UserAccount {
+public class ContractorAccount extends UserAccount {
 
-    private String streetAddress;
-    //other fields here
+    //Contractor specific data fields
     
-    public HomeOwnerAccount() {
-        super(AccountType.HOMEOWNER);
-        
+    public ContractorAccount(AccountType accountType) {
+        super(accountType);
+        // TODO Auto-generated constructor stub
     }
-
+    
     @Override
     public void launchGui() {
         
         
     }
-
-	public String getStreetAddress() {
-		return streetAddress;
-	}
-
-	public void setStreetAddress(String streetAdress) {
-		this.streetAddress = streetAdress;
-	}
 
 }

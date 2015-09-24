@@ -19,7 +19,7 @@
  *
  */
 
-package edu.wright.cs.fa15.ceg3120.concon.common;
+package edu.wright.cs.fa15.ceg3120.concon.common.data;
 
 public class ServerAdminAccount extends UserAccount {
 

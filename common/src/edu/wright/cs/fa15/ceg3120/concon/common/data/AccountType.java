@@ -19,21 +19,8 @@
  *
  */
 
-package edu.wright.cs.fa15.ceg3120.concon.common;
+package edu.wright.cs.fa15.ceg3120.concon.common.data;
 
-public class ContractorAccount extends UserAccount {
-
-    //Contractor specific data fields
-    
-    public ContractorAccount(AccountType accountType) {
-        super(accountType);
-        // TODO Auto-generated constructor stub
-    }
-    
-    @Override
-    public void launchGui() {
-        
-        
-    }
-
+public enum AccountType {
+    HOMEOWNER, CONTRACTOR, SERVER_ADMIN
 }

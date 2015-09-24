@@ -23,6 +23,8 @@ package edu.wright.cs.fa15.ceg3120.concon.common;
 
 import javax.swing.JFrame;
 
+import edu.wright.cs.fa15.ceg3120.concon.common.data.UserAccount;
+
 public class CreateNewAccount extends JFrame{
 
 	private static final long serialVersionUID = 1L;

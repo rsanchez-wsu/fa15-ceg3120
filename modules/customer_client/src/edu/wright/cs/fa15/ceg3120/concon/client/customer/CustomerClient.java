@@ -24,12 +24,10 @@ package edu.wright.cs.fa15.ceg3120.concon.client.customer;
 import java.awt.Toolkit;
 import javax.swing.JFrame;
 
-import edu.wright.cs.fa15.ceg3120.concon.common.AccountType;
-import edu.wright.cs.fa15.ceg3120.concon.common.HomeOwnerAccount;
+import edu.wright.cs.fa15.ceg3120.concon.common.data.HomeOwnerAccount;
 
 public class CustomerClient{
 
-    private static final long serialVersionUID = 1L;
     private static final int WINDOW_WIDTH =
             Toolkit.getDefaultToolkit().getScreenSize().width - 150;
     private static final int WINDOW_HEIGHT =

@@ -24,6 +24,8 @@ package edu.wright.cs.fa15.ceg3120.concon.common;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
+import edu.wright.cs.fa15.ceg3120.concon.common.data.UserAccount;
+
 public class LoginPopUp{
 
 	private UserAccount user;

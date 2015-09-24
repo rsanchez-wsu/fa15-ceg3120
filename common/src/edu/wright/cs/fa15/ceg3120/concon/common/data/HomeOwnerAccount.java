@@ -19,8 +19,30 @@
  *
  */
 
-package edu.wright.cs.fa15.ceg3120.concon.common;
+package edu.wright.cs.fa15.ceg3120.concon.common.data;
 
-public enum AccountType {
-    HOMEOWNER, CONTRACTOR, SERVER_ADMIN
+public class HomeOwnerAccount extends UserAccount {
+
+    private String streetAddress;
+    //other fields here
+    
+    public HomeOwnerAccount() {
+        super(AccountType.HOMEOWNER);
+        
+    }
+
+    @Override
+    public void launchGui() {
+        
+        
+    }
+
+	public String getStreetAddress() {
+		return streetAddress;
+	}
+
+	public void setStreetAddress(String streetAdress) {
+		this.streetAddress = streetAdress;
+	}
+
 }
