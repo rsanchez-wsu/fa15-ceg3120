@@ -29,14 +29,31 @@ package edu.wright.cs.fa15.ceg3120.concon.common.data;
  */
 public abstract class UserAccount {
 
+	/** Description. */
 	private String uuid;
+	/** Description. */
 	private AccountType accountType;
+	/** Description. */
+	private char[] pswd;
 	//other common data fields
 	//perhaps encrypted pswd?
 	
 	public UserAccount(AccountType accountType) {
 		uuid = "Debug";
 		this.accountType = accountType;
+	}
+	
+	/**
+	 * Creates a new instance of <code>UserAccount</code>.
+	 * 
+	 * @param uuid - (String)
+	 * @param type - (AccountType)
+	 * @param pswd - (char[])
+	 */
+	public UserAccount(String uuid, AccountType type, char[] pswd) {
+		this.uuid = uuid;
+		accountType = type;
+		this.pswd = pswd; //XXX this WILL need changed
 	}
 
 	public String getUuid() {
@@ -53,6 +70,14 @@ public abstract class UserAccount {
 
 	public void setAccountType(AccountType accountType) {
 		this.accountType = accountType;
+	}
+
+	public char[] getPswd() {
+		return pswd;
+	}
+
+	public void setPswd(char[] pswd) {
+		this.pswd = pswd;
 	}
 
 	/**

@@ -41,7 +41,8 @@ public class JobRequest {
 	/** User description of what they want done. */
 	private String jobDescr;
 	/** Images of what the future jobsite looks like now. */
-	private Image[] picsOfCurrentState;
+	private Image[] picsOfCurrentState;//do we want to allow multiple images?
+	//or maybe convert to a ByteArrayInputStream[] and pass raw data around?
     
 	public JobRequest() {
 		
