@@ -22,7 +22,7 @@
 package edu.wright.cs.fa15.ceg3120.concon.common.data;
 
 /**
- * This class is intended to be the super class for all account types
+ * This class is intended to be the super class for all account types.
  * 
  * @author Quack
  *

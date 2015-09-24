@@ -31,14 +31,14 @@ public class LoginPopUp{
 	private UserAccount user;
 	
 	/**
-	 * Creates a new instance of <code>LogininPopUp</code>
+	 * Creates a new instance of <code>LogininPopUp</code>.
 	 */
 	public LoginPopUp() {
 		user = null;
 	}
 	
 	/**
-	 * 
+	 * Temp comment.
 	 */
 	private void buildGui() {
 		JFrame loginFrame = new JFrame("TEMP TITLE");
@@ -57,7 +57,7 @@ public class LoginPopUp{
 		launchNewAccountGui();
 		//wait for user to be set
 		
-		if(user != null){
+		if (user != null) {
 			loginFrame.dispose();
 			user.launchGui();
 		}

@@ -25,15 +25,15 @@ public class JobRequest {
 
 	/** 
 	 * Signifies whether this request is a new job or a request for all jobs
-	 * from a given account
+	 * from a given account.
 	 */
 	private String requestType;
-	/** User making request */
+	/** User making request. */
 	private HomeOwnerAccount user;
-	/** Earliest construction can begin */
+	/** Earliest construction can begin. */
 	private String dateRangeStart;
-	/** Latest date construction can begin */
-    private String dateRangeEnd;
+	/** Latest date construction can begin. */
+	private String dateRangeEnd;
     
 	public JobRequest() {
 		

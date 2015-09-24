@@ -23,24 +23,24 @@ package edu.wright.cs.fa15.ceg3120.concon.common.data;
 
 public class HomeOwnerAccount extends UserAccount {
 
-    private String streetAddress;
-    private String city;
-    private String state;
-    private String zipCode;
-    private String phoneNumber;
-    private String email;
+	private String streetAddress;
+	private String city;
+	private String state;
+	private String zipCode;
+	private String phoneNumber;
+	private String email;
     //other fields here
     
-    public HomeOwnerAccount() {
+	public HomeOwnerAccount() {
         super(AccountType.HOMEOWNER);
         
-    }
+	}
 
-    @Override
+	@Override
     public void launchGui() {
         
         
-    }
+	}
 
 	public String getStreetAddress() {
 		return streetAddress;
