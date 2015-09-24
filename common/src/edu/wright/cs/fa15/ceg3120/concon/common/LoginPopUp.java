@@ -30,14 +30,30 @@ public class LoginPopUp{
 
 	private UserAccount user;
 	
+	/**
+	 * Creates a new instance of <code>LogininPopUp</code>
+	 */
+	public LoginPopUp() {
+		user = null;
+	}
+	
+	/**
+	 * 
+	 */
 	private void buildGui() {
 		JFrame loginFrame = new JFrame("TEMP TITLE");
 		// TODO Auto-generated method stub
 		//Build login UI here
 		
+		/*
+		  need action listener for submit button that will block until
+		  we receive a response from Networking so user can be set properly.
+		  Preferably a blocking mechanism that will timeout when we want it
+		  to.
+		*/
 		loginFrame.setVisible(true);
 		
-		
+		//if new account link/button clicked
 		launchNewAccountGui();
 		//wait for user to be set
 		
@@ -45,21 +61,23 @@ public class LoginPopUp{
 			loginFrame.dispose();
 			user.launchGui();
 		}
-	}
+	}//end buildGui
 	
 	/**
 	 * Launches the Create New User GUI and renders the login window
-	 * unresponsive until CreateNewAccountGUI.buildGUI returns
+	 * unresponsive until CreateNewAccountGUI.buildGUI returns.
 	 */
 	private void launchNewAccountGui() {
 		user = (new CreateNewAccount()).buildGui();
 	}//end launchNewAccountGUI
 	
 	/**
-	 * Temp comment.
+	 * Entry point for the main unit.
+	 * 
 	 * @param args - Command line arguments
 	 */
 	public static void main(String[] args) {
+		// Schedules the GUI construction on the EDT
 		SwingUtilities.invokeLater(new Runnable() {
 			@Override
 			public void run() {

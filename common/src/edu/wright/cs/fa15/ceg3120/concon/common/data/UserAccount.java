@@ -55,7 +55,9 @@ public abstract class UserAccount {
         this.accountType = accountType;
     }
 
-    
+    /**
+     * Launches the account type specific GUI.
+     */
     public abstract void launchGui();
     
     
