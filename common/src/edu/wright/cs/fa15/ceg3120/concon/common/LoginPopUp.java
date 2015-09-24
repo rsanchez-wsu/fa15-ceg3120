@@ -58,7 +58,14 @@ public class LoginPopUp{
 		//wait for user to be set
 		
 		if (user != null) {
-			loginFrame.dispose();
+			/* Schedule the loginFrame to be disposed on the EDT before
+			  launching the new GUI. */
+			SwingUtilities.invokeLater(new Runnable() {
+				@Override
+				public void run() {
+					loginFrame.dispose();
+				}
+			}); 
 			user.launchGui();
 		}
 	}//end buildGui
