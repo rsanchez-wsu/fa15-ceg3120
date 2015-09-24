@@ -52,7 +52,7 @@ public class CustomerClient{
         		int result = JOptionPane.showConfirmDialog(null,
         				"Do you really wish to exit?", "Exit?",
         				JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-        		if(result != 0){
+        		if(result == 0){
         			//release any network/file resources
         			System.exit(0);
         		}
@@ -66,5 +66,6 @@ public class CustomerClient{
     public static void main(String[] args) {
         HomeOwnerAccount justToRemoveWarningForNow = new HomeOwnerAccount();
         System.out.println(justToRemoveWarningForNow.getAccountType());
+        new CustomerClient().buildGui();
     }
 }
