@@ -29,36 +29,36 @@ package edu.wright.cs.fa15.ceg3120.concon.common.data;
  */
 public abstract class UserAccount {
 
-    private String uuid;
-    private AccountType accountType;
-    //other common data fields
-    //perhaps encrypted pswd?
-    
-    public UserAccount(AccountType accountType){
-        uuid = "Debug";
-        this.accountType = accountType;
-    }
+	private String uuid;
+	private AccountType accountType;
+	//other common data fields
+	//perhaps encrypted pswd?
+	
+	public UserAccount(AccountType accountType) {
+		uuid = "Debug";
+		this.accountType = accountType;
+	}
 
-    public String getUuid() {
-        return uuid;
-    }
+	public String getUuid() {
+		return uuid;
+	}
 
-    public void setUUID(String uuid) {
-        this.uuid = uuid;
-    }
+	public void setUuid(String uuid) {
+		this.uuid = uuid;
+	}
 
-    public AccountType getAccountType() {
-        return accountType;
-    }
+	public AccountType getAccountType() {
+		return accountType;
+	}
 
-    public void setAccountType(AccountType accountType) {
-        this.accountType = accountType;
-    }
+	public void setAccountType(AccountType accountType) {
+		this.accountType = accountType;
+	}
 
-    /**
-     * Launches the account type specific GUI.
-     */
-    public abstract void launchGui();
-    
-    
+	/**
+	 * Launches the account type specific GUI.
+	 */
+	public abstract void launchGui();
+	
+	
 }
