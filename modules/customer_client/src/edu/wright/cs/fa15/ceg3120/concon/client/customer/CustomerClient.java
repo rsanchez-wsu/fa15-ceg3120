@@ -22,7 +22,12 @@
 package edu.wright.cs.fa15.ceg3120.concon.client.customer;
 
 import java.awt.Toolkit;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.WindowConstants;
 
 import edu.wright.cs.fa15.ceg3120.concon.common.data.HomeOwnerAccount;
 
@@ -34,13 +39,28 @@ public class CustomerClient{
             Toolkit.getDefaultToolkit().getScreenSize().height - 150;
     
     public void buildGui() {
-        JFrame mainFrame = new JFrame("TEMP TITLE");
-        mainFrame.setSize(WINDOW_WIDTH,WINDOW_HEIGHT);
+        JFrame custFrame = new JFrame("TEMP TITLE");
+        custFrame.setSize(WINDOW_WIDTH,WINDOW_HEIGHT);
         
         //build UI here
         
-        mainFrame.setVisible(true);
-    }
+        
+        custFrame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+        custFrame.addWindowListener(new WindowAdapter() {
+        	@Override
+        	public void windowClosing(WindowEvent e) {
+        		int result = JOptionPane.showConfirmDialog(null,
+        				"Do you really wish to exit?", "Exit?",
+        				JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+        		if(result != 0){
+        			//release any network/file resources
+        			System.exit(0);
+        		}
+        	}
+		});
+        
+        custFrame.setVisible(true);
+    }//end buildGui
     
     //we probably don't need a main if this is launched from LogininPopUp...
     public static void main(String[] args) {
