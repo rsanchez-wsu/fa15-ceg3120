@@ -23,8 +23,7 @@ package edu.wright.cs.fa15.ceg3120.concon.common;
 
 public class HomeOwnerAccount extends UserAccount {
 
-    private String dateRangeStart;
-    private String dateRangeEnd;
+    private String streetAddress;
     //other fields here
     
     public HomeOwnerAccount() {
@@ -32,26 +31,18 @@ public class HomeOwnerAccount extends UserAccount {
         
     }
 
-    public String getDateRangeStart() {
-        return dateRangeStart;
-    }
-
-    public void setDateRangeStart(String dateRangeStart) {
-        this.dateRangeStart = dateRangeStart;
-    }
-
-    public String getDateRangeEnd() {
-        return dateRangeEnd;
-    }
-
-    public void setDateRangeEnd(String dateRangeEnd) {
-        this.dateRangeEnd = dateRangeEnd;
-    }
-
     @Override
     public void launchGui() {
         
         
     }
+
+	public String getStreetAddress() {
+		return streetAddress;
+	}
+
+	public void setStreetAddress(String streetAdress) {
+		this.streetAddress = streetAdress;
+	}
 
 }
