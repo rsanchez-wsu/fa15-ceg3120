@@ -1,8 +1,8 @@
 /*
  * Copyright (C) 2015
- * 
- * 
- * 
+ *
+ *
+ *
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,11 +19,14 @@
  *
  */
 
-package edu.wright.cs.fa15.ceg3120.concon.client.contractor;
+package edu.wright.cs.fa15.ceg3120.concon.common.net;
 
-public class ContractorClient {
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
-        public static void main(String[] args) {
-
-        }
+@Target(ElementType.METHOD)
+@Retention(RetentionPolicy.RUNTIME)
+public @interface NetworkHandler {
 }

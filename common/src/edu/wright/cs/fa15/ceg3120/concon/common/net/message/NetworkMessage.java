@@ -1,8 +1,8 @@
 /*
  * Copyright (C) 2015
- * 
- * 
- * 
+ *
+ *
+ *
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,11 +19,7 @@
  *
  */
 
-package edu.wright.cs.fa15.ceg3120.concon.client.contractor;
+package edu.wright.cs.fa15.ceg3120.concon.common.net.message;
 
-public class ContractorClient {
-
-        public static void main(String[] args) {
-
-        }
+public abstract class NetworkMessage {
 }

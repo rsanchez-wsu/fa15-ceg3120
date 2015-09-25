@@ -19,11 +19,20 @@
  *
  */
 
-package edu.wright.cs.fa15.ceg3120.concon.client.contractor;
+package edu.wright.cs.fa15.ceg3120.concon.common.data;
 
-public class ContractorClient {
+public class ContractorAccount extends UserAccount {
 
-        public static void main(String[] args) {
+        // Contractor specific data fields
+
+        public ContractorAccount(AccountType accountType) {
+                super(accountType);
+                // TODO Auto-generated constructor stub
+        }
+
+        @Override
+        public void launchGui() {
 
         }
+
 }

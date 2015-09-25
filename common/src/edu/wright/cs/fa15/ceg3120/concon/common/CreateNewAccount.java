@@ -19,11 +19,28 @@
  *
  */
 
-package edu.wright.cs.fa15.ceg3120.concon.client.contractor;
+package edu.wright.cs.fa15.ceg3120.concon.common;
 
-public class ContractorClient {
+import edu.wright.cs.fa15.ceg3120.concon.common.data.UserAccount;
 
-        public static void main(String[] args) {
+import javax.swing.JFrame;
 
+public class CreateNewAccount extends JFrame {
+
+        private static final long serialVersionUID = 1L;
+
+        /**
+         * temp comment.
+         * 
+         * @return nothing yet
+         */
+        public UserAccount buildGui() {
+                // build UI
+
+                // returns a subclass of UserAccount from input
+                // UserAccount toRet = new HomeOwnerAccount(),
+                // UserAccount toRet = new ContractorAccount(),
+                // etc
+                return null;
         }
 }
