@@ -21,10 +21,10 @@
 
 package edu.wright.cs.fa15.ceg3120.concon.common;
 
+import edu.wright.cs.fa15.ceg3120.concon.common.data.UserAccount;
+
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
-
-import edu.wright.cs.fa15.ceg3120.concon.common.data.UserAccount;
 
 public class LoginPopUp{
 
@@ -41,7 +41,7 @@ public class LoginPopUp{
 	 * Temp comment.
 	 */
 	private void buildGui() {
-		JFrame loginFrame = new JFrame("TEMP TITLE");
+		final JFrame loginFrame = new JFrame("TEMP TITLE");
 		// TODO Auto-generated method stub
 		//Build login UI here
 		

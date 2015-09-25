@@ -21,9 +21,9 @@
 
 package edu.wright.cs.fa15.ceg3120.concon.common;
 
-import javax.swing.JFrame;
-
 import edu.wright.cs.fa15.ceg3120.concon.common.data.UserAccount;
+
+import javax.swing.JFrame;
 
 public class CreateNewAccount extends JFrame{
 

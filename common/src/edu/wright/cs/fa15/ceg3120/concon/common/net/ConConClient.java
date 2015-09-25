@@ -19,7 +19,6 @@
  *
  */
 
-
 package edu.wright.cs.fa15.ceg3120.concon.common.net;
 
 import java.io.BufferedReader;
@@ -29,54 +28,52 @@ import java.io.InputStreamReader;
 import java.net.Socket;
 
 //TODO have security
-public class ConConClient
-{
-    private String host;
-    private int port;
+public class ConConClient {
+	private String host;
+	private int port;
 
-    public ConConClient(String host, int port)
-    {
-        this.host = host;
-        this.port = port;
-    }
+	public ConConClient(String host, int port) {
+		this.host = host;
+		this.port = port;
+	}
 
-    public void sendMessage(String message)
-    {
-        new DisptatchMessage(message).start();
-    }
+	public void sendMessage(String message) {
+		new DisptatchMessage(message).start();
+	}
 
-    private class DisptatchMessage extends Thread
-    {
-        private String message;
+	private class DisptatchMessage extends Thread {
+		private String message;
 
-        public DisptatchMessage(String message)
-        {
-            this.message = message;
-        }
+		public DisptatchMessage(String message) {
+			this.message = message;
+		}
 
-        @Override
-        public void run()
-        {
-            try
-            {
-                Socket clientSocket = new Socket(host, port);
-                DataOutputStream toServer = new DataOutputStream(clientSocket.getOutputStream());
-                BufferedReader fromServer = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+		@Override
+		public void run() {
+			try {
+				Socket clientSocket = new Socket(host, port);
+				DataOutputStream toServer = 
+								new DataOutputStream(
+								clientSocket.getOutputStream());
+				BufferedReader fromServer = new BufferedReader(
+								new InputStreamReader(
+								clientSocket.getInputStream()));
 
-                toServer.writeBytes(message);
-                String response = "";
-                int n = 0;
-                while ((n = fromServer.read()) != -1)
-                    response += (char)n;
+				toServer.writeBytes(message);
+				// Remove this when the value in response is actually used.
+				@SuppressWarnings("unused")
+				String response = "";
+				int ch = 0;
+				while ((ch = fromServer.read()) != -1) {
+					response += (char) ch;
+				}
 
-                // do something
+				// do something
 
-                clientSocket.close();
-            }
-            catch (IOException e)
-            {
-                e.printStackTrace();
-            }
-        }
-    }
+				clientSocket.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+	}
 }
