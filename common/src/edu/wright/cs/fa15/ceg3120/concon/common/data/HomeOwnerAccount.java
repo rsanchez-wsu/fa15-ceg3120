@@ -23,77 +23,76 @@ package edu.wright.cs.fa15.ceg3120.concon.common.data;
 
 public class HomeOwnerAccount extends UserAccount {
 
-	/** Description. */
-	private String streetAddress;
-	/** Description. */
-	private String city;
-	/** Description. */
-	private String state;
-	/** Description. */
-	private String zipCode;
-	/** Description. */
-	private String phoneNumber;
-	/** Description. */
-	private String email;
-    //other fields here
-    
-	public HomeOwnerAccount() {
-        super(AccountType.HOMEOWNER);
-        
-	}
+        /** Description. */
+        private String streetAddress;
+        /** Description. */
+        private String city;
+        /** Description. */
+        private String state;
+        /** Description. */
+        private String zipCode;
+        /** Description. */
+        private String phoneNumber;
+        /** Description. */
+        private String email;
+        // other fields here
 
-	@Override
-    public void launchGui() {
-        
-        
-	}
+        public HomeOwnerAccount() {
+                super(AccountType.HOMEOWNER);
 
-	public String getStreetAddress() {
-		return streetAddress;
-	}
+        }
 
-	public void setStreetAddress(String streetAdress) {
-		this.streetAddress = streetAdress;
-	}
+        @Override
+        public void launchGui() {
 
-	public String getCity() {
-		return city;
-	}
+        }
 
-	public void setCity(String city) {
-		this.city = city;
-	}
+        public String getStreetAddress() {
+                return streetAddress;
+        }
 
-	public String getState() {
-		return state;
-	}
+        public void setStreetAddress(String streetAdress) {
+                this.streetAddress = streetAdress;
+        }
 
-	public void setState(String state) {
-		this.state = state;
-	}
+        public String getCity() {
+                return city;
+        }
 
-	public String getZipCode() {
-		return zipCode;
-	}
+        public void setCity(String city) {
+                this.city = city;
+        }
 
-	public void setZipCode(String zipCode) {
-		this.zipCode = zipCode;
-	}
+        public String getState() {
+                return state;
+        }
 
-	public String getPhoneNumber() {
-		return phoneNumber;
-	}
+        public void setState(String state) {
+                this.state = state;
+        }
 
-	public void setPhoneNumber(String phoneNumber) {
-		this.phoneNumber = phoneNumber;
-	}
+        public String getZipCode() {
+                return zipCode;
+        }
 
-	public String getEmail() {
-		return email;
-	}
+        public void setZipCode(String zipCode) {
+                this.zipCode = zipCode;
+        }
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
+        public String getPhoneNumber() {
+                return phoneNumber;
+        }
+
+        public void setPhoneNumber(String phoneNumber) {
+                this.phoneNumber = phoneNumber;
+        }
+
+        public String getEmail() {
+                return email;
+        }
+
+        public void setEmail(String email) {
+                this.email = email;
+        }
 
 }

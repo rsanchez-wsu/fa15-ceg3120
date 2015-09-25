@@ -29,61 +29,63 @@ package edu.wright.cs.fa15.ceg3120.concon.common.data;
  */
 public abstract class UserAccount {
 
-	/** Description. */
-	private String uuid;
-	/** Description. */
-	private AccountType accountType;
-	/** Description. */
-	private char[] pswd;
-	//other common data fields
-	//perhaps encrypted pswd?
-	
-	public UserAccount(AccountType accountType) {
-		uuid = "Debug";
-		this.accountType = accountType;
-	}
-	
-	/**
-	 * Creates a new instance of <code>UserAccount</code>.
-	 * 
-	 * @param uuid - (String)
-	 * @param type - (AccountType)
-	 * @param pswd - (char[])
-	 */
-	public UserAccount(String uuid, AccountType type, char[] pswd) {
-		this.uuid = uuid;
-		accountType = type;
-		this.pswd = pswd; //XXX this WILL need changed
-	}
+        /** Description. */
+        private String uuid;
+        /** Description. */
+        private AccountType accountType;
+        /** Description. */
+        private char[] pswd;
+        // other common data fields
+        // perhaps encrypted pswd?
 
-	public String getUuid() {
-		return uuid;
-	}
+        public UserAccount(AccountType accountType) {
+                uuid = "Debug";
+                this.accountType = accountType;
+        }
 
-	public void setUuid(String uuid) {
-		this.uuid = uuid;
-	}
+        /**
+         * Creates a new instance of <code>UserAccount</code>.
+         * 
+         * @param uuid
+         *                - (String)
+         * @param type
+         *                - (AccountType)
+         * @param pswd
+         *                - (char[])
+         */
+        public UserAccount(String uuid, AccountType type, char[] pswd) {
+                this.uuid = uuid;
+                accountType = type;
+                this.pswd = pswd; // XXX this WILL need changed
+        }
 
-	public AccountType getAccountType() {
-		return accountType;
-	}
+        public String getUuid() {
+                return uuid;
+        }
 
-	public void setAccountType(AccountType accountType) {
-		this.accountType = accountType;
-	}
+        public void setUuid(String uuid) {
+                this.uuid = uuid;
+        }
 
-	public char[] getPswd() {
-		return pswd;
-	}
+        public AccountType getAccountType() {
+                return accountType;
+        }
 
-	public void setPswd(char[] pswd) {
-		this.pswd = pswd;
-	}
+        public void setAccountType(AccountType accountType) {
+                this.accountType = accountType;
+        }
 
-	/**
-	 * Launches the account type specific GUI.
-	 */
-	public abstract void launchGui();
-	
-	
+        public char[] getPswd() {
+                return pswd;
+        }
+
+        public void setPswd(char[] pswd) {
+                this.pswd = pswd;
+        }
+
+        /**
+         * Launches the account type specific GUI.
+         */
+        public abstract void launchGui();
+
 }

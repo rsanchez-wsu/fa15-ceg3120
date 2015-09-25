@@ -21,7 +21,5 @@
 
 package edu.wright.cs.fa15.ceg3120.concon.common.net.message;
 
-public abstract class NetworkMessage
-{
+public abstract class NetworkMessage {
 }
-

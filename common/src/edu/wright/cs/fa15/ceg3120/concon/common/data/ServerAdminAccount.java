@@ -23,15 +23,14 @@ package edu.wright.cs.fa15.ceg3120.concon.common.data;
 
 public class ServerAdminAccount extends UserAccount {
 
-	public ServerAdminAccount() {
-        super(AccountType.SERVER_ADMIN);
-        // TODO Auto-generated constructor stub
-	}
+        public ServerAdminAccount() {
+                super(AccountType.SERVER_ADMIN);
+                // TODO Auto-generated constructor stub
+        }
 
-	@Override
-	public void launchGui() {
-        
+        @Override
+        public void launchGui() {
 
-	}
+        }
 
 }
