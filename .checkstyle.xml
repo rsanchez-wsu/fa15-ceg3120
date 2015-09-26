@@ -6,7 +6,7 @@
 -->
 <!--
     Checkstyle-Configuration: CEG3120
-    Description: 
+    Description:
 Based on the Google CheckStyle configuration.
 -->
 <module name="Checker">
@@ -111,6 +111,8 @@ Based on the Google CheckStyle configuration.
       <property name="basicOffset" value="8"/>
       <property name="caseIndent" value="0"/>
       <property name="arrayInitIndent" value="2"/>
+      <property name="lineWrappingIndentation" value="2" />
+      <property name="forceStrictCondition" value="false"/>
     </module>
     <module name="AbbreviationAsWordInName">
       <property name="allowedAbbreviationLength" value="1"/>
