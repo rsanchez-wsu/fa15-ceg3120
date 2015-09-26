@@ -14,6 +14,7 @@ Based on the Google CheckStyle configuration.
   <property name="charset" value="UTF-8"/>
   <property name="fileExtensions" value="java, properties, xml"/>
   <module name="TreeWalker">
+    <property name="tabWidth" value="4"/>
     <module name="OuterTypeFilename"/>
     <module name="IllegalTokenText">
       <property name="tokens" value="STRING_LITERAL, CHAR_LITERAL"/>
@@ -108,7 +109,7 @@ Based on the Google CheckStyle configuration.
       <message key="ws.notPreceded" value="GenericWhitespace ''{0}'' is not preceded with whitespace."/>
     </module>
     <module name="Indentation">
-      <property name="basicOffset" value="8"/>
+      <property name="basicOffset" value="4"/>
       <property name="caseIndent" value="0"/>
       <property name="arrayInitIndent" value="2"/>
       <property name="lineWrappingIndentation" value="2" />
