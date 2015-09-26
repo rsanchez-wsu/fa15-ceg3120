@@ -51,6 +51,10 @@ public class MailManager {
 	private String host;
 	private String fromName;
 
+	/**
+	 * Construct a MailManager.
+	 * @param props Properties to use.
+	 */
 	public MailManager(Properties props) {
 		this.props = props;
 		this.from = props.getProperty("server_email_addr");
@@ -63,7 +67,8 @@ public class MailManager {
 	 * @param to Address of the receiving user.
 	 * @param fromName Specify the name of the email sender.
 	 */
-	public void sendEmail(String[] to, String fromName, String subject, String body, File attachmentFile) {
+	public void sendEmail(String[] to, String fromName, 
+			String subject, String body, File attachmentFile) {
 		
 		// Get system properties
 		Properties sysProps = System.getProperties();
@@ -100,10 +105,14 @@ public class MailManager {
 			}
 			Logger.getLogger(this.getClass().getName()).info("Sent message successfully....");
 		} catch (MessagingException | EmailException mex) {
-			Logger.getLogger(this.getClass().getName()).log(Level.WARNING, "Email was not sent. ", mex);
+			Logger.getLogger(this.getClass().getName()).log(
+					Level.WARNING, "Email was not sent. ", mex);
 		}
 	}
 	
+	/**
+	 * Run when email recieved.
+	 */
 	public void receiveEmail() {
 		// Get system properties
 		Properties sysProps = System.getProperties();

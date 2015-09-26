@@ -52,12 +52,10 @@ public class ConConClient {
 		public void run() {
 			try {
 				Socket clientSocket = new Socket(host, port);
-				DataOutputStream toServer = 
-								new DataOutputStream(
-								clientSocket.getOutputStream());
+				DataOutputStream toServer = new DataOutputStream(
+						clientSocket.getOutputStream());
 				BufferedReader fromServer = new BufferedReader(
-								new InputStreamReader(
-								clientSocket.getInputStream()));
+						new InputStreamReader(clientSocket.getInputStream()));
 
 				toServer.writeBytes(message);
 				// Remove this when the value in response is actually used.

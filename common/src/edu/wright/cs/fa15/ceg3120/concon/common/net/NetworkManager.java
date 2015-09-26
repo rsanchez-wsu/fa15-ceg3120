@@ -35,17 +35,20 @@ public class NetworkManager {
 
 	/**
 	 * Temp.
-	 * @param cl Class to register.
+	 * 
+	 * @param cl
+	 *            Class to register.
 	 */
 	public static void registerNetworkClass(Class<?> cl) {
 		Method[] methods = cl.getMethods();
 		for (Method m : methods) {
 			if (m.isAnnotationPresent(NetworkHandler.class)) {
 				Class<?>[] argClasses = m.getParameterTypes();
-				if (argClasses.length != 1 || !NetworkMessage.class
+				if (argClasses.length != 1
+							|| !NetworkMessage.class
 								.isAssignableFrom(argClasses[0])) {
-					System.out.println(
-									"Invalid parameters on NetworkHandler method: "
+					System.out
+							.println("Invalid parameters on NetworkHandler method: "
 									+ m.getName());
 				} else {
 					NETWORK_BUS.put(m, argClasses[0]);
@@ -56,7 +59,9 @@ public class NetworkManager {
 
 	/**
 	 * Temp.
-	 * @param message Message to send.
+	 * 
+	 * @param message
+	 *            Message to send.
 	 */
 	public static void post(NetworkMessage message) {
 		for (Map.Entry<Method, Class<?>> listener : NETWORK_BUS.entrySet()) {
@@ -75,7 +80,9 @@ public class NetworkManager {
 
 	/**
 	 * Temp.
-	 * @param port Port to listen on.
+	 * 
+	 * @param port
+	 *            Port to listen on.
 	 * @return Failure true/false.
 	 */
 	public static boolean startServer(int port) {
@@ -94,8 +101,11 @@ public class NetworkManager {
 
 	/**
 	 * Temp.
-	 * @param host Host to use.
-	 * @param port Port to listen on.
+	 * 
+	 * @param host
+	 *            Host to use.
+	 * @param port
+	 *            Port to listen on.
 	 * @return Failure true/false.
 	 */
 	public static boolean startClient(String host, int port) {
@@ -112,7 +122,9 @@ public class NetworkManager {
 
 	/**
 	 * Temp.
-	 * @param message Message to send.
+	 * 
+	 * @param message
+	 *            Message to send.
 	 * @return Failure true/false.
 	 */
 	public static boolean sendMessage(NetworkMessage message) {

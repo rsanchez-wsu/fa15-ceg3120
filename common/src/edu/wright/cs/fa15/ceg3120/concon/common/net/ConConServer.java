@@ -83,10 +83,9 @@ public class ConConServer extends Thread {
 		public void run() {
 			try {
 				DataOutputStream toClient = new DataOutputStream(
-								clientSocket.getOutputStream());
+						clientSocket.getOutputStream());
 				BufferedReader fromClient = new BufferedReader(
-								new InputStreamReader(
-								clientSocket.getInputStream()));
+						new InputStreamReader(clientSocket.getInputStream()));
 
 				int ch = 0;
 				String message = "";
