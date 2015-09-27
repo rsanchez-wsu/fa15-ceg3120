@@ -21,9 +21,18 @@
 
 package edu.wright.cs.fa15.ceg3120.concon.server;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class Server {
+	private static final Logger LOG = LoggerFactory.getLogger(Server.class);
 
 	public static void main(String[] args) {
+		LOG.trace("Starting server...");
 		
+		// Temporary testing logs
+		LOG.error("Error test - This class needs implemented.");
+		LOG.debug("Debug test - This class needs implemented.");
+		LOG.info("Info test - This class needs implemented.");
 	}
 }
