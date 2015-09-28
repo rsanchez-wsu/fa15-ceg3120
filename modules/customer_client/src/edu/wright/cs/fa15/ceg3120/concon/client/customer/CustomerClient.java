@@ -74,6 +74,6 @@ public class CustomerClient {
         public static void main(String[] args) {
                 HomeOwnerAccount justToRemoveWarningForNow = new HomeOwnerAccount();
                 System.out.println(justToRemoveWarningForNow.getAccountType());
-                new CustomerClient().buildGui();
+                new CustomerClient().buildGui(); 
         }
 }
