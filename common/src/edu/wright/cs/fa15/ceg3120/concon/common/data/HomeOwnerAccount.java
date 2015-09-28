@@ -23,7 +23,7 @@ package edu.wright.cs.fa15.ceg3120.concon.common.data;
 
 public class HomeOwnerAccount extends UserAccount {
 
-        /** Description. */
+        /** Home address */
         private String streetAddress;
         /** Description. */
         private String city;
