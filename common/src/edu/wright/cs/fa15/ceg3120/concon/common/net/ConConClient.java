@@ -29,6 +29,7 @@ import java.net.Socket;
 
 //TODO have security
 public class ConConClient {
+
         private String host;
         private int port;
 

@@ -66,7 +66,7 @@ import javax.swing.*;
 
 
 
-public class Server extends JPanel implements ActionListener{
+public class ServerGUI extends JPanel implements ActionListener{
 	/**
 	 * 
 	 */

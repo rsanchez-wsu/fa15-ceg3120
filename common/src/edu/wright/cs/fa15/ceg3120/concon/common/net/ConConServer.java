@@ -21,7 +21,6 @@
 
 package edu.wright.cs.fa15.ceg3120.concon.common.net;
 
-
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
