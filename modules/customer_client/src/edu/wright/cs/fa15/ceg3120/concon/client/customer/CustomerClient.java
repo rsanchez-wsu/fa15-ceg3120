@@ -23,6 +23,9 @@ package edu.wright.cs.fa15.ceg3120.concon.client.customer;
 
 import edu.wright.cs.fa15.ceg3120.concon.common.data.HomeOwnerAccount;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -31,7 +34,9 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.WindowConstants;
 
+
 public class CustomerClient {
+	private static final Logger LOG = LoggerFactory.getLogger(CustomerClient.class);
 
         private static final int WINDOW_WIDTH = Toolkit.getDefaultToolkit().getScreenSize().width
                         - 150;
@@ -74,6 +79,7 @@ public class CustomerClient {
         public static void main(String[] args) {
                 HomeOwnerAccount justToRemoveWarningForNow = new HomeOwnerAccount();
                 System.out.println(justToRemoveWarningForNow.getAccountType());
-                new CustomerClient().buildGui(); 
+                new CustomerClient().buildGui();
+                LOG.trace("Starting Customer client...");
         }
 }
