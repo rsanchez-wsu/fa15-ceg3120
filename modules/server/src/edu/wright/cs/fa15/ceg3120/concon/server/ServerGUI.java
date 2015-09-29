@@ -100,7 +100,7 @@ public class ServerGUI extends JPanel implements ActionListener{
                 "Still does nothing");
         tabbedPane.setMnemonicAt(2, KeyEvent.VK_3);
         
-        JComponent panel4 = makeTextPanel("Panel #4 ");
+        JComponent panel4 = createControlPanel();
         panel4.setPreferredSize(new Dimension(410, 50));
         tabbedPane.addTab("Remote Control", icon, panel4,
                 "Does nothing at all");
@@ -126,6 +126,58 @@ public class ServerGUI extends JPanel implements ActionListener{
         panel.setLayout(new GridLayout(1, 1));
         panel.add(filler);
         return panel;
+    }
+    
+    protected JComponent createControlPanel() {
+        JPanel mainPanel = new JPanel(new BorderLayout());
+        
+        JPanel schedulePanel = new JPanel(new GridLayout(4,1));	
+        JPanel consolePanel = new JPanel(new BorderLayout());
+        JPanel loginPanel = new JPanel(new GridLayout(2,2));
+        
+        // SchedulePanel
+        /*
+         * CLicking this button will evoke a JDatePicker and JSpinner
+         * to allow a user to set a date and time for the server to 
+         * restart
+         */
+        JButton btnScheduleReboot = new JButton("Schedule Reboot");
+        btnScheduleReboot.addActionListener(this);
+        schedulePanel.add(btnScheduleReboot);
+        /*
+         * CLicking this button will evoke a JDatePicker and JSpinner
+         * to allow a user to set a date and time for the server to 
+         * complete an arbitrary command 
+         */
+        JButton btnScheduleTask = new JButton("Schedule Task");
+        btnScheduleTask.addActionListener(this);
+        schedulePanel.add(btnScheduleTask);
+        
+        JTextArea txaTask = new JTextArea();
+        schedulePanel.add(txaTask);
+
+        JComponent standInConsole = makeTextPanel("Server console");
+        
+        // LoginPanel
+        JLabel lblUsername = new JLabel("Username");
+        JTextField txtUsername = new JTextField();
+        JLabel lblPassword = new JLabel("Password");
+        JPasswordField txtPassword = new JPasswordField();
+        loginPanel.add(lblUsername);
+        loginPanel.add(txtUsername);
+        loginPanel.add(lblPassword);
+        loginPanel.add(txtPassword);
+        
+        // ConsolePanel
+        consolePanel.add(loginPanel, BorderLayout.WEST);
+        consolePanel.add(standInConsole, BorderLayout.CENTER);
+        
+        // MainPanel
+        mainPanel.setBorder(BorderFactory.createEmptyBorder(0, 0,
+                                                0, 0));
+        mainPanel.add(schedulePanel);
+        mainPanel.add(consolePanel, BorderLayout.SOUTH);
+        return mainPanel;
     }
     
     protected JComponent createButtonsSearch() {
