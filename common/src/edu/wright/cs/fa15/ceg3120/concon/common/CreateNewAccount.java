@@ -25,20 +25,23 @@ import edu.wright.cs.fa15.ceg3120.concon.common.data.UserAccount;
 
 import javax.swing.JFrame;
 
-public class CreateNewAccount extends JFrame {
+public class CreateNewAccount {
 
-        /**
-         * temp comment.
-         * 
-         * @return nothing yet
-         */
-        public UserAccount buildGui() {
-                // build UI
+    /**
+     * temp comment.
+     * 
+     * @return nothing yet
+     */
+    public UserAccount buildGui() {
+        JFrame newAccountFrame = new JFrame("Title");
+        // build UI
 
-                // returns a subclass of UserAccount from input
-                // UserAccount toRet = new HomeOwnerAccount(),
-                // UserAccount toRet = new ContractorAccount(),
-                // etc
-                return null;
-        }
+        newAccountFrame.setVisible(true);
+
+        // returns a subclass of UserAccount from input
+        // UserAccount toRet = new HomeOwnerAccount(),
+        // UserAccount toRet = new ContractorAccount(),
+        // etc
+        return null;
+    }
 }

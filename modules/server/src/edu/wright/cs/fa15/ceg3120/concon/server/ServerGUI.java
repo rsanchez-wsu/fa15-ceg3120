@@ -19,8 +19,6 @@
  *
  */
 
-
-
 /*
  * Copyright (c) 1995, 2008, Oracle and/or its affiliates. All rights reserved.
  *
@@ -50,7 +48,7 @@
  * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- */ 
+ */
 
 //package components;
 package edu.wright.cs.fa15.ceg3120.concon.server;
@@ -59,66 +57,70 @@ package edu.wright.cs.fa15.ceg3120.concon.server;
  * TabbedPaneDemo.java requires one additional file:
  *   images/middle.gif.
  */
-import java.awt.*;
-import java.awt.*;
-import java.awt.event.*;
-import javax.swing.*;
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 
+import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JComponent;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTabbedPane;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
 
-
-public class ServerGUI extends JPanel implements ActionListener{
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	protected JTextField textField;
+public class ServerGUI extends JPanel implements ActionListener {
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
+    protected JTextField textField;
     protected JTextArea textArea;
     private final static String newline = "\n";
-	
-    
+
     public ServerGUI() {
         super(new GridLayout(1, 1));
-        
 
         JTabbedPane tabbedPane = new JTabbedPane();
         ImageIcon icon = createImageIcon("images/jno4TAP.png");
-        
-        
+
         JComponent panel1 = makeTextPanel("nah");
-        tabbedPane.addTab("Dash board", icon, panel1,
-                "Does nothing");
+        tabbedPane.addTab("Dash board", icon, panel1, "Does nothing");
         tabbedPane.setMnemonicAt(0, KeyEvent.VK_1);
-      
 
         JComponent panel2 = createButtonsSearch();
-        tabbedPane.addTab("User's info", icon, panel2,
-                "Does twice as much nothing");
+        tabbedPane.addTab("User's info", icon, panel2, "Does twice as much nothing");
         tabbedPane.setMnemonicAt(1, KeyEvent.VK_2);
-        
+
         JComponent panel3 = createButtonsMessages();
-        tabbedPane.addTab("Messages", icon, panel3,
-                "Still does nothing");
+        tabbedPane.addTab("Messages", icon, panel3, "Still does nothing");
         tabbedPane.setMnemonicAt(2, KeyEvent.VK_3);
-        
+
         JComponent panel4 = makeTextPanel("Panel #4 ");
         panel4.setPreferredSize(new Dimension(410, 50));
-        tabbedPane.addTab("Remote Control", icon, panel4,
-                "Does nothing at all");
+        tabbedPane.addTab("Remote Control", icon, panel4, "Does nothing at all");
         tabbedPane.setMnemonicAt(3, KeyEvent.VK_5);
-        
+
         JComponent panel5 = makeTextPanel("Panel #5");
-        tabbedPane.addTab("Transactions", icon, panel5,
-                "Still does nothing");
+        tabbedPane.addTab("Transactions", icon, panel5, "Still does nothing");
         tabbedPane.setMnemonicAt(4, KeyEvent.VK_4);
-       
-        
-        //Add the tabbed pane to this panel.
+
+        // Add the tabbed pane to this panel.
         add(tabbedPane);
-        
-        //The following line enables to use scrolling tabs.
+
+        // The following line enables to use scrolling tabs.
         tabbedPane.setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
     }
-    
+
     protected JComponent makeTextPanel(String text) {
         JPanel panel = new JPanel(false);
         JLabel filler = new JLabel(text);
@@ -127,7 +129,7 @@ public class ServerGUI extends JPanel implements ActionListener{
         panel.add(filler);
         return panel;
     }
-    
+
     protected JComponent createButtonsSearch() {
         JPanel panel = new JPanel(new FlowLayout(FlowLayout.TRAILING));
 
@@ -146,10 +148,10 @@ public class ServerGUI extends JPanel implements ActionListener{
         button.setActionCommand("clear");
         panel.add(button);
 
-        panel.setBorder(BorderFactory.createEmptyBorder(0, 0,
-                                                0, 0));
+        panel.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
         return panel;
     }
+
     protected JComponent createButtonsMessages() {
         JPanel panel = new JPanel(new FlowLayout(FlowLayout.TRAILING));
 
@@ -162,59 +164,57 @@ public class ServerGUI extends JPanel implements ActionListener{
         button.setActionCommand("clear");
         panel.add(button);
 
-        panel.setBorder(BorderFactory.createEmptyBorder(0, 0,
-                                                0, 0));
+        panel.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
         return panel;
     }
-   
+
     public void actionPerformed(ActionEvent evt) {
         String text = textField.getText();
         textArea.append(text + newline);
         textField.selectAll();
- 
-        //Make sure the new text is visible, even if there
-        //was a selection in the text area.
+
+        // Make sure the new text is visible, even if there
+        // was a selection in the text area.
         textArea.setCaretPosition(textArea.getDocument().getLength());
     }
-    
+
     /** Returns an ImageIcon, or null if the path was invalid. */
     protected static ImageIcon createImageIcon(String path) {
-        java.net.URL imgURL = ServerGUI.class.getResource(path);
-        if (imgURL != null) {
-            return new ImageIcon(imgURL);
+        java.net.URL imgUrl = ServerGUI.class.getResource(path);
+        if (imgUrl != null) {
+            return new ImageIcon(imgUrl);
         } else {
             System.err.println("Couldn't find file: " + path);
             return null;
         }
     }
-    
+
     /**
-     * Create the GUI and show it.  For thread safety,
-     * this method should be invoked from
-     * the event dispatch thread.
+     * Create the GUI and show it. For thread safety, this method should be invoked from the event
+     * dispatch thread.
      */
-    private static void createAndShowGUI() {
-        //Create and set up the window.
+    private static void createAndShowGui() {
+        // Create and set up the window.
         JFrame frame = new JFrame("Server Control GUI");
-        
+
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        
-        //Add content to the window.
+
+        // Add content to the window.
         frame.add(new ServerGUI(), BorderLayout.CENTER);
-        
-        //Display the window.
+
+        // Display the window.
         frame.pack();
         frame.setVisible(true);
     }
-    
+
     public static void main(String[] args) {
-        //Schedule a job for the event dispatch thread:
-        //creating and showing this application's GUI.
+        // Schedule a job for the event dispatch thread:
+        // creating and showing this application's GUI.
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
-                //Turn off metal's use of bold fonts
-		UIManager.put("swing.boldMetal", Boolean.FALSE);
-		createAndShowGUI();
+                // Turn off metal's use of bold fonts
+                UIManager.put("swing.boldMetal", Boolean.FALSE);
+                createAndShowGui();
             }
         });
     }

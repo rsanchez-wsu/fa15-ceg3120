@@ -30,47 +30,45 @@ import java.net.Socket;
 //TODO have security
 public class ConConClient {
 
-        private String host;
-        private int port;
+    private String host;
+    private int port;
 
-        public ConConClient(String host, int port) {
-                this.host = host;
-                this.port = port;
+    public ConConClient(String host, int port) {
+        this.host = host;
+        this.port = port;
+    }
+
+    public void sendMessage(String message) {
+        new DisptatchMessage(message).start();
+    }
+
+    private class DisptatchMessage extends Thread {
+        private String message;
+
+        public DisptatchMessage(String message) {
+            this.message = message;
         }
 
-        public void sendMessage(String message) {
-                new DisptatchMessage(message).start();
-        }
+        @Override
+        public void run() {
+            try {
+                Socket clientSocket = new Socket(host, port);
+                DataOutputStream toServer = new DataOutputStream(clientSocket.getOutputStream());
+                BufferedReader fromServer = new BufferedReader(
+                        new InputStreamReader(clientSocket.getInputStream()));
 
-        private class DisptatchMessage extends Thread {
-                private String message;
-
-                public DisptatchMessage(String message) {
-                        this.message = message;
+                toServer.writeBytes(message);
+                String response = "";
+                int n = 0;
+                while ((n = fromServer.read()) != -1) {
+                    response += (char) n;
                 }
+                // do something
 
-                @Override
-                public void run() {
-                        try {
-                                Socket clientSocket = new Socket(host, port);
-                                DataOutputStream toServer = new DataOutputStream(
-                                                clientSocket.getOutputStream());
-                                BufferedReader fromServer = new BufferedReader(
-                                                new InputStreamReader(
-                                                                clientSocket.getInputStream()));
-
-                                toServer.writeBytes(message);
-                                String response = "";
-                                int n = 0;
-                                while ((n = fromServer.read()) != -1) {
-                                        response += (char) n;
-                                }
-                                // do something
-
-                                clientSocket.close();
-                        } catch (IOException e) {
-                                e.printStackTrace();
-                        }
-                }
+                clientSocket.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
+    }
 }

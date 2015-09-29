@@ -22,5 +22,5 @@
 package edu.wright.cs.fa15.ceg3120.concon.common.data;
 
 public enum AccountType {
-        HOMEOWNER, CONTRACTOR, SERVER_ADMIN
+    HOMEOWNER, CONTRACTOR, SERVER_ADMIN
 }
