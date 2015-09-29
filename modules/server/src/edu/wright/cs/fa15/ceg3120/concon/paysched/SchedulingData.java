@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package payment_scheduling_window;
+package edu.wright.cs.fa15.ceg3120.concon.paysched;
 
 /**
  *

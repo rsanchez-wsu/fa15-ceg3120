@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package payment_scheduling_window;
+package edu.wright.cs.fa15.ceg3120.concon.paysched;
 
 import javax.swing.JFrame;
 import static javax.swing.JFrame.EXIT_ON_CLOSE;
@@ -12,7 +12,7 @@ import static javax.swing.JFrame.EXIT_ON_CLOSE;
  *
  * @author Emily
  */
-public class Payment_Scheduling_Window {
+public class PaymentSchedulingWindow {
 
     /**
      * @param args the command line arguments
