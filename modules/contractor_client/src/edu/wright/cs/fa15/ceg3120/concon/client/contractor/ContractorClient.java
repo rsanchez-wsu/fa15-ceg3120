@@ -21,9 +21,123 @@
 
 package edu.wright.cs.fa15.ceg3120.concon.client.contractor;
 
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JTabbedPane;
+import javax.swing.JTextPane;
+import javax.swing.JTree;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
+
 public class ContractorClient {
 
+	private JFrame frame;
+	
 	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					ContractorClient window = new ContractorClient();
+					window.frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the application.
+	 */
+	public ContractorClient() {
+		initialize();
+	}
+
+	/**
+	 * Initialize the contents of the frame.
+	 */
+	private void initialize() {
+		frame = new JFrame();
+		frame.setBounds(100, 100, 725, 475);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.getContentPane().setLayout(null);
 		
+		JPanel banner = new JPanel();
+		banner.setBounds(6, 0, 703, 127);
+		frame.getContentPane().add(banner);
+		
+		JTabbedPane pageTabs = new JTabbedPane(JTabbedPane.TOP);
+		pageTabs.setBounds(6, 127, 703, 309);
+		frame.getContentPane().add(pageTabs);
+		
+		JPanel main = new JPanel();
+		pageTabs.addTab("Main", null, main, "Return to main page");
+		main.setLayout(null);
+		
+		JTextPane textPane = new JTextPane();
+		textPane.setBounds(172, 6, 526, 275);
+		main.add(textPane);
+		
+		JTree mainTree = new JTree();
+		mainTree.setModel(new DefaultTreeModel(
+			new DefaultMutableTreeNode("Main") {
+				{
+					DefaultMutableTreeNode node_1;
+					DefaultMutableTreeNode node_2;
+					DefaultMutableTreeNode node_3;
+					node_1 = new DefaultMutableTreeNode("Previous Jobs");
+						node_2 = new DefaultMutableTreeNode("Electrical");
+							node_3 = new DefaultMutableTreeNode("Jan 12 2014");
+								node_3.add(new DefaultMutableTreeNode("Description"));
+								node_3.add(new DefaultMutableTreeNode("Photos"));
+							node_2.add(node_3);
+							node_3 = new DefaultMutableTreeNode("Feb 9 2014");
+								node_3.add(new DefaultMutableTreeNode("Description"));
+								node_3.add(new DefaultMutableTreeNode("Photos"));
+							node_2.add(node_3);
+						node_1.add(node_2);
+						node_2 = new DefaultMutableTreeNode("Plumbing");
+							node_3 = new DefaultMutableTreeNode("Mar 24 2015");
+								node_3.add(new DefaultMutableTreeNode("Description"));
+								node_3.add(new DefaultMutableTreeNode("Photos"));
+							node_2.add(node_3);
+						node_1.add(node_2);
+						node_2 = new DefaultMutableTreeNode("Outdoor");
+							node_3 = new DefaultMutableTreeNode("July 17 2015");
+								node_3.add(new DefaultMutableTreeNode("Description"));
+								node_3.add(new DefaultMutableTreeNode("Photos"));
+							node_2.add(node_3);
+						node_1.add(node_2);
+					add(node_1);
+					node_1 = new DefaultMutableTreeNode("Reviews");
+						node_1.add(new DefaultMutableTreeNode("All"));
+						node_1.add(new DefaultMutableTreeNode("Positive"));
+						node_1.add(new DefaultMutableTreeNode("Negative"));
+					add(node_1);
+				}
+			}
+		));
+		mainTree.setBounds(6, 6, 160, 275);
+		main.add(mainTree);
+		
+		JPanel panel_1 = new JPanel();
+		pageTabs.addTab("New tab", null, panel_1, null);
+		
+		JPanel panel_2 = new JPanel();
+		pageTabs.addTab("New tab", null, panel_2, null);
+		
+		JPanel panel_4 = new JPanel();
+		pageTabs.addTab("New tab", null, panel_4, null);
+		
+		JPanel panel_5 = new JPanel();
+		pageTabs.addTab("New tab", null, panel_5, null);
+		
+		JPanel panel_6 = new JPanel();
+		pageTabs.addTab("New tab", null, panel_6, null);
+		
+		JPanel panel_7 = new JPanel();
+		pageTabs.addTab("New tab", null, panel_7, null);
 	}
 }
