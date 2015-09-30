@@ -25,83 +25,84 @@ import java.awt.Image;
 
 public class JobRequest {
 
-    /**
-     * Signifies whether this request is a new job or a request for all jobs from a given account.
-     */
-    private String requestType;
-    /** User making request. */
-    private HomeOwnerAccount user;
-    /** Earliest construction can begin. */
-    private String dateRangeStart;
-    /** Latest date construction can begin. */
-    private String dateRangeEnd;
-    /** What type of job this is (plumbing, electrical, etc). */
-    private String jobField;
-    /** User description of what they want done. */
-    private String jobDescr;
-    /** Images of what the future jobsite looks like now. */
-    private Image[] picsOfCurrentState;// do we want to allow multiple images?
-    // or maybe convert to a ByteArrayInputStream[] and pass raw data around?
+	/** 
+	 * Signifies whether this request is a new job or a request for all jobs
+	 * from a given account.
+	 */
+	private String requestType;
+	/** User making request. */
+	private HomeownerAccount user;
+	/** Earliest construction can begin. */
+	private String dateRangeStart;
+	/** Latest date construction can begin. */
+	private String dateRangeEnd;
+	/** What type of job this is (plumbing, electrical, etc). */
+	private String jobField;
+	/** User description of what they want done. */
+	private String jobDescr;
+	/** Images of what the future jobsite looks like now. */
+	private Image[] picsOfCurrentState;//do we want to allow multiple images?
+	//or maybe convert to a ByteArrayInputStream[] and pass raw data around?
+    
+	public JobRequest() {
+		
+	}
 
-    public JobRequest() {
+	public String getDateRangeStart() {
+		return dateRangeStart;
+	}
 
-    }
+	public void setDateRangeStart(String dateRangeStart) {
+		this.dateRangeStart = dateRangeStart;
+	}
 
-    public String getDateRangeStart() {
-        return dateRangeStart;
-    }
+	public String getDateRangeEnd() {
+		return dateRangeEnd;
+	}
 
-    public void setDateRangeStart(String dateRangeStart) {
-        this.dateRangeStart = dateRangeStart;
-    }
+	public void setDateRangeEnd(String dateRangeEnd) {
+		this.dateRangeEnd = dateRangeEnd;
+	}
 
-    public String getDateRangeEnd() {
-        return dateRangeEnd;
-    }
+	public String getRequestType() {
+		return requestType;
+	}
 
-    public void setDateRangeEnd(String dateRangeEnd) {
-        this.dateRangeEnd = dateRangeEnd;
-    }
+	public void setRequestType(String requestType) {
+		this.requestType = requestType;
+	}
 
-    public String getRequestType() {
-        return requestType;
-    }
+	public HomeownerAccount getUser() {
+		//clone this?
+		return user;
+	}
 
-    public void setRequestType(String requestType) {
-        this.requestType = requestType;
-    }
+	public void setUser(HomeownerAccount user) {
+		this.user = user;
+	}
 
-    public HomeOwnerAccount getUser() {
-        // clone this?
-        return user;
-    }
+	public String getJobField() {
+		return jobField;
+	}
 
-    public void setUser(HomeOwnerAccount user) {
-        this.user = user;
-    }
+	public void setJobField(String jobField) {
+		this.jobField = jobField;
+	}
 
-    public String getJobField() {
-        return jobField;
-    }
+	public String getJobDescr() {
+		return jobDescr;
+	}
 
-    public void setJobField(String jobField) {
-        this.jobField = jobField;
-    }
+	public void setJobDescr(String jobDescr) {
+		this.jobDescr = jobDescr;
+	}
 
-    public String getJobDescr() {
-        return jobDescr;
-    }
+	public Image[] getPicsOfCurrentState() {
+		return picsOfCurrentState;
+	}
 
-    public void setJobDescr(String jobDescr) {
-        this.jobDescr = jobDescr;
-    }
-
-    public Image[] getPicsOfCurrentState() {
-        return picsOfCurrentState;
-    }
-
-    public void setPicsOfCurrentState(Image[] picsOfCurrentState) {
-        this.picsOfCurrentState = picsOfCurrentState;
-    }
+	public void setPicsOfCurrentState(Image[] picsOfCurrentState) {
+		this.picsOfCurrentState = picsOfCurrentState;
+	}
 
 }

@@ -21,7 +21,7 @@
 
 package edu.wright.cs.fa15.ceg3120.concon.common;
 
-import edu.wright.cs.fa15.ceg3120.concon.common.data.HomeOwnerAccount;
+import edu.wright.cs.fa15.ceg3120.concon.common.data.HomeownerAccount;
 import edu.wright.cs.fa15.ceg3120.concon.common.data.UserAccount;
 
 import javax.swing.JFrame;
@@ -48,7 +48,7 @@ public class CreateNewAccount {
         
         newAccountFrame.dispose();
         try {
-            LoginPopUp.addUserToQueue(new HomeOwnerAccount());
+            LoginPopUp.addUserToQueue(new HomeownerAccount());
         } catch (InterruptedException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();

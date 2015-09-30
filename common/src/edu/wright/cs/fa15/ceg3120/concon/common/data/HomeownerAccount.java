@@ -21,7 +21,7 @@
 
 package edu.wright.cs.fa15.ceg3120.concon.common.data;
 
-public class HomeOwnerAccount extends UserAccount {
+public class HomeownerAccount extends UserAccount {
 
     /** Home address. */
     private String streetAddress;
@@ -37,7 +37,7 @@ public class HomeOwnerAccount extends UserAccount {
     private String email;
     // other fields here
 
-    public HomeOwnerAccount() {
+    public HomeownerAccount() {
         super(AccountType.HOMEOWNER);
 
     }

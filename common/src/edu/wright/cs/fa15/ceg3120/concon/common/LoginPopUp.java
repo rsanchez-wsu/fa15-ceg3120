@@ -51,17 +51,17 @@ public class LoginPopUp {
      * temp.
      */
     private void buildGui() {
-        JFrame loginFrame = new JFrame("Login");
+        final JFrame loginFrame = new JFrame("Login");
         loginFrame.setSize(200, 100);
         // TODO Auto-generated method stub
         // Build login UI here
 
         //This is just me testing a few things.  Feel free to overwrite it :)
         loginFrame.setLayout(new GridLayout(1, 2));
-        JButton loginButton = new JButton("Login");
+        final JButton loginButton = new JButton("Login");
         loginFrame.add(loginButton);
         
-        JButton createNewButton = new JButton("Create New Account");
+        final JButton createNewButton = new JButton("Create New Account");
         loginFrame.add(createNewButton);
         //ends Paul's playground
         
