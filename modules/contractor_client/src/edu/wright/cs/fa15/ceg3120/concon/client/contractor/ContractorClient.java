@@ -122,22 +122,25 @@ public class ContractorClient {
 		mainTree.setBounds(6, 6, 160, 275);
 		main.add(mainTree);
 		
-		JPanel panel_1 = new JPanel();
-		pageTabs.addTab("New tab", null, panel_1, null);
+		JPanel curBidsTab = new JPanel();
+		pageTabs.addTab("Current Bids", null, curBidsTab, null);
 		
-		JPanel panel_2 = new JPanel();
-		pageTabs.addTab("New tab", null, panel_2, null);
+		JPanel notificationsTab = new JPanel();
+		pageTabs.addTab("Notifications", null, notificationsTab, null);
 		
-		JPanel panel_4 = new JPanel();
-		pageTabs.addTab("New tab", null, panel_4, null);
+		JPanel searchTab = new JPanel();
+		pageTabs.addTab("Search", null, searchTab, null);
 		
-		JPanel panel_5 = new JPanel();
-		pageTabs.addTab("New tab", null, panel_5, null);
+		JPanel paymentsTab = new JPanel();
+		pageTabs.addTab("Payments", null, paymentsTab, null);
 		
-		JPanel panel_6 = new JPanel();
-		pageTabs.addTab("New tab", null, panel_6, null);
+		JPanel profileTab = new JPanel();
+		pageTabs.addTab("Edit Profile", null, profileTab, null);
 		
-		JPanel panel_7 = new JPanel();
-		pageTabs.addTab("New tab", null, panel_7, null);
+		JPanel calendarTab = new JPanel();
+		pageTabs.addTab("Calendar", null, calendarTab, null);
+		
+		JPanel openJobsTab = new JPanel();
+		pageTabs.addTab("Open Jobs", null, openJobsTab, null);
 	}
 }
