@@ -39,13 +39,13 @@ public class CreateNewAccount {
 
         newAccountFrame.setVisible(true);
 
-        try { //This is solely for functionality testings
+        try { // This is solely for functionality testings
             Thread.sleep(2000);
         } catch (InterruptedException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        
+
         newAccountFrame.dispose();
         try {
             LoginPopUp.addUserToQueue(new HomeownerAccount());

@@ -23,21 +23,24 @@ package edu.wright.cs.fa15.ceg3120.concon.common.data;
 
 /**
  * Tag used to search jobs.
+ * 
  * @author Jonathan Thomas
  *
  */
 public class Tag {
-	private String text;
-	
-	/**
-	 * Construct a new Tag.
-	 * @param text The name of the tag.
-	 */
-	public Tag(String text) {
-		this.text = text;
-	}
-	
-	public String getText() {
-		return text;
-	}
+    private String text;
+
+    /**
+     * Construct a new Tag.
+     * 
+     * @param text
+     *            The name of the tag.
+     */
+    public Tag(String text) {
+        this.text = text;
+    }
+
+    public String getText() {
+        return text;
+    }
 }

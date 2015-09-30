@@ -38,7 +38,7 @@ public class LoginPopUp {
 
     private UserAccount user;
     private static ArrayBlockingQueue<UserAccount> incoming;
-    
+
     /**
      * Creates a new instance of <code>LogininPopUp</code>.
      */
@@ -56,53 +56,52 @@ public class LoginPopUp {
         // TODO Auto-generated method stub
         // Build login UI here
 
-        //This is just me testing a few things.  Feel free to overwrite it :)
+        // This is just me testing a few things. Feel free to overwrite it :)
         loginFrame.setLayout(new GridLayout(1, 2));
         final JButton loginButton = new JButton("Login");
         loginFrame.add(loginButton);
-        
+
         final JButton createNewButton = new JButton("Create New Account");
         loginFrame.add(createNewButton);
-        //ends Paul's playground
-        
-        
+        // ends Paul's playground
+
         loginFrame.setVisible(true);
 
         // if new account link/button clicked
         createNewButton.addActionListener(new ActionListener() {
-            
+
             @Override
             public void actionPerformed(ActionEvent ev) {
                 loginFrame.setFocusable(false);
-                launchNewAccountGui();//set focusable not doing what i want <_<
+                launchNewAccountGui();// set focusable not doing what i want <_<
                 loginFrame.setFocusable(true);
             }
         });
-        
+
         /*
          * need action listener for login button that will block until we receive a response from
          * Networking so user can be set properly. Preferably a blocking mechanism that will timeout
          * when we want it to.
          */
         loginButton.addActionListener(new ActionListener() {
-            
+
             @Override
             public void actionPerformed(ActionEvent ev) {
-                
+
                 // blah blah... shipped user to network, reset user to null
                 try {
                     loginButton.setEnabled(false);
                     createNewButton.setEnabled(false);
                     user = incoming.poll(5, TimeUnit.SECONDS);
                 } catch (InterruptedException e1) {
-                    JOptionPane.showConfirmDialog(null, "There was an issue with your request"
-                            + "\nPlease try agian...",
+                    JOptionPane.showConfirmDialog(null,
+                            "There was an issue with your request" + "\nPlease try agian...",
                             "Error", JOptionPane.OK_OPTION, JOptionPane.ERROR_MESSAGE);
                 } finally {
                     if (user != null) {
                         /*
-                         * Schedule the loginFrame to be disposed on the
-                         * EDT before launching the new GUI.
+                         * Schedule the loginFrame to be disposed on the EDT before launching the
+                         * new GUI.
                          */
                         SwingUtilities.invokeLater(new Runnable() {
                             @Override
@@ -112,25 +111,29 @@ public class LoginPopUp {
                         });
                         user.launchGui();
                     } else {
-                        JOptionPane.showConfirmDialog(null, "There was an issue with your request"
-                                + "\nPlease try agian...",
+                        JOptionPane.showConfirmDialog(null,
+                                "There was an issue with your request" + "\nPlease try agian...",
                                 "Error", JOptionPane.OK_OPTION, JOptionPane.ERROR_MESSAGE);
                         loginButton.setEnabled(true);
                         createNewButton.setEnabled(true);
                     }
                 }
-            }//end actionPerformed
+            }// end actionPerformed
         });
-        
+
     }// end buildGui
-    
+
     /**
      * Use this method to pass data to the UserAccount queue.
-     * <p>More description to come...</p>
+     * <p>
+     * More description to come...
+     * </p>
      * 
-     * @param user (UserAccount sub-class) 
+     * @param user
+     *            (UserAccount sub-class)
      * @return true if the item was successfully inserted
-     * @throws InterruptedException thrown if interrupted...
+     * @throws InterruptedException
+     *             thrown if interrupted...
      */
     public static boolean addUserToQueue(UserAccount user) throws InterruptedException {
         System.out.println("added user to queue.");
@@ -150,7 +153,7 @@ public class LoginPopUp {
             e.printStackTrace();
         }
         System.out.println("Reenabling buttons...");
-        
+
     }// end launchNewAccountGUI
 
     /**
