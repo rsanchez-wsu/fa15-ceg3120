@@ -31,7 +31,7 @@ public class JobRequest {
 	 */
 	private String requestType;
 	/** User making request. */
-	private HomeOwnerAccount user;
+	private HomeownerAccount user;
 	/** Earliest construction can begin. */
 	private String dateRangeStart;
 	/** Latest date construction can begin. */
@@ -72,12 +72,12 @@ public class JobRequest {
 		this.requestType = requestType;
 	}
 
-	public HomeOwnerAccount getUser() {
+	public HomeownerAccount getUser() {
 		//clone this?
 		return user;
 	}
 
-	public void setUser(HomeOwnerAccount user) {
+	public void setUser(HomeownerAccount user) {
 		this.user = user;
 	}
 

@@ -21,7 +21,7 @@
 
 package edu.wright.cs.fa15.ceg3120.concon.client.customer;
 
-import edu.wright.cs.fa15.ceg3120.concon.common.data.HomeOwnerAccount;
+import edu.wright.cs.fa15.ceg3120.concon.common.data.HomeownerAccount;
 
 import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
@@ -76,7 +76,7 @@ public class CustomerClient{
 	 * @param args temp
 	 */
 	public static void main(String[] args) {
-		HomeOwnerAccount justToRemoveWarningForNow = new HomeOwnerAccount();
+		HomeownerAccount justToRemoveWarningForNow = new HomeownerAccount();
 		System.out.println(justToRemoveWarningForNow.getAccountType());
 		new CustomerClient().buildGui();
 	}
