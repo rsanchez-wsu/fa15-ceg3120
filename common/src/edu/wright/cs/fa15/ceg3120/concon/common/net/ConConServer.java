@@ -30,76 +30,72 @@ import java.net.Socket;
 
 //TODO have security
 public class ConConServer extends Thread {
-	private int port;
-	private ServerSocket serverSocket = null;
-	private boolean listening = true;
+    private int port;
+    private ServerSocket serverSocket = null;
+    private boolean listening = true;
 
-	public ConConServer(int port) {
-		this.port = port;
-	}
+    public ConConServer(int port) {
+        this.port = port;
+    }
 
-	@Override
-	public void run() {
-		try {
-			this.serverSocket = new ServerSocket(this.port);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		while (listening) {
-			Socket clientSocket = null;
-			try {
-				clientSocket = this.serverSocket.accept();
-			} catch (IOException e) {
-				if (!listening) {
-					System.out.println("Server Stopped.");
-					return;
-				}
-				e.printStackTrace();
-			}
-			new ConnectionWorker(clientSocket).start();
-		}
-	}
+    @Override
+    public void run() {
+        try {
+            this.serverSocket = new ServerSocket(this.port);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        while (listening) {
+            Socket clientSocket = null;
+            try {
+                clientSocket = this.serverSocket.accept();
+            } catch (IOException e) {
+                if (!listening) {
+                    System.out.println("Server Stopped.");
+                    return;
+                }
+                e.printStackTrace();
+            }
+            new ConnectionWorker(clientSocket).start();
+        }
+    }
 
-	/**
-	 * Temp.
-	 */
-	public void quit() {
-		this.listening = false;
-		try {
-			this.serverSocket.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
+    public void quit() {
+        this.listening = false;
+        try {
+            this.serverSocket.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
-	private class ConnectionWorker extends Thread {
-		private Socket clientSocket = null;
+    private class ConnectionWorker extends Thread {
+        private Socket clientSocket = null;
 
-		public ConnectionWorker(Socket clientSocket) {
-			this.clientSocket = clientSocket;
-		}
+        public ConnectionWorker(Socket clientSocket) {
+            this.clientSocket = clientSocket;
+        }
 
-		@Override
-		public void run() {
-			try {
-				DataOutputStream toClient = new DataOutputStream(
-						clientSocket.getOutputStream());
-				BufferedReader fromClient = new BufferedReader(
-						new InputStreamReader(clientSocket.getInputStream()));
+        @Override
+        public void run() {
+            try {
+                DataOutputStream toClient = new DataOutputStream(clientSocket.getOutputStream());
+                BufferedReader fromClient = new BufferedReader(
+                        new InputStreamReader(clientSocket.getInputStream()));
 
-				int ch = 0;
-				String message = "";
-				while ((ch = fromClient.read()) != -1) {
-					message += (char) ch;
-				}
+                int n = 0;
+                String message = "";
+                while ((n = fromClient.read()) != -1) {
+                    message += (char) n;
+                }
 
-				NetworkManager.post(NetworkManager.decodeFromXml(message));
+                NetworkManager.post(NetworkManager.decodeFromXML(message));
 
-				toClient.close();
-				fromClient.close();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-	}
+                toClient.close();
+                fromClient.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 }

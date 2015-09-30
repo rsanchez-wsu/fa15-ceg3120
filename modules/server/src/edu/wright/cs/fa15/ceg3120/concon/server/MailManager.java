@@ -21,6 +21,10 @@
 
 package edu.wright.cs.fa15.ceg3120.concon.server;
 
+import org.apache.commons.mail.EmailAttachment;
+import org.apache.commons.mail.EmailException;
+import org.apache.commons.mail.MultiPartEmail;
+
 import java.io.File;
 import java.util.Properties;
 import java.util.logging.Level;
@@ -33,95 +37,88 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
-import org.apache.commons.mail.EmailAttachment;
-import org.apache.commons.mail.EmailException;
-import org.apache.commons.mail.MultiPartEmail;
-
 /**
- * Handles email sent by the server to notify users of status changes
- * and mail messages from other users.
+ * Handles email sent by the server to notify users of status changes and mail messages from other
+ * users.
+ * 
  * @author NathanJent
  *
  */
 public class MailManager {
 
-	private final String sysHostProp = "mail.smtp.host";
-	private Properties props;
-	private String from;
-	private String host;
-	private String fromName;
+    private final String sysHostProp = "mail.smtp.host";
+    private Properties props;
+    private String from;
+    private String host;
+    private String fromName;
 
-	/**
-	 * Construct a MailManager.
-	 * @param props Properties to use.
-	 */
-	public MailManager(Properties props) {
-		this.props = props;
-		this.from = props.getProperty("server_email_addr");
-		this.host = props.getProperty("mail_server_hostname");
-	}
+    public MailManager(Properties props) {
+        this.props = props;
+        this.from = props.getProperty("server_email_addr");
+        this.host = props.getProperty("mail_server_hostname");
+    }
 
-	/**
-	 * Sends an email message from the server. Used to notify users of 
-	 * status updates, internal messages, and system news items.
-	 * @param to Address of the receiving user.
-	 * @param fromName Specify the name of the email sender.
-	 */
-	public void sendEmail(String[] to, String fromName, 
-			String subject, String body, File attachmentFile) {
-		
-		// Get system properties
-		Properties sysProps = System.getProperties();
+    /**
+     * Sends an email message from the server. Used to notify users of status updates, internal
+     * messages, and system news items.
+     * 
+     * @param to
+     *            Address of the receiving user.
+     * @param fromName
+     *            Specify the name of the email sender.
+     */
+    public void sendEmail(String[] to, String fromName, String subject, String body,
+            File attachmentFile) {
 
-		// Setup mail server
-		sysProps.setProperty(sysHostProp, host);
+        // Get system properties
+        Properties sysProps = System.getProperties();
 
-		// Get the default Session object.
-		Session session = Session.getDefaultInstance(sysProps);
+        // Setup mail server
+        sysProps.setProperty(sysHostProp, host);
 
-		try {
-			
-			if (attachmentFile.exists()) {
-				MultiPartEmail message = new MultiPartEmail();
-				message.setFrom(from, fromName);
-				message.setMailSession(session);
-				message.addTo(to);
-				message.setSubject(subject);
-				message.setMsg(body);
-				
-				EmailAttachment attachment = new EmailAttachment();
-				attachment.setPath(attachmentFile.getPath());
-				message.attach(attachment);
-				message.send();
-			} else {
-				MimeMessage message = new MimeMessage(session);
-				message.setFrom(new InternetAddress(from));
-				for (String toAddr : to) {
-					message.addRecipient(Message.RecipientType.TO, new InternetAddress(toAddr));
-				}			
-				message.setSubject(subject);
-				message.setText(body);
-				Transport.send(message);
-			}
-			Logger.getLogger(this.getClass().getName()).info("Sent message successfully....");
-		} catch (MessagingException | EmailException mex) {
-			Logger.getLogger(this.getClass().getName()).log(
-					Level.WARNING, "Email was not sent. ", mex);
-		}
-	}
-	
-	/**
-	 * Run when email recieved.
-	 */
-	public void receiveEmail() {
-		// Get system properties
-		Properties sysProps = System.getProperties();
+        // Get the default Session object.
+        Session session = Session.getDefaultInstance(sysProps);
 
-		// Setup mail server
-		sysProps.setProperty(sysHostProp, host);
+        try {
 
-		// Get the default Session object.
-		Session session = Session.getDefaultInstance(sysProps);
-		
-	}
+            if (attachmentFile.exists()) {
+                MultiPartEmail message = new MultiPartEmail();
+                message.setFrom(from, fromName);
+                message.setMailSession(session);
+                message.addTo(to);
+                message.setSubject(subject);
+                message.setMsg(body);
+
+                EmailAttachment attachment = new EmailAttachment();
+                attachment.setPath(attachmentFile.getPath());
+                message.attach(attachment);
+                message.send();
+            } else {
+                MimeMessage message = new MimeMessage(session);
+                message.setFrom(new InternetAddress(from));
+                for (String toAddr : to) {
+                    message.addRecipient(Message.RecipientType.TO, new InternetAddress(toAddr));
+                }
+                message.setSubject(subject);
+                message.setText(body);
+                Transport.send(message);
+            }
+            Logger.getLogger(this.getClass().getName()).info("Sent message successfully....");
+        } catch (MessagingException | EmailException mex) {
+            Logger.getLogger(this.getClass().getName()).log(Level.WARNING, "Email was not sent. ",
+                    mex);
+        }
+    }
+
+    public void receiveEmail() {
+        // Get system properties
+        Properties sysProps = System.getProperties();
+
+        // Setup mail server
+        sysProps.setProperty(sysHostProp, host);
+
+        // Get the default Session object.
+        Session session = Session.getDefaultInstance(sysProps);
+
+    }
 }

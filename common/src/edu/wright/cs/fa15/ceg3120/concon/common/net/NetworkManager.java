@@ -28,120 +28,83 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class NetworkManager {
-	private static final HashMap<Method, Class<?>> NETWORK_BUS = new HashMap<>();
+    private static final HashMap<Method, Class<?>> NETWORK_BUS = new HashMap<>();
 
-	private static ConConServer server;
-	private static ConConClient client;
+    private static ConConServer server;
+    private static ConConClient client;
 
-	/**
-	 * Temp.
-	 * 
-	 * @param cl
-	 *            Class to register.
-	 */
-	public static void registerNetworkClass(Class<?> cl) {
-		Method[] methods = cl.getMethods();
-		for (Method m : methods) {
-			if (m.isAnnotationPresent(NetworkHandler.class)) {
-				Class<?>[] argClasses = m.getParameterTypes();
-				if (argClasses.length != 1
-							|| !NetworkMessage.class
-								.isAssignableFrom(argClasses[0])) {
-					System.out
-							.println("Invalid parameters on NetworkHandler method: "
-									+ m.getName());
-				} else {
-					NETWORK_BUS.put(m, argClasses[0]);
-				}
-			}
-		}
-	}
+    public static void registerNetworkClass(Class<?> c) {
+        Method[] methods = c.getMethods();
+        for (Method m : methods) {
+            if (m.isAnnotationPresent(NetworkHandler.class)) {
+                Class<?>[] argClasses = m.getParameterTypes();
+                if (argClasses.length != 1
+                        || !NetworkMessage.class.isAssignableFrom(argClasses[0])) {
+                    System.out.println(
+                            "Invalid parameters on " + "NetworkHandler method: " + m.getName());
+                } else {
+                    NETWORK_BUS.put(m, argClasses[0]);
+                }
+            }
+        }
+    }
 
-	/**
-	 * Temp.
-	 * 
-	 * @param message
-	 *            Message to send.
-	 */
-	public static void post(NetworkMessage message) {
-		for (Map.Entry<Method, Class<?>> listener : NETWORK_BUS.entrySet()) {
-			if (listener.getValue().isAssignableFrom(message.getClass())) {
-				try {
-					// if (message instanceof NetworkMessageSomethingSomething)
-					// listener.getKey().invoke(null,
-					// (NetworkMessageSomethingSomething)message);
-					// etc
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		}
-	}
+    public static void post(NetworkMessage message) {
+        for (Map.Entry<Method, Class<?>> listener : NETWORK_BUS.entrySet()) {
+            if (listener.getValue().isAssignableFrom(message.getClass())) {
+                try {
+                    // if (message instanceof NetworkMessageSomethingSomething)
+                    // listener.getKey().invoke(null,
+                    // (NetworkMessageSomethingSomething)message);
+                    // etc
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
 
-	/**
-	 * Temp.
-	 * 
-	 * @param port
-	 *            Port to listen on.
-	 * @return Failure true/false.
-	 */
-	public static boolean startServer(int port) {
-		if (server != null || client != null) {
-			return false;
-		}
-		server = new ConConServer(port);
-		server.start();
-		return true;
-	}
+    public static boolean startServer(int port) {
+        if (server != null || client != null) {
+            return false;
+        }
+        server = new ConConServer(port);
+        server.start();
+        return true;
+    }
 
-	public static void stopServer() {
-		server.quit();
-		server = null;
-	}
+    public static void stopServer() {
+        server.quit();
+        server = null;
+    }
 
-	/**
-	 * Temp.
-	 * 
-	 * @param host
-	 *            Host to use.
-	 * @param port
-	 *            Port to listen on.
-	 * @return Failure true/false.
-	 */
-	public static boolean startClient(String host, int port) {
-		if (server != null || client != null) {
-			return false;
-		}
-		client = new ConConClient(host, port);
-		return true;
-	}
+    public static boolean startClient(String host, int port) {
+        if (server != null || client != null) {
+            return false;
+        }
+        client = new ConConClient(host, port);
+        return true;
+    }
 
-	public static void stopClient() {
-		client = null;
-	}
+    public static void stopClient() {
+        client = null;
+    }
 
-	/**
-	 * Temp.
-	 * 
-	 * @param message
-	 *            Message to send.
-	 * @return Failure true/false.
-	 */
-	public static boolean sendMessage(NetworkMessage message) {
-		if (client == null) {
-			return false;
-		}
-		client.sendMessage(encodeToXml(message));
-		return true;
-	}
+    public static boolean sendMessage(NetworkMessage message) {
+        if (client == null) {
+            return false;
+        }
+        client.sendMessage(encodeToXML(message));
+        return true;
+    }
 
-	protected static NetworkMessage decodeFromXml(String xml) {
-		// some reflection wizardry or switching or something
-		return null;
-	}
+    protected static NetworkMessage decodeFromXML(String xml) {
+        // some reflection wizardry or switching or something
+        return null;
+    }
 
-	protected static String encodeToXml(NetworkMessage message) {
-		// some reflection wizardry or switching or something
-		return null;
-	}
+    protected static String encodeToXML(NetworkMessage message) {
+        // some reflection wizardry or switching or something
+        return null;
+    }
 }

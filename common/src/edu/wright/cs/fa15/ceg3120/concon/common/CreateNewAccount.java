@@ -21,26 +21,42 @@
 
 package edu.wright.cs.fa15.ceg3120.concon.common;
 
+import edu.wright.cs.fa15.ceg3120.concon.common.data.HomeownerAccount;
 import edu.wright.cs.fa15.ceg3120.concon.common.data.UserAccount;
 
 import javax.swing.JFrame;
 
-public class CreateNewAccount extends JFrame {
+public class CreateNewAccount {
 
-	private static final long serialVersionUID = 1L;
+    /**
+     * temp comment.
+     * 
+     * @return nothing yet
+     */
+    public UserAccount buildGui() {
+        JFrame newAccountFrame = new JFrame("Create New Account");
+        // build UI
 
-	/**
-	 * temp comment.
-	 * 
-	 * @return nothing yet
-	 */
-	public UserAccount buildGui() {
-		// build UI
+        newAccountFrame.setVisible(true);
 
-		// returns a subclass of UserAccount from input
-		// UserAccount toRet = new HomeOwnerAccount(),
-		// UserAccount toRet = new ContractorAccount(),
-		// etc
-		return null;
-	}
+        try { //This is solely for functionality testings
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        
+        newAccountFrame.dispose();
+        try {
+            LoginPopUp.addUserToQueue(new HomeownerAccount());
+        } catch (InterruptedException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        // returns a subclass of UserAccount from input
+        // UserAccount toRet = new HomeOwnerAccount(),
+        // UserAccount toRet = new ContractorAccount(),
+        // etc
+        return null;
+    }
 }

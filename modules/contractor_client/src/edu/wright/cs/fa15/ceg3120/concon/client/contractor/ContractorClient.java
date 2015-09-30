@@ -21,9 +21,13 @@
 
 package edu.wright.cs.fa15.ceg3120.concon.client.contractor;
 
-public class ContractorClient {
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-	public static void main(String[] args) {
-		
-	}
+public class ContractorClient {
+    private static final Logger LOG = LoggerFactory.getLogger(ContractorClient.class);
+
+    public static void main(String[] args) {
+        LOG.trace("Starting Contractor client...");
+    }
 }
