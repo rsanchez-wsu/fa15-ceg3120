@@ -21,17 +21,24 @@
 
 package edu.wright.cs.fa15.ceg3120.concon.client.contractor;
 
+import java.awt.Container;
 import java.awt.EventQueue;
-
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.text.NumberFormat;
+import javax.swing.JButton;
+import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextPane;
 import javax.swing.JTree;
+import javax.swing.text.NumberFormatter;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 
-public class ContractorClient {
+public class ContractorClient extends JFrame implements ActionListener {
 
 	private JFrame frame;
 	
@@ -110,12 +117,10 @@ public class ContractorClient {
 								node_3.add(new DefaultMutableTreeNode("Photos"));
 							node_2.add(node_3);
 						node_1.add(node_2);
-					add(node_1);
 					node_1 = new DefaultMutableTreeNode("Reviews");
 						node_1.add(new DefaultMutableTreeNode("All"));
 						node_1.add(new DefaultMutableTreeNode("Positive"));
 						node_1.add(new DefaultMutableTreeNode("Negative"));
-					add(node_1);
 				}
 			}
 		));
@@ -124,10 +129,41 @@ public class ContractorClient {
 		
 		JPanel curBidsTab = new JPanel();
 		pageTabs.addTab("Current Bids", null, curBidsTab, null);
+		curBidsTab.setLayout(null);
+		NumberFormat numberFormat = NumberFormat.getIntegerInstance();
+		NumberFormatter formatter = new NumberFormatter(numberFormat);
+		formatter.setAllowsInvalid(false);
+		final JFormattedTextField bid = new JFormattedTextField(formatter);
+		bid.setBounds(1, 10, 100, 20);
+		curBidsTab.add(bid);
+		
 		
 		JPanel notificationsTab = new JPanel();
 		pageTabs.addTab("Notifications", null, notificationsTab, null);
-		
+		String clientName, jobLocation, jobDate;
+		final JLabel[] jobs = new JLabel[10];
+		final JButton[] acknowledge = new JButton[10];
+		for (int i = 0; i <= 5; i++) {
+			final int list = i;
+			clientName = "Get name of client from database";
+			jobLocation = "Get location from database";
+			jobDate = "Get date from database";
+			jobs[i] = new JLabel(clientName + " needs work done at " + jobLocation + " on " + jobDate);
+			notificationsTab.add(jobs[i]);
+			acknowledge[i] = new JButton("Okay");
+			notificationsTab.add(acknowledge[i]);
+			acknowledge[i].addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					Container parent = acknowledge[list].getParent();
+					parent.remove(acknowledge[list]);
+					parent.remove(jobs[list]);
+					parent.validate();
+					parent.repaint();
+				}				
+			});
+		}
+				
 		JPanel searchTab = new JPanel();
 		pageTabs.addTab("Search", null, searchTab, null);
 		
@@ -143,4 +179,12 @@ public class ContractorClient {
 		JPanel openJobsTab = new JPanel();
 		pageTabs.addTab("Open Jobs", null, openJobsTab, null);
 	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+
+		
+	}
+	
+	
 }
