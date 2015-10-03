@@ -23,18 +23,23 @@ package edu.wright.cs.fa15.ceg3120.concon.common.net;
 
 import edu.wright.cs.fa15.ceg3120.concon.common.net.message.NetworkMessage;
 
+import java.beans.XMLDecoder;
+import java.beans.XMLEncoder;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
 
 public class NetworkManager
 {
-    private static final HashMap<Method, Class> NETWORK_BUS = new HashMap<Method, Class>();
+	private static final HashMap<Method, Class<?>> NETWORK_BUS = new HashMap<Method, Class<?>>();
 
     private static ConConServer server;
     private static ConConClient client;
 
-    public static void registerNetworkClass(Class c)
+    public static void registerNetworkClass(Class<?> c)
     {
         Method[] methods = c.getMethods();
         for (Method m : methods)
@@ -53,7 +58,7 @@ public class NetworkManager
     @SuppressWarnings("unchecked")
     public static void post(NetworkMessage message)
     {
-        for (Map.Entry<Method, Class> listener : NETWORK_BUS.entrySet())
+        for (Map.Entry<Method, Class<?>> listener : NETWORK_BUS.entrySet())
         {
             if (listener.getValue().isAssignableFrom(message.getClass()))
             {
@@ -107,15 +112,22 @@ public class NetworkManager
         return true;
     }
 
-    protected static NetworkMessage decodeFromXML(String xml)
+    protected static NetworkMessage decodeFromXML(String xml) throws UnsupportedEncodingException
     {
         //some reflection wizardry or switching or something
-        return null;
+    	XMLDecoder xmlWizard = new XMLDecoder(new ByteArrayInputStream(xml.getBytes("UTF-8")));
+    	NetworkMessage result = (NetworkMessage) xmlWizard.readObject();
+		xmlWizard.close();
+        return result;
     }
 
     protected static String encodeToXML(NetworkMessage message)
     {
         //some reflection wizardry or switching or something
-        return null;
+		ByteArrayOutputStream out = new ByteArrayOutputStream();
+    	XMLEncoder xmlWizard = new XMLEncoder(out, "UTF-8", false, 0);
+    	xmlWizard.writeObject(message);
+    	xmlWizard.close();
+        return out.toString();
     }
 }

@@ -31,7 +31,7 @@ import java.net.Socket;
 //TODO have security
 public class ConConClient
 {
-    private String host;
+	private String host;
     private int port;
 
     public ConConClient(String host, int port)
@@ -42,14 +42,14 @@ public class ConConClient
 
     public void sendMessage(String message)
     {
-        new DisptatchMessage(message).start();
+        new DispatchMessage(message).start();
     }
 
-    private class DisptatchMessage extends Thread
+    private class DispatchMessage extends Thread
     {
         private String message;
 
-        public DisptatchMessage(String message)
+        public DispatchMessage(String message)
         {
             this.message = message;
         }
