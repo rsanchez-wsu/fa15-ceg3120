@@ -36,15 +36,14 @@ import javax.swing.SwingUtilities;
 
 public class LoginPopUp {
 
-    private UserAccount user;
-    private static ArrayBlockingQueue<UserAccount> incoming;
+    private UserAccount user = null;
+    private static ArrayBlockingQueue<UserAccount> incoming = new ArrayBlockingQueue<>(3);
 
     /**
      * Creates a new instance of <code>LogininPopUp</code>.
      */
     public LoginPopUp() {
-        user = null;
-        incoming = new ArrayBlockingQueue<>(3);
+
     }
 
     /**
