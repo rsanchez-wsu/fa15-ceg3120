@@ -64,6 +64,7 @@ public class NetworkManager
             {
                 try
                 {
+                	System.out.println("Recieved message: " + message);
                     //if (message instanceof NetworkMessageSomethingSomething)
                     //   listener.getKey().invoke(null, (NetworkMessageSomethingSomething)message);
                     // etc
@@ -121,7 +122,7 @@ public class NetworkManager
         return result;
     }
 
-    protected static String encodeToXML(NetworkMessage message)
+    public static String encodeToXML(NetworkMessage message)
     {
         //some reflection wizardry or switching or something
 		ByteArrayOutputStream out = new ByteArrayOutputStream();

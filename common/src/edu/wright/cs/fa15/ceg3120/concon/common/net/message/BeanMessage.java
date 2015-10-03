@@ -19,18 +19,33 @@
  *
  */
 
-package edu.wright.cs.fa15.ceg3120.concon.client.customer;
+package edu.wright.cs.fa15.ceg3120.concon.common.net.message;
 
-import edu.wright.cs.fa15.ceg3120.concon.common.net.ConConClient;
-import edu.wright.cs.fa15.ceg3120.concon.common.net.NetworkManager;
-import edu.wright.cs.fa15.ceg3120.concon.common.net.message.BeanMessage;
+public class BeanMessage extends NetworkMessage {
 
-public class CustomerClient {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2279299798905393963L;
+	private String message;
 
-	public static void main(String[] args) {
-		ConConClient client = new ConConClient("localhost", 9667);
-		
-		BeanMessage message = new BeanMessage("Hello World");
-		client.sendMessage(NetworkManager.encodeToXML(message));
+	public BeanMessage() {} // Default constructor required for java beans.
+
+	public BeanMessage(String message)
+	{
+		this.message = message;
+	}
+
+	public String getMessage() {
+		return message;
+	}
+
+	public void setMessage(String message) {
+		this.message = message;
+	}
+
+	@Override
+	public String toString() {
+		return "BeanMessage [message=" + message + "]";
 	}
 }

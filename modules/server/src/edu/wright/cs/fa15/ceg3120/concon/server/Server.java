@@ -21,9 +21,13 @@
 
 package edu.wright.cs.fa15.ceg3120.concon.server;
 
+import edu.wright.cs.fa15.ceg3120.concon.common.net.ConConServer;
+
 public class Server {
 
 	public static void main(String[] args) {
-		
+		System.out.println("Server running.");
+		ConConServer server = new ConConServer(9667);
+		server.start();
 	}
 }
