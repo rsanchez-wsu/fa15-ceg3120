@@ -27,7 +27,7 @@ package edu.wright.cs.fa15.ceg3120.concon.common.data;
  * @author Quack
  *
  */
-public abstract class UserAccount {
+public class UserAccount {
 
     /** Description. */
     private String uuid;
@@ -86,6 +86,6 @@ public abstract class UserAccount {
     /**
      * Launches the account type specific GUI.
      */
-    public abstract void launchGui();
+    public void launchGui(){}
 
 }
