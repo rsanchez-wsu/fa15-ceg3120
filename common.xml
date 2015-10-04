@@ -76,9 +76,12 @@
     <target name="init" depends="resolve, init-junit"/>
 
     <target name="compile" depends="init">
+         <path id="build.lib.path">
+            <fileset dir="${lib.dir}" includes="*.jar"/>
+        </path>
         <mkdir dir="${classes.dir}"/>
-        <javac srcdir="${common.dir}" destdir="${classes.dir}" includeantruntime="false"/>
-        <javac srcdir="${src.dir}" destdir="${classes.dir}" includeantruntime="false"/>
+        <javac srcdir="${common.dir}" destdir="${classes.dir}" includeantruntime="false" classpathref="build.lib.path"/>
+        <javac srcdir="${src.dir}" destdir="${classes.dir}" includeantruntime="false" classpathref="build.lib.path"/>
     </target>
 
     <target name="build" depends="compile">
