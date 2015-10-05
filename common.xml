@@ -126,6 +126,11 @@
                     <include name="**/*.java"/>
                 </fileSet>
             </sourcePath>
+            <auxClasspath>
+                <fileSet dir="${lib.dir}">
+                    <include name="**/*.jar"/>
+                </fileSet>
+            </auxClasspath>
             <class location="${classes.dir}"/>
         </findbugs>
 
