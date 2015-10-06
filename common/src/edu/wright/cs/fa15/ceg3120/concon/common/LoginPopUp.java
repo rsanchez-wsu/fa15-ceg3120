@@ -74,9 +74,18 @@ public class LoginPopUp {
 
             @Override
             public void actionPerformed(ActionEvent ev) {
-                loginFrame.setFocusable(false);
-                launchNewAccountGui();// set focusable not doing what i want <_<
-                loginFrame.setFocusable(true);
+                loginButton.setEnabled(false);
+                btnCreateAccount.setEnabled(false);
+                SwingUtilities.invokeLater(new Runnable() {
+                    
+                    @Override
+                    public void run() {
+                        // TODO Auto-generated method stub
+                        launchNewAccountGui();// set focusable not doing what i want <_<
+                    }
+                });
+                loginButton.setEnabled(false);
+                btnCreateAccount.setEnabled(false);
             }
         });
 
@@ -92,35 +101,48 @@ public class LoginPopUp {
                 if (verifyFields()) {
                     // user has been set
                     // blah blah... shipped user to network, reset user to null
-                    try {
-                        loginButton.setEnabled(false);
-                        btnCreateAccount.setEnabled(false);
-                        user = incoming.poll(5, TimeUnit.SECONDS);
-                    } catch (InterruptedException e1) {
-                        JOptionPane.showConfirmDialog(null,
-                                "There was an issue with your request\nPlease try again...",
-                                "Error", JOptionPane.OK_OPTION, JOptionPane.ERROR_MESSAGE);
-                    } finally {
-                        if (user != null) {
-                            /*
-                             * Schedule the loginFrame to be disposed on the EDT before launching
-                             * the new GUI.
-                             */
-                            SwingUtilities.invokeLater(new Runnable() {
-                                @Override
-                                public void run() {
-                                    loginFrame.dispose();
+                    loginButton.setEnabled(false);
+                    btnCreateAccount.setEnabled(false);
+                    SwingUtilities.invokeLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                user = incoming.poll(5, TimeUnit.SECONDS);
+                            } catch (InterruptedException e) {
+                                // TODO Auto-generated catch block
+                                e.printStackTrace();
+                                JOptionPane.showConfirmDialog(null,
+                                        "There was an issue with your request"
+                                        + "\nPlease try again...",
+                                        "Error", JOptionPane.OK_OPTION,
+                                        JOptionPane.ERROR_MESSAGE);
+                            } finally {
+                                System.out.println(user + " test");
+                                if (user != null) {
+                                    /*
+                                     * Schedule the loginFrame to be disposed on the EDT before
+                                     * launching the new GUI.
+                                     */
+                                    SwingUtilities.invokeLater(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            loginFrame.dispose();
+                                        }
+                                    });
+                                    user.launchGui();
+                                } else {
+                                    JOptionPane.showConfirmDialog(null,
+                                            "There was an issue with your request"
+                                            + "\nPlease try again...",
+                                            "Error", JOptionPane.OK_OPTION,
+                                            JOptionPane.ERROR_MESSAGE);
+                                    loginButton.setEnabled(true);
+                                    btnCreateAccount.setEnabled(true);
                                 }
-                            });
-                            user.launchGui();
-                        } else {
-                            JOptionPane.showConfirmDialog(null,
-                                    "There was an issue with your request\nPlease try again...",
-                                    "Error", JOptionPane.OK_OPTION, JOptionPane.ERROR_MESSAGE);
-                            loginButton.setEnabled(true);
-                            btnCreateAccount.setEnabled(true);
-                        }
-                    }
+                            } //end try/catch/finally
+                        } //end run
+                    });
+
                 }
             }// end actionPerformed
             
@@ -130,15 +152,15 @@ public class LoginPopUp {
                     if (passwordField.getPassword().length > 0) {
                         user = new UserAccount(uuid, null, passwordField.getPassword());
                     } else {
-                        JOptionPane.showConfirmDialog(null,
+                        JOptionPane.showMessageDialog(null,
                                 "The password field is blank." + "\nPlease try agian...",
-                                "Error", JOptionPane.OK_OPTION, JOptionPane.ERROR_MESSAGE);
+                                "Error", JOptionPane.ERROR_MESSAGE);
                         return false;
                     }
                 } else {
-                    JOptionPane.showConfirmDialog(null,
+                    JOptionPane.showMessageDialog(null,
                             "The Username field is blank.\nPlease try agian...",
-                            "Error", JOptionPane.OK_OPTION, JOptionPane.ERROR_MESSAGE);
+                            "Error", JOptionPane.ERROR_MESSAGE);
                     return false;
                 }
                 return true;
