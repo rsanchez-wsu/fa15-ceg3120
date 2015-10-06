@@ -122,7 +122,7 @@ public class NetworkManager
         return result;
     }
 
-    public static String encodeToXML(NetworkMessage message)
+    protected static String encodeToXML(NetworkMessage message)
     {
         //some reflection wizardry or switching or something
 		ByteArrayOutputStream out = new ByteArrayOutputStream();
