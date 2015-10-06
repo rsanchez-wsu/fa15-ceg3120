@@ -453,7 +453,7 @@ public class ContractorClient extends JFrame implements ActionListener {
 		txtAddress2.setText(strAddress2);
 		txtCity.setText(strCity);
 		txtState.setText(strState);
-		txtZipCode.setText(Integer.toString(intZipCode));
+		txtZipCode.setText(String.format("%05d", intZipCode));
 		profileTab.revalidate();
 	}
 	
@@ -500,24 +500,35 @@ public class ContractorClient extends JFrame implements ActionListener {
 		if (txtZipCodeUpdate.getText().length() < 1) {
 		} else {
 			int issueChecker = 0;
+			if (txtZipCodeUpdate.getText().length() != 5)
+			{
+				issueChecker = 1;
+			}
 			for (int i=0; i<txtZipCodeUpdate.getText().length(); i++) {
 				char c = txtZipCodeUpdate.getText().charAt(i);
 				if (Character.isDigit(c)) {
 				} else {
-					issueChecker++;
+					issueChecker = 1;
 				}
 			}
 			while (issueChecker > 0) {
 				String strTestZipCode = JOptionPane.showInputDialog(profileTab, "Please enter a valid Zip Code", null);
-				for (int j=0; j<strTestZipCode.length(); j++) {
-					char c1 = strTestZipCode.charAt(j);
-					if (Character.isDigit(c1)) {
-						if (j >= strTestZipCode.length()-1) {
-							txtZipCodeUpdate.setText(strTestZipCode);
-							issueChecker = 0;
-						}
+				if (strTestZipCode.length() != 5)
+				{
+					issueChecker = 1;
+				}
+				else {
+					for (int j=0; j<strTestZipCode.length(); j++) {
+						char c1 = strTestZipCode.charAt(j);
+						if (Character.isDigit(c1)) {
+							if (j >= strTestZipCode.length()-1) {
+								txtZipCodeUpdate.setText(strTestZipCode);
+								issueChecker = 0;
+							}
+						}					
 					}					
 				}
+
 			}
 			intZipCode = Integer.parseInt(txtZipCodeUpdate.getText());	
 		}
