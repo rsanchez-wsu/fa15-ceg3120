@@ -21,6 +21,8 @@
 
 package edu.wright.cs.fa15.ceg3120.concon.common.data;
 
+import edu.wright.cs.fa15.ceg3120.concon.client.customer.CustomerClient;
+
 public class HomeownerAccount extends UserAccount {
 
     /** Home address. */
@@ -44,7 +46,7 @@ public class HomeownerAccount extends UserAccount {
 
     @Override
     public void launchGui() {
-
+        (new CustomerClient()).buildGui();
     }
 
     public String getStreetAddress() {
