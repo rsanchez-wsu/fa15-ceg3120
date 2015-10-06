@@ -25,10 +25,7 @@ import java.awt.Container;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.text.NumberFormat;
-
 import javax.swing.JButton;
-import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -37,7 +34,6 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import javax.swing.JTree;
-import javax.swing.text.NumberFormatter;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 
@@ -68,14 +64,11 @@ public class ContractorClient extends JFrame implements ActionListener {
 	public String strCity = "Dayton";
 	public String strState = "OH";
 	public int intZipCode = 45402;
-/*	public String strLastName;
-	public String strFirstName;
-	public String strCompanyName;
-	public String strAddress1;
-	public String strAddress2;
-	public String strCity;
-	public String strState;
-	public int intZipCode;*/
+	/*
+	 * public String strLastName; public String strFirstName; public String
+	 * strCompanyName; public String strAddress1; public String strAddress2;
+	 * public String strCity; public String strState; public int intZipCode;
+	 */
 	private JPanel profileTab;
 	private JLabel lblNewProfile;
 	private JLabel lblLastNameUpdate;
@@ -88,9 +81,9 @@ public class ContractorClient extends JFrame implements ActionListener {
 	private JLabel lblZipCodeUpdate;
 	private JButton btnSave;
 	private JButton btnCancel;
-	
-//	private final Action action = new SwingAction();
-	
+
+	// private final Action action = new SwingAction();
+
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -100,7 +93,7 @@ public class ContractorClient extends JFrame implements ActionListener {
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-				
+
 			}
 		});
 	}
@@ -121,74 +114,90 @@ public class ContractorClient extends JFrame implements ActionListener {
 		frame.setBounds(100, 100, 725, 475);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
-		
+
 		JPanel banner = new JPanel();
 		banner.setBounds(6, 0, 703, 127);
 		frame.getContentPane().add(banner);
-		
+
 		JTabbedPane pageTabs = new JTabbedPane(JTabbedPane.TOP);
 		pageTabs.setBounds(6, 127, 703, 309);
 		frame.getContentPane().add(pageTabs);
-		
+
 		JPanel main = new JPanel();
 		pageTabs.addTab("Main", null, main, "Return to main page");
 		main.setLayout(null);
-		
+
 		JTree mainTree = new JTree();
-		mainTree.setModel(new DefaultTreeModel(
-			new DefaultMutableTreeNode("Main") {
-				{
-					DefaultMutableTreeNode node_1;
-					DefaultMutableTreeNode node_2;
-					DefaultMutableTreeNode node_3;
-					node_1 = new DefaultMutableTreeNode("Previous Jobs");
-						node_2 = new DefaultMutableTreeNode("Electrical");
-							node_3 = new DefaultMutableTreeNode("Jan 12 2014");
-								node_3.add(new DefaultMutableTreeNode("Description"));
-								node_3.add(new DefaultMutableTreeNode("Photos"));
-							node_2.add(node_3);
-							node_3 = new DefaultMutableTreeNode("Feb 9 2014");
-								node_3.add(new DefaultMutableTreeNode("Description"));
-								node_3.add(new DefaultMutableTreeNode("Photos"));
-							node_2.add(node_3);
-						node_1.add(node_2);
-						node_2 = new DefaultMutableTreeNode("Plumbing");
-							node_3 = new DefaultMutableTreeNode("Mar 24 2015");
-								node_3.add(new DefaultMutableTreeNode("Description"));
-								node_3.add(new DefaultMutableTreeNode("Photos"));
-							node_2.add(node_3);
-						node_1.add(node_2);
-						node_2 = new DefaultMutableTreeNode("Outdoor");
-							node_3 = new DefaultMutableTreeNode("July 17 2015");
-								node_3.add(new DefaultMutableTreeNode("Description"));
-								node_3.add(new DefaultMutableTreeNode("Photos"));
-							node_2.add(node_3);
-						node_1.add(node_2);
-					node_1 = new DefaultMutableTreeNode("Reviews");
-						node_1.add(new DefaultMutableTreeNode("All"));
-						node_1.add(new DefaultMutableTreeNode("Positive"));
-						node_1.add(new DefaultMutableTreeNode("Negative"));
-				}
+		mainTree.setModel(new DefaultTreeModel(new DefaultMutableTreeNode("Main") {
+			{
+				DefaultMutableTreeNode node_1;
+				DefaultMutableTreeNode node_2;
+				DefaultMutableTreeNode node_3;
+				node_1 = new DefaultMutableTreeNode("Previous Jobs");
+				node_2 = new DefaultMutableTreeNode("Electrical");
+				node_3 = new DefaultMutableTreeNode("Jan 12 2014");
+				node_3.add(new DefaultMutableTreeNode("Description"));
+				node_3.add(new DefaultMutableTreeNode("Photos"));
+				node_2.add(node_3);
+				node_3 = new DefaultMutableTreeNode("Feb 9 2014");
+				node_3.add(new DefaultMutableTreeNode("Description"));
+				node_3.add(new DefaultMutableTreeNode("Photos"));
+				node_2.add(node_3);
+				node_1.add(node_2);
+				node_2 = new DefaultMutableTreeNode("Plumbing");
+				node_3 = new DefaultMutableTreeNode("Mar 24 2015");
+				node_3.add(new DefaultMutableTreeNode("Description"));
+				node_3.add(new DefaultMutableTreeNode("Photos"));
+				node_2.add(node_3);
+				node_1.add(node_2);
+				node_2 = new DefaultMutableTreeNode("Outdoor");
+				node_3 = new DefaultMutableTreeNode("July 17 2015");
+				node_3.add(new DefaultMutableTreeNode("Description"));
+				node_3.add(new DefaultMutableTreeNode("Photos"));
+				node_2.add(node_3);
+				node_1.add(node_2);
+				node_1 = new DefaultMutableTreeNode("Reviews");
+				node_1.add(new DefaultMutableTreeNode("All"));
+				node_1.add(new DefaultMutableTreeNode("Positive"));
+				node_1.add(new DefaultMutableTreeNode("Negative"));
 			}
-		));
+		}));
 		main.add(mainTree);
 		mainTree.setBounds(6, 6, 160, 275);
-		
+
 		JTextPane textPane = new JTextPane();
 		textPane.setBounds(172, 6, 526, 275);
 		main.add(textPane);
-		
-		JPanel curBidsTab = new JPanel();
+
+		final JPanel curBidsTab = new JPanel();
 		pageTabs.addTab("Current Bids", null, curBidsTab, null);
-		curBidsTab.setLayout(null);
-		NumberFormat numberFormat = NumberFormat.getIntegerInstance();
-		NumberFormatter formatter = new NumberFormatter(numberFormat);
-		formatter.setAllowsInvalid(false);
-		final JFormattedTextField bid = new JFormattedTextField(formatter);
-		bid.setBounds(1, 10, 100, 20);
-		curBidsTab.add(bid);
-		
-		
+		final JLabel[] currentBids = new JLabel[10];
+		final JButton[] update = new JButton[10];
+		for (int i = 0; i < 5; i++) {
+			final int j = i;
+			currentBids[i] = new JLabel("You have a bid for " + Math.random() * 115);
+			curBidsTab.add(currentBids[i]);
+			update[i] = new JButton("Update Bid");
+			curBidsTab.add(update[i]);
+			
+			update[i].addActionListener(new ActionListener() {
+
+				@Override
+				public void actionPerformed(ActionEvent a) {
+					try {
+						int newBid = Integer.parseInt(JOptionPane.showInputDialog("Enter new bid"));
+						currentBids[j].setText("You have a bid for " + newBid);
+						curBidsTab.validate();
+						curBidsTab.repaint();
+					} catch (IllegalArgumentException e) {
+						JOptionPane.showMessageDialog(frame, "Invalid Input");
+					}
+
+				}
+
+			});
+		}
+
 		JPanel notificationsTab = new JPanel();
 		pageTabs.addTab("Notifications", null, notificationsTab, null);
 		String clientName, jobLocation, jobDate;
@@ -211,47 +220,47 @@ public class ContractorClient extends JFrame implements ActionListener {
 					parent.remove(jobs[list]);
 					parent.validate();
 					parent.repaint();
-				}				
+				}
 			});
 		}
-				
+
 		JPanel searchTab = new JPanel();
 		pageTabs.addTab("Search", null, searchTab, null);
-		
+
 		JPanel paymentsTab = new JPanel();
 		pageTabs.addTab("Payments", null, paymentsTab, null);
-		
+
 		profileTab = new JPanel();
 		pageTabs.addTab("Edit Profile", null, profileTab, null);
 		profileTab.setLayout(null);
-		
+
 		populateProfileTab();
-		
+
 		JPanel calendarTab = new JPanel();
 		pageTabs.addTab("Calendar", null, calendarTab, null);
-		
+
 		JPanel openJobsTab = new JPanel();
 		pageTabs.addTab("Open Jobs", null, openJobsTab, null);
 	}
-	
+
 	public void populateProfileTab() {
 		JLabel lblCurProfile = new JLabel("Current Profile Settings:");
 		profileTab.add(lblCurProfile);
 		lblCurProfile.setBounds(30, 5, 200, 20);
-		
+
 		JLabel lblFirstName = new JLabel("First Name:");
 		profileTab.add(lblFirstName);
 		lblFirstName.setBounds(15, 35, 120, 20);
-		
+
 		txtFirstName = new JTextField();
 		txtFirstName.setEditable(false);
 		profileTab.add(txtFirstName);
 		txtFirstName.setBounds(145, 35, 120, 20);
-				
+
 		JLabel lblLastName = new JLabel("Last Name:");
 		profileTab.add(lblLastName);
 		lblLastName.setBounds(15, 60, 120, 20);
-		
+
 		txtLastName = new JTextField();
 		txtLastName.setEditable(false);
 		profileTab.add(txtLastName);
@@ -260,77 +269,77 @@ public class ContractorClient extends JFrame implements ActionListener {
 		JLabel lblCompanyName = new JLabel("Company Name:");
 		profileTab.add(lblCompanyName);
 		lblCompanyName.setBounds(15, 85, 120, 20);
-		
+
 		txtCompanyName = new JTextField();
 		txtCompanyName.setEditable(false);
 		profileTab.add(txtCompanyName);
 		txtCompanyName.setBounds(145, 85, 120, 20);
-		
+
 		JLabel lblAddress1 = new JLabel("Address:");
 		profileTab.add(lblAddress1);
 		lblAddress1.setBounds(15, 110, 120, 20);
-		
+
 		txtAddress1 = new JTextField();
 		txtAddress1.setEditable(false);
 		profileTab.add(txtAddress1);
 		txtAddress1.setBounds(145, 110, 120, 20);
-		
+
 		JLabel lblAddress2 = new JLabel("Address (cont):");
 		profileTab.add(lblAddress2);
 		lblAddress2.setBounds(15, 135, 120, 20);
-		
+
 		txtAddress2 = new JTextField();
 		txtAddress2.setEditable(false);
 		profileTab.add(txtAddress2);
 		txtAddress2.setBounds(145, 135, 120, 20);
-		
+
 		JLabel lblCity = new JLabel("City:");
 		profileTab.add(lblCity);
 		lblCity.setBounds(15, 160, 120, 20);
-		
+
 		txtCity = new JTextField();
 		txtCity.setEditable(false);
 		profileTab.add(txtCity);
 		txtCity.setBounds(145, 160, 120, 20);
-		
+
 		JLabel lblState = new JLabel("State:");
 		profileTab.add(lblState);
 		lblState.setBounds(15, 185, 120, 20);
-		
+
 		txtState = new JTextField();
 		txtState.setEditable(false);
 		profileTab.add(txtState);
 		txtState.setBounds(145, 185, 120, 20);
-		
+
 		JLabel lblZipCode = new JLabel("Zip Code:");
 		profileTab.add(lblZipCode);
 		lblZipCode.setBounds(15, 210, 120, 20);
-		
+
 		txtZipCode = new JTextField();
 		txtZipCode.setEditable(false);
 		profileTab.add(txtZipCode);
 		txtZipCode.setBounds(145, 210, 120, 20);
-		
+
 		lblNewProfile = new JLabel("Updated Profile Settings:");
-		profileTab.add(lblNewProfile);		
+		profileTab.add(lblNewProfile);
 		lblNewProfile.setBounds(360, 5, 200, 20);
 		lblNewProfile.setVisible(false);
-		
+
 		lblFirstNameUpdate = new JLabel("First Name:");
 		profileTab.add(lblFirstNameUpdate);
 		lblFirstNameUpdate.setBounds(345, 35, 120, 20);
 		lblFirstNameUpdate.setVisible(false);
-		
+
 		txtFirstNameUpdate = new JTextField();
 		profileTab.add(txtFirstNameUpdate);
 		txtFirstNameUpdate.setBounds(475, 35, 120, 20);
 		txtFirstNameUpdate.setVisible(false);
-				
+
 		lblLastNameUpdate = new JLabel("Last Name:");
 		profileTab.add(lblLastNameUpdate);
 		lblLastNameUpdate.setBounds(345, 60, 120, 20);
 		lblLastNameUpdate.setVisible(false);
-		
+
 		txtLastNameUpdate = new JTextField();
 		profileTab.add(txtLastNameUpdate);
 		txtLastNameUpdate.setBounds(475, 60, 120, 20);
@@ -340,62 +349,62 @@ public class ContractorClient extends JFrame implements ActionListener {
 		profileTab.add(lblCompanyNameUpdate);
 		lblCompanyNameUpdate.setBounds(345, 85, 120, 20);
 		lblCompanyNameUpdate.setVisible(false);
-		
+
 		txtCompanyNameUpdate = new JTextField();
 		profileTab.add(txtCompanyNameUpdate);
 		txtCompanyNameUpdate.setBounds(475, 85, 120, 20);
 		txtCompanyNameUpdate.setVisible(false);
-		
+
 		lblAddress1Update = new JLabel("Address:");
 		profileTab.add(lblAddress1Update);
 		lblAddress1Update.setBounds(345, 110, 120, 20);
 		lblAddress1Update.setVisible(false);
-		
+
 		txtAddress1Update = new JTextField();
 		profileTab.add(txtAddress1Update);
 		txtAddress1Update.setBounds(475, 110, 120, 20);
 		txtAddress1Update.setVisible(false);
-		
+
 		lblAddress2Update = new JLabel("Address (cont):");
 		profileTab.add(lblAddress2Update);
 		lblAddress2Update.setBounds(345, 135, 120, 20);
 		lblAddress2Update.setVisible(false);
-		
+
 		txtAddress2Update = new JTextField();
 		profileTab.add(txtAddress2Update);
 		txtAddress2Update.setBounds(475, 135, 120, 20);
 		txtAddress2Update.setVisible(false);
-		
+
 		lblCityUpdate = new JLabel("City:");
 		profileTab.add(lblCityUpdate);
 		lblCityUpdate.setBounds(345, 160, 120, 20);
 		lblCityUpdate.setVisible(false);
-		
+
 		txtCityUpdate = new JTextField();
 		profileTab.add(txtCityUpdate);
 		txtCityUpdate.setBounds(475, 160, 120, 20);
 		txtCityUpdate.setVisible(false);
-		
+
 		lblStateUpdate = new JLabel("State:");
 		profileTab.add(lblStateUpdate);
 		lblStateUpdate.setBounds(345, 185, 120, 20);
 		lblStateUpdate.setVisible(false);
-		
+
 		txtStateUpdate = new JTextField();
 		profileTab.add(txtStateUpdate);
 		txtStateUpdate.setBounds(475, 185, 120, 20);
 		txtStateUpdate.setVisible(false);
-		
+
 		lblZipCodeUpdate = new JLabel("Zip Code:");
 		profileTab.add(lblZipCodeUpdate);
 		lblZipCodeUpdate.setBounds(345, 210, 120, 20);
 		lblZipCodeUpdate.setVisible(false);
-		
+
 		txtZipCodeUpdate = new JTextField();
 		profileTab.add(txtZipCodeUpdate);
 		txtZipCodeUpdate.setBounds(475, 210, 120, 20);
 		txtZipCodeUpdate.setVisible(false);
-		
+
 		JButton btnLoad = new JButton("Load Profile");
 		profileTab.add(btnLoad);
 		btnLoad.setBounds(145, 247, 120, 23);
@@ -404,7 +413,7 @@ public class ContractorClient extends JFrame implements ActionListener {
 				loadProfile();
 			}
 		});
-		
+
 		btnSave = new JButton("Save Changes");
 		profileTab.add(btnSave);
 		btnSave.setBounds(345, 247, 120, 23);
@@ -414,18 +423,18 @@ public class ContractorClient extends JFrame implements ActionListener {
 				saveProfileUpdates();
 			}
 		});
-		
+
 		btnCancel = new JButton("Cancel");
 		profileTab.add(btnCancel);
 		btnCancel.setBounds(475, 247, 120, 23);
-		btnCancel.setVisible(false);		
+		btnCancel.setVisible(false);
 		btnCancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				clearProfileUpdates();
 			}
 		});
 	}
-	
+
 	public void loadProfile() {
 		lblNewProfile.setVisible(true);
 		lblLastNameUpdate.setVisible(true);
@@ -456,7 +465,7 @@ public class ContractorClient extends JFrame implements ActionListener {
 		txtZipCode.setText(String.format("%05d", intZipCode));
 		profileTab.revalidate();
 	}
-	
+
 	public void clearProfileUpdates() {
 		txtLastNameUpdate.setText(null);
 		txtFirstNameUpdate.setText(null);
@@ -467,23 +476,23 @@ public class ContractorClient extends JFrame implements ActionListener {
 		txtStateUpdate.setText(null);
 		txtZipCodeUpdate.setText(null);
 	}
-	
+
 	public void saveProfileUpdates() {
-		if (txtLastNameUpdate.getText().length() < 1) {	
+		if (txtLastNameUpdate.getText().length() < 1) {
 		} else {
-			strLastName = txtLastNameUpdate.getText();			
+			strLastName = txtLastNameUpdate.getText();
 		}
 		if (txtFirstNameUpdate.getText().length() < 1) {
 		} else {
-			strFirstName = txtFirstNameUpdate.getText();	
+			strFirstName = txtFirstNameUpdate.getText();
 		}
 		if (txtCompanyNameUpdate.getText().length() < 1) {
 		} else {
-			strCompanyName = txtCompanyNameUpdate.getText();	
+			strCompanyName = txtCompanyNameUpdate.getText();
 		}
 		if (txtAddress1Update.getText().length() < 1) {
 		} else {
-			strAddress1 = txtAddress1Update.getText();			
+			strAddress1 = txtAddress1Update.getText();
 		}
 		if (txtAddress2Update.getText().length() < 1) {
 		} else {
@@ -500,11 +509,10 @@ public class ContractorClient extends JFrame implements ActionListener {
 		if (txtZipCodeUpdate.getText().length() < 1) {
 		} else {
 			int issueChecker = 0;
-			if (txtZipCodeUpdate.getText().length() != 5)
-			{
+			if (txtZipCodeUpdate.getText().length() != 5) {
 				issueChecker = 1;
 			}
-			for (int i=0; i<txtZipCodeUpdate.getText().length(); i++) {
+			for (int i = 0; i < txtZipCodeUpdate.getText().length(); i++) {
 				char c = txtZipCodeUpdate.getText().charAt(i);
 				if (Character.isDigit(c)) {
 				} else {
@@ -513,42 +521,38 @@ public class ContractorClient extends JFrame implements ActionListener {
 			}
 			while (issueChecker > 0) {
 				String strTestZipCode = JOptionPane.showInputDialog(profileTab, "Please enter a valid Zip Code", null);
-				if (strTestZipCode.length() != 5)
-				{
+				if (strTestZipCode.length() != 5) {
 					issueChecker = 1;
-				}
-				else {
-					for (int j=0; j<strTestZipCode.length(); j++) {
+				} else {
+					for (int j = 0; j < strTestZipCode.length(); j++) {
 						char c1 = strTestZipCode.charAt(j);
 						if (Character.isDigit(c1)) {
-							if (j >= strTestZipCode.length()-1) {
+							if (j >= strTestZipCode.length() - 1) {
 								txtZipCodeUpdate.setText(strTestZipCode);
 								issueChecker = 0;
 							}
-						}					
-					}					
+						}
+					}
 				}
 
 			}
-			intZipCode = Integer.parseInt(txtZipCodeUpdate.getText());	
+			intZipCode = Integer.parseInt(txtZipCodeUpdate.getText());
 		}
 		loadProfile();
 		profileTab.revalidate();
 	}
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
 
-		
 	}
-	
-	
-/*	private class SwingAction extends AbstractAction {
-		public SwingAction() {
-			putValue(NAME, "SwingAction");
-			putValue(SHORT_DESCRIPTION, "Some short description");
-		}
-		public void actionPerformed(ActionEvent e) {
-		}
-	}*/
+
+	/*
+	 * private class SwingAction extends AbstractAction { public SwingAction() {
+	 * putValue(NAME, "SwingAction"); putValue(SHORT_DESCRIPTION,
+	 * "Some short description"); } public void actionPerformed(ActionEvent e) {
+	 * } }
+	 */
 }
-//>>>>>>> branch 'Contractor-GUI' of https://github.com/rsanchez-wsu/fa15-ceg3120.git
+// >>>>>>> branch 'Contractor-GUI' of
+// https://github.com/rsanchez-wsu/fa15-ceg3120.git
