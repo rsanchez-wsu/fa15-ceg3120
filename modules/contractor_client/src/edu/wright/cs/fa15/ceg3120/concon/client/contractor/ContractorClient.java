@@ -66,14 +66,28 @@ public class ContractorClient extends JFrame implements ActionListener {
 	private JTextField txtCityUpdate;
 	private JTextField txtStateUpdate;
 	private JTextField txtZipCodeUpdate;
-	public String strLastName = "Person";
-	public String strFirstName = "Random";
-	public String strCompanyName = "ConCon";
-	public String strAddress1 = "123 Main Street";
-	public String strAddress2 = "";
-	public String strCity = "Dayton";
-	public String strState = "OH";
-	public int intZipCode = 45402;
+	public String strLastName;
+	public String strFirstName;
+	public String strCompanyName;
+	public String strAddress1;
+	public String strAddress2;
+	public String strCity;
+	public String strState;
+	public int intZipCode;
+	private JPanel profileTab;
+	private JLabel lblNewProfile;
+	private JLabel lblLastNameUpdate;
+	private JLabel lblFirstNameUpdate;
+	private JLabel lblCompanyNameUpdate;
+	private JLabel lblAddress1Update;
+	private JLabel lblAddress2Update;
+	private JLabel lblCityUpdate;
+	private JLabel lblStateUpdate;
+	private JLabel lblZipCodeUpdate;
+	private JButton btnSave;
+	private JButton btnCancel;
+	
+	private final Action action = new SwingAction();
 	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -205,181 +219,11 @@ public class ContractorClient extends JFrame implements ActionListener {
 		JPanel paymentsTab = new JPanel();
 		pageTabs.addTab("Payments", null, paymentsTab, null);
 		
-		JPanel profileTab = new JPanel();
+		profileTab = new JPanel();
 		pageTabs.addTab("Edit Profile", null, profileTab, null);
 		profileTab.setLayout(null);
 		
-		JLabel lblCurProfile = new JLabel("Current Profile Settings:");
-		lblCurProfile.setBounds(30, 5, 200, 20);
-		profileTab.add(lblCurProfile);
-		
-		JLabel lblLastName = new JLabel("Last Name:");
-		lblLastName.setBounds(15, 35, 120, 20);
-		profileTab.add(lblLastName);
-		
-		txtLastName = new JTextField();
-		txtLastName.setBounds(145, 35, 120, 20);
-		profileTab.add(txtLastName);
-		txtLastName.setColumns(1);
-		txtLastName.setText(strLastName);
-		
-		JLabel lblFirstName = new JLabel("First Name:");
-		lblFirstName.setBounds(15, 60, 120, 20);
-		profileTab.add(lblFirstName);
-		
-		txtFirstName = new JTextField();
-		txtFirstName.setBounds(145, 60, 120, 20);
-		profileTab.add(txtFirstName);
-		txtFirstName.setColumns(1);
-		txtFirstName.setText(strFirstName);
-		
-		JLabel lblCompanyName = new JLabel("Company Name:");
-		lblCompanyName.setBounds(15, 85, 120, 20);
-		profileTab.add(lblCompanyName);
-		
-		txtCompanyName = new JTextField();
-		txtCompanyName.setBounds(145, 85, 120, 20);
-		profileTab.add(txtCompanyName);
-		txtCompanyName.setColumns(1);
-		txtCompanyName.setText(strCompanyName);
-		
-		JLabel lblAddress1 = new JLabel("Address:");
-		lblAddress1.setBounds(15, 110, 120, 20);
-		profileTab.add(lblAddress1);
-		
-		txtAddress1 = new JTextField();
-		txtAddress1.setBounds(145, 110, 120, 20);
-		profileTab.add(txtAddress1);
-		txtAddress1.setColumns(1);
-		txtAddress1.setText(strAddress1);
-		
-		JLabel lblAddress2 = new JLabel("Address (cont):");
-		lblAddress2.setBounds(15, 135, 120, 20);
-		profileTab.add(lblAddress2);
-		
-		txtAddress2 = new JTextField();
-		txtAddress2.setBounds(145, 135, 120, 20);
-		profileTab.add(txtAddress2);
-		txtAddress2.setColumns(1);
-		txtAddress2.setText(strAddress2);
-		
-		JLabel lblCity = new JLabel("City:");
-		lblCity.setBounds(15, 160, 120, 20);
-		profileTab.add(lblCity);
-		
-		txtCity = new JTextField();
-		txtCity.setBounds(145, 160, 120, 20);
-		profileTab.add(txtCity);
-		txtCity.setColumns(1);
-		txtCity.setText(strCity);
-		
-		JLabel lblState = new JLabel("State:");
-		lblState.setBounds(15, 185, 120, 20);
-		profileTab.add(lblState);
-		
-		txtState = new JTextField();
-		txtState.setBounds(145, 185, 120, 20);
-		profileTab.add(txtState);
-		txtState.setColumns(1);
-		txtState.setText(strState);
-		
-		JLabel lblZipCode = new JLabel("Zip Code:");
-		lblZipCode.setBounds(15, 210, 120, 20);
-		profileTab.add(lblZipCode);
-		
-		txtZipCode = new JTextField();
-		txtZipCode.setBounds(145, 210, 120, 20);
-		profileTab.add(txtZipCode);
-		txtZipCode.setColumns(1);
-		txtZipCode.setText(Integer.toString(intZipCode));
-		JLabel lblNewProfile = new JLabel("Updated Profile Settings:");
-		lblNewProfile.setBounds(360, 5, 200, 20);
-		profileTab.add(lblNewProfile);		
-		
-		JLabel lblLastNameUpdate = new JLabel("Last Name:");
-		lblLastNameUpdate.setBounds(345, 35, 120, 20);
-		profileTab.add(lblLastNameUpdate);
-		
-		txtLastName = new JTextField();
-		txtLastName.setBounds(475, 35, 120, 20);
-		profileTab.add(txtLastName);
-		txtLastName.setColumns(1);
-		
-		JLabel lblFirstNameUpdate = new JLabel("First Name:");
-		lblFirstNameUpdate.setBounds(345, 60, 120, 20);
-		profileTab.add(lblFirstNameUpdate);
-		
-		txtFirstName = new JTextField();
-		txtFirstName.setBounds(475, 60, 120, 20);
-		profileTab.add(txtFirstName);
-		txtFirstName.setColumns(1);
-		
-		JLabel lblCompanyNameUpdate = new JLabel("Company Name:");
-		lblCompanyNameUpdate.setBounds(345, 85, 120, 20);
-		profileTab.add(lblCompanyNameUpdate);
-		
-		txtCompanyName = new JTextField();
-		txtCompanyName.setBounds(475, 85, 120, 20);
-		profileTab.add(txtCompanyName);
-		txtCompanyName.setColumns(1);
-		
-		JLabel lblAddress1Update = new JLabel("Address:");
-		lblAddress1Update.setBounds(345, 110, 120, 20);
-		profileTab.add(lblAddress1Update);
-		
-		txtAddress1 = new JTextField();
-		txtAddress1.setBounds(475, 110, 120, 20);
-		profileTab.add(txtAddress1);
-		txtAddress1.setColumns(1);
-		
-		JLabel lblAddress2Update = new JLabel("Address (cont):");
-		lblAddress2Update.setBounds(345, 135, 120, 20);
-		profileTab.add(lblAddress2Update);
-		
-		txtAddress2 = new JTextField();
-		txtAddress2.setBounds(475, 135, 120, 20);
-		profileTab.add(txtAddress2);
-		txtAddress2.setColumns(1);
-		
-		JLabel lblCityUpdate = new JLabel("City:");
-		lblCityUpdate.setBounds(345, 160, 120, 20);
-		profileTab.add(lblCityUpdate);
-		
-		txtCity = new JTextField();
-		txtCity.setBounds(475, 160, 120, 20);
-		profileTab.add(txtCity);
-		txtCity.setColumns(1);
-		
-		JLabel lblStateUpdate = new JLabel("State:");
-		lblStateUpdate.setBounds(345, 185, 120, 20);
-		profileTab.add(lblStateUpdate);
-		
-		txtState = new JTextField();
-		txtState.setBounds(475, 185, 120, 20);
-		profileTab.add(txtState);
-		txtState.setColumns(1);
-		
-		JLabel lblZipCodeUpdate = new JLabel("Zip Code:");
-		lblZipCodeUpdate.setBounds(345, 210, 120, 20);
-		profileTab.add(lblZipCodeUpdate);
-		
-		txtZipCode = new JTextField();
-		txtZipCode.setBounds(475, 210, 120, 20);
-		profileTab.add(txtZipCode);
-		txtZipCode.setColumns(1);
-		
-		JButton btnSave = new JButton("Save Changes");
-		btnSave.setBounds(345, 247, 120, 23);
-		profileTab.add(btnSave);
-		
-		JButton btnCancel = new JButton("Cancel");
-		btnCancel.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-
-			}
-		});
-		btnCancel.setBounds(475, 247, 120, 23);
-		profileTab.add(btnCancel);
+		populateProfileTab();
 		
 		JPanel calendarTab = new JPanel();
 		pageTabs.addTab("Calendar", null, calendarTab, null);
@@ -402,6 +246,216 @@ public class ContractorClient extends JFrame implements ActionListener {
 //}
 //=======
 
+	
+	public void populateProfileTab() {
+		JLabel lblCurProfile = new JLabel("Current Profile Settings:");
+		profileTab.add(lblCurProfile);
+		lblCurProfile.setBounds(30, 5, 200, 20);
+		
+		JLabel lblLastName = new JLabel("Last Name:");
+		profileTab.add(lblLastName);
+		lblLastName.setBounds(15, 35, 120, 20);
+		
+		txtLastName = new JTextField();
+		profileTab.add(txtLastName);
+		txtLastName.setBounds(145, 35, 120, 20);
+		
+		JLabel lblFirstName = new JLabel("First Name:");
+		profileTab.add(lblFirstName);
+		lblFirstName.setBounds(15, 60, 120, 20);
+		
+		txtFirstName = new JTextField();
+		profileTab.add(txtFirstName);
+		txtFirstName.setBounds(145, 60, 120, 20);
+		
+		JLabel lblCompanyName = new JLabel("Company Name:");
+		profileTab.add(lblCompanyName);
+		lblCompanyName.setBounds(15, 85, 120, 20);
+		
+		txtCompanyName = new JTextField();
+		profileTab.add(txtCompanyName);
+		txtCompanyName.setBounds(145, 85, 120, 20);
+		
+		JLabel lblAddress1 = new JLabel("Address:");
+		profileTab.add(lblAddress1);
+		lblAddress1.setBounds(15, 110, 120, 20);
+		
+		txtAddress1 = new JTextField();
+		profileTab.add(txtAddress1);
+		txtAddress1.setBounds(145, 110, 120, 20);
+		
+		JLabel lblAddress2 = new JLabel("Address (cont):");
+		profileTab.add(lblAddress2);
+		lblAddress2.setBounds(15, 135, 120, 20);
+		
+		txtAddress2 = new JTextField();
+		profileTab.add(txtAddress2);
+		txtAddress2.setBounds(145, 135, 120, 20);
+		
+		JLabel lblCity = new JLabel("City:");
+		profileTab.add(lblCity);
+		lblCity.setBounds(15, 160, 120, 20);
+		
+		txtCity = new JTextField();
+		profileTab.add(txtCity);
+		txtCity.setBounds(145, 160, 120, 20);
+		
+		JLabel lblState = new JLabel("State:");
+		profileTab.add(lblState);
+		lblState.setBounds(15, 185, 120, 20);
+		
+		txtState = new JTextField();
+		profileTab.add(txtState);
+		txtState.setBounds(145, 185, 120, 20);
+		
+		JLabel lblZipCode = new JLabel("Zip Code:");
+		profileTab.add(lblZipCode);
+		lblZipCode.setBounds(15, 210, 120, 20);
+		
+		txtZipCode = new JTextField();
+		profileTab.add(txtZipCode);
+		txtZipCode.setBounds(145, 210, 120, 20);
+		
+		lblNewProfile = new JLabel("Updated Profile Settings:");
+		profileTab.add(lblNewProfile);		
+		lblNewProfile.setBounds(360, 5, 200, 20);
+		lblNewProfile.setVisible(false);
+		
+		lblLastNameUpdate = new JLabel("Last Name:");
+		profileTab.add(lblLastNameUpdate);
+		lblLastNameUpdate.setBounds(345, 35, 120, 20);
+		lblLastNameUpdate.setVisible(false);
+		
+		txtLastNameUpdate = new JTextField();
+		profileTab.add(txtLastNameUpdate);
+		txtLastNameUpdate.setBounds(475, 35, 120, 20);
+		txtLastNameUpdate.setVisible(false);
+		
+		lblFirstNameUpdate = new JLabel("First Name:");
+		profileTab.add(lblFirstNameUpdate);
+		lblFirstNameUpdate.setBounds(345, 60, 120, 20);
+		lblFirstNameUpdate.setVisible(false);
+		
+		txtFirstNameUpdate = new JTextField();
+		profileTab.add(txtFirstNameUpdate);
+		txtFirstNameUpdate.setBounds(475, 60, 120, 20);
+		txtFirstNameUpdate.setVisible(false);
+		
+		lblCompanyNameUpdate = new JLabel("Company Name:");
+		profileTab.add(lblCompanyNameUpdate);
+		lblCompanyNameUpdate.setBounds(345, 85, 120, 20);
+		lblCompanyNameUpdate.setVisible(false);
+		
+		txtCompanyNameUpdate = new JTextField();
+		profileTab.add(txtCompanyNameUpdate);
+		txtCompanyNameUpdate.setBounds(475, 85, 120, 20);
+		txtCompanyNameUpdate.setVisible(false);
+		
+		lblAddress1Update = new JLabel("Address:");
+		profileTab.add(lblAddress1Update);
+		lblAddress1Update.setBounds(345, 110, 120, 20);
+		lblAddress1Update.setVisible(false);
+		
+		txtAddress1Update = new JTextField();
+		profileTab.add(txtAddress1Update);
+		txtAddress1Update.setBounds(475, 110, 120, 20);
+		txtAddress1Update.setVisible(false);
+		
+		lblAddress2Update = new JLabel("Address (cont):");
+		profileTab.add(lblAddress2Update);
+		lblAddress2Update.setBounds(345, 135, 120, 20);
+		lblAddress2Update.setVisible(false);
+		
+		txtAddress2Update = new JTextField();
+		profileTab.add(txtAddress2Update);
+		txtAddress2Update.setBounds(475, 135, 120, 20);
+		txtAddress2Update.setVisible(false);
+		
+		lblCityUpdate = new JLabel("City:");
+		profileTab.add(lblCityUpdate);
+		lblCityUpdate.setBounds(345, 160, 120, 20);
+		lblCityUpdate.setVisible(false);
+		
+		txtCityUpdate = new JTextField();
+		profileTab.add(txtCityUpdate);
+		txtCityUpdate.setBounds(475, 160, 120, 20);
+		txtCityUpdate.setVisible(false);
+		
+		lblStateUpdate = new JLabel("State:");
+		profileTab.add(lblStateUpdate);
+		lblStateUpdate.setBounds(345, 185, 120, 20);
+		lblStateUpdate.setVisible(false);
+		
+		txtStateUpdate = new JTextField();
+		profileTab.add(txtStateUpdate);
+		txtStateUpdate.setBounds(475, 185, 120, 20);
+		txtStateUpdate.setVisible(false);
+		
+		lblZipCodeUpdate = new JLabel("Zip Code:");
+		profileTab.add(lblZipCodeUpdate);
+		lblZipCodeUpdate.setBounds(345, 210, 120, 20);
+		lblZipCodeUpdate.setVisible(false);
+		
+		txtZipCodeUpdate = new JTextField();
+		profileTab.add(txtZipCodeUpdate);
+		txtZipCodeUpdate.setBounds(475, 210, 120, 20);
+		txtZipCodeUpdate.setVisible(false);
+		
+		JButton btnLoad = new JButton("Load Profile");
+		profileTab.add(btnLoad);
+		btnLoad.setBounds(145, 247, 120, 23);
+		btnLoad.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				loadProfile();
+			}
+		});
+		
+		btnSave = new JButton("Save Changes");
+		profileTab.add(btnSave);
+		btnSave.setBounds(345, 247, 120, 23);
+		btnSave.setVisible(false);
+		
+		btnCancel = new JButton("Cancel");
+		profileTab.add(btnCancel);
+		btnCancel.setBounds(475, 247, 120, 23);
+		btnCancel.setVisible(false);		
+		btnCancel.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+
+			}
+		});
+	}
+	
+	public void loadProfile() {
+		strLastName = "Person";
+		strFirstName = "Random";
+		strCompanyName = "ConCon";
+		strAddress1 = "123 Main Street";
+		strAddress2 = "";
+		strCity = "Dayton";
+		strState = "OH";
+		intZipCode = 45402;
+		lblNewProfile.setVisible(true);
+		lblLastNameUpdate.setVisible(true);
+		lblFirstNameUpdate.setVisible(true);
+		lblCompanyNameUpdate.setVisible(true);
+		lblAddress1Update.setVisible(true);
+		lblAddress2Update.setVisible(true);
+		lblCityUpdate.setVisible(true);
+		lblStateUpdate.setVisible(true);
+		lblZipCodeUpdate.setVisible(true);
+		txtLastNameUpdate.setVisible(true);
+		txtFirstNameUpdate.setVisible(true);
+		txtCompanyNameUpdate.setVisible(true);
+		txtAddress1Update.setVisible(true);
+		txtAddress2Update.setVisible(true);
+		txtCityUpdate.setVisible(true);
+		txtStateUpdate.setVisible(true);
+		txtZipCodeUpdate.setVisible(true);
+		btnSave.setVisible(true);
+		btnCancel.setVisible(true);
+		profileTab.revalidate();
+	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
 
@@ -409,5 +463,13 @@ public class ContractorClient extends JFrame implements ActionListener {
 	}
 	
 	
+	private class SwingAction extends AbstractAction {
+		public SwingAction() {
+			putValue(NAME, "SwingAction");
+			putValue(SHORT_DESCRIPTION, "Some short description");
+		}
+		public void actionPerformed(ActionEvent e) {
+		}
+	}
 }
 //>>>>>>> branch 'Contractor-GUI' of https://github.com/rsanchez-wsu/fa15-ceg3120.git
