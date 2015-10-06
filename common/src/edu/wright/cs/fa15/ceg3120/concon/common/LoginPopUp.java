@@ -107,6 +107,9 @@ public class LoginPopUp {
                         @Override
                         public void run() {
                             try {
+                                //this needs to come out
+                                (new CreateNewAccount()).buildGui();
+                                // remove above
                                 user = incoming.poll(5, TimeUnit.SECONDS);
                             } catch (InterruptedException e) {
                                 // TODO Auto-generated catch block
@@ -131,11 +134,10 @@ public class LoginPopUp {
                                     });
                                     user.launchGui();
                                 } else {
-                                    JOptionPane.showConfirmDialog(null,
+                                    JOptionPane.showMessageDialog(null,
                                             "There was an issue with your request"
                                             + "\nPlease try again...",
-                                            "Error", JOptionPane.OK_OPTION,
-                                            JOptionPane.ERROR_MESSAGE);
+                                            "Error", JOptionPane.ERROR_MESSAGE);
                                     loginButton.setEnabled(true);
                                     btnCreateAccount.setEnabled(true);
                                 }
