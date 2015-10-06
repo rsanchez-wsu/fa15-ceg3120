@@ -75,10 +75,11 @@ public class ServerGUI extends JPanel implements ActionListener {
 		super(new GridLayout(1, 1));
 
 		JTabbedPane tabbedPane = new JTabbedPane();
-		ImageIcon icon = createImageIcon("images/jno4TAP.png");
-
-		JComponent panel1 = makeTextPanel("nah");
-		tabbedPane.addTab("Dash board", icon, panel1, "Does nothing");
+		ImageIcon icon = createImageIcon("images/3.png");
+		ImageIcon iconDashBoard = createImageIcon("images/Dash.png");
+		
+		JComponent panel1 = makeDashBoard();
+		tabbedPane.addTab("Dash board", iconDashBoard, panel1, "Does nothing");
 		tabbedPane.setMnemonicAt(0, KeyEvent.VK_1);
 
 		JComponent panel2 = createButtonsSearch();
@@ -113,8 +114,114 @@ public class ServerGUI extends JPanel implements ActionListener {
 		filler.setHorizontalAlignment(JLabel.CENTER);
 		panel.setLayout(new GridLayout(1, 1));
 		panel.add(filler);
+		
+	
 		return panel;
 	}
+	
+	protected JComponent makeDashBoard(){
+		JPanel mainPanel = new JPanel(new BorderLayout());
+		JToolBar toolBar = new JToolBar();
+		textArea = new JTextArea(10, 20);
+		textArea.setEditable(false);
+		JScrollPane Pane = new JScrollPane(textArea);
+		JPanel contentPane = new JPanel();
+		
+		JFrame reportFrame = new JFrame("Reports");
+		//reportFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		reportFrame.pack();
+		reportFrame.setVisible(false);
+		
+		JFrame emerFrame = new JFrame("Emergency Message");
+		//emerFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		emerFrame.pack();
+		emerFrame.setVisible(false);
+		emerFrame.setResizable(false);
+		emerFrame.setSize(new Dimension(300,150));
+		
+		
+		JTextArea mergText = new JTextArea(10, 50);
+		JLabel mergLabel = new JLabel("Enter the message:");
+		JScrollPane scrollPane = new JScrollPane(mergText);
+		mergLabel.setPreferredSize(new Dimension(5,30));
+		mergText.setLineWrap(true);
+		mergText.setWrapStyleWord(true);
+		
+		JButton jSend = new JButton("Send");
+		JButton jClear = new JButton("Clear");
+		jClear.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent arg0) {
+				mergText.setText("");
+			}
+			
+		});
+		
+		JPanel emerPane = new JPanel();
+		emerPane.setLayout(new BorderLayout());
+		emerPane.add(jSend, BorderLayout.WEST);
+		emerPane.add(jClear,  BorderLayout.CENTER);
+		
+		JPanel emerPane1 = new JPanel();
+		emerPane1.add(emerPane,  BorderLayout.CENTER);
+		
+		emerFrame.add(mergLabel, BorderLayout.NORTH);
+		emerFrame.add(scrollPane,BorderLayout.CENTER);
+		emerFrame.add(emerPane1, BorderLayout.SOUTH);
+	
+		
+		
+		contentPane.setLayout(new BorderLayout());
+		contentPane.setPreferredSize(new Dimension(400, 100));
+		contentPane.add(toolBar, BorderLayout.NORTH);
+		contentPane.add(Pane, BorderLayout.WEST);
+		
+		JButton toolButtons = null;
+		toolButtons = new JButton("Server Status");
+		toolButtons.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent arg0) {
+				displayInTextArea("Server is offline.");
+			}
+			
+		});
+		toolBar.add(toolButtons, BorderLayout.NORTH);
+		
+		//pop up reviewing all news reports from users (abusive, scam...etc reports)
+		JButton buttonReports = null;
+		buttonReports = new JButton("Reports");
+		buttonReports.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+                reportFrame.setVisible(true);
+            }
+		});
+		JButton currentUsers = null;
+		currentUsers = new JButton("Current users");
+		currentUsers.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent arg0) {
+				int number = 420;
+				displayInTextArea("Current online users: " + number); //access the database, request # of online users and post it.
+			}
+			
+		});
+		
+		JButton emergencyMessages = null;
+		emergencyMessages = new JButton("Emergency Message");
+		emergencyMessages.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+                emerFrame.setVisible(true);
+            }
+		});
+		toolBar.add(emergencyMessages, BorderLayout.NORTH);
+		toolBar.add(buttonReports, BorderLayout.NORTH);
+		toolBar.add(currentUsers, BorderLayout.NORTH);
+		mainPanel.add(contentPane);
+		return mainPanel;
+		
+	}
+	
+	protected void displayInTextArea(String actionDescription) {
+		textArea.append(actionDescription + newline);
+	}
+	
 	
 	protected JComponent createControlPanel() {
         JPanel mainPanel = new JPanel(new BorderLayout());
@@ -273,6 +380,8 @@ public class ServerGUI extends JPanel implements ActionListener {
 			return null;
 		}
 	}
+	
+	
 
 	/**
 	 * Create the GUI and show it. For thread safety, this method should be
@@ -281,9 +390,8 @@ public class ServerGUI extends JPanel implements ActionListener {
 	private static void createAndShowGUI() {
 		// Create and set up the window.
 		JFrame frame = new JFrame("Server Control GUI");
-
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
+		
 		// Add content to the window.
 		frame.add(new ServerGUI(), BorderLayout.CENTER);
 
@@ -291,7 +399,7 @@ public class ServerGUI extends JPanel implements ActionListener {
 		frame.pack();
 		frame.setVisible(true);
 	}
-
+	
 	public static void main(String[] args) {
 		// Schedule a job for the event dispatch thread:
 		// creating and showing this application's GUI.
