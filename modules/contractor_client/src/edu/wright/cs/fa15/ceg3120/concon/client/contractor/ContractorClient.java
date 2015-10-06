@@ -23,8 +23,11 @@ package edu.wright.cs.fa15.ceg3120.concon.client.contractor;
 
 import java.awt.Container;
 import java.awt.EventQueue;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.DecimalFormat;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -171,11 +174,14 @@ public class ContractorClient extends JFrame implements ActionListener {
 
 		final JPanel curBidsTab = new JPanel();
 		pageTabs.addTab("Current Bids", null, curBidsTab, null);
+		GridLayout myLayout = new GridLayout(0, 2);
+		curBidsTab.setLayout(myLayout);
+		DecimalFormat f = new DecimalFormat("##.00");
 		final JLabel[] currentBids = new JLabel[10];
 		final JButton[] update = new JButton[10];
 		for (int i = 0; i < 5; i++) {
 			final int j = i;
-			currentBids[i] = new JLabel("You have a bid for " + Math.random() * 115);
+			currentBids[i] = new JLabel("You have a bid for " + f.format(Math.random() * 115));
 			curBidsTab.add(currentBids[i]);
 			update[i] = new JButton("Update Bid");
 			curBidsTab.add(update[i]);
@@ -185,10 +191,14 @@ public class ContractorClient extends JFrame implements ActionListener {
 				@Override
 				public void actionPerformed(ActionEvent a) {
 					try {
-						int newBid = Integer.parseInt(JOptionPane.showInputDialog("Enter new bid"));
-						currentBids[j].setText("You have a bid for " + newBid);
-						curBidsTab.validate();
-						curBidsTab.repaint();
+						String input = JOptionPane.showInputDialog(frame, "Enter new bid");
+						if (input != null) {
+							double newBid = Double.parseDouble(input);
+							currentBids[j].setText("You have a bid for " + newBid);
+							curBidsTab.validate();
+							curBidsTab.repaint();
+						}
+						
 					} catch (IllegalArgumentException e) {
 						JOptionPane.showMessageDialog(frame, "Invalid Input");
 					}
