@@ -103,16 +103,4 @@ public class MailManager {
 			Logger.getLogger(this.getClass().getName()).log(Level.WARNING, "Email was not sent. ", mex);
 		}
 	}
-	
-	public void receiveEmail() {
-		// Get system properties
-		Properties sysProps = System.getProperties();
-
-		// Setup mail server
-		sysProps.setProperty(sysHostProp, host);
-
-		// Get the default Session object.
-		Session session = Session.getDefaultInstance(sysProps);
-		
-	}
 }
