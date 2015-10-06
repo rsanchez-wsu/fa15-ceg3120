@@ -92,3 +92,4 @@ nb-configuration.xml
 modules/*/build/
 modules/*/ivy.xml
 modules/*/lib/
+modules/*/tools/
