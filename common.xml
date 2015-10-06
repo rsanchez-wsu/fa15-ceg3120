@@ -4,8 +4,16 @@
     <property name="common.dir"   value="../../common/src"/>
     <property name="build.dir"    value="build"/>
     <property name="lib.dir"      value="lib"/>
+    <property name="tools.dir"    value="tools"/>
     <property name="classes.dir"  value="${build.dir}/classes"/>
 	<property name="db.url"		  value="jdbc:derby:C:\Users\NathanJent\conconDB"/>
+
+    <path id="build.lib.path">
+        <fileset dir="${lib.dir}" includes="*.jar"/>
+    </path>
+    <path id="tools.lib.path">
+        <fileset dir="${tools.dir}" includes="*.jar"/>
+    </path>
 
     <!-- Ivy Start -->
 
@@ -48,7 +56,7 @@
     <target name="resolve" depends="init-ivy, copy-ivy">
         <ivy:configure/>
         <ivy:resolve/>
-        <ivy:retrieve/>
+        <ivy:retrieve pattern="[conf]/[artifact]-[revision].[ext]" type="jar,bundle"/>
     </target>
 
     <!-- Ivy End -->
@@ -74,12 +82,16 @@
 
     <!-- JUnit End -->
 
-    <target name="init" depends="resolve, init-junit, log4jconfig"/>
+    <target name="init" depends="resolve, init-junit">
+        <taskdef name="findbugs"
+            classname="edu.umd.cs.findbugs.anttask.FindBugsTask"
+            classpathref="tools.lib.path"/>
+    </target>
 
     <target name="compile" depends="init">
         <mkdir dir="${classes.dir}"/>
-        <javac srcdir="${common.dir}" destdir="${classes.dir}" includeantruntime="false"/>
-        <javac srcdir="${src.dir}" destdir="${classes.dir}" includeantruntime="false"/>
+        <javac srcdir="${common.dir}" destdir="${classes.dir}" includeantruntime="false" classpathref="build.lib.path"/>
+        <javac srcdir="${src.dir}" destdir="${classes.dir}" includeantruntime="false" classpathref="build.lib.path"/>
     </target>
 
     <target name="build" depends="compile">
@@ -89,11 +101,41 @@
     <target name="clean">
         <delete dir="${build.dir}"/>
         <delete dir="${lib.dir}"/>
+        <delete dir="${tools.dir}"/>
         <delete file="ivy.xml"/>
     </target>
 
-    <target name="test" depends="build">
-        <echo message="Testing is not implemented"/>
+    <target name="test" depends="build, findbugs"/>
+
+    <target name="findbugs" depends="build">
+        <mkdir dir="${build.dir}/findbugs"/>
+
+        <pathconvert property="tools.lib.prop" refid="tools.lib.path"/>
+
+        <findbugs classpath="${tools.lib.prop}"
+            reportLevel="low"
+            effort="max"
+            failOnError="true"
+            warningsProperty="findbugs-warning"
+            output="html"
+            outputFile="${build.dir}/findbugs/${ant.project.name}.html">
+            <sourcePath>
+                <fileSet dir="${src.dir}">
+                    <include name="**/*.java"/>
+                </fileSet>
+                <fileSet dir="${common.dir}">
+                    <include name="**/*.java"/>
+                </fileSet>
+            </sourcePath>
+            <auxClasspath>
+                <fileSet dir="${lib.dir}">
+                    <include name="**/*.jar"/>
+                </fileSet>
+            </auxClasspath>
+            <class location="${classes.dir}"/>
+        </findbugs>
+
+        <fail if="findbugs-warning" message="FindBugs has found bugs!"/>
     </target>
 
 	<target name="log4jconfig">
@@ -103,11 +145,11 @@
 		&lt;Console name=&quot;STDOUT&quot; target=&quot;SYSTEM_OUT&quot;&gt;
 			&lt;PatternLayout pattern=&quot;%d %-5p [%t] %C{2} (%F:%L) - %m%n&quot;/&gt;
 		&lt;/Console&gt;
-		
+
 	    &lt;File name=&quot;fileAppender&quot; fileName=&quot;logs/app.log&quot;&gt;
 			&lt;PatternLayout pattern=&quot;%d %p %c{1.} [%t] %m%n&quot;/&gt;
 	    &lt;/File&gt;
-		
+
 		&lt;!-- TODO make the database appender work
 	    &lt;JDBC name=&quot;databaseAppender&quot; tableName=&quot;concon.logs&quot;&gt;
 			&lt;DataSource jndiName=&quot;java:/comp/env/jdbc/LoggingDataSource&quot; /&gt;
@@ -119,18 +161,18 @@
 	    &lt;/JDBC&gt;
 	     --&gt;
 	&lt;/Appenders&gt;
-	
+
 	&lt;Loggers&gt;
-		&lt;!-- 
+		&lt;!--
 		&lt;Logger name=&quot;databaseLogger&quot; level=&quot;info&quot;&gt;
 			&lt;AppenderRef ref=&quot;databaseAppender&quot;/&gt;
 		&lt;/Logger&gt;
 		--&gt;
-		
+
 		&lt;Logger name=&quot;edu.wright.cs.fa15.ceg3120.concon&quot; level=&quot;debug&quot;&gt;
 			&lt;AppenderRef ref=&quot;fileAppender&quot;/&gt;
 		&lt;/Logger&gt;
-		
+
 		&lt;Root level=&quot;error&quot;&gt;
 			&lt;AppenderRef ref=&quot;STDOUT&quot;/&gt;
 		&lt;/Root&gt;
