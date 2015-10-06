@@ -82,7 +82,7 @@
 
     <!-- JUnit End -->
 
-    <target name="init" depends="resolve, init-junit, log4jconfig"/>
+    <target name="init" depends="resolve, init-junit, log4jconfig">
         <taskdef name="findbugs"
             classname="edu.umd.cs.findbugs.anttask.FindBugsTask"
             classpathref="tools.lib.path"/>
@@ -138,48 +138,10 @@
         <fail if="findbugs-warning" message="FindBugs has found bugs!"/>
     </target>
 
-	<!-- Generate log4j.xml for each module -->
+	<!-- Copy log4j2.xml to each module -->
 	<target name="log4jconfig">
-		<echo file="${src.dir}/log4j.xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;
-&lt;Configuration&gt;
-	&lt;Appenders&gt;
-		&lt;Console name=&quot;STDOUT&quot; target=&quot;SYSTEM_OUT&quot;&gt;
-			&lt;PatternLayout pattern=&quot;%d %-5p [%t] %C{2} (%F:%L) - %m%n&quot;/&gt;
-		&lt;/Console&gt;
-		
-	    &lt;File name=&quot;fileAppender&quot; fileName=&quot;logs/app.log&quot;&gt;
-			&lt;PatternLayout pattern=&quot;%d %p %c{1.} [%t] %m%n&quot;/&gt;
-	    &lt;/File&gt;
-		
-		&lt;!-- TODO make the database appender work
-	    &lt;JDBC name=&quot;databaseAppender&quot; tableName=&quot;concon.logs&quot;&gt;
-			&lt;DataSource jndiName=&quot;java:/comp/env/jdbc/LoggingDataSource&quot; /&gt;
-			&lt;Column name=&quot;eventDate&quot; isEventTimestamp=&quot;true&quot; /&gt;
-			&lt;Column name=&quot;level&quot; pattern=&quot;%level&quot; /&gt;
-			&lt;Column name=&quot;logger&quot; pattern=&quot;%logger&quot; /&gt;
-			&lt;Column name=&quot;message&quot; pattern=&quot;%message&quot; /&gt;
-			&lt;Column name=&quot;exception&quot; pattern=&quot;%ex{full}&quot; /&gt;
-	    &lt;/JDBC&gt;
-	     --&gt;
-	&lt;/Appenders&gt;
-	
-	&lt;Loggers&gt;
-		&lt;!-- 
-		&lt;Logger name=&quot;databaseLogger&quot; level=&quot;info&quot;&gt;
-			&lt;AppenderRef ref=&quot;databaseAppender&quot;/&gt;
-		&lt;/Logger&gt;
-		--&gt;
-		
-		&lt;Logger name=&quot;edu.wright.cs.fa15.ceg3120.concon&quot; level=&quot;debug&quot;&gt;
-			&lt;AppenderRef ref=&quot;fileAppender&quot;/&gt;
-		&lt;/Logger&gt;
-		
-		&lt;Root level=&quot;error&quot;&gt;
-			&lt;AppenderRef ref=&quot;STDOUT&quot;/&gt;
-		&lt;/Root&gt;
-	&lt;/Loggers&gt;
-&lt;/Configuration&gt;
-		</echo>
+		<copy file="${common.dir}/log4j2.xml" todir="${src.dir}"/>
 	</target>
+	
     <!-- more targets -->
 </project>
