@@ -82,10 +82,11 @@ public class LoginPopUp {
                     public void run() {
                         // TODO Auto-generated method stub
                         launchNewAccountGui();// set focusable not doing what i want <_<
+                        loginButton.setEnabled(true);
+                        btnCreateAccount.setEnabled(true);
                     }
                 });
-                loginButton.setEnabled(false);
-                btnCreateAccount.setEnabled(false);
+                
             }
         });
 
