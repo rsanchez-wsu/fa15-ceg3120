@@ -96,6 +96,7 @@
         <echo message="Testing is not implemented"/>
     </target>
 
+	<!-- Generate log4j.xml for each module -->
 	<target name="log4jconfig">
 		<echo file="${src.dir}/log4j.xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;
 &lt;Configuration&gt;
