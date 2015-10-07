@@ -247,7 +247,7 @@ public class ContractorClient extends JFrame implements ActionListener {
 		searchTab.add(lblSearchTabMain);
 		lblSearchTabMain.setBounds(5,5,120,20);
 		String[] searchOptions = {"Show All", "Location", "Cost", "Duration"};
-		JComboBox<String> cboSearchOptions = new JComboBox<String>(searchOptions);
+		final JComboBox<String> cboSearchOptions = new JComboBox<String>(searchOptions);
 		searchTab.add(cboSearchOptions);
 		cboSearchOptions.setBounds(140, 5, 120, 20);
 		cboSearchOptions.addActionListener(new ActionListener() {
