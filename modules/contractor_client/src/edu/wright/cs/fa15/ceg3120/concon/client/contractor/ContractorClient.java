@@ -306,7 +306,7 @@ public class ContractorClient extends JFrame implements ActionListener {
 					
 					break;
 				case 2:
-					String tempCost = txtSearchOptions.getText(); 
+					final String tempCost = txtSearchOptions.getText(); 
 					int tempCostInt = 0;
 					if (tempCost.length() > 0) {
 						tempCostInt = Integer.parseInt(tempCost);
