@@ -82,7 +82,7 @@ public class ConConServer extends Thread
         }
     }
 
-    private class ConnectionWorker extends Thread
+    private static class ConnectionWorker extends Thread
     {
         private Socket clientSocket = null;
 
@@ -97,14 +97,14 @@ public class ConConServer extends Thread
             try
             {
                 DataOutputStream toClient = new DataOutputStream(clientSocket.getOutputStream());
-                BufferedReader fromClient = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+                BufferedReader fromClient = new BufferedReader(new InputStreamReader(clientSocket.getInputStream(), "UTF-8"));
 
                 int n = 0;
-                String message = "";
+                StringBuilder message = new StringBuilder();
                 while ((n = fromClient.read()) != -1)
-                    message += (char)n;
+                    message.append(n);
 
-                NetworkManager.post(NetworkManager.decodeFromXML(message));
+                NetworkManager.post(NetworkManager.decodeFromXML(message.toString()));
 
                 toClient.close();
                 fromClient.close();

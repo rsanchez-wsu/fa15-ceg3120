@@ -29,12 +29,12 @@ import java.util.Map;
 
 public class NetworkManager
 {
-    private static final HashMap<Method, Class> NETWORK_BUS = new HashMap<Method, Class>();
+    private static final HashMap<Method, Class<?>> NETWORK_BUS = new HashMap<Method, Class<?>>();
 
     private static ConConServer server;
     private static ConConClient client;
 
-    public static void registerNetworkClass(Class c)
+    public static void registerNetworkClass(Class<?> c)
     {
         Method[] methods = c.getMethods();
         for (Method m : methods)
@@ -53,7 +53,7 @@ public class NetworkManager
     @SuppressWarnings("unchecked")
     public static void post(NetworkMessage message)
     {
-        for (Map.Entry<Method, Class> listener : NETWORK_BUS.entrySet())
+        for (Map.Entry<Method, Class<?>> listener : NETWORK_BUS.entrySet())
         {
             if (listener.getValue().isAssignableFrom(message.getClass()))
             {
@@ -71,7 +71,7 @@ public class NetworkManager
         }
     }
 
-    public static boolean startServer(int port)
+    public static synchronized boolean startServer(int port)
     {
         if (server != null || client != null)
             return false;
@@ -86,7 +86,7 @@ public class NetworkManager
         server = null;
     }
 
-    public static boolean startClient(String host, int port)
+    public static synchronized boolean startClient(String host, int port)
     {
         if (server != null || client != null)
             return false;
