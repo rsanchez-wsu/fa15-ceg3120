@@ -44,7 +44,7 @@ public class ContractorClient extends JFrame implements ActionListener {
 
 
 	private static final long serialVersionUID = 1L;
-	private JFrame frame;
+	private static JFrame frame;
 	private static JTextField txtLastName;
 	private static JTextField txtFirstName;
 	private static JTextField txtCompanyName;
@@ -83,23 +83,6 @@ public class ContractorClient extends JFrame implements ActionListener {
 	private static JButton btnCancel;
 
 	/**
-	 * This method sets up the initial window.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					ContractorClient window = new ContractorClient();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-
-			}
-		});
-	}
-
-	/**
 	 * Create the application.
 	 */
 	public ContractorClient() {
@@ -110,7 +93,7 @@ public class ContractorClient extends JFrame implements ActionListener {
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	private void initialize() {
+	private static void initialize() {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 725, 475);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -583,5 +566,24 @@ public class ContractorClient extends JFrame implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e0) {
 
+	}
+
+
+	/**
+	 * This method sets up the initial window.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					ContractorClient.initialize();
+//					ContractorClient window = new ContractorClient();
+					ContractorClient.frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+
+			}
+		});
 	}
 }
