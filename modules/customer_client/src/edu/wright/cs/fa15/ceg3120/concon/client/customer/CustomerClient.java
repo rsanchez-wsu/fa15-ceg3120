@@ -55,17 +55,7 @@ public class CustomerClient {
         // build UI here
 
         custFrame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
-        custFrame.addWindowListener(new WindowAdapter() {
-            @Override
-            public void windowClosing(WindowEvent ev) {
-                int result = JOptionPane.showConfirmDialog(null, "Do you really wish to exit?",
-                        "Exit?", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-                if (result == 0) {
-                    // release any network/file resources
-                    System.exit(0);
-                }
-            }
-        });
+        custFrame.addWindowListener(new MyWindowAdapter());
 
         custFrame.setVisible(true);
     }// end buildGui
@@ -81,5 +71,17 @@ public class CustomerClient {
         BeanMessage message = new BeanMessage("Hello World");
         NetworkManager.sendMessage(message);
         new CustomerClient().buildGui();
+    }
+    
+    static class MyWindowAdapter extends WindowAdapter {
+        @Override
+        public void windowClosing(WindowEvent ev) {
+            int result = JOptionPane.showConfirmDialog(null, "Do you really wish to exit?",
+                    "Exit?", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+            if (result == 0) {
+                // release any network/file resources
+                System.exit(0);
+            }
+        }
     }
 }

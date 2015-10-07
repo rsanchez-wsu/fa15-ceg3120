@@ -75,9 +75,9 @@ public class UserAccount {
         this.accountType = accountType;
     }
 
-//    public char[] getPswd() {
-//        return pswd;
-//    }
+    public char[] getPswd() {
+        return pswd.clone();
+    }
 
     public void setPswd(char[] pswd) {
         this.pswd = pswd.clone();

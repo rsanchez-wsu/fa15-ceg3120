@@ -27,6 +27,10 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.Externalizable;
+import java.io.IOException;
+import java.io.ObjectInput;
+import java.io.ObjectOutput;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.TimeUnit;
 
@@ -40,7 +44,7 @@ import javax.swing.JTextField;
 import javax.swing.SpringLayout;
 import javax.swing.SwingUtilities;
 
-public class LoginPopUp {
+public class LoginPopUp implements Externalizable{
 
     private UserAccount user;
     private static ArrayBlockingQueue<UserAccount> incoming = new ArrayBlockingQueue<>(3);
@@ -58,13 +62,15 @@ public class LoginPopUp {
         user = null;
         loginButton = new JButton();
         btnCreateAccount = new JButton();
+        uuidField = new JTextField();
+        passwordField = new JPasswordField();
     }
 
     /**
      * temp.
      */
     private void buildGui() {
-        final JFrame loginFrame = new StringFrame();
+        final JFrame loginFrame = new StringFrame(this);
         loginFrame.setSize(500, 300);
         uuidField.requestFocus();
 
@@ -206,6 +212,9 @@ public class LoginPopUp {
 
     }// end launchNewAccountGUI
 
+    public FieldPanel createFieldPanel() {
+        return new FieldPanel();
+    }
     /**
      * Entry point for the main unit.
      * 
@@ -224,15 +233,17 @@ public class LoginPopUp {
     }
 
     @SuppressWarnings("serial")
-    public class StringFrame extends JFrame {
+    public static class StringFrame extends JFrame {
         private FieldPanel currentPanel;
-
+        private LoginPopUp popup;
+        
         /**
          * Creates a new instance of <code>StringFrame</code>.
          */
-        public StringFrame() {
+        public StringFrame(LoginPopUp popUp) {
             super("Login");
-            currentPanel = new FieldPanel();
+            this.popup = popUp;
+            currentPanel = popup.createFieldPanel();
 
             setupFrame();
 
@@ -331,5 +342,17 @@ public class LoginPopUp {
             lblPassword.setFont(new Font("Times New Roman", Font.PLAIN, 12));
             add(lblPassword);
         }
+    }
+
+    @Override
+    public void writeExternal(ObjectOutput out) throws IOException {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
+        // TODO Auto-generated method stub
+        
     }
 }
