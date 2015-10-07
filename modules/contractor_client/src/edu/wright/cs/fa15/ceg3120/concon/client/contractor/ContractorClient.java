@@ -319,7 +319,17 @@ public class ContractorClient extends JFrame implements ActionListener {
 					}
 					break;
 				case 3:
-					
+					final String tempDuration = txtSearchOptions.getText();
+					int tempDurationInt = 0;
+					if (tempDuration.length() > 0) {
+						tempDurationInt = Integer.parseInt(tempDuration);
+					}
+					for (int i = 0; i < jobList.size(); i++) {
+						String[] tempArray = jobList.elementAt(i);
+						if (Integer.parseInt(tempArray[5]) <= tempDurationInt) {
+							model1.addRow(tempArray);
+						}
+					}
 					break;
 				default:
 					model1.setRowCount(0);
