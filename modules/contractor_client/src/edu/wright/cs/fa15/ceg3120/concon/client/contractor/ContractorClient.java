@@ -166,7 +166,7 @@ public class ContractorClient extends JFrame implements ActionListener {
 		pageTabs.addTab("Current Bids", null, curBidsTab, null);
 		GridLayout myLayout = new GridLayout(0, 2);
 		curBidsTab.setLayout(myLayout);
-		DecimalFormat f0 = new DecimalFormat("##.00");
+		final DecimalFormat f0 = new DecimalFormat("##.00");
 		final JLabel[] currentBids = new JLabel[10];
 		final JButton[] update = new JButton[10];
 		for (int i = 0; i < 5; i++) {
