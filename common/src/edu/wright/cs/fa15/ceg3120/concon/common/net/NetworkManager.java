@@ -23,12 +23,17 @@ package edu.wright.cs.fa15.ceg3120.concon.common.net;
 
 import edu.wright.cs.fa15.ceg3120.concon.common.net.message.NetworkMessage;
 
+import java.beans.XMLDecoder;
+import java.beans.XMLEncoder;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
 
 public class NetworkManager {
-    private static final HashMap<Method, Class<?>> NETWORK_BUS = new HashMap<>();
+    private static final HashMap<Method, Class<?>> NETWORK_BUS = new HashMap<Method, Class<?>>();
 
     private static ConConServer server;
     private static ConConClient client;
@@ -53,9 +58,9 @@ public class NetworkManager {
         for (Map.Entry<Method, Class<?>> listener : NETWORK_BUS.entrySet()) {
             if (listener.getValue().isAssignableFrom(message.getClass())) {
                 try {
+                    System.out.println("Recieved message: " + message);
                     // if (message instanceof NetworkMessageSomethingSomething)
-                    // listener.getKey().invoke(null,
-                    // (NetworkMessageSomethingSomething)message);
+                    // listener.getKey().invoke(null, (NetworkMessageSomethingSomething)message);
                     // etc
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -64,7 +69,7 @@ public class NetworkManager {
         }
     }
 
-    public synchronized static boolean startServer(int port) {
+    public static synchronized boolean startServer(int port) {
         if (server != null || client != null) {
             return false;
         }
@@ -78,7 +83,7 @@ public class NetworkManager {
         server = null;
     }
 
-    public synchronized static boolean startClient(String host, int port) {
+    public static synchronized boolean startClient(String host, int port) {
         if (server != null || client != null) {
             return false;
         }
@@ -94,17 +99,30 @@ public class NetworkManager {
         if (client == null) {
             return false;
         }
-        client.sendMessage(encodeToXML(message));
+        try {
+            client.sendMessage(encodeToXML(message));
+        } catch (UnsupportedEncodingException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
         return true;
     }
 
-    protected static NetworkMessage decodeFromXML(String xml) {
+    protected static NetworkMessage decodeFromXML(String xml) throws UnsupportedEncodingException {
         // some reflection wizardry or switching or something
-        return null;
+        XMLDecoder xmlWizard = new XMLDecoder(new ByteArrayInputStream(xml.getBytes("UTF-8")));
+        NetworkMessage result = (NetworkMessage) xmlWizard.readObject();
+        xmlWizard.close();
+        return result;
     }
 
-    protected static String encodeToXML(NetworkMessage message) {
+    protected static String encodeToXML(NetworkMessage message)
+            throws UnsupportedEncodingException {
         // some reflection wizardry or switching or something
-        return null;
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        XMLEncoder xmlWizard = new XMLEncoder(out, "UTF-8", false, 0);
+        xmlWizard.writeObject(message);
+        xmlWizard.close();
+        return out.toString("UTF-8");
     }
 }

@@ -1,8 +1,8 @@
 /*
  * Copyright (C) 2015
- *
- *
- *
+ * 
+ * 
+ * 
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -21,17 +21,31 @@
 
 package edu.wright.cs.fa15.ceg3120.concon.common.net.message;
 
-import java.io.Serializable;
-
-public abstract class NetworkMessage implements Serializable
-{
+public class BeanMessage extends NetworkMessage {
 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -8618792710721202266L;
+	private static final long serialVersionUID = -2279299798905393963L;
+	private String message;
 
-	public NetworkMessage() {}
-	
-	
+	public BeanMessage() {} // Default constructor required for java beans.
+
+	public BeanMessage(String message)
+	{
+		this.message = message;
+	}
+
+	public String getMessage() {
+		return message;
+	}
+
+	public void setMessage(String message) {
+		this.message = message;
+	}
+
+	@Override
+	public String toString() {
+		return "BeanMessage [message=" + message + "]";
+	}
 }

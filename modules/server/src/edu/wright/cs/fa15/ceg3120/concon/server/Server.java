@@ -1,8 +1,8 @@
 /*
  * Copyright (C) 2015
- *
- *
- *
+ * 
+ * 
+ * 
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,19 +19,14 @@
  *
  */
 
-package edu.wright.cs.fa15.ceg3120.concon.common.net.message;
+package edu.wright.cs.fa15.ceg3120.concon.server;
 
-import java.io.Serializable;
+import edu.wright.cs.fa15.ceg3120.concon.common.net.NetworkManager;
 
-public abstract class NetworkMessage implements Serializable
-{
+public class Server {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -8618792710721202266L;
-
-	public NetworkMessage() {}
-	
-	
+	public static void main(String[] args) {
+		NetworkManager.startServer(9667);
+		System.out.println("Server running.");
+	}
 }
