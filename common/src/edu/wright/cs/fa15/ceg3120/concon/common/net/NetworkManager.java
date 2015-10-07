@@ -109,7 +109,12 @@ public class NetworkManager
     {
         if (client == null)
             return false;
-        client.sendMessage(encodeToXML(message));
+        try {
+			client.sendMessage(encodeToXML(message));
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
         return true;
     }
 
@@ -122,13 +127,13 @@ public class NetworkManager
         return result;
     }
 
-    protected static String encodeToXML(NetworkMessage message)
+    protected static String encodeToXML(NetworkMessage message) throws UnsupportedEncodingException
     {
         //some reflection wizardry or switching or something
 		ByteArrayOutputStream out = new ByteArrayOutputStream();
     	XMLEncoder xmlWizard = new XMLEncoder(out, "UTF-8", false, 0);
     	xmlWizard.writeObject(message);
     	xmlWizard.close();
-        return out.toString();
+        return out.toString("UTF-8");
     }
 }
