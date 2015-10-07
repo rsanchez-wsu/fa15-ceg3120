@@ -260,7 +260,7 @@ public class ContractorClient extends JFrame implements ActionListener {
 		pageTabs.addTab("Open Jobs", null, openJobsTab, null);
 	}
 
-	public void populateProfileTab() {
+	public static void populateProfileTab() {
 		JLabel lblCurProfile = new JLabel("Current Profile Settings:");
 		profileTab.add(lblCurProfile);
 		lblCurProfile.setBounds(30, 5, 200, 20);
@@ -483,7 +483,7 @@ public class ContractorClient extends JFrame implements ActionListener {
 		profileTab.revalidate();
 	}
 
-	public void clearProfileUpdates() {
+	public static void clearProfileUpdates() {
 		txtLastNameUpdate.setText(null);
 		txtFirstNameUpdate.setText(null);
 		txtCompanyNameUpdate.setText(null);
