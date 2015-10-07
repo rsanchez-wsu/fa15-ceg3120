@@ -21,9 +21,14 @@
 
 package edu.wright.cs.fa15.ceg3120.concon.client.customer;
 
+import edu.wright.cs.fa15.ceg3120.concon.common.net.NetworkManager;
+import edu.wright.cs.fa15.ceg3120.concon.common.net.message.BeanMessage;
+
 public class CustomerClient {
 
 	public static void main(String[] args) {
-		
+		NetworkManager.startClient("localhost", 9667);
+		BeanMessage message = new BeanMessage("Hello World");
+		NetworkManager.sendMessage(message);
 	}
 }
