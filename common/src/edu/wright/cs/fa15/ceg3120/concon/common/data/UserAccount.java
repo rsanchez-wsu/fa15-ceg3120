@@ -56,7 +56,7 @@ public class UserAccount {
     public UserAccount(String uuid, AccountType type, char[] pswd) {
         this.uuid = uuid;
         accountType = type;
-        this.pswd = pswd; // XXX this WILL need changed
+        this.pswd = pswd.clone(); // XXX this WILL need changed
     }
 
     public String getUuid() {
@@ -75,12 +75,12 @@ public class UserAccount {
         this.accountType = accountType;
     }
 
-    public char[] getPswd() {
-        return pswd;
-    }
+//    public char[] getPswd() {
+//        return pswd;
+//    }
 
     public void setPswd(char[] pswd) {
-        this.pswd = pswd;
+        this.pswd = pswd.clone();
     }
 
     /**

@@ -96,12 +96,12 @@ public class JobRequest {
         this.jobDescr = jobDescr;
     }
 
-    public Image[] getPicsOfCurrentState() {
-        return picsOfCurrentState;
-    }
+//    public Image[] getPicsOfCurrentState() {
+//        return picsOfCurrentState;
+//    }
 
     public void setPicsOfCurrentState(Image[] picsOfCurrentState) {
-        this.picsOfCurrentState = picsOfCurrentState;
+        this.picsOfCurrentState = picsOfCurrentState.clone();
     }
 
 }

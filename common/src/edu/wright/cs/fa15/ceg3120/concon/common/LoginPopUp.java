@@ -56,6 +56,8 @@ public class LoginPopUp {
      */
     public LoginPopUp() {
         user = null;
+        loginButton = new JButton();
+        btnCreateAccount = new JButton();
     }
 
     /**
