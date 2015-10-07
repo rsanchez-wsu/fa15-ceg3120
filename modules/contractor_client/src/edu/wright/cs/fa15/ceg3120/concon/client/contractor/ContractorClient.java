@@ -27,16 +27,21 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.DecimalFormat;
+import java.util.Vector;
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
+import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import javax.swing.JTree;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 
@@ -81,12 +86,18 @@ public class ContractorClient extends JFrame implements ActionListener {
 	private static JLabel lblZipCodeUpdate;
 	private static JButton btnSave;
 	private static JButton btnCancel;
+	private static String[] job1;
+	private static String[] job2;
+	private static String[] job3;
+	private static String[] job4;
+	private static Vector<String[]> jobList = new Vector<String[]>();
+	private static Vector<String> rowData = new Vector<String>();
+	private static String strTest = new String();
 
 	/**
 	 * Create the application.
 	 */
 	public ContractorClient() {
-
 		initialize();
 	}
 
@@ -229,7 +240,46 @@ public class ContractorClient extends JFrame implements ActionListener {
 
 		JPanel searchTab = new JPanel();
 		pageTabs.addTab("Search", null, searchTab, null);
-
+		searchTab.setLayout(null);
+		
+		populateJobListArray();
+		
+		JLabel lblSearchTabMain = new JLabel("Search Options:");
+		searchTab.add(lblSearchTabMain);
+		lblSearchTabMain.setBounds(5,5,120,20);
+		String[] searchOptions = {"Show All", "Location", "Cost", "Duration"};
+		JComboBox<Object> cboSearchOptions = new JComboBox<Object>(searchOptions);
+		searchTab.add(cboSearchOptions);
+		cboSearchOptions.setBounds(140, 5, 120, 20);
+		
+		String[] columnNames = {"Job Number", "Title", "Description", "City", "Cost", "Duration"};
+		DefaultTableModel model1 = new DefaultTableModel(columnNames, 0);
+		JTable tblSearchResults = new JTable(model1);
+		tblSearchResults.setModel(model1);
+		JScrollPane jscSearchResults = new JScrollPane(tblSearchResults);
+		jscSearchResults.setBounds(45, 45, 605, 200);
+		searchTab.add(jscSearchResults);
+		
+		
+		JTextField txtSearchOptions = new JTextField();
+		txtSearchOptions.setBounds(275, 5, 240, 20);
+		searchTab.add(txtSearchOptions);
+		
+		JButton btnSearchGo = new JButton("Search");
+		btnSearchGo.setBounds(530, 5, 120, 20);
+		searchTab.add(btnSearchGo);
+		
+		btnSearchGo.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if (cboSearchOptions.getSelectedItem() == "Show All") {
+					for (int i = 0; i < jobList.size(); i++) {
+						String[] tempArray = jobList.elementAt(i);
+						model1.addRow(tempArray);
+					}
+				}
+			}
+		});
+		
 		JPanel paymentsTab = new JPanel();
 		pageTabs.addTab("Payments", null, paymentsTab, null);
 
@@ -561,6 +611,25 @@ public class ContractorClient extends JFrame implements ActionListener {
 		}
 		loadProfile();
 		profileTab.revalidate();
+	}
+	
+	/**
+	 * This method populates a job list array for building and testing the Search functions.
+	 */
+	public static void populateJobListArray() {
+		job1 = new String[] {"001", "Hole in Wall","Kid smashed head through drywall", 
+							  "Dayton", "$500", "7"};
+		job2 = new String[] {"002", "New Toilet", "Would like new toilet installed", 
+							  "Englewood", "$100", "1"};
+		job3 = new String[] {"017", "Replace Wall Outlet", "Need new outlet installed", 
+							  "Centerville", "$100", "1"};
+		job4 = new String[] {"042", "New Porch", "I want a large enclosed porch built "
+				+ "					   on the back of my house", "Kettering", "$3500", "14"};
+		jobList.removeAllElements();
+		jobList.add(0,job1);
+		jobList.add(1,job2);
+		jobList.add(2,job3);
+		jobList.add(3,job4);
 	}
 
 	@Override
