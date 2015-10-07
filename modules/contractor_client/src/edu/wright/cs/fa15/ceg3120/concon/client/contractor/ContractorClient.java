@@ -247,15 +247,15 @@ public class ContractorClient extends JFrame implements ActionListener {
 		searchTab.add(lblSearchTabMain);
 		lblSearchTabMain.setBounds(5,5,120,20);
 		String[] searchOptions = {"Show All", "Location", "Cost", "Duration"};
-		JComboBox<Object> cboSearchOptions = new JComboBox<Object>(searchOptions);
+		JComboBox<String> cboSearchOptions = new JComboBox<String>(searchOptions);
 		searchTab.add(cboSearchOptions);
 		cboSearchOptions.setBounds(140, 5, 120, 20);
 		cboSearchOptions.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e1) {
-				final String strTest = cboSearchOptions.getSelectedItem().toString();
-				switch (strTest) {
+//				final String strTest = cboSearchOptions.getSelectedItem().toString();
+				switch (cboSearchOptions.getSelectedItem().toString()) {
 				case "Show All":
 					intSearch = 0;
 					break;
