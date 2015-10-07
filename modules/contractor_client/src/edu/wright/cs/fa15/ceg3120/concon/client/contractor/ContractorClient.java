@@ -253,8 +253,8 @@ public class ContractorClient extends JFrame implements ActionListener {
 		cboSearchOptions.addActionListener(new ActionListener() {
 
 			@Override
-			public void actionPerformed(ActionEvent e) {
-				final String strTest = (String) cboSearchOptions.getSelectedItem();
+			public void actionPerformed(ActionEvent e1) {
+				final String strTest = cboSearchOptions.getSelectedItem().toString();
 				switch (strTest) {
 				case "Show All":
 					intSearch = 0;
@@ -267,6 +267,9 @@ public class ContractorClient extends JFrame implements ActionListener {
 					break;
 				case "Duration":
 					intSearch = 3;
+					break;
+				default:
+					intSearch = 0;
 					break;
 				}
 				
