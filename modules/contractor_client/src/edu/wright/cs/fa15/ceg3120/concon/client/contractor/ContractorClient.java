@@ -254,7 +254,7 @@ public class ContractorClient extends JFrame implements ActionListener {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				String strTest = (String) cboSearchOptions.getSelectedItem();
+				final String strTest = (String) cboSearchOptions.getSelectedItem();
 				switch (strTest) {
 				case "Show All":
 					intSearch = 0;
@@ -274,7 +274,7 @@ public class ContractorClient extends JFrame implements ActionListener {
 		});
 		
 		String[] columnNames = {"Job Number", "Title", "Description", "City", "Cost", "Duration"};
-		DefaultTableModel model1 = new DefaultTableModel(columnNames, 0);
+		final DefaultTableModel model1 = new DefaultTableModel(columnNames, 0);
 		JTable tblSearchResults = new JTable(model1);
 		tblSearchResults.setModel(model1);
 		JScrollPane jscSearchResults = new JScrollPane(tblSearchResults);
