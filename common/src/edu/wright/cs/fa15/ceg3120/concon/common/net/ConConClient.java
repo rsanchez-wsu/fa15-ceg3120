@@ -69,7 +69,7 @@ public class ConConClient
                 while ((n = fromServer.read()) != -1)
                     response.append(n);
 
-                // do something
+                NetworkManager.post(NetworkManager.decodeFromXML(response.toString()));
 
                 clientSocket.close();
             }
