@@ -284,7 +284,7 @@ public class ContractorClient extends JFrame implements ActionListener {
 		jscSearchResults.setBounds(45, 45, 605, 200);
 		searchTab.add(jscSearchResults);		
 		
-		JTextField txtSearchOptions = new JTextField();
+		final JTextField txtSearchOptions = new JTextField();
 		txtSearchOptions.setBounds(275, 5, 240, 20);
 		searchTab.add(txtSearchOptions);
 		
