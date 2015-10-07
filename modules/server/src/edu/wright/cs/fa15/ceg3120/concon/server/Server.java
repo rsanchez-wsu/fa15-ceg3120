@@ -29,10 +29,5 @@ public class Server {
 
 	public static void main(String[] args) {
 		LOG.trace("Starting server...");
-		
-		// Temporary testing logs
-		LOG.error("Error test - This class needs implemented.");
-		LOG.debug("Debug test - This class needs implemented.");
-		LOG.info("Info test - This class needs implemented.");
 	}
 }
