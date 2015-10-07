@@ -21,7 +21,7 @@
 
 package edu.wright.cs.fa15.ceg3120.concon.client.customer;
 
-import edu.wright.cs.fa15.ceg3120.concon.common.data.HomeownerAccount;
+//import edu.wright.cs.fa15.ceg3120.concon.common.data.HomeownerAccount;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -75,8 +75,8 @@ public class CustomerClient {
      *            temp
      */
     public static void main(String[] args) {
-        HomeownerAccount justToRemoveWarningForNow = new HomeownerAccount();
-        System.out.println(justToRemoveWarningForNow.getAccountType());
+        //HomeownerAccount justToRemoveWarningForNow = new HomeownerAccount();
+        //System.out.println(justToRemoveWarningForNow.getAccountType());
         new CustomerClient().buildGui();
     }
 }
