@@ -90,8 +90,12 @@
 
     <target name="compile" depends="init">
         <mkdir dir="${classes.dir}"/>
-        <javac srcdir="${common.dir}" destdir="${classes.dir}" includeantruntime="false" classpathref="build.lib.path"/>
-        <javac srcdir="${src.dir}" destdir="${classes.dir}" includeantruntime="false" classpathref="build.lib.path"/>
+        <javac srcdir="${common.dir}" destdir="${classes.dir}" includeantruntime="false" classpathref="build.lib.path">
+        	<include name="**/*.class"/>
+        </javac>
+        <javac srcdir="${src.dir}" destdir="${classes.dir}" includeantruntime="false" classpathref="build.lib.path">
+        	<include name="**/*.class"/>
+        </javac>
     </target>
 
     <target name="build" depends="compile">
