@@ -42,6 +42,8 @@ import javax.swing.tree.DefaultTreeModel;
 
 public class ContractorClient extends JFrame implements ActionListener {
 
+
+	private static final long serialVersionUID = 1L;
 	private JFrame frame;
 	private JTextField txtLastName;
 	private JTextField txtFirstName;
@@ -67,11 +69,6 @@ public class ContractorClient extends JFrame implements ActionListener {
 	public String strCity = "Dayton";
 	public String strState = "OH";
 	public int intZipCode = 45402;
-	/*
-	 * public String strLastName; public String strFirstName; public String
-	 * strCompanyName; public String strAddress1; public String strAddress2;
-	 * public String strCity; public String strState; public int intZipCode;
-	 */
 	private JPanel profileTab;
 	private JLabel lblNewProfile;
 	private JLabel lblLastNameUpdate;
@@ -84,8 +81,6 @@ public class ContractorClient extends JFrame implements ActionListener {
 	private JLabel lblZipCodeUpdate;
 	private JButton btnSave;
 	private JButton btnCancel;
-
-	// private final Action action = new SwingAction();
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -131,40 +126,44 @@ public class ContractorClient extends JFrame implements ActionListener {
 		main.setLayout(null);
 
 		JTree mainTree = new JTree();
-		mainTree.setModel(new DefaultTreeModel(new DefaultMutableTreeNode("Main") {
-			{
-				DefaultMutableTreeNode node_1;
-				DefaultMutableTreeNode node_2;
-				DefaultMutableTreeNode node_3;
-				node_1 = new DefaultMutableTreeNode("Previous Jobs");
-				node_2 = new DefaultMutableTreeNode("Electrical");
-				node_3 = new DefaultMutableTreeNode("Jan 12 2014");
-				node_3.add(new DefaultMutableTreeNode("Description"));
-				node_3.add(new DefaultMutableTreeNode("Photos"));
-				node_2.add(node_3);
-				node_3 = new DefaultMutableTreeNode("Feb 9 2014");
-				node_3.add(new DefaultMutableTreeNode("Description"));
-				node_3.add(new DefaultMutableTreeNode("Photos"));
-				node_2.add(node_3);
-				node_1.add(node_2);
-				node_2 = new DefaultMutableTreeNode("Plumbing");
-				node_3 = new DefaultMutableTreeNode("Mar 24 2015");
-				node_3.add(new DefaultMutableTreeNode("Description"));
-				node_3.add(new DefaultMutableTreeNode("Photos"));
-				node_2.add(node_3);
-				node_1.add(node_2);
-				node_2 = new DefaultMutableTreeNode("Outdoor");
-				node_3 = new DefaultMutableTreeNode("July 17 2015");
-				node_3.add(new DefaultMutableTreeNode("Description"));
-				node_3.add(new DefaultMutableTreeNode("Photos"));
-				node_2.add(node_3);
-				node_1.add(node_2);
-				node_1 = new DefaultMutableTreeNode("Reviews");
-				node_1.add(new DefaultMutableTreeNode("All"));
-				node_1.add(new DefaultMutableTreeNode("Positive"));
-				node_1.add(new DefaultMutableTreeNode("Negative"));
+		mainTree.setModel(new DefaultTreeModel(
+			new DefaultMutableTreeNode("Main") {
+				{
+					DefaultMutableTreeNode node_1;
+					DefaultMutableTreeNode node_2;
+					DefaultMutableTreeNode node_3;
+					node_1 = new DefaultMutableTreeNode("Previous Jobs");
+						node_2 = new DefaultMutableTreeNode("Electrical");
+							node_3 = new DefaultMutableTreeNode("Jan 12 2014");
+								node_3.add(new DefaultMutableTreeNode("Description"));
+								node_3.add(new DefaultMutableTreeNode("Photos"));
+							node_2.add(node_3);
+							node_3 = new DefaultMutableTreeNode("Feb 9 2014");
+								node_3.add(new DefaultMutableTreeNode("Description"));
+								node_3.add(new DefaultMutableTreeNode("Photos"));
+							node_2.add(node_3);
+						node_1.add(node_2);
+						node_2 = new DefaultMutableTreeNode("Plumbing");
+							node_3 = new DefaultMutableTreeNode("Mar 24 2015");
+								node_3.add(new DefaultMutableTreeNode("Description"));
+								node_3.add(new DefaultMutableTreeNode("Photos"));
+							node_2.add(node_3);
+						node_1.add(node_2);
+						node_2 = new DefaultMutableTreeNode("Outdoor");
+							node_3 = new DefaultMutableTreeNode("Jul 17 2015");
+								node_3.add(new DefaultMutableTreeNode("Description"));
+								node_3.add(new DefaultMutableTreeNode("Photos"));
+							node_2.add(node_3);
+						node_1.add(node_2);
+					add(node_1);
+					node_1 = new DefaultMutableTreeNode("Reviews");
+						node_1.add(new DefaultMutableTreeNode("All"));
+						node_1.add(new DefaultMutableTreeNode("Positive"));
+						node_1.add(new DefaultMutableTreeNode("Negative"));
+					add(node_1);
+				}
 			}
-		}));
+		));
 		main.add(mainTree);
 		mainTree.setBounds(6, 6, 160, 275);
 
@@ -210,7 +209,9 @@ public class ContractorClient extends JFrame implements ActionListener {
 
 		JPanel notificationsTab = new JPanel();
 		pageTabs.addTab("Notifications", null, notificationsTab, null);
-		String clientName, jobLocation, jobDate;
+		String clientName;
+		String jobLocation;
+		String jobDate;
 		final JLabel[] jobs = new JLabel[10];
 		final JButton[] acknowledge = new JButton[10];
 		for (int i = 0; i <= 5; i++) {
@@ -488,65 +489,66 @@ public class ContractorClient extends JFrame implements ActionListener {
 	}
 
 	public void saveProfileUpdates() {
-		if (txtLastNameUpdate.getText().length() < 1) {
-		} else {
+		if (txtLastNameUpdate.getText().length() > 0) {
 			strLastName = txtLastNameUpdate.getText();
 		}
-		if (txtFirstNameUpdate.getText().length() < 1) {
-		} else {
+		if (txtFirstNameUpdate.getText().length() > 0) {
 			strFirstName = txtFirstNameUpdate.getText();
 		}
-		if (txtCompanyNameUpdate.getText().length() < 1) {
-		} else {
-			strCompanyName = txtCompanyNameUpdate.getText();
+		if (txtCompanyNameUpdate.getText().length() > 0) {
+			strCompanyName = txtCompanyNameUpdate.getText();		
 		}
-		if (txtAddress1Update.getText().length() < 1) {
-		} else {
+		if (txtAddress1Update.getText().length() > 0) {
 			strAddress1 = txtAddress1Update.getText();
 		}
-		if (txtAddress2Update.getText().length() < 1) {
-		} else {
+		if (txtAddress2Update.getText().length() > 0) {
 			strAddress2 = txtAddress2Update.getText();
 		}
-		if (txtCityUpdate.getText().length() < 1) {
-		} else {
+		if (txtCityUpdate.getText().length() > 0) {
 			strCity = txtCityUpdate.getText();
 		}
-		if (txtStateUpdate.getText().length() < 1) {
-		} else {
+		if (txtStateUpdate.getText().length() > 0) {
 			strState = txtStateUpdate.getText();
 		}
-		if (txtZipCodeUpdate.getText().length() < 1) {
-		} else {
+		if (txtZipCodeUpdate.getText().length() > 0) {
 			int issueChecker = 0;
 			if (txtZipCodeUpdate.getText().length() != 5) {
 				issueChecker = 1;
 			}
 			for (int i = 0; i < txtZipCodeUpdate.getText().length(); i++) {
-				char c = txtZipCodeUpdate.getText().charAt(i);
-				if (Character.isDigit(c)) {
+				char c0 = txtZipCodeUpdate.getText().charAt(i);
+				if (Character.isDigit(c0)) {
+					// do nothing if character is a digit
 				} else {
 					issueChecker = 1;
 				}
 			}
 			while (issueChecker > 0) {
-				String strTestZipCode = JOptionPane.showInputDialog(profileTab, "Please enter a valid Zip Code", null);
-				if (strTestZipCode.length() != 5) {
+				//strTzc stands for string Test Zip Code
+				String strTzc = JOptionPane.showInputDialog( 
+								profileTab,
+								"Please enter a valid Zip Code",
+								null);
+				if (strTzc.length() != 5) {
 					issueChecker = 1;
 				} else {
-					for (int j = 0; j < strTestZipCode.length(); j++) {
-						char c1 = strTestZipCode.charAt(j);
+					int issueTracker = 0;
+					for (int j = 0; j < strTzc.length(); j++) {
+						char c1 = strTzc.charAt(j);
 						if (Character.isDigit(c1)) {
-							if (j >= strTestZipCode.length() - 1) {
-								txtZipCodeUpdate.setText(strTestZipCode);
+							if (j == 4 && issueTracker == 0) {
+								txtZipCodeUpdate.setText(strTzc);
+								intZipCode = Integer.parseInt(txtZipCodeUpdate.getText());
 								issueChecker = 0;
+								break;
 							}
+						} else {
+							issueTracker++;
 						}
 					}
 				}
 
 			}
-			intZipCode = Integer.parseInt(txtZipCodeUpdate.getText());
 		}
 		loadProfile();
 		profileTab.revalidate();
@@ -556,13 +558,4 @@ public class ContractorClient extends JFrame implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 
 	}
-
-	/*
-	 * private class SwingAction extends AbstractAction { public SwingAction() {
-	 * putValue(NAME, "SwingAction"); putValue(SHORT_DESCRIPTION,
-	 * "Some short description"); } public void actionPerformed(ActionEvent e) {
-	 * } }
-	 */
 }
-// >>>>>>> branch 'Contractor-GUI' of
-// https://github.com/rsanchez-wsu/fa15-ceg3120.git
