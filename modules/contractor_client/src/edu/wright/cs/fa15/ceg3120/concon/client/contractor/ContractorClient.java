@@ -82,6 +82,9 @@ public class ContractorClient extends JFrame implements ActionListener {
 	private static JButton btnSave;
 	private static JButton btnCancel;
 
+	/**
+	 * This method sets up the initial window.
+	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -193,12 +196,12 @@ public class ContractorClient extends JFrame implements ActionListener {
 			update[i].addActionListener(new ActionListener() {
 
 				@Override
-				public void actionPerformed(ActionEvent a) {
+				public void actionPerformed(ActionEvent a0) {
 					try {
 						String input = JOptionPane.showInputDialog(frame, "Enter new bid");
 						if (input != null) {
 							double newBid = Double.parseDouble(input);
-							currentBids[j].setText("You have a bid for " + newBid);
+							currentBids[j].setText("You have a bid for " + f0.format(newBid));
 							curBidsTab.validate();
 							curBidsTab.repaint();
 						}
@@ -231,7 +234,7 @@ public class ContractorClient extends JFrame implements ActionListener {
 			notificationsTab.add(acknowledge[i]);
 			acknowledge[i].addActionListener(new ActionListener() {
 				@Override
-				public void actionPerformed(ActionEvent e) {
+				public void actionPerformed(ActionEvent e0) {
 					Container parent = acknowledge[list].getParent();
 					parent.remove(acknowledge[list]);
 					parent.remove(jobs[list]);
@@ -260,6 +263,10 @@ public class ContractorClient extends JFrame implements ActionListener {
 		pageTabs.addTab("Open Jobs", null, openJobsTab, null);
 	}
 
+	/**
+	 * This method populates the Profile Editor tab.
+	 * @author Joshua Thomas
+	 */
 	public static void populateProfileTab() {
 		JLabel lblCurProfile = new JLabel("Current Profile Settings:");
 		profileTab.add(lblCurProfile);
@@ -452,6 +459,10 @@ public class ContractorClient extends JFrame implements ActionListener {
 		});
 	}
 
+	/**
+	 * This method makes the "updated information" portion of the edit profile tab visible.
+	 * @author Joshua Thomas
+	 */
 	public static void loadProfile() {
 		lblNewProfile.setVisible(true);
 		lblLastNameUpdate.setVisible(true);
@@ -483,6 +494,10 @@ public class ContractorClient extends JFrame implements ActionListener {
 		profileTab.revalidate();
 	}
 
+	/**
+	 * This method clears the entries in the "update profile" section of the profile editor tab.
+	 * @author Joshua Thomas
+	 */
 	public static void clearProfileUpdates() {
 		txtLastNameUpdate.setText(null);
 		txtFirstNameUpdate.setText(null);
@@ -494,6 +509,11 @@ public class ContractorClient extends JFrame implements ActionListener {
 		txtZipCodeUpdate.setText(null);
 	}
 
+	/**
+	 * This method saves the updated profile information to the local variables.
+	 * In time, it will push the updates to the database.
+	 * @author Joshua Thomas
+	 */
 	public static void saveProfileUpdates() {
 		if (txtLastNameUpdate.getText().length() > 0) {
 			strLastName = txtLastNameUpdate.getText();
@@ -561,7 +581,7 @@ public class ContractorClient extends JFrame implements ActionListener {
 	}
 
 	@Override
-	public void actionPerformed(ActionEvent e) {
+	public void actionPerformed(ActionEvent e0) {
 
 	}
 }
