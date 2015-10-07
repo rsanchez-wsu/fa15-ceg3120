@@ -91,9 +91,8 @@ public class ContractorClient extends JFrame implements ActionListener {
 	private static String[] job3;
 	private static String[] job4;
 	private static Vector<String[]> jobList = new Vector<String[]>();
-	private static Vector<String> rowData = new Vector<String>();
-	private static String strTest = new String();
-
+	private static int intSearch = 0;
+	
 	/**
 	 * Create the application.
 	 */
@@ -251,6 +250,28 @@ public class ContractorClient extends JFrame implements ActionListener {
 		JComboBox<Object> cboSearchOptions = new JComboBox<Object>(searchOptions);
 		searchTab.add(cboSearchOptions);
 		cboSearchOptions.setBounds(140, 5, 120, 20);
+		cboSearchOptions.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String strTest = (String) cboSearchOptions.getSelectedItem();
+				switch (strTest) {
+				case "Show All":
+					intSearch = 0;
+					break;
+				case "Location":
+					intSearch = 1;
+					break;
+				case "Cost":
+					intSearch = 2;
+					break;
+				case "Duration":
+					intSearch = 3;
+					break;
+				}
+				
+			}
+		});
 		
 		String[] columnNames = {"Job Number", "Title", "Description", "City", "Cost", "Duration"};
 		DefaultTableModel model1 = new DefaultTableModel(columnNames, 0);
@@ -258,8 +279,7 @@ public class ContractorClient extends JFrame implements ActionListener {
 		tblSearchResults.setModel(model1);
 		JScrollPane jscSearchResults = new JScrollPane(tblSearchResults);
 		jscSearchResults.setBounds(45, 45, 605, 200);
-		searchTab.add(jscSearchResults);
-		
+		searchTab.add(jscSearchResults);		
 		
 		JTextField txtSearchOptions = new JTextField();
 		txtSearchOptions.setBounds(275, 5, 240, 20);
@@ -271,7 +291,7 @@ public class ContractorClient extends JFrame implements ActionListener {
 		
 		btnSearchGo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				if (cboSearchOptions.getSelectedItem() == "Show All") {
+				if (intSearch == 0) {
 					for (int i = 0; i < jobList.size(); i++) {
 						String[] tempArray = jobList.elementAt(i);
 						model1.addRow(tempArray);
