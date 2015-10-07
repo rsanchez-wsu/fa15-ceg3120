@@ -6,10 +6,10 @@
 		</Console>
 		
 	    <File name="fileAppender" fileName="logs/app.log">
-			<PatternLayout pattern="%d %p %c{1.} [%t] %m%n"/>
+			<PatternLayout pattern="%d %-5p [%t] %C{2} %m%n"/>
 	    </File>
 		
-		<!-- TODO make the database appender work
+		<!-- TODO database requires datasource and connection pool
 	    <JDBC name="databaseAppender" tableName="concon.logs">
 			<DataSource jndiName="java:/comp/env/jdbc/LoggingDataSource" />
 			<Column name="eventDate" isEventTimestamp="true" />
@@ -27,13 +27,13 @@
 			<AppenderRef ref="databaseAppender"/>
 		</Logger>
 		-->
-		
-		<Logger name="edu.wright.cs.fa15.ceg3120.concon" level="debug">
-			<AppenderRef ref="fileAppender"/>
+				
+		<Logger name="edu.wright.cs.fa15.ceg3120.concon.server" level="debug" additivity="false">
+			<AppenderRef ref="STDOUT"/>
 		</Logger>
 		
-		<Root level="error">
-			<AppenderRef ref="STDOUT"/>
+		<Root level="trace">
+			<AppenderRef ref="fileAppender"/>
 		</Root>
 	</Loggers>
 </Configuration>
