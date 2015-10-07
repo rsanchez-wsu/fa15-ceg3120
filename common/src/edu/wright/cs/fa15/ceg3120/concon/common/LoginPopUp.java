@@ -43,7 +43,7 @@ import javax.swing.SwingUtilities;
 public class LoginPopUp {
 
     private UserAccount user;
-    private static ArrayBlockingQueue<UserAccount> incoming;
+    private static ArrayBlockingQueue<UserAccount> incoming = new ArrayBlockingQueue<>(3);
 
     private JButton loginButton;
     private JButton btnCreateAccount;
@@ -56,7 +56,6 @@ public class LoginPopUp {
      */
     public LoginPopUp() {
         user = null;
-        incoming = new ArrayBlockingQueue<>(3);
     }
 
     /**

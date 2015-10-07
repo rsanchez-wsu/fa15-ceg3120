@@ -220,7 +220,7 @@ public class TabbedFrame extends javax.swing.JFrame {
         month = (String)jComboBox1.getSelectedItem();
         day = (int) jComboBox2.getSelectedItem();
         timeRange = (String)jComboBox3.getSelectedItem();
-        SchedulingData data = new SchedulingData(month,day,timeRange);
+        //SchedulingData data = new SchedulingData(month,day,timeRange);
     }//GEN-LAST:event_jButton1MouseClicked
 
     private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
