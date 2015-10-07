@@ -61,15 +61,15 @@ public class ConConClient
             {
                 Socket clientSocket = new Socket(host, port);
                 DataOutputStream toServer = new DataOutputStream(clientSocket.getOutputStream());
-                BufferedReader fromServer = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+                BufferedReader fromServer = new BufferedReader(new InputStreamReader(clientSocket.getInputStream(), "UTF-8"));
 
                 toServer.writeBytes(message);
-                String response = "";
+                StringBuilder response = new StringBuilder();
                 int n = 0;
                 while ((n = fromServer.read()) != -1)
-                    response += (char)n;
+                    response.append(n);
 
-                // do something
+                NetworkManager.post(NetworkManager.decodeFromXML(response.toString()));
 
                 clientSocket.close();
             }

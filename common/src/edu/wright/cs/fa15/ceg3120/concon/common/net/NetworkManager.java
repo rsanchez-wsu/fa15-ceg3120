@@ -77,7 +77,7 @@ public class NetworkManager
         }
     }
 
-    public static boolean startServer(int port)
+    public static synchronized boolean startServer(int port)
     {
         if (server != null || client != null)
             return false;
@@ -92,7 +92,7 @@ public class NetworkManager
         server = null;
     }
 
-    public static boolean startClient(String host, int port)
+    public static synchronized boolean startClient(String host, int port)
     {
         if (server != null || client != null)
             return false;
