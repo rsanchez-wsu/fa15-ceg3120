@@ -122,23 +122,31 @@ public class ServerGUI extends JPanel implements ActionListener {
 	protected JComponent makeDashBoard(){
 		JPanel mainPanel = new JPanel(new BorderLayout());
 		JToolBar toolBar = new JToolBar();
+		JToolBar reportBar = new JToolBar();
 		textArea = new JTextArea(10, 20);
+		textArea.setLineWrap(true);
+		textArea.setWrapStyleWord(true);
 		textArea.setEditable(false);
 		JScrollPane Pane = new JScrollPane(textArea);
 		JPanel contentPane = new JPanel();
+		JComponent reportPane = new JPanel();
 		
 		JFrame reportFrame = new JFrame("Reports");
-		//reportFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		reportFrame.pack();
+		reportFrame.setSize(new Dimension(500,250));
 		reportFrame.setVisible(false);
+		ImageIcon iconReport = createImageIcon("images/Report.png");
+		reportFrame.setIconImage(iconReport.getImage());
+		reportPane = makeTextPanel("Date             User             Type             Time issued             Status");
+		reportFrame.add(reportPane, BorderLayout.NORTH);
 		
 		JFrame emerFrame = new JFrame("Emergency Message");
-		//emerFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		emerFrame.pack();
 		emerFrame.setVisible(false);
 		emerFrame.setResizable(false);
 		emerFrame.setSize(new Dimension(300,150));
-		
+		ImageIcon iconMessage = createImageIcon("images/Message.png");
+		emerFrame.setIconImage(iconMessage.getImage());
 		
 		JTextArea mergText = new JTextArea(10, 50);
 		JLabel mergLabel = new JLabel("Enter the message:");
@@ -148,10 +156,23 @@ public class ServerGUI extends JPanel implements ActionListener {
 		mergText.setWrapStyleWord(true);
 		
 		JButton jSend = new JButton("Send");
+		jSend.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent arg0) {
+				displayInTextArea("Message sent: " + mergText.getText());
+				emerFrame.dispose();
+			}
+		});
 		JButton jClear = new JButton("Clear");
 		jClear.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent arg0) {
 				mergText.setText("");
+			}
+			
+		});
+		JButton jClose = new JButton("Close");
+		jClose.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent arg0) {
+				emerFrame.dispose();
 			}
 			
 		});
@@ -160,6 +181,7 @@ public class ServerGUI extends JPanel implements ActionListener {
 		emerPane.setLayout(new BorderLayout());
 		emerPane.add(jSend, BorderLayout.WEST);
 		emerPane.add(jClear,  BorderLayout.CENTER);
+		emerPane.add(jClose, BorderLayout.EAST);
 		
 		JPanel emerPane1 = new JPanel();
 		emerPane1.add(emerPane,  BorderLayout.CENTER);
