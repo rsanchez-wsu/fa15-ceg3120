@@ -21,7 +21,7 @@
 
 package edu.wright.cs.fa15.ceg3120.concon.common.data;
 
-//import edu.wright.cs.fa15.ceg3120.concon.client.customer.CustomerClient;
+import java.lang.reflect.Method;
 
 public class HomeownerAccount extends UserAccount {
 
@@ -47,6 +47,17 @@ public class HomeownerAccount extends UserAccount {
     @Override
     public void launchGui() {
         //(new CustomerClient()).buildGui();
+        try {
+            Class<?> homeowner = 
+                    Class.forName("edu.wright.cs.fa15.ceg3120.concon"
+                            + ".client.customer.CustomerClient");
+            Method meth = homeowner.getMethod("buildGui", (Class<?>[])null);
+            meth.invoke(homeowner.newInstance(), (Object[])null);
+        } catch (RuntimeException e){ 
+            throw e;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public String getStreetAddress() {
