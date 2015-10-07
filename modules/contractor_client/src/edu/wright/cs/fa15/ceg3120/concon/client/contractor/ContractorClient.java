@@ -45,42 +45,42 @@ public class ContractorClient extends JFrame implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
 	private JFrame frame;
-	private JTextField txtLastName;
-	private JTextField txtFirstName;
-	private JTextField txtCompanyName;
-	private JTextField txtAddress1;
-	private JTextField txtAddress2;
-	private JTextField txtCity;
-	private JTextField txtState;
-	private JTextField txtZipCode;
-	private JTextField txtLastNameUpdate;
-	private JTextField txtFirstNameUpdate;
-	private JTextField txtCompanyNameUpdate;
-	private JTextField txtAddress1Update;
-	private JTextField txtAddress2Update;
-	private JTextField txtCityUpdate;
-	private JTextField txtStateUpdate;
-	private JTextField txtZipCodeUpdate;
-	public String strLastName = "Person";
-	public String strFirstName = "Random";
-	public String strCompanyName = "ConCon";
-	public String strAddress1 = "123 Main Street";
-	public String strAddress2 = "";
-	public String strCity = "Dayton";
-	public String strState = "OH";
-	public int intZipCode = 45402;
-	private JPanel profileTab;
-	private JLabel lblNewProfile;
-	private JLabel lblLastNameUpdate;
-	private JLabel lblFirstNameUpdate;
-	private JLabel lblCompanyNameUpdate;
-	private JLabel lblAddress1Update;
-	private JLabel lblAddress2Update;
-	private JLabel lblCityUpdate;
-	private JLabel lblStateUpdate;
-	private JLabel lblZipCodeUpdate;
-	private JButton btnSave;
-	private JButton btnCancel;
+	private static JTextField txtLastName;
+	private static JTextField txtFirstName;
+	private static JTextField txtCompanyName;
+	private static JTextField txtAddress1;
+	private static JTextField txtAddress2;
+	private static JTextField txtCity;
+	private static JTextField txtState;
+	private static JTextField txtZipCode;
+	private static JTextField txtLastNameUpdate;
+	private static JTextField txtFirstNameUpdate;
+	private static JTextField txtCompanyNameUpdate;
+	private static JTextField txtAddress1Update;
+	private static JTextField txtAddress2Update;
+	private static JTextField txtCityUpdate;
+	private static JTextField txtStateUpdate;
+	private static JTextField txtZipCodeUpdate;
+	public static String strLastName = "Person";
+	public static String strFirstName = "Random";
+	public static String strCompanyName = "ConCon";
+	public static String strAddress1 = "123 Main Street";
+	public static String strAddress2 = "";
+	public static String strCity = "Dayton";
+	public static String strState = "OH";
+	public static int intZipCode = 45402;
+	private static JPanel profileTab;
+	private static JLabel lblNewProfile;
+	private static JLabel lblLastNameUpdate;
+	private static JLabel lblFirstNameUpdate;
+	private static JLabel lblCompanyNameUpdate;
+	private static JLabel lblAddress1Update;
+	private static JLabel lblAddress2Update;
+	private static JLabel lblCityUpdate;
+	private static JLabel lblStateUpdate;
+	private static JLabel lblZipCodeUpdate;
+	private static JButton btnSave;
+	private static JButton btnCancel;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -127,42 +127,47 @@ public class ContractorClient extends JFrame implements ActionListener {
 
 		JTree mainTree = new JTree();
 		mainTree.setModel(new DefaultTreeModel(
-			new DefaultMutableTreeNode("Main") {
-				{
-					DefaultMutableTreeNode node_1;
-					DefaultMutableTreeNode node_2;
-					DefaultMutableTreeNode node_3;
-					node_1 = new DefaultMutableTreeNode("Previous Jobs");
-						node_2 = new DefaultMutableTreeNode("Electrical");
-							node_3 = new DefaultMutableTreeNode("Jan 12 2014");
-								node_3.add(new DefaultMutableTreeNode("Description"));
-								node_3.add(new DefaultMutableTreeNode("Photos"));
-							node_2.add(node_3);
-							node_3 = new DefaultMutableTreeNode("Feb 9 2014");
-								node_3.add(new DefaultMutableTreeNode("Description"));
-								node_3.add(new DefaultMutableTreeNode("Photos"));
-							node_2.add(node_3);
-						node_1.add(node_2);
-						node_2 = new DefaultMutableTreeNode("Plumbing");
-							node_3 = new DefaultMutableTreeNode("Mar 24 2015");
-								node_3.add(new DefaultMutableTreeNode("Description"));
-								node_3.add(new DefaultMutableTreeNode("Photos"));
-							node_2.add(node_3);
-						node_1.add(node_2);
-						node_2 = new DefaultMutableTreeNode("Outdoor");
-							node_3 = new DefaultMutableTreeNode("Jul 17 2015");
-								node_3.add(new DefaultMutableTreeNode("Description"));
-								node_3.add(new DefaultMutableTreeNode("Photos"));
-							node_2.add(node_3);
-						node_1.add(node_2);
-					add(node_1);
-					node_1 = new DefaultMutableTreeNode("Reviews");
-						node_1.add(new DefaultMutableTreeNode("All"));
-						node_1.add(new DefaultMutableTreeNode("Positive"));
-						node_1.add(new DefaultMutableTreeNode("Negative"));
-					add(node_1);
-				}
-			}
+						new DefaultMutableTreeNode("Main") {
+							/**
+							 * Create the tree.
+							 */
+							private static final long serialVersionUID = 1L;
+
+							{
+								DefaultMutableTreeNode node1;
+								DefaultMutableTreeNode node2;
+								DefaultMutableTreeNode node3;
+								node1 = new DefaultMutableTreeNode("Previous Jobs");
+								node2 = new DefaultMutableTreeNode("Electrical");
+								node3 = new DefaultMutableTreeNode("Jan 12 2014");
+								node3.add(new DefaultMutableTreeNode("Description"));
+								node3.add(new DefaultMutableTreeNode("Photos"));
+								node2.add(node3);
+								node3 = new DefaultMutableTreeNode("Feb 9 2014");
+								node3.add(new DefaultMutableTreeNode("Description"));
+								node3.add(new DefaultMutableTreeNode("Photos"));
+								node2.add(node3);
+								node1.add(node2);
+								node2 = new DefaultMutableTreeNode("Plumbing");
+								node3 = new DefaultMutableTreeNode("Mar 24 2015");
+								node3.add(new DefaultMutableTreeNode("Description"));
+								node3.add(new DefaultMutableTreeNode("Photos"));
+								node2.add(node3);
+								node1.add(node2);
+								node2 = new DefaultMutableTreeNode("Outdoor");
+								node3 = new DefaultMutableTreeNode("Jul 17 2015");
+								node3.add(new DefaultMutableTreeNode("Description"));
+								node3.add(new DefaultMutableTreeNode("Photos"));
+								node2.add(node3);
+								node1.add(node2);
+								add(node1);
+								node1 = new DefaultMutableTreeNode("Reviews");
+								node1.add(new DefaultMutableTreeNode("All"));
+								node1.add(new DefaultMutableTreeNode("Positive"));
+								node1.add(new DefaultMutableTreeNode("Negative"));
+								add(node1);
+								}
+							}
 		));
 		main.add(mainTree);
 		mainTree.setBounds(6, 6, 160, 275);
@@ -175,12 +180,12 @@ public class ContractorClient extends JFrame implements ActionListener {
 		pageTabs.addTab("Current Bids", null, curBidsTab, null);
 		GridLayout myLayout = new GridLayout(0, 2);
 		curBidsTab.setLayout(myLayout);
-		DecimalFormat f = new DecimalFormat("##.00");
+		DecimalFormat f0 = new DecimalFormat("##.00");
 		final JLabel[] currentBids = new JLabel[10];
 		final JButton[] update = new JButton[10];
 		for (int i = 0; i < 5; i++) {
 			final int j = i;
-			currentBids[i] = new JLabel("You have a bid for " + f.format(Math.random() * 115));
+			currentBids[i] = new JLabel("You have a bid for " + f0.format(Math.random() * 115));
 			curBidsTab.add(currentBids[i]);
 			update[i] = new JButton("Update Bid");
 			curBidsTab.add(update[i]);
@@ -219,7 +224,8 @@ public class ContractorClient extends JFrame implements ActionListener {
 			clientName = "Get name of client from database";
 			jobLocation = "Get location from database";
 			jobDate = "Get date from database";
-			jobs[i] = new JLabel(clientName + " needs work done at " + jobLocation + " on " + jobDate);
+			jobs[i] = new JLabel(clientName + " needs work done at " 
+					+ jobLocation + " on " + jobDate);
 			notificationsTab.add(jobs[i]);
 			acknowledge[i] = new JButton("Okay");
 			notificationsTab.add(acknowledge[i]);
@@ -446,7 +452,7 @@ public class ContractorClient extends JFrame implements ActionListener {
 		});
 	}
 
-	public void loadProfile() {
+	public static void loadProfile() {
 		lblNewProfile.setVisible(true);
 		lblLastNameUpdate.setVisible(true);
 		lblFirstNameUpdate.setVisible(true);
@@ -488,7 +494,7 @@ public class ContractorClient extends JFrame implements ActionListener {
 		txtZipCodeUpdate.setText(null);
 	}
 
-	public void saveProfileUpdates() {
+	public static void saveProfileUpdates() {
 		if (txtLastNameUpdate.getText().length() > 0) {
 			strLastName = txtLastNameUpdate.getText();
 		}
