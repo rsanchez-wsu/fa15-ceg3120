@@ -246,7 +246,7 @@ public class ContractorClient extends JFrame implements ActionListener {
 		JLabel lblSearchTabMain = new JLabel("Search Options:");
 		searchTab.add(lblSearchTabMain);
 		lblSearchTabMain.setBounds(5,5,120,20);
-		String[] searchOptions = {"Show All", "Location", "Cost", "Duration"};
+		String[] searchOptions = {"Show All", "Location", "Max Cost", "Max Duration"};
 		final JComboBox<String> cboSearchOptions = new JComboBox<String>(searchOptions);
 		searchTab.add(cboSearchOptions);
 		cboSearchOptions.setBounds(140, 5, 120, 20);
@@ -262,10 +262,10 @@ public class ContractorClient extends JFrame implements ActionListener {
 				case "Location":
 					intSearch = 1;
 					break;
-				case "Cost":
+				case "Max Cost":
 					intSearch = 2;
 					break;
-				case "Duration":
+				case "Max Duration":
 					intSearch = 3;
 					break;
 				default:
@@ -294,11 +294,40 @@ public class ContractorClient extends JFrame implements ActionListener {
 		
 		btnSearchGo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				if (intSearch == 0) {
+				model1.setRowCount(0);
+				switch (intSearch) {
+				case 0:
 					for (int i = 0; i < jobList.size(); i++) {
 						String[] tempArray = jobList.elementAt(i);
 						model1.addRow(tempArray);
+					}	
+					break;
+				case 1:
+					
+					break;
+				case 2:
+					String tempCost = txtSearchOptions.getText(); 
+					int tempCostInt = 0;
+					if (tempCost.length() > 0) {
+						tempCostInt = Integer.parseInt(tempCost);
 					}
+					for (int i = 0; i < jobList.size(); i++) {
+						String[] tempArray = jobList.elementAt(i);
+						if (Integer.parseInt(tempArray[4]) <= tempCostInt) {
+							model1.addRow(tempArray);
+						}
+					}
+					break;
+				case 3:
+					
+					break;
+				default:
+					model1.setRowCount(0);
+					for (int i = 0; i < jobList.size(); i++) {
+						String[] tempArray = jobList.elementAt(i);
+						model1.addRow(tempArray);
+					}	
+					break;
 				}
 			}
 		});
@@ -641,13 +670,13 @@ public class ContractorClient extends JFrame implements ActionListener {
 	 */
 	public static void populateJobListArray() {
 		job1 = new String[] {"001", "Hole in Wall","Kid smashed head through drywall", 
-							  "Dayton", "$500", "7"};
+							  "Dayton", "500", "7"};
 		job2 = new String[] {"002", "New Toilet", "Would like new toilet installed", 
-							  "Englewood", "$100", "1"};
+							  "Englewood", "100", "1"};
 		job3 = new String[] {"017", "Replace Wall Outlet", "Need new outlet installed", 
-							  "Centerville", "$100", "1"};
+							  "Centerville", "100", "1"};
 		job4 = new String[] {"042", "New Porch", "I want a large enclosed porch built "
-				+ "					   on the back of my house", "Kettering", "$3500", "14"};
+				+ "					   on the back of my house", "Kettering", "3500", "14"};
 		jobList.removeAllElements();
 		jobList.add(0,job1);
 		jobList.add(1,job2);
