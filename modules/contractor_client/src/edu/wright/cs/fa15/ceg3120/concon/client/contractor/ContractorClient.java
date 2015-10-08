@@ -26,6 +26,13 @@ import java.awt.EventQueue;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.StringReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.text.DecimalFormat;
 import java.util.Vector;
 
@@ -44,6 +51,15 @@ import javax.swing.JTree;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
+
+import org.xml.sax.InputSource;
 
 public class ContractorClient extends JFrame implements ActionListener {
 
@@ -73,7 +89,7 @@ public class ContractorClient extends JFrame implements ActionListener {
 	private static String strAddress2 = "";
 	private static String strCity = "Dayton";
 	private static String strState = "OH";
-	private static int intZipCode = 45402;
+	private static int intZipCode = 45400;
 	private static JPanel profileTab;
 	private static JLabel lblNewProfile;
 	private static JLabel lblLastNameUpdate;
@@ -246,7 +262,7 @@ public class ContractorClient extends JFrame implements ActionListener {
 		JLabel lblSearchTabMain = new JLabel("Search Options:");
 		searchTab.add(lblSearchTabMain);
 		lblSearchTabMain.setBounds(5,5,120,20);
-		String[] searchOptions = {"Show All", "Location", "Max Cost", "Max Duration"};
+		String[] searchOptions = {"Show All", "Distance", "Max Cost", "Max Duration"};
 		final JComboBox<String> cboSearchOptions = new JComboBox<String>(searchOptions);
 		searchTab.add(cboSearchOptions);
 		cboSearchOptions.setBounds(140, 5, 120, 20);
@@ -259,7 +275,7 @@ public class ContractorClient extends JFrame implements ActionListener {
 				case "Show All":
 					intSearch = 0;
 					break;
-				case "Location":
+				case "Distance":
 					intSearch = 1;
 					break;
 				case "Max Cost":
@@ -276,7 +292,8 @@ public class ContractorClient extends JFrame implements ActionListener {
 			}
 		});
 		
-		String[] columnNames = {"Job Number", "Title", "Description", "City", "Cost", "Duration"};
+		String[] columnNames = {"Job Number", "Title", "Description", "City", "Cost", 
+								"Duration", "Distance"};
 		final DefaultTableModel model1 = new DefaultTableModel(columnNames, 0);
 		JTable tblSearchResults = new JTable(model1);
 		tblSearchResults.setModel(model1);
@@ -303,7 +320,30 @@ public class ContractorClient extends JFrame implements ActionListener {
 					}	
 					break;
 				case 1:
-					
+					populateJobListArray();
+					final String tempDistance = txtSearchOptions.getText();
+					double curDistance = 0;
+					int tempDistanceInt = 0;
+					if (tempDistance.length() > 0) {
+						tempDistanceInt = Integer.parseInt(tempDistance);
+					}
+					for (int i = 0; i < jobList.size(); i++) {
+						String[] tempArray = null;
+						tempArray = jobList.elementAt(i);
+						try {
+							curDistance = distanceCalculator(intZipCode, 
+									Integer.parseInt(tempArray[6]));
+						} catch (NumberFormatException e) {
+							e.printStackTrace();
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
+						if (curDistance <= tempDistanceInt) {
+							String[] newArray = tempArray;
+							newArray[6] = (f0.format(curDistance));
+							model1.addRow(newArray);
+						}
+					}
 					break;
 				case 2:
 					final String tempCost = txtSearchOptions.getText(); 
@@ -680,18 +720,50 @@ public class ContractorClient extends JFrame implements ActionListener {
 	 */
 	public static void populateJobListArray() {
 		job1 = new String[] {"001", "Hole in Wall","Kid smashed head through drywall", 
-							  "Dayton", "500", "7"};
+							  "Dayton", "500", "7", "45402"};
 		job2 = new String[] {"002", "New Toilet", "Would like new toilet installed", 
-							  "Englewood", "100", "1"};
+							  "Englewood", "100", "1", "45322"};
 		job3 = new String[] {"017", "Replace Wall Outlet", "Need new outlet installed", 
-							  "Centerville", "100", "1"};
+							  "Centerville", "100", "1", "45458"};
 		job4 = new String[] {"042", "New Porch", "I want a large enclosed porch built "
-				+ "					   on the back of my house", "Kettering", "3500", "14"};
+				+ "on the back of my house", "Kettering", 
+							  "3500", "14", "45429"};
 		jobList.removeAllElements();
 		jobList.add(0,job1);
 		jobList.add(1,job2);
 		jobList.add(2,job3);
 		jobList.add(3,job4);
+	}
+	/**
+	 * This method calculates the distance between two ZIP codes.
+	 * Contractor Connection registered with ZipCodeAPI.com on the free plan to get static API code.
+	 * Registered under Joshua Thomas' email address (thomas.611@wright.edu).
+	 */
+	public static double distanceCalculator(int zip1, int zip2) throws IOException {
+		String strApiKey = "DyJlPe7F6MgACobvKEUcqeOMf5TCJ1VmAEIpSQ5YDlyfKKLuoFGOTuA9AuMkvHH6";
+		String url1 = "https://www.zipcodeapi.com/rest/";
+		String query = url1 + strApiKey + "/distance.xml/" + zip1 + "/" + zip2 + "/mile";
+
+		HttpURLConnection urlConnection = (HttpURLConnection) new URL(query).openConnection();	
+		InputStream result = urlConnection.getInputStream();
+		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+		DocumentBuilder builder;
+		double distance = 0;	
+		try {
+			builder = factory.newDocumentBuilder();
+			Document doc = builder.parse(result);
+			NodeList list = doc.getElementsByTagName("distance");
+			distance = Double.parseDouble(list.item(0).getTextContent());
+		} catch (ParserConfigurationException e) {
+			e.printStackTrace();
+		} catch (SAXException e) {
+			e.printStackTrace();
+		} finally {
+			urlConnection.disconnect();
+			result.close();
+			
+		}
+		return distance;
 	}
 
 	@Override
