@@ -381,7 +381,7 @@ public class ContractorClient extends JFrame implements ActionListener {
 		pageTabs.addTab("Payments", null, paymentsTab, null);
 		paymentsTab.setLayout(null);
 		
-		JLabel paymentsSearchLabel = new JLabel("Search by job number:");
+		JLabel paymentsSearchLabel = new JLabel("Search job number:");
 		paymentsTab.add(paymentsSearchLabel);
 		paymentsSearchLabel.setBounds(5,5,120,20);
 		
