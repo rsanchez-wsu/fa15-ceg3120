@@ -28,9 +28,9 @@ import java.io.InputStreamReader;
 import java.net.Socket;
 
 //TODO have security
-public class ConConClient {
-
-    private String host;
+public class ConConClient
+{
+	private String host;
     private int port;
 
     public ConConClient(String host, int port) {
@@ -38,14 +38,17 @@ public class ConConClient {
         this.port = port;
     }
 
-    public void sendMessage(String message) {
-        new DisptatchMessage(message).start();
+    public void sendMessage(String message)
+    {
+        new DispatchMessage(message).start();
     }
 
-    private class DisptatchMessage extends Thread {
+    private class DispatchMessage extends Thread
+    {
         private String message;
 
-        public DisptatchMessage(String message) {
+        public DispatchMessage(String message)
+        {
             this.message = message;
         }
 
@@ -54,16 +57,15 @@ public class ConConClient {
             try {
                 Socket clientSocket = new Socket(host, port);
                 DataOutputStream toServer = new DataOutputStream(clientSocket.getOutputStream());
-                BufferedReader fromServer = new BufferedReader(
-                        new InputStreamReader(clientSocket.getInputStream()));
+                BufferedReader fromServer = new BufferedReader(new InputStreamReader(clientSocket.getInputStream(), "UTF-8"));
 
                 toServer.writeBytes(message);
-                String response = "";
+                StringBuilder response = new StringBuilder();
                 int n = 0;
-                while ((n = fromServer.read()) != -1) {
-                    response += (char) n;
-                }
-                // do something
+                while ((n = fromServer.read()) != -1)
+                    response.append(n);
+
+                NetworkManager.post(NetworkManager.decodeFromXML(response.toString()));
 
                 clientSocket.close();
             } catch (IOException e) {

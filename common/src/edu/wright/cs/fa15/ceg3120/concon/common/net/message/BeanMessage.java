@@ -19,14 +19,33 @@
  *
  */
 
-package edu.wright.cs.fa15.ceg3120.concon.common.data;
+package edu.wright.cs.fa15.ceg3120.concon.common.net.message;
 
-import edu.wright.cs.fa15.ceg3120.concon.common.net.NetworkManager;
+public class BeanMessage extends NetworkMessage {
 
-public class Server {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2279299798905393963L;
+	private String message;
 
-	public static void main(String[] args) {
-		NetworkManager.startServer(9667);
-		System.out.println("Server running.");
+	public BeanMessage() {} // Default constructor required for java beans.
+
+	public BeanMessage(String message)
+	{
+		this.message = message;
+	}
+
+	public String getMessage() {
+		return message;
+	}
+
+	public void setMessage(String message) {
+		this.message = message;
+	}
+
+	@Override
+	public String toString() {
+		return "BeanMessage [message=" + message + "]";
 	}
 }

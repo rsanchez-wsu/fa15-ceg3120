@@ -21,6 +21,17 @@
 
 package edu.wright.cs.fa15.ceg3120.concon.common.net.message;
 
-public abstract class NetworkMessage {
+import java.io.Serializable;
 
+public abstract class NetworkMessage implements Serializable
+{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8618792710721202266L;
+
+	public NetworkMessage() {}
+	
+	
 }

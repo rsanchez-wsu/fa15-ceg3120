@@ -21,18 +21,8 @@
 
 package edu.wright.cs.fa15.ceg3120.concon.client.customer;
 
-import edu.wright.cs.fa15.ceg3120.concon.common.data.HomeownerAccount;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import java.awt.Toolkit;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-import javax.swing.WindowConstants;
+import edu.wright.cs.fa15.ceg3120.concon.common.net.NetworkManager;
+import edu.wright.cs.fa15.ceg3120.concon.common.net.message.BeanMessage;
 
 public class CustomerClient {
     // LOG is currently unused. Remove this suppress when it gets used.
@@ -68,15 +58,9 @@ public class CustomerClient {
         custFrame.setVisible(true);
     }// end buildGui
 
-    /**
-     * we probably don't need a main if this is launched from LogininPopUp...
-     * 
-     * @param args
-     *            temp
-     */
-    public static void main(String[] args) {
-        HomeownerAccount justToRemoveWarningForNow = new HomeownerAccount();
-        System.out.println(justToRemoveWarningForNow.getAccountType());
-        new CustomerClient().buildGui();
-    }
+	public static void main(String[] args) {
+		NetworkManager.startClient("localhost", 9667);
+		BeanMessage message = new BeanMessage("Hello World");
+		NetworkManager.sendMessage(message);
+	}
 }
