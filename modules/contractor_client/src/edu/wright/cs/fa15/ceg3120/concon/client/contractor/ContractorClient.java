@@ -23,9 +23,6 @@ package edu.wright.cs.fa15.ceg3120.concon.client.contractor;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-public class ContractorClient {
-	private static final Logger LOG = LoggerFactory.getLogger(ContractorClient.class);
 import java.awt.Container;
 import java.awt.EventQueue;
 import java.awt.GridLayout;
@@ -37,9 +34,6 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.text.DecimalFormat;
 import java.util.Vector;
-
-	public static void main(String[] args) {
-		LOG.trace("Starting Contractor client...");
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
