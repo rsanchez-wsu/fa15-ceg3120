@@ -26,6 +26,8 @@ import java.awt.EventQueue;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
@@ -103,6 +105,9 @@ public class ContractorClient extends JFrame implements ActionListener {
 	private static String[] job4;
 	private static Vector<String[]> jobList = new Vector<String[]>();
 	private static int intSearch = 0;
+	private static String[] columnNames = {"Job Number", "Title", "Description", "City", "Cost", 
+										   "Duration", "Zip Code"};
+	private static DefaultTableModel model1 = null;
 	
 	/**
 	 * Create the application.
@@ -117,7 +122,18 @@ public class ContractorClient extends JFrame implements ActionListener {
 	private static void initialize() {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 725, 475);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		frame.addWindowListener(new WindowAdapter() {
+			@Override
+		    public void windowClosing(WindowEvent w0)
+		    { 
+		        int exit = JOptionPane.showConfirmDialog(frame, "Do you want to exit?");
+		        if(exit==JOptionPane.YES_OPTION)
+		        {
+		            System.exit(0);
+		        }
+		    }
+		});
 		frame.getContentPane().setLayout(null);
 
 		JPanel banner = new JPanel();
@@ -287,9 +303,7 @@ public class ContractorClient extends JFrame implements ActionListener {
 			}
 		});
 		
-		String[] columnNames = {"Job Number", "Title", "Description", "City", "Cost", 
-								"Duration", "Distance"};
-		final DefaultTableModel model1 = new DefaultTableModel(columnNames, 0);
+		buildTable();
 		JTable tblSearchResults = new JTable(model1);
 		tblSearchResults.setModel(model1);
 		JScrollPane jscSearchResults = new JScrollPane(tblSearchResults);
@@ -306,15 +320,27 @@ public class ContractorClient extends JFrame implements ActionListener {
 		
 		btnSearchGo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				columnNames[6] = "Zip Code";
+				buildTable();
+				tblSearchResults.setModel(model1);
+				tblSearchResults.validate();
+				tblSearchResults.repaint();
+				populateJobListArray();
 				model1.setRowCount(0);
 				switch (intSearch) {
 				case 0:
+					columnNames[6] = "Zip Code";
 					for (int i = 0; i < jobList.size(); i++) {
 						String[] tempArray = jobList.elementAt(i);
 						model1.addRow(tempArray);
 					}	
 					break;
 				case 1:
+					columnNames[6] = "Distance";
+					buildTable();
+					tblSearchResults.setModel(model1);
+					tblSearchResults.validate();
+					tblSearchResults.repaint();
 					populateJobListArray();
 					final String tempDistance = txtSearchOptions.getText();
 					double curDistance = 0;
@@ -766,6 +792,9 @@ public class ContractorClient extends JFrame implements ActionListener {
 
 	}
 
+	public static void buildTable() {
+		model1 = new DefaultTableModel(columnNames, 0);
+	}
 
 	/**
 	 * This method sets up the initial window.
