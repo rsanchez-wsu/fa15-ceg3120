@@ -392,7 +392,28 @@ public class ContractorClient extends JFrame implements ActionListener {
 		
 		JPanel paymentsTab = new JPanel();
 		pageTabs.addTab("Payments", null, paymentsTab, null);
-
+		paymentsTab.setLayout(null);
+		
+		JLabel paymentsSearchLabel = new JLabel("Search job number:");
+		paymentsTab.add(paymentsSearchLabel);
+		paymentsSearchLabel.setBounds(5,5,120,20);
+		
+		JButton paymentsSearchButton = new JButton("Search");
+		paymentsSearchButton.setBounds(530, 5, 120, 20);
+		paymentsTab.add(paymentsSearchButton);
+		
+		final JTextField paymentsSearchOptions = new JTextField();
+        	paymentsSearchOptions.setBounds(275, 5, 240, 20);
+		paymentsTab.add(paymentsSearchOptions);
+		
+		String[] columnName = {"Job Number", "Cost", "Payments", "Balance"};
+        	final DefaultTableModel payments = new DefaultTableModel(columnName, 0);
+        	JTable tblPaymentsResults2 = new JTable(payments);
+        	tblPaymentsResults2.setModel(payments);
+        	JScrollPane PaymentsResults = new JScrollPane(tblPaymentsResults2);
+        	PaymentsResults.setBounds(45, 45, 605, 100);
+        	paymentsTab.add(PaymentsResults);
+        	
 		profileTab = new JPanel();
 		pageTabs.addTab("Edit Profile", null, profileTab, null);
 		profileTab.setLayout(null);
