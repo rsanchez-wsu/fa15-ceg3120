@@ -302,7 +302,7 @@ public class ContractorClient extends JFrame implements ActionListener {
 		});
 		
 		buildTable();
-		JTable tblSearchResults = new JTable(model1);
+		final JTable tblSearchResults = new JTable(model1);
 		tblSearchResults.setModel(model1);
 		JScrollPane jscSearchResults = new JScrollPane(tblSearchResults);
 		jscSearchResults.setBounds(45, 45, 605, 200);
