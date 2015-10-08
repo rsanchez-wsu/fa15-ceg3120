@@ -21,12 +21,6 @@
 
 package edu.wright.cs.fa15.ceg3120.concon.common.data;
 
-import edu.wright.cs.fa15.ceg3120.concon.common.net.NetworkManager;
-
-public class Server {
-
-	public static void main(String[] args) {
-		NetworkManager.startServer(9667);
-		System.out.println("Server running.");
-	}
+public enum AccountType {
+    HOMEOWNER, CONTRACTOR, SERVER_ADMIN
 }

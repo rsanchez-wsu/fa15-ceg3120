@@ -25,7 +25,6 @@ import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 
@@ -70,8 +69,7 @@ public class ConConServer extends Thread {
         }
     }
 
-    private static class ConnectionWorker extends Thread
-    {
+    private class ConnectionWorker extends Thread {
         private Socket clientSocket = null;
 
         public ConnectionWorker(Socket clientSocket) {
@@ -82,14 +80,16 @@ public class ConConServer extends Thread {
         public void run() {
             try {
                 DataOutputStream toClient = new DataOutputStream(clientSocket.getOutputStream());
-                BufferedReader fromClient = new BufferedReader(new InputStreamReader(clientSocket.getInputStream(), "UTF-8"));
+                BufferedReader fromClient = new BufferedReader(
+                        new InputStreamReader(clientSocket.getInputStream()));
 
                 int n = 0;
-                StringBuilder message = new StringBuilder();
-                while ((n = fromClient.read()) != -1)
-                    message.append(n);
+                String message = "";
+                while ((n = fromClient.read()) != -1) {
+                    message += (char) n;
+                }
 
-                NetworkManager.post(NetworkManager.decodeFromXML(message.toString()));
+                NetworkManager.post(NetworkManager.decodeFromXML(message));
 
                 toClient.close();
                 fromClient.close();
