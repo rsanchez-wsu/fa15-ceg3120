@@ -51,40 +51,63 @@
  */
 
 //package components;
+
 package edu.wright.cs.fa15.ceg3120.concon.server;
 
-/*
- * TabbedPaneDemo.java requires one additional file:
- *   images/middle.gif.
- */
-import java.awt.*;
-import java.awt.*;
-import java.awt.event.*;
-import javax.swing.*;
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+
+import javax.swing.BorderFactory;
+import javax.swing.ButtonGroup;
+import javax.swing.DefaultListModel;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JComponent;
+import javax.swing.JEditorPane;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+import javax.swing.JRadioButton;
+import javax.swing.JScrollPane;
+import javax.swing.JTabbedPane;
+import javax.swing.JTable;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.JToolBar;
+import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
+import javax.swing.table.AbstractTableModel;
 
 public class ServerGUI extends JPanel implements ActionListener {
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
 	protected JTextField textField;
 	protected JTextArea textArea;
-	private final static String newline = "\n";
+	protected JRadioButton homeOwner, contractor;
+	private static final String newline = "\n";
 
 	public ServerGUI() {
 		super(new GridLayout(1, 1));
 
 		JTabbedPane tabbedPane = new JTabbedPane();
-		ImageIcon icon = createImageIcon("images/3.png");
+		ImageIcon icon = createImageIcon("images/jno4TAP.png"); //import your own logo.
 		ImageIcon iconDashBoard = createImageIcon("images/Dash.png");
 		
 		JComponent panel1 = makeDashBoard();
 		tabbedPane.addTab("Dash board", iconDashBoard, panel1, "Does nothing");
 		tabbedPane.setMnemonicAt(0, KeyEvent.VK_1);
 
+
 		JComponent panel2 = createButtonsSearch();
 		tabbedPane.addTab("User's info", icon, panel2,
-				"Does twice as much nothing");
+						"Does twice as much nothing");
 		tabbedPane.setMnemonicAt(1, KeyEvent.VK_2);
 
 		JComponent panel3 = createButtonsMessages();
@@ -97,7 +120,7 @@ public class ServerGUI extends JPanel implements ActionListener {
 				.addTab("Remote Control", icon, panel4, "Does nothing at all");
 		tabbedPane.setMnemonicAt(3, KeyEvent.VK_5);
 
-		JComponent panel5 = makeTextPanel("Panel #5");
+		JComponent panel5 = createTransactionsPanel();
 		tabbedPane.addTab("Transactions", icon, panel5, "Still does nothing");
 		tabbedPane.setMnemonicAt(4, KeyEvent.VK_4);
 
@@ -114,15 +137,12 @@ public class ServerGUI extends JPanel implements ActionListener {
 		filler.setHorizontalAlignment(JLabel.CENTER);
 		panel.setLayout(new GridLayout(1, 1));
 		panel.add(filler);
-		
-	
 		return panel;
 	}
-	
 	protected JComponent makeDashBoard(){
 		JPanel mainPanel = new JPanel(new BorderLayout());
 		JToolBar toolBar = new JToolBar();
-		JToolBar reportBar = new JToolBar();
+		//JToolBar reportBar = new JToolBar();
 		textArea = new JTextArea(10, 20);
 		textArea.setLineWrap(true);
 		textArea.setWrapStyleWord(true);
@@ -243,101 +263,120 @@ public class ServerGUI extends JPanel implements ActionListener {
 	protected void displayInTextArea(String actionDescription) {
 		textArea.append(actionDescription + newline);
 	}
-	
-	
-	protected JComponent createControlPanel() {
-        JPanel mainPanel = new JPanel(new BorderLayout());
-        
-        JPanel schedulePanel = new JPanel(new GridLayout(4,1));	
-        JPanel consolePanel = new JPanel(new BorderLayout());
-        JPanel loginPanel = new JPanel(new GridLayout(2,2));
-        
-        // SchedulePanel
-        /*
-         * CLicking this button will evoke a JDatePicker and JSpinner
-         * to allow a user to set a date and time for the server to 
-         * restart
-         */
-        JButton btnScheduleReboot = new JButton("Schedule Reboot");
-        btnScheduleReboot.addActionListener(this);
-        schedulePanel.add(btnScheduleReboot);
-        /*
-         * CLicking this button will evoke a JDatePicker and JSpinner
-         * to allow a user to set a date and time for the server to 
-         * complete an arbitrary command 
-         */
-        JButton btnScheduleTask = new JButton("Schedule Task");
-        btnScheduleTask.addActionListener(this);
-        schedulePanel.add(btnScheduleTask);
-        
-        JTextArea txaTask = new JTextArea();
-        schedulePanel.add(txaTask);
 
-        JComponent standInConsole = makeTextPanel("Server console");
-        
-        // LoginPanel
-        JLabel lblUsername = new JLabel("Username");
-        JTextField txtUsername = new JTextField();
-        JLabel lblPassword = new JLabel("Password");
-        JPasswordField txtPassword = new JPasswordField();
-        loginPanel.add(lblUsername);
-        loginPanel.add(txtUsername);
-        loginPanel.add(lblPassword);
-        loginPanel.add(txtPassword);
-        
-        // ConsolePanel
-        consolePanel.add(loginPanel, BorderLayout.WEST);
-        consolePanel.add(standInConsole, BorderLayout.CENTER);
-        
-        // MainPanel
-        mainPanel.setBorder(BorderFactory.createEmptyBorder(0, 0,
-                                                0, 0));
-        mainPanel.add(schedulePanel);
-        mainPanel.add(consolePanel, BorderLayout.SOUTH);
-        return mainPanel;
-    }
+
+	protected JComponent createControlPanel() {
+
+		// SchedulePanel
+		/*
+		 * CLicking this button will evoke a JDatePicker and JSpinner to allow a
+		 * user to set a date and time for the server to restart
+		 */
+		JPanel schedulePanel = new JPanel(new GridLayout(4, 1));
+		JButton btnScheduleReboot = new JButton("Schedule Reboot");
+		btnScheduleReboot.addActionListener(this);
+		schedulePanel.add(btnScheduleReboot);
+		/*
+		 * CLicking this button will evoke a JDatePicker and JSpinner to allow a
+		 * user to set a date and time for the server to complete an arbitrary
+		 * command
+		 */
+		JButton btnScheduleTask = new JButton("Schedule Task");
+		btnScheduleTask.addActionListener(this);
+		schedulePanel.add(btnScheduleTask);
+
+		JTextArea txaTask = new JTextArea();
+		schedulePanel.add(txaTask);
+
+		// LoginPanel
+		JPanel loginPanel = new JPanel(new GridLayout(2, 2));
+		JLabel lblUsername = new JLabel("Username");
+		JTextField txtUsername = new JTextField();
+		JLabel lblPassword = new JLabel("Password");
+		JPasswordField txtPassword = new JPasswordField();
+		loginPanel.add(lblUsername);
+		loginPanel.add(txtUsername);
+		loginPanel.add(lblPassword);
+		loginPanel.add(txtPassword);
+
+		// ConsolePanel
+		JComponent standInConsole = makeTextPanel("Server console");
+		JPanel consolePanel = new JPanel(new BorderLayout());
+		consolePanel.add(loginPanel, BorderLayout.WEST);
+		consolePanel.add(standInConsole, BorderLayout.CENTER);
+
+		// MainPanel
+		JPanel mainPanel = new JPanel(new BorderLayout());
+		mainPanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
+		mainPanel.add(schedulePanel);
+		mainPanel.add(consolePanel, BorderLayout.SOUTH);
+		return mainPanel;
+	}
 
 	protected JComponent createButtonsSearch() {
-		JPanel panel = new JPanel(new FlowLayout(FlowLayout.TRAILING));
+		JPanel panel = new JPanel();
+		panel.setLayout(new FlowLayout());
+		
+		JPanel searching = new JPanel();
+		searching.setLayout(new GridLayout(1,4));
+		
+		JTextField searchBar = new JTextField(25);
+		searching.add(searchBar);
+		JButton search = new JButton();
+		search.setText("Search");
+		search.addActionListener(new UserListener());
+		//search.addActionListener(new ButtonListener());
+		searching.add(search);
 
-		JButton button = new JButton("Search");
-		button.addActionListener(this);
-		panel.add(button);
-		JButton button2 = new JButton("Disable");
-		button.addActionListener(this);
-		panel.add(button2);
-		JButton button3 = new JButton("Terminate");
-		button.addActionListener(this);
-		panel.add(button3);
-
-		button = new JButton("Clear");
-		button.addActionListener(this);
-		button.setActionCommand("clear");
-		panel.add(button);
-
-		panel.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
-		return panel;
+		homeOwner = new JRadioButton();
+		homeOwner.setText("Homeowner");
+		homeOwner.setSelected(true);
+		ButtonGroup userTypes = new ButtonGroup();
+		userTypes.add(homeOwner);
+		searching.add(homeOwner);
+		contractor = new JRadioButton();
+		contractor.setText("Contractor");
+		userTypes.add(contractor);
+		searching.add(contractor);
+		
+		panel.add(searching);
+		
+		JPanel results = new JPanel();
+		results.setLayout(new GridLayout(1,1));
+		JTable searchResults = new JTable();
+		JScrollPane sr = new JScrollPane();
+		sr.add(searchResults);
+		results.add(sr);
+		
+		panel.add(results);
+        return panel;
 	}
 
 	protected JComponent createButtonsMessages() {
-		JPanel panel = new JPanel(new BorderLayout());
-		
-		JPanel northPanel = new JPanel();
-		
-		JPanel usersPanel = new JPanel(new BorderLayout());
-		JLabel usersLabel = new JLabel("Users:"); // TODO add label to view
-		JList<String> usersList = new JList<>(); 
+		/*
+		 * Instantiation of the north panel. This panel will hold the two list
+		 * views to select the users that will receive the message.
+		 */
 		DefaultListModel<String> usersModel = new DefaultListModel<>();
+		// Create dummy data for JList
 		usersModel.addElement("Bob");
 		usersModel.addElement("Susan");
 		usersModel.addElement("ConstructionsRUs");
 		usersModel.addElement("Bob's Building Builders");
+
+		JList<String> usersList = new JList<>();
 		usersList.setModel(usersModel);
+
+		JLabel usersLabel = new JLabel("Users:"); // TODO add label to view
+		JPanel usersPanel = new JPanel(new BorderLayout());
 		JScrollPane usersScrollPane = new JScrollPane(usersList);
 		usersPanel.add(usersLabel, BorderLayout.NORTH);
 		usersPanel.add(usersScrollPane, BorderLayout.CENTER);
+
+		JPanel northPanel = new JPanel();
 		northPanel.add(usersPanel);
-		
+
+		// Buttons for moving selections from one pane to another.
 		JPanel buttonPanel = new JPanel(new BorderLayout());
 		JButton button = new JButton("Add all");
 		// TODO add listener
@@ -348,7 +387,7 @@ public class ServerGUI extends JPanel implements ActionListener {
 		button = new JButton("<--");
 		buttonPanel.add(button, BorderLayout.SOUTH);
 		northPanel.add(buttonPanel);
-		
+
 		JPanel selectedPanel = new JPanel(new BorderLayout());
 		JLabel selectedLabel = new JLabel("Selected:");
 		JList<String> selectedList = new JList<>();
@@ -359,29 +398,92 @@ public class ServerGUI extends JPanel implements ActionListener {
 		selectedPanel.add(selectedLabel, BorderLayout.NORTH);
 		selectedPanel.add(selectedScrollPane, BorderLayout.CENTER);
 		northPanel.add(selectedPanel);
-		
+
+		/*
+		 * Instantiation of the center panel. This panel will hold the editor
+		 * pane that will be used to edit the message to be sent.
+		 */
 		JPanel centerPanel = new JPanel(new BorderLayout());
 		JLabel messageLabel = new JLabel("Message:");
 		JEditorPane messageText = new JEditorPane();
 		JScrollPane messageScrollPane = new JScrollPane(messageText);
 		centerPanel.add(messageLabel, BorderLayout.NORTH);
 		centerPanel.add(messageScrollPane, BorderLayout.CENTER);
-		
+
+		/*
+		 * Instantiation of the east panel. This panel will hold two buttons.
+		 * One to clear all data one to send message.
+		 */
 		JPanel eastPanel = new JPanel();
 		button = new JButton("Clear");
-		//TODO add listener
+		// TODO add listener
 		eastPanel.add(button);
 		button = new JButton("Send");
-		//TODO add listener
+		// TODO add listener
 		eastPanel.add(button);
-		
+
+		JPanel panel = new JPanel(new BorderLayout());
+
 		panel.add(northPanel, BorderLayout.NORTH);
 		panel.add(centerPanel, BorderLayout.CENTER);
 		panel.add(eastPanel, BorderLayout.EAST);
-		
+
 		return panel;
 	}
 
+	/**
+	 * Creates the panel to placed in the Transactions tab of the Server Control
+	 * GUI
+	 * 
+	 * @return the panel to be used.
+	 */
+	protected JComponent createTransactionsPanel() {
+		
+		// Users label
+		DefaultListModel<String> usersModel = new DefaultListModel<>();
+		// Create dummy data for JList
+		usersModel.addElement("Bob");
+		usersModel.addElement("Susan");
+		usersModel.addElement("ConstructionsRUs");
+		usersModel.addElement("Bob's Building Builders");
+		usersModel.addElement("Bob");
+		usersModel.addElement("Susan");
+		usersModel.addElement("ConstructionsRUs");
+		usersModel.addElement("Bob's Building Builders");
+		usersModel.addElement("Bob");
+		usersModel.addElement("Susan");
+		usersModel.addElement("ConstructionsRUs");
+		usersModel.addElement("Bob's Building Builders");
+		usersModel.addElement("Bob");
+		usersModel.addElement("Susan");
+		usersModel.addElement("ConstructionsRUs");
+		usersModel.addElement("Bob's Building Builders");
+
+		JList<String> usersList = new JList<>();
+		usersList.setModel(usersModel);
+
+		JPanel usersPanel = new JPanel(new BorderLayout());
+		JLabel usersLabel = new JLabel("Users:"); // TODO add label to view
+		usersPanel.add(usersLabel, BorderLayout.NORTH);
+		
+		JScrollPane usersScrollPane = new JScrollPane(usersList);
+		usersPanel.add(usersScrollPane, BorderLayout.CENTER);
+		
+		JButton refreshButton = new JButton("Refresh");
+		//TODO add click listener
+		usersPanel.add(refreshButton, BorderLayout.EAST);
+		
+		// Transactions Table
+		JTable transactionTable = new JTable(new TransactionTableModel());
+		transactionTable.setFillsViewportHeight(true);
+		
+		JPanel panel = new JPanel(new BorderLayout());
+		panel.add(new JScrollPane(transactionTable), BorderLayout.CENTER);
+		panel.add(usersPanel, BorderLayout.NORTH);
+		return panel;
+	}
+
+	@Override
 	public void actionPerformed(ActionEvent evt) {
 		String text = textField.getText();
 		textArea.append(text + newline);
@@ -402,8 +504,65 @@ public class ServerGUI extends JPanel implements ActionListener {
 			return null;
 		}
 	}
-	
-	
+
+	class TransactionTableModel extends AbstractTableModel {
+		private static final long serialVersionUID = 1L;
+
+		private String[] columnNames = { "Home Owner", "Contactor","Transaction #", "Date",
+		  "Price" };
+
+		private Object[][] dummyData = {
+		  { "Kathy", "Bob's Building", new Integer(1001),
+			"Aug 31, 2015", "$120.15" },
+		  { "Geroge", "Home Depot", new Integer(1002),
+		    "Aug 29, 2015", "$1000.00" },
+		  { "Megan", "Constructors", new Integer(1003), 
+		    "Aug 30, 2015", "$120.15" },
+		  { "Mitch", "Joe's", new Integer(1004), 
+		    "Aug 31, 2015", "$120.15"}
+		};
+
+		@Override
+		public int getColumnCount() {
+			return columnNames.length;
+		}
+		
+		@Override
+		public String getColumnName(int col) {
+            return columnNames[col];
+        }
+
+		@Override
+		public int getRowCount() {
+			return dummyData.length;
+		}
+
+		@Override
+		public Object getValueAt(int row, int col) {
+			return dummyData[row][col];
+		}
+		
+		@Override
+		public Class<?> getColumnClass(int column) {
+			return getValueAt(0, column).getClass();
+		}
+		
+		/*
+		 * Possible implementation of resolving transaction issues
+		 */
+		@Override
+		public boolean isCellEditable(int row, int col) {
+			return false; // Could return true on different columns.
+		}
+		
+		@Override
+		public void setValueAt(Object value, int row, int col) {
+			// TODO validation
+			dummyData[row][col] = value;
+			fireTableCellUpdated(row, col);
+		}
+
+	}
 
 	/**
 	 * Create the GUI and show it. For thread safety, this method should be
@@ -412,8 +571,9 @@ public class ServerGUI extends JPanel implements ActionListener {
 	private static void createAndShowGUI() {
 		// Create and set up the window.
 		JFrame frame = new JFrame("Server Control GUI");
+
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
+
 		// Add content to the window.
 		frame.add(new ServerGUI(), BorderLayout.CENTER);
 
@@ -421,11 +581,87 @@ public class ServerGUI extends JPanel implements ActionListener {
 		frame.pack();
 		frame.setVisible(true);
 	}
+
+    private class ButtonListener implements ActionListener{
+        @Override
+        public void actionPerformed(ActionEvent event) {
+            try {
+            	//else if( there is nothing typed in the textfield){
+            	//	System.out.println("You must enter a name to search");
+            	//}
+            	//else {
+            		//search database for that name
+            	//}
+            } catch (Exception ex) {
+            	System.out.println("Error occured searching for users with that name");
+            }
+        }
+    }
+    
+    private class UserListener implements ActionListener{
+        @Override
+        public void actionPerformed(ActionEvent event) {
+            try {
+            	System.out.println("Button Pushed");
+            	JFrame userInfo = new JFrame("Detail User Info");
+            	userInfo.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+            	
+            	JPanel info = new JPanel();
+            	info.setLayout(new GridLayout(3,1));
+            	
+            	JPanel editableInfo = new JPanel();
+            	editableInfo.setLayout(new GridLayout(1,4));
+            	
+            	JTextField name = new JTextField(25);
+            	name.setText("Barbara Kean");
+            	editableInfo.add(name);
+            	
+            	JTextField address = new JTextField(25);
+            	address.setText("123 Main St. Gotham City");
+            	editableInfo.add(address);
+            	
+            	JTextField phone = new JTextField(13);
+            	phone.setText("(555)555-5555");
+            	editableInfo.add(phone);
+            	
+            	JTextField email = new JTextField(20);
+            	email.setText("mrs.gordon@gcpd.gov");
+            	editableInfo.add(email);
+            	
+            	info.add(editableInfo);
+            	
+            	JPanel functions = new JPanel();
+            	functions.setLayout(new GridLayout(1,3));
+            	
+            	JButton message = new JButton();
+            	message.setText("Send Message");
+            	functions.add(message);
+            	
+            	JButton disable = new JButton();
+            	disable.setText("Disable Account");
+            	functions.add(disable);
+            	
+            	JButton reset = new JButton();
+            	reset.setText("Reset Password");
+            	functions.add(reset);
+            	
+            	info.add(functions);
+
+            	
+            	userInfo.add(info);
+            	userInfo.pack();
+            	userInfo.setVisible(true);
+            } catch (Exception ex) {
+            	System.out.println("Error occured searching for users with that name");
+            }
+        }
+    }
 	
 	public static void main(String[] args) {
 		// Schedule a job for the event dispatch thread:
 		// creating and showing this application's GUI.
 		SwingUtilities.invokeLater(new Runnable() {
+			@Override
 			public void run() {
 				// Turn off metal's use of bold fonts
 				UIManager.put("swing.boldMetal", Boolean.FALSE);
