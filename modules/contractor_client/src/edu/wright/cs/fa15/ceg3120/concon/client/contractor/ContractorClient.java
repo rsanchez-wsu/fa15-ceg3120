@@ -26,6 +26,8 @@ import java.awt.EventQueue;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
@@ -117,7 +119,18 @@ public class ContractorClient extends JFrame implements ActionListener {
 	private static void initialize() {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 725, 475);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		frame.addWindowListener(new WindowAdapter() {
+			@Override
+		    public void windowClosing(WindowEvent w0)
+		    { 
+		        int exit = JOptionPane.showConfirmDialog(frame, "Do you want to exit?");
+		        if(exit==JOptionPane.YES_OPTION)
+		        {
+		            System.exit(0);
+		        }
+		    }
+		});
 		frame.getContentPane().setLayout(null);
 
 		JPanel banner = new JPanel();
