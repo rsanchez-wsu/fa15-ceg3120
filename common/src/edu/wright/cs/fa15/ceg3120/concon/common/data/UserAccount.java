@@ -35,9 +35,16 @@ public class UserAccount {
     private AccountType accountType;
     /** Description. */
     private char[] pswd;
+    /** Response from database. */
+    private String dbResponse;
     // other common data fields
     // perhaps encrypted pswd?
 
+    /**
+     * Creates a new instance of <code>UserAccount</code>.
+     * 
+     * @param accountType (AccountType)
+     */
     public UserAccount(AccountType accountType) {
         uuid = "Debug";
         this.accountType = accountType;
@@ -46,12 +53,9 @@ public class UserAccount {
     /**
      * Creates a new instance of <code>UserAccount</code>.
      * 
-     * @param uuid
-     *            - (String)
-     * @param type
-     *            - (AccountType)
-     * @param pswd
-     *            - (char[])
+     * @param uuid (String)
+     * @param type (AccountType)
+     * @param pswd (char[])
      */
     public UserAccount(String uuid, AccountType type, char[] pswd) {
         this.uuid = uuid;
@@ -83,9 +87,17 @@ public class UserAccount {
         this.pswd = pswd.clone();
     }
 
+    public String getdbResponse() {
+        return dbResponse;
+    }
+
+    public void setdbResponse(String dbResponse) {
+        this.dbResponse = dbResponse;
+    }
+
     /**
      * Launches the account type specific GUI.
+     * <p>Must be given functionality by UserAccount sub-classes.</p>
      */
     public void launchGui(){}
-
 }

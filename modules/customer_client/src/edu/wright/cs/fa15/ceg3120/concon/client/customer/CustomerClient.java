@@ -21,6 +21,7 @@
 
 package edu.wright.cs.fa15.ceg3120.concon.client.customer;
 
+import edu.wright.cs.fa15.ceg3120.concon.common.data.HomeownerAccount;
 //import edu.wright.cs.fa15.ceg3120.concon.common.data.HomeownerAccount;
 import edu.wright.cs.fa15.ceg3120.concon.common.net.NetworkManager;
 import edu.wright.cs.fa15.ceg3120.concon.common.net.message.BeanMessage;
@@ -45,10 +46,22 @@ public class CustomerClient {
     private static final int WINDOW_HEIGHT = Toolkit.getDefaultToolkit().getScreenSize().height
             - 150;
 
+    @SuppressWarnings("unused")
+    private HomeownerAccount user;
+    
+    public CustomerClient() {
+        user = null;
+    }
+    
+//    public HomeownerAccount getUser() {
+//        return user;
+//    }
+    
     /**
      * Temp.
      */
-    public void buildGui() {
+    public void buildGui(HomeownerAccount user) {
+        this.user = user;
         JFrame custFrame = new JFrame("TEMP TITLE");
         custFrame.setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
 
@@ -70,7 +83,7 @@ public class CustomerClient {
         NetworkManager.startClient("localhost", 9667);
         BeanMessage message = new BeanMessage("Hello World");
         NetworkManager.sendMessage(message);
-        new CustomerClient().buildGui();
+        new CustomerClient().buildGui(new HomeownerAccount());
     }
     
     static class MyWindowAdapter extends WindowAdapter {

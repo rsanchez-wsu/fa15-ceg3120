@@ -51,8 +51,8 @@ public class HomeownerAccount extends UserAccount {
             Class<?> homeowner = 
                     Class.forName("edu.wright.cs.fa15.ceg3120.concon"
                             + ".client.customer.CustomerClient");
-            Method meth = homeowner.getMethod("buildGui", (Class<?>[])null);
-            meth.invoke(homeowner.newInstance(), (Object[])null);
+            Method meth = homeowner.getMethod("buildGui", this.getClass());
+            meth.invoke(homeowner.newInstance(), this);
         } catch (RuntimeException e) { 
             throw e;
         } catch (Exception e) {

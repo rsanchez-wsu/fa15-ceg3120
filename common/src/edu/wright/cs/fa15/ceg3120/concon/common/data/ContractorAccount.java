@@ -25,8 +25,8 @@ public class ContractorAccount extends UserAccount {
 
     // Contractor specific data fields
 
-    public ContractorAccount(AccountType accountType) {
-        super(accountType);
+    public ContractorAccount() {
+        super(AccountType.CONTRACTOR);
         // TODO Auto-generated constructor stub
     }
 
