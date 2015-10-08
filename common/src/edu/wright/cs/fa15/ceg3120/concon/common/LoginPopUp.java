@@ -87,8 +87,7 @@ public class LoginPopUp implements Externalizable{
                     
                     @Override
                     public void run() {
-                        // TODO Auto-generated method stub
-                        launchNewAccountGui();// set focusable not doing what i want <_<
+                        launchNewAccountGui();
                         loginButton.setEnabled(true);
                         btnCreateAccount.setEnabled(true);
                     }
@@ -111,6 +110,12 @@ public class LoginPopUp implements Externalizable{
                     // blah blah... shipped user to network, reset user to null
                     loginButton.setEnabled(false);
                     btnCreateAccount.setEnabled(false);
+                    
+                    /* Add invocation of ArrayBlockingQueue.poll(long, TimeUnit)
+                     * to the end of the EDT execution queue to ensure a "happens
+                     * before" relationship with the JButton.setEnabled(boolean)
+                     * calls. 
+                     */
                     SwingUtilities.invokeLater(new Runnable() {
                         @Override
                         public void run() {
@@ -120,10 +125,9 @@ public class LoginPopUp implements Externalizable{
                                 // remove above
                                 user = incoming.poll(5, TimeUnit.SECONDS);
                             } catch (InterruptedException e) {
-                                // TODO Auto-generated catch block
                                 e.printStackTrace();
                                 JOptionPane.showConfirmDialog(null,
-                                        "There was an issue with your request"
+                                        "The program experienced an internal error."
                                         + "\nPlease try again...",
                                         "Error", JOptionPane.OK_OPTION,
                                         JOptionPane.ERROR_MESSAGE);
@@ -143,7 +147,7 @@ public class LoginPopUp implements Externalizable{
                                     user.launchGui();
                                 } else {
                                     JOptionPane.showMessageDialog(null,
-                                            "There was an issue with your request"
+                                            "Your request timed out."
                                             + "\nPlease try again...",
                                             "Error", JOptionPane.ERROR_MESSAGE);
                                     loginButton.setEnabled(true);
@@ -160,6 +164,7 @@ public class LoginPopUp implements Externalizable{
                 String uuid = uuidField.getText();
                 if (uuid.length() > 0) {
                     if (passwordField.getPassword().length > 0) {
+                        // XXX encrypt pswd before creating new UserAccount
                         user = new UserAccount(uuid, null, passwordField.getPassword());
                     } else {
                         JOptionPane.showMessageDialog(null,
@@ -174,7 +179,7 @@ public class LoginPopUp implements Externalizable{
                     return false;
                 }
                 return true;
-            }
+            }//end verifyFields
         });
 
     }// end buildGui
@@ -185,9 +190,10 @@ public class LoginPopUp implements Externalizable{
      * More description to come...
      * </p>
      * 
-     * @param user
-     *            (UserAccount sub-class)
+     * @param user (UserAccount sub-class)
+     * 
      * @return true if the item was successfully inserted
+     * 
      * @throws InterruptedException
      *             thrown if interrupted...
      */
@@ -202,14 +208,8 @@ public class LoginPopUp implements Externalizable{
      */
     private void launchNewAccountGui() {
         (new CreateNewAccount()).buildGui();
-        try {
-            user = incoming.poll(5, TimeUnit.SECONDS);
-        } catch (InterruptedException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        System.out.println("Reenabling buttons...");
-
+        // TODO do more stuffs? maybe/ maybe not
+        
     }// end launchNewAccountGUI
 
     public FieldPanel createFieldPanel() {
