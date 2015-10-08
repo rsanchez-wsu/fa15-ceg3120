@@ -53,7 +53,7 @@ public class HomeownerAccount extends UserAccount {
                             + ".client.customer.CustomerClient");
             Method meth = homeowner.getMethod("buildGui", (Class<?>[])null);
             meth.invoke(homeowner.newInstance(), (Object[])null);
-        } catch (RuntimeException e){ 
+        } catch (RuntimeException e) { 
             throw e;
         } catch (Exception e) {
             e.printStackTrace();

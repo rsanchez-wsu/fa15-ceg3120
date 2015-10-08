@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package edu.wright.cs.fa15.ceg3120.concon.paysched;
+package edu.wright.cs.fa15.ceg3120.concon.common.ui.scheduling;
 
 import edu.wright.cs.fa15.ceg3120.concon.common.net.data.SchedulingData;
 
