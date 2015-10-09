@@ -26,12 +26,11 @@ import java.awt.Color;
 import java.awt.Container;
 import java.awt.EventQueue;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
@@ -39,7 +38,6 @@ import java.net.URL;
 import java.text.DecimalFormat;
 import java.util.Vector;
 
-import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -133,6 +131,9 @@ public class ContractorClient extends JFrame implements ActionListener {
 
 		Container c0 = frame.getContentPane();
 		c0.setBackground(Color.orange);
+		ImageIcon imgIcon = new ImageIcon("images/c2-icon.png");
+		frame.setIconImage(imgIcon.getImage());
+		frame.setTitle("Contractor Connect");
 		frame.addWindowListener(new WindowAdapter() {
 			@Override
 		    public void windowClosing(WindowEvent w0) { 
@@ -146,16 +147,16 @@ public class ContractorClient extends JFrame implements ActionListener {
 
 		JPanel banner = new JPanel();
 		banner.setBounds(6, 0, 703, 127);
-		BufferedImage logo = null;
-		try {
-			logo = ImageIO.read(new File("images/c2-icon.png"));
-			JLabel picLabel = new JLabel(new ImageIcon(logo));
-			banner.add(picLabel);	
-			picLabel.setOpaque(true);
-			picLabel.setBackground(Color.darkGray);
-		} catch (IOException e2) {
-			e2.printStackTrace();
-		}
+//		BufferedImage logo = new BufferedImage(127, 127, BufferedImage.TYPE_INT_RGB);
+		ImageIcon imageIcon = new ImageIcon("images/c2-image.png");
+		Image image = imageIcon.getImage();
+		Image newImg = image.getScaledInstance(127, 127, java.awt.Image.SCALE_SMOOTH);
+		imageIcon = new ImageIcon(newImg);		
+		JLabel picLabel = new JLabel(imageIcon);
+		banner.add(picLabel);	
+		picLabel.setOpaque(true);
+		picLabel.setBackground(Color.darkGray);
+
 		frame.getContentPane().add(banner);
 		banner.setOpaque(false);
 		JTabbedPane pageTabs = new JTabbedPane(JTabbedPane.TOP);
