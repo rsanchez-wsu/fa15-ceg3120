@@ -21,6 +21,8 @@
 
 package edu.wright.cs.fa15.ceg3120.concon.client.contractor;
 
+
+import java.awt.Color;
 import java.awt.Container;
 import java.awt.EventQueue;
 import java.awt.GridLayout;
@@ -28,6 +30,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
@@ -35,6 +39,8 @@ import java.net.URL;
 import java.text.DecimalFormat;
 import java.util.Vector;
 
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -120,9 +126,12 @@ public class ContractorClient extends JFrame implements ActionListener {
 	 * Initialize the contents of the frame.
 	 */
 	private static void initialize() {
-		frame = new JFrame();
+		frame = new JFrame();		
 		frame.setBounds(100, 100, 725, 475);
 		frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+
+		Container c0 = frame.getContentPane();
+		c0.setBackground(Color.darkGray);
 		frame.addWindowListener(new WindowAdapter() {
 			@Override
 		    public void windowClosing(WindowEvent w0) { 
@@ -136,8 +145,16 @@ public class ContractorClient extends JFrame implements ActionListener {
 
 		JPanel banner = new JPanel();
 		banner.setBounds(6, 0, 703, 127);
+		BufferedImage logo = null;
+		try {
+			logo = ImageIO.read(new File("images/c2-icon.png"));
+			JLabel picLabel = new JLabel(new ImageIcon(logo));
+			banner.add(picLabel);	
+		} catch (IOException e2) {
+			e2.printStackTrace();
+		}
 		frame.getContentPane().add(banner);
-
+		banner.setOpaque(false);
 		JTabbedPane pageTabs = new JTabbedPane(JTabbedPane.TOP);
 		pageTabs.setBounds(6, 127, 703, 309);
 		frame.getContentPane().add(pageTabs);
