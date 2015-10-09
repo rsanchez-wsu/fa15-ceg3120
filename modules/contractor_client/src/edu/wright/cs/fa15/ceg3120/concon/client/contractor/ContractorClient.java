@@ -69,14 +69,14 @@ public class ContractorClient extends JFrame implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
 	private static JFrame frame;
-	private static JTextField txtLastName;
-	private static JTextField txtFirstName;
-	private static JTextField txtCompanyName;
-	private static JTextField txtAddress1;
-	private static JTextField txtAddress2;
-	private static JTextField txtCity;
-	private static JTextField txtState;
-	private static JTextField txtZipCode;
+	private static JLabel lblShowCurLastName;
+	private static JLabel lblShowCurFirstName;
+	private static JLabel lblShowCurCompanyName;
+	private static JLabel lblShowCurAddress1;
+	private static JLabel lblShowCurAddress2;
+	private static JLabel lblShowCurCity;
+	private static JLabel lblShowCurState;
+	private static JLabel lblShowCurZipCode;
 	private static JTextField txtLastNameUpdate;
 	private static JTextField txtFirstNameUpdate;
 	private static JTextField txtCompanyNameUpdate;
@@ -105,6 +105,7 @@ public class ContractorClient extends JFrame implements ActionListener {
 	private static JLabel lblZipCodeUpdate;
 	private static JButton btnSave;
 	private static JButton btnCancel;
+	private static JButton btnClear;
 	private static String[] job1;
 	private static String[] job2;
 	private static String[] job3;
@@ -131,7 +132,7 @@ public class ContractorClient extends JFrame implements ActionListener {
 		frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 
 		Container c0 = frame.getContentPane();
-		c0.setBackground(Color.darkGray);
+		c0.setBackground(Color.orange);
 		frame.addWindowListener(new WindowAdapter() {
 			@Override
 		    public void windowClosing(WindowEvent w0) { 
@@ -150,6 +151,8 @@ public class ContractorClient extends JFrame implements ActionListener {
 			logo = ImageIO.read(new File("images/c2-icon.png"));
 			JLabel picLabel = new JLabel(new ImageIcon(logo));
 			banner.add(picLabel);	
+			picLabel.setOpaque(true);
+			picLabel.setBackground(Color.darkGray);
 		} catch (IOException e2) {
 			e2.printStackTrace();
 		}
@@ -460,6 +463,16 @@ public class ContractorClient extends JFrame implements ActionListener {
 	 * @author Joshua Thomas
 	 */
 	public static void populateProfileTab() {
+		
+		JButton btnEdit = new JButton("Edit Profile");
+		profileTab.add(btnEdit);
+		btnEdit.setBounds(145, 247, 120, 23);
+		btnEdit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				editProfile();
+			}
+		});
+		
 		JLabel lblCurProfile = new JLabel("Current Profile Settings:");
 		profileTab.add(lblCurProfile);
 		lblCurProfile.setBounds(30, 5, 200, 20);
@@ -468,73 +481,73 @@ public class ContractorClient extends JFrame implements ActionListener {
 		profileTab.add(lblFirstName);
 		lblFirstName.setBounds(15, 35, 120, 20);
 
-		txtFirstName = new JTextField();
-		txtFirstName.setEditable(false);
-		profileTab.add(txtFirstName);
-		txtFirstName.setBounds(145, 35, 120, 20);
+		lblShowCurFirstName = new JLabel();
+		profileTab.add(lblShowCurFirstName);
+		lblShowCurFirstName.setBounds(145, 35, 120, 20);
+		lblShowCurFirstName.setText(strFirstName);
 
 		JLabel lblLastName = new JLabel("Last Name:");
 		profileTab.add(lblLastName);
 		lblLastName.setBounds(15, 60, 120, 20);
 
-		txtLastName = new JTextField();
-		txtLastName.setEditable(false);
-		profileTab.add(txtLastName);
-		txtLastName.setBounds(145, 60, 120, 20);
+		lblShowCurLastName = new JLabel();
+		profileTab.add(lblShowCurLastName);
+		lblShowCurLastName.setBounds(145, 60, 120, 20);
+		lblShowCurLastName.setText(strLastName);
 
 		JLabel lblCompanyName = new JLabel("Company Name:");
 		profileTab.add(lblCompanyName);
 		lblCompanyName.setBounds(15, 85, 120, 20);
 
-		txtCompanyName = new JTextField();
-		txtCompanyName.setEditable(false);
-		profileTab.add(txtCompanyName);
-		txtCompanyName.setBounds(145, 85, 120, 20);
+		lblShowCurCompanyName = new JLabel();
+		profileTab.add(lblShowCurCompanyName);
+		lblShowCurCompanyName.setBounds(145, 85, 120, 20);
+		lblShowCurCompanyName.setText(strCompanyName);
 
 		JLabel lblAddress1 = new JLabel("Address:");
 		profileTab.add(lblAddress1);
 		lblAddress1.setBounds(15, 110, 120, 20);
 
-		txtAddress1 = new JTextField();
-		txtAddress1.setEditable(false);
-		profileTab.add(txtAddress1);
-		txtAddress1.setBounds(145, 110, 120, 20);
+		lblShowCurAddress1 = new JLabel();
+		profileTab.add(lblShowCurAddress1);
+		lblShowCurAddress1.setBounds(145, 110, 120, 20);
+		lblShowCurAddress1.setText(strAddress1);
 
 		JLabel lblAddress2 = new JLabel("Address (cont):");
 		profileTab.add(lblAddress2);
 		lblAddress2.setBounds(15, 135, 120, 20);
 
-		txtAddress2 = new JTextField();
-		txtAddress2.setEditable(false);
-		profileTab.add(txtAddress2);
-		txtAddress2.setBounds(145, 135, 120, 20);
+		lblShowCurAddress2 = new JLabel();
+		profileTab.add(lblShowCurAddress2);
+		lblShowCurAddress2.setBounds(145, 135, 120, 20);
+		lblShowCurAddress2.setText(strAddress2);
 
 		JLabel lblCity = new JLabel("City:");
 		profileTab.add(lblCity);
 		lblCity.setBounds(15, 160, 120, 20);
 
-		txtCity = new JTextField();
-		txtCity.setEditable(false);
-		profileTab.add(txtCity);
-		txtCity.setBounds(145, 160, 120, 20);
+		lblShowCurCity = new JLabel();
+		profileTab.add(lblShowCurCity);
+		lblShowCurCity.setBounds(145, 160, 120, 20);
+		lblShowCurCity.setText(strCity);
 
 		JLabel lblState = new JLabel("State:");
 		profileTab.add(lblState);
 		lblState.setBounds(15, 185, 120, 20);
 
-		txtState = new JTextField();
-		txtState.setEditable(false);
-		profileTab.add(txtState);
-		txtState.setBounds(145, 185, 120, 20);
-
+		lblShowCurState = new JLabel();
+		profileTab.add(lblShowCurState);
+		lblShowCurState.setBounds(145, 185, 120, 20);
+		lblShowCurState.setText(strState);
+		
 		JLabel lblZipCode = new JLabel("Zip Code:");
 		profileTab.add(lblZipCode);
 		lblZipCode.setBounds(15, 210, 120, 20);
 
-		txtZipCode = new JTextField();
-		txtZipCode.setEditable(false);
-		profileTab.add(txtZipCode);
-		txtZipCode.setBounds(145, 210, 120, 20);
+		lblShowCurZipCode = new JLabel();
+		profileTab.add(lblShowCurZipCode);
+		lblShowCurZipCode.setBounds(145, 210, 120, 20);
+		lblShowCurZipCode.setText(String.format("%05d", intZipCode));
 
 		lblNewProfile = new JLabel("Updated Profile Settings:");
 		profileTab.add(lblNewProfile);
@@ -621,32 +634,34 @@ public class ContractorClient extends JFrame implements ActionListener {
 		txtZipCodeUpdate.setBounds(475, 210, 120, 20);
 		txtZipCodeUpdate.setVisible(false);
 
-		JButton btnLoad = new JButton("Load Profile");
-		profileTab.add(btnLoad);
-		btnLoad.setBounds(145, 247, 120, 23);
-		btnLoad.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				loadProfile();
-			}
-		});
-
-		btnSave = new JButton("Save Changes");
+		btnSave = new JButton("Save");
 		profileTab.add(btnSave);
-		btnSave.setBounds(345, 247, 120, 23);
+		btnSave.setBounds(345, 247, 80, 23);
 		btnSave.setVisible(false);
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				saveProfileUpdates();
 			}
 		});
+		
+		btnClear = new JButton("Clear");
+		profileTab.add(btnClear);
+		btnClear.setBounds(430, 247, 80, 23);
+		btnClear.setVisible(false);
+		btnClear.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				clearProfileUpdates();
+			}
+		});
 
 		btnCancel = new JButton("Cancel");
 		profileTab.add(btnCancel);
-		btnCancel.setBounds(475, 247, 120, 23);
+		btnCancel.setBounds(515, 247, 80, 23);
 		btnCancel.setVisible(false);
 		btnCancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				clearProfileUpdates();
+				editProfileCancel();
 			}
 		});
 	}
@@ -655,7 +670,7 @@ public class ContractorClient extends JFrame implements ActionListener {
 	 * This method makes the "updated information" portion of the edit profile tab visible.
 	 * @author Joshua Thomas
 	 */
-	public static void loadProfile() {
+	public static void editProfile() {
 		lblNewProfile.setVisible(true);
 		lblLastNameUpdate.setVisible(true);
 		lblFirstNameUpdate.setVisible(true);
@@ -674,31 +689,9 @@ public class ContractorClient extends JFrame implements ActionListener {
 		txtStateUpdate.setVisible(true);
 		txtZipCodeUpdate.setVisible(true);
 		btnSave.setVisible(true);
+		btnClear.setVisible(true);
 		btnCancel.setVisible(true);
-		txtLastName.setText(strLastName);
-		txtFirstName.setText(strFirstName);
-		txtCompanyName.setText(strCompanyName);
-		txtAddress1.setText(strAddress1);
-		txtAddress2.setText(strAddress2);
-		txtCity.setText(strCity);
-		txtState.setText(strState);
-		txtZipCode.setText(String.format("%05d", intZipCode));
 		profileTab.revalidate();
-	}
-
-	/**
-	 * This method clears the entries in the "update profile" section of the profile editor tab.
-	 * @author Joshua Thomas
-	 */
-	public static void clearProfileUpdates() {
-		txtLastNameUpdate.setText(null);
-		txtFirstNameUpdate.setText(null);
-		txtCompanyNameUpdate.setText(null);
-		txtAddress1Update.setText(null);
-		txtAddress2Update.setText(null);
-		txtCityUpdate.setText(null);
-		txtStateUpdate.setText(null);
-		txtZipCodeUpdate.setText(null);
 	}
 
 	/**
@@ -768,7 +761,6 @@ public class ContractorClient extends JFrame implements ActionListener {
 
 			}
 		}
-		loadProfile();
 		profileTab.revalidate();
 	}
 	
@@ -791,6 +783,7 @@ public class ContractorClient extends JFrame implements ActionListener {
 		jobList.add(2,job3);
 		jobList.add(3,job4);
 	}
+	
 	/**
 	 * This method calculates the distance between two ZIP codes.
 	 * Contractor Connection registered with ZipCodeAPI.com on the free plan to get static API code.
@@ -827,7 +820,51 @@ public class ContractorClient extends JFrame implements ActionListener {
 	public void actionPerformed(ActionEvent e0) {
 
 	}
+	
+	/**
+	 * This method clears the entries in the "update profile" section of the profile editor tab.
+	 * @author Joshua Thomas 
+	 */
+	public static void clearProfileUpdates() {
+		txtLastNameUpdate.setText(null);
+		txtFirstNameUpdate.setText(null);
+		txtCompanyNameUpdate.setText(null);
+		txtAddress1Update.setText(null);
+		txtAddress2Update.setText(null);
+		txtCityUpdate.setText(null);
+		txtStateUpdate.setText(null);
+		txtZipCodeUpdate.setText(null);
+	}
 
+	/**
+	 * This method sets visible to false for the "update profile" section of the profile editor tab.
+	 * @author Joshua Thomas
+	 */
+	public static void editProfileCancel() {
+		lblNewProfile.setVisible(false);
+		txtLastNameUpdate.setVisible(false);
+		txtFirstNameUpdate.setVisible(false);
+		txtCompanyNameUpdate.setVisible(false);
+		txtAddress1Update.setVisible(false);
+		txtAddress2Update.setVisible(false);
+		txtCityUpdate.setVisible(false);
+		txtStateUpdate.setVisible(false);
+		txtZipCodeUpdate.setVisible(false);
+		btnSave.setVisible(false);
+		btnClear.setVisible(false);
+		btnCancel.setVisible(false);
+		lblLastNameUpdate.setVisible(false);
+		lblFirstNameUpdate.setVisible(false);
+		lblCompanyNameUpdate.setVisible(false);
+		lblAddress1Update.setVisible(false);
+		lblAddress2Update.setVisible(false);
+		lblCityUpdate.setVisible(false);
+		lblStateUpdate.setVisible(false);
+		lblZipCodeUpdate.setVisible(false);
+		profileTab.validate();
+		profileTab.repaint();
+	}
+	
 	public static void buildTable() {
 		model1 = new DefaultTableModel(columnNames, 0);
 	}
