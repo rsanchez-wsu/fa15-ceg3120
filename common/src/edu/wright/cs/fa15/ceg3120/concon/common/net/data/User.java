@@ -21,8 +21,9 @@
 
 package edu.wright.cs.fa15.ceg3120.concon.common.net.data;
 
-import java.awt.Image;
 import java.io.Serializable;
+
+import javax.swing.ImageIcon;
 
 public class User implements Serializable {
 
@@ -33,7 +34,7 @@ public class User implements Serializable {
 	private String firstName;
 	private String lastName;
 	private String uuid;
-	private Image avatar;
+	private ImageIcon  avatar;
 
 	public User() { }	
 	
@@ -67,11 +68,11 @@ public class User implements Serializable {
 		this.uuid = uuid;
 	}
 
-	public Image getAvatar() {
+	public ImageIcon getAvatar() {
 		return avatar;
 	}
 
-	public void setAvatar(Image avatar) {
+	public void setAvatar(ImageIcon avatar) {
 		this.avatar = avatar;
 	}
 
