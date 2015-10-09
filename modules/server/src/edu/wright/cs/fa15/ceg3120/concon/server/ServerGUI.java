@@ -97,7 +97,7 @@ public class ServerGUI extends JPanel implements ActionListener {
 		super(new GridLayout(1, 1));
 
 		JTabbedPane tabbedPane = new JTabbedPane();
-		ImageIcon icon = createImageIcon("images/jno4TAP.png"); //import your own logo.
+		ImageIcon icon = createImageIcon("images/Dash.png"); //import your own logo.
 		ImageIcon iconDashBoard = createImageIcon("images/Dash.png");
 		
 		JComponent panel1 = makeDashBoard();
