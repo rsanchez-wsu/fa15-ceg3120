@@ -22,13 +22,18 @@
 package edu.wright.cs.fa15.ceg3120.concon.client.customer;
 
 import edu.wright.cs.fa15.ceg3120.concon.common.net.NetworkManager;
-import edu.wright.cs.fa15.ceg3120.concon.common.net.message.BeanMessage;
+import edu.wright.cs.fa15.ceg3120.concon.common.net.data.User;
+import edu.wright.cs.fa15.ceg3120.concon.common.net.message.ChatMessage;
 
 public class CustomerClient {
 
 	public static void main(String[] args) {
 		NetworkManager.startClient("localhost", 9667);
-		BeanMessage message = new BeanMessage("Hello World");
+		ChatMessage message = new ChatMessage(
+				"Hello, Wendy", 
+				new User("Dave", "Thomas"), 
+				new User("Wendy", "Thomas")
+		);
 		NetworkManager.sendMessage(message);
 	}
 }

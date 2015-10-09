@@ -21,19 +21,25 @@
 
 package edu.wright.cs.fa15.ceg3120.concon.common.net.message;
 
-public class BeanMessage extends NetworkMessage {
+import edu.wright.cs.fa15.ceg3120.concon.common.net.data.User;
+
+public class ChatMessage extends NetworkMessage {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -2279299798905393963L;
 	private String message;
+	private User from;
+	private User to;
 
-	public BeanMessage() {} // Default constructor required for java beans.
+	public ChatMessage() {} // Default constructor required for java beans.
 
-	public BeanMessage(String message)
+	public ChatMessage(String message, User from, User to)
 	{
 		this.message = message;
+		this.from = from;
+		this.to = to;
 	}
 
 	public String getMessage() {
@@ -42,6 +48,22 @@ public class BeanMessage extends NetworkMessage {
 
 	public void setMessage(String message) {
 		this.message = message;
+	}
+
+	public User getFrom() {
+		return from;
+	}
+
+	public void setFrom(User from) {
+		this.from = from;
+	}
+
+	public User getTo() {
+		return to;
+	}
+
+	public void setTo(User to) {
+		this.to = to;
 	}
 
 	@Override
