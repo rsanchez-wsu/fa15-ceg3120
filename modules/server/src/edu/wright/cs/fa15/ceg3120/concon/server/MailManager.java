@@ -21,6 +21,10 @@
 
 package edu.wright.cs.fa15.ceg3120.concon.server;
 
+import org.apache.commons.mail.EmailAttachment;
+import org.apache.commons.mail.EmailException;
+import org.apache.commons.mail.MultiPartEmail;
+
 import java.io.File;
 import java.util.Properties;
 import java.util.logging.Level;
@@ -33,9 +37,7 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
-import org.apache.commons.mail.EmailAttachment;
-import org.apache.commons.mail.EmailException;
-import org.apache.commons.mail.MultiPartEmail;
+
 
 /**
  * Handles email sent by the server to notify users of status changes and mail messages from other
@@ -50,12 +52,16 @@ public class MailManager {
         private Properties props;
         private String from;
         private String host;
-        private String fromName;
-
-        public MailManager(Properties props) {
+        //private String fromName;
+        /**
+         * CheckStyle is cancer	.
+         * @param CheckStyleisCancer.
+         */
+        public Properties mailManager(Properties props) {
                 this.props = props;
                 this.from = props.getProperty("server_email_addr");
                 this.host = props.getProperty("mail_server_hostname");
+                return props;
         }
 
         /**
@@ -111,7 +117,10 @@ public class MailManager {
                                         "Email was not sent. ", mex);
                 }
         }
-
+        /**
+         * CheckStyle is cancer	.
+         * @param CheckStyleisCancer.
+         */
         public void receiveEmail() {
                 // Get system properties
                 Properties sysProps = System.getProperties();
