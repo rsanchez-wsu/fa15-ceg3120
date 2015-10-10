@@ -85,15 +85,21 @@ import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.table.AbstractTableModel;
 
-public class ServerGUI extends JPanel implements ActionListener {
+public class ServerGui extends JPanel implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
 	protected JTextField textField;
 	protected JTextArea textArea;
-	protected JRadioButton homeOwner, contractor;
+	protected JRadioButton homeOwner;
+	protected JRadioButton contractor;
 	private static final String newline = "\n";
 
-	public ServerGUI() {
+/**
+ * CheckStyle is cancer	.
+ * @param CheckStyleisCancer.
+ */
+	public ServerGui() { 
+		
 		super(new GridLayout(1, 1));
 
 		JTabbedPane tabbedPane = new JTabbedPane();
@@ -124,7 +130,7 @@ public class ServerGUI extends JPanel implements ActionListener {
 		tabbedPane.addTab("Transactions", icon, panel5, "Still does nothing");
 		tabbedPane.setMnemonicAt(4, KeyEvent.VK_4);
 
-		// Add the tabbed pane to this panel.
+		// Add the tab pane to this panel.
 		add(tabbedPane);
 
 		// The following line enables to use scrolling tabs.
@@ -139,17 +145,13 @@ public class ServerGUI extends JPanel implements ActionListener {
 		panel.add(filler);
 		return panel;
 	}
-	protected JComponent makeDashBoard(){
-		JPanel mainPanel = new JPanel(new BorderLayout());
-		JToolBar toolBar = new JToolBar();
+	
+	protected JComponent makeDashBoard() {
 		//JToolBar reportBar = new JToolBar();
 		textArea = new JTextArea(10, 20);
 		textArea.setLineWrap(true);
 		textArea.setWrapStyleWord(true);
 		textArea.setEditable(false);
-		JScrollPane Pane = new JScrollPane(textArea);
-		JPanel contentPane = new JPanel();
-		JComponent reportPane = new JPanel();
 		
 		JFrame reportFrame = new JFrame("Reports");
 		reportFrame.pack();
@@ -157,7 +159,11 @@ public class ServerGUI extends JPanel implements ActionListener {
 		reportFrame.setVisible(false);
 		ImageIcon iconReport = createImageIcon("images/Report.png");
 		reportFrame.setIconImage(iconReport.getImage());
-		reportPane = makeTextPanel("Date             User             Type             Time issued             Status");
+		
+		JComponent reportPane = new JPanel();
+		reportPane = makeTextPanel("Date             "
+				+ "User             Type             "
+				+ "Time issued             Status");
 		reportFrame.add(reportPane, BorderLayout.NORTH);
 		
 		JFrame emerFrame = new JFrame("Emergency Message");
@@ -170,27 +176,26 @@ public class ServerGUI extends JPanel implements ActionListener {
 		
 		JTextArea mergText = new JTextArea(10, 50);
 		JLabel mergLabel = new JLabel("Enter the message:");
-		JScrollPane scrollPane = new JScrollPane(mergText);
 		mergLabel.setPreferredSize(new Dimension(5,30));
 		mergText.setLineWrap(true);
 		mergText.setWrapStyleWord(true);
 		
-		JButton jSend = new JButton("Send");
-		jSend.addActionListener(new ActionListener(){
+		JButton jsend = new JButton("Send");
+		jsend.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent arg0) {
 				displayInTextArea("Message sent: " + mergText.getText());
 				emerFrame.dispose();
 			}
 		});
-		JButton jClear = new JButton("Clear");
-		jClear.addActionListener(new ActionListener(){
+		JButton jclear = new JButton("Clear");
+		jclear.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent arg0) {
 				mergText.setText("");
 			}
 			
 		});
-		JButton jClose = new JButton("Close");
-		jClose.addActionListener(new ActionListener(){
+		JButton jclose = new JButton("Close");
+		jclose.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent arg0) {
 				emerFrame.dispose();
 			}
@@ -199,24 +204,17 @@ public class ServerGUI extends JPanel implements ActionListener {
 		
 		JPanel emerPane = new JPanel();
 		emerPane.setLayout(new BorderLayout());
-		emerPane.add(jSend, BorderLayout.WEST);
-		emerPane.add(jClear,  BorderLayout.CENTER);
-		emerPane.add(jClose, BorderLayout.EAST);
+		emerPane.add(jsend, BorderLayout.WEST);
+		emerPane.add(jclear,  BorderLayout.CENTER);
+		emerPane.add(jclose, BorderLayout.EAST);
 		
 		JPanel emerPane1 = new JPanel();
+		JScrollPane scrollPane = new JScrollPane(mergText);
 		emerPane1.add(emerPane,  BorderLayout.CENTER);
-		
 		emerFrame.add(mergLabel, BorderLayout.NORTH);
 		emerFrame.add(scrollPane,BorderLayout.CENTER);
 		emerFrame.add(emerPane1, BorderLayout.SOUTH);
 	
-		
-		
-		contentPane.setLayout(new BorderLayout());
-		contentPane.setPreferredSize(new Dimension(400, 100));
-		contentPane.add(toolBar, BorderLayout.NORTH);
-		contentPane.add(Pane, BorderLayout.WEST);
-		
 		JButton toolButtons = null;
 		toolButtons = new JButton("Server Status");
 		toolButtons.addActionListener(new ActionListener(){
@@ -225,36 +223,46 @@ public class ServerGUI extends JPanel implements ActionListener {
 			}
 			
 		});
+		JToolBar toolBar = new JToolBar();
 		toolBar.add(toolButtons, BorderLayout.NORTH);
 		
+		JPanel contentPane = new JPanel();
+		JScrollPane pane = new JScrollPane(textArea);
+		contentPane.setLayout(new BorderLayout());
+		contentPane.setPreferredSize(new Dimension(400, 100));
+		contentPane.add(toolBar, BorderLayout.NORTH);
+		contentPane.add(pane, BorderLayout.WEST);
 		//pop up reviewing all news reports from users (abusive, scam...etc reports)
-		JButton buttonReports = null;
-		buttonReports = new JButton("Reports");
+		
+		JButton buttonReports = new JButton("Reports");
 		buttonReports.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-                reportFrame.setVisible(true);
-            }
-		});
-		JButton currentUsers = null;
-		currentUsers = new JButton("Current users");
-		currentUsers.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent arg0) {
-				int number = 420;
-				displayInTextArea("Current online users: " + number); //access the database, request # of online users and post it.
+				reportFrame.setVisible(true); 
 			}
 			
 		});
 		
-		JButton emergencyMessages = null;
-		emergencyMessages = new JButton("Emergency Message");
+		JButton currentUsers = new JButton("Current users");
+		currentUsers.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent arg0) {
+				int number = 420;
+				//access the database, request # of online users and post it.
+				displayInTextArea("Current online users: " + number); 
+			}
+			
+		});
+		
+		
+		JButton emergencyMessages = new JButton("Emergency Message");
 		emergencyMessages.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-                emerFrame.setVisible(true);
-            }
+				public void actionPerformed(ActionEvent arg0) {
+					emerFrame.setVisible(true);
+				}
 		});
 		toolBar.add(emergencyMessages, BorderLayout.NORTH);
 		toolBar.add(buttonReports, BorderLayout.NORTH);
 		toolBar.add(currentUsers, BorderLayout.NORTH);
+		JPanel mainPanel = new JPanel(new BorderLayout());
 		mainPanel.add(contentPane);
 		return mainPanel;
 		
@@ -349,7 +357,7 @@ public class ServerGUI extends JPanel implements ActionListener {
 		results.add(sr);
 		
 		panel.add(results);
-        return panel;
+        	return panel;
 	}
 
 	protected JComponent createButtonsMessages() {
@@ -496,9 +504,9 @@ public class ServerGUI extends JPanel implements ActionListener {
 
 	/** Returns an ImageIcon, or null if the path was invalid. */
 	protected static ImageIcon createImageIcon(String path) {
-		java.net.URL imgURL = ServerGUI.class.getResource(path);
-		if (imgURL != null) {
-			return new ImageIcon(imgURL);
+		java.net.URL imgUrl = ServerGui.class.getResource(path);
+		if (imgUrl != null) {
+			return new ImageIcon(imgUrl);
 		} else {
 			System.err.println("Couldn't find file: " + path);
 			return null;
@@ -529,8 +537,8 @@ public class ServerGUI extends JPanel implements ActionListener {
 		
 		@Override
 		public String getColumnName(int col) {
-            return columnNames[col];
-        }
+            		return columnNames[col];
+        	}
 
 		@Override
 		public int getRowCount() {
@@ -568,95 +576,102 @@ public class ServerGUI extends JPanel implements ActionListener {
 	 * Create the GUI and show it. For thread safety, this method should be
 	 * invoked from the event dispatch thread.
 	 */
-	private static void createAndShowGUI() {
+	private static void createAndshowgui() {
 		// Create and set up the window.
 		JFrame frame = new JFrame("Server Control GUI");
 
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		// Add content to the window.
-		frame.add(new ServerGUI(), BorderLayout.CENTER);
+		frame.add(new ServerGui(), BorderLayout.CENTER);
 
 		// Display the window.
 		frame.pack();
 		frame.setVisible(true);
 	}
 
-    private class ButtonListener implements ActionListener{
-        @Override
+    	@SuppressWarnings("unused")
+	private class ButtonListener implements ActionListener{
+    		@Override
         public void actionPerformed(ActionEvent event) {
-            try {
+    			try {
             	//else if( there is nothing typed in the textfield){
             	//	System.out.println("You must enter a name to search");
             	//}
             	//else {
             		//search database for that name
             	//}
-            } catch (Exception ex) {
-            	System.out.println("Error occured searching for users with that name");
-            }
-        }
-    }
+    			} catch (Exception ex) {
+    				System.out.println("Error occured searching "
+    								+ "for users with that name");
+    			}
+    		}
+    	}
     
-    private class UserListener implements ActionListener{
-        @Override
+    	private class UserListener implements ActionListener{
+    		@Override
         public void actionPerformed(ActionEvent event) {
-            try {
-            	System.out.println("Button Pushed");
-            	JFrame userInfo = new JFrame("Detail User Info");
-            	userInfo.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+    			try {
+    				System.out.println("Button Pushed");
+    				JFrame userInfo = new JFrame("Detail User Info");
+    				userInfo.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
             	
-            	JPanel info = new JPanel();
-            	info.setLayout(new GridLayout(3,1));
+    				JPanel info = new JPanel();
+    				info.setLayout(new GridLayout(3,1));
             	
-            	JPanel editableInfo = new JPanel();
-            	editableInfo.setLayout(new GridLayout(1,4));
+	            		JPanel editableInfo = new JPanel();
+	            		editableInfo.setLayout(new GridLayout(1,4));
             	
-            	JTextField name = new JTextField(25);
-            	name.setText("Barbara Kean");
-            	editableInfo.add(name);
+	            		JTextField name = new JTextField(25);
+	            		name.setText("Barbara Kean");
+	            		editableInfo.add(name);
             	
-            	JTextField address = new JTextField(25);
-            	address.setText("123 Main St. Gotham City");
-            	editableInfo.add(address);
+	            		JTextField address = new JTextField(25);
+	            		address.setText("123 Main St. Gotham City");
+            			editableInfo.add(address);
             	
-            	JTextField phone = new JTextField(13);
-            	phone.setText("(555)555-5555");
-            	editableInfo.add(phone);
+            			JTextField phone = new JTextField(13);
+            			phone.setText("(555)555-5555");
+            			editableInfo.add(phone);
+            		
+            			JTextField email = new JTextField(20);
+            			email.setText("mrs.gordon@gcpd.gov");
+            			editableInfo.add(email);
             	
-            	JTextField email = new JTextField(20);
-            	email.setText("mrs.gordon@gcpd.gov");
-            	editableInfo.add(email);
+            			info.add(editableInfo);
             	
-            	info.add(editableInfo);
+            			JPanel functions = new JPanel();
+            			functions.setLayout(new GridLayout(1,3));
             	
-            	JPanel functions = new JPanel();
-            	functions.setLayout(new GridLayout(1,3));
+            			JButton message = new JButton();
+            			message.setText("Send Message");
+            			functions.add(message);
             	
-            	JButton message = new JButton();
-            	message.setText("Send Message");
-            	functions.add(message);
+            			JButton disable = new JButton();
+            			disable.setText("Disable Account");
+            			functions.add(disable);
             	
-            	JButton disable = new JButton();
-            	disable.setText("Disable Account");
-            	functions.add(disable);
+            			JButton reset = new JButton();
+            			reset.setText("Reset Password");
+            			functions.add(reset);
             	
-            	JButton reset = new JButton();
-            	reset.setText("Reset Password");
-            	functions.add(reset);
-            	
-            	info.add(functions);
+            			info.add(functions);
 
             	
-            	userInfo.add(info);
-            	userInfo.pack();
-            	userInfo.setVisible(true);
-            } catch (Exception ex) {
-            	System.out.println("Error occured searching for users with that name");
-            }
-        }
-    }
-	
+            			userInfo.add(info);
+            			userInfo.pack();
+            			userInfo.setVisible(true);
+    			} catch (Exception ex) {
+    				System.out.println("Error occured searching "
+    									+ "for users "
+    									+ "with that name");
+    			}
+    		}
+    	}
+    	/**
+    	 * CheckStyle is cancer	.
+    	 * @param CheckStyleisCancer.
+    	 */
 	public static void main(String[] args) {
 		// Schedule a job for the event dispatch thread:
 		// creating and showing this application's GUI.
@@ -665,7 +680,7 @@ public class ServerGUI extends JPanel implements ActionListener {
 			public void run() {
 				// Turn off metal's use of bold fonts
 				UIManager.put("swing.boldMetal", Boolean.FALSE);
-				createAndShowGUI();
+				createAndshowgui();
 			}
 		});
 	}
