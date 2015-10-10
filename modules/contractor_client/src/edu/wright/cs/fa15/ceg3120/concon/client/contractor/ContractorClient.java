@@ -21,6 +21,8 @@
 
 package edu.wright.cs.fa15.ceg3120.concon.client.contractor;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.awt.Color;
 import java.awt.Container;
@@ -64,7 +66,7 @@ import org.xml.sax.SAXException;
 
 public class ContractorClient extends JFrame implements ActionListener {
 
-
+	private static final Logger LOG = LoggerFactory.getLogger(ContractorClient.class);
 	private static final long serialVersionUID = 1L;
 	private static JFrame frame;
 	private static JLabel lblShowCurLastName;
@@ -874,6 +876,7 @@ public class ContractorClient extends JFrame implements ActionListener {
 	 * This method sets up the initial window.
 	 */
 	public static void main(String[] args) {
+		LOG.trace("Starting Contractor client...");
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {

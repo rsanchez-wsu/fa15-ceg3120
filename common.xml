@@ -6,6 +6,7 @@
     <property name="lib.dir"      value="lib"/>
     <property name="tools.dir"    value="tools"/>
     <property name="classes.dir"  value="${build.dir}/classes"/>
+	<property name="db.url"		  value="jdbc:derby:C:\Users\NathanJent\conconDB"/>
 
     <path id="build.lib.path">
         <fileset dir="${lib.dir}" includes="*.jar"/>
@@ -81,7 +82,7 @@
 
     <!-- JUnit End -->
 
-    <target name="init" depends="resolve, init-junit">
+    <target name="init" depends="resolve, init-junit, log4jconfig">
         <taskdef name="findbugs"
             classname="edu.umd.cs.findbugs.anttask.FindBugsTask"
             classpathref="tools.lib.path"/>
@@ -137,5 +138,10 @@
         <fail if="findbugs-warning" message="FindBugs has found bugs!"/>
     </target>
 
+	<!-- Copy log4j2.xml to each module -->
+	<target name="log4jconfig">
+		<copy file="${common.dir}/log4j2.xml" todir="${src.dir}"/>
+	</target>
+	
     <!-- more targets -->
 </project>

@@ -21,9 +21,13 @@
 
 package edu.wright.cs.fa15.ceg3120.concon.client.customer;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class CustomerClient {
+	private static final Logger LOG = LoggerFactory.getLogger(CustomerClient.class);
 
 	public static void main(String[] args) {
-		
+		LOG.trace("Starting Customer client...");
 	}
 }
