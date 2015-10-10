@@ -94,7 +94,7 @@ public class ConConServer extends Thread{
                     message.append(ch);
                 }
 
-                NetworkManager.post(NetworkManager.decodeFromXML(message.toString()));
+                NetworkManager.post(NetworkManager.decodeFromXml(message.toString()));
 
                 toClient.close();
                 fromClient.close();

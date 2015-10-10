@@ -64,7 +64,7 @@ public class ConConClient {
                     response.append(ch);
                 }
 
-                NetworkManager.post(NetworkManager.decodeFromXML(response.toString()));
+                NetworkManager.post(NetworkManager.decodeFromXml(response.toString()));
 
                 clientSocket.close();
             } catch (IOException e) {
