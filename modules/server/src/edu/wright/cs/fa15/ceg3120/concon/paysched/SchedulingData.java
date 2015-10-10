@@ -12,9 +12,9 @@ package edu.wright.cs.fa15.ceg3120.concon.paysched;
  */
 public class SchedulingData<T> {
  
-    private String month;
-    private String day;
-    private String timeRange;
+    //private String month;
+    //private String day;
+    //private String timeRange;
     
     /**Constructs the data to send.
      * 
@@ -25,22 +25,5 @@ public class SchedulingData<T> {
     
     public SchedulingData(){} //Default constructor
     
-    public SchedulingData(String month, String day, String timeRange) {
-        this.month = month;
-        this.day = day;
-        this.timeRange = timeRange;
-    }
-    
-    public void setMonth(String x){
-    	month = x;
-    }
-    
-    public void setDay(String y){
-    	day = y;
-    }
-    
-    public void setTimeRange(String z){
-    	timeRange = z;
-    }
-    
+   
 }

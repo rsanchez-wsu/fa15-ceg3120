@@ -18,6 +18,11 @@ import javax.swing.SwingUtilities;
 public class PaymentSchedulingWindow extends JFrame{
 
     /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
