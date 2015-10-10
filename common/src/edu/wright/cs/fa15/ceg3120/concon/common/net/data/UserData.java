@@ -21,24 +21,27 @@
 
 package edu.wright.cs.fa15.ceg3120.concon.common.net.data;
 
-import java.io.Serializable;
 
 import javax.swing.ImageIcon;
 
-public class User implements Serializable {
+/**
+ * Holds basic user data.
+ * 
+ * @author NathanJent
+ *
+ */
+public class UserData implements NetworkData {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -1804728648292102844L;
+	
 	private String firstName;
 	private String lastName;
 	private String uuid;
 	private ImageIcon  avatar;
 
-	public User() { }	
+	public UserData() { }	
 	
-	public User(String firstName, String lastName) {
+	public UserData(String firstName, String lastName) {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.uuid = "A49F"; //TODO need methods to generate new UUID

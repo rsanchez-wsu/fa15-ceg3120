@@ -1,8 +1,8 @@
 /*
  * Copyright (C) 2015
- *
- *
- *
+ * 
+ * 
+ * 
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,14 +19,17 @@
  *
  */
 
-package edu.wright.cs.fa15.ceg3120.concon.common.net.message;
+package edu.wright.cs.fa15.ceg3120.concon.common.net.data;
 
 import java.io.Serializable;
 
-public abstract class NetworkMessage implements Serializable {
-	
-	private static final long serialVersionUID = -8618792710721202266L;
-
-	public NetworkMessage() {}
+/**
+ * Implement this class for data objects that need to be
+ * sent over the network in DataMessage.
+ * 
+ * @author NathanJent
+ *
+ */
+public interface NetworkData extends Serializable {
 	
 }

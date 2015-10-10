@@ -22,7 +22,7 @@
 package edu.wright.cs.fa15.ceg3120.concon.client.customer;
 
 import edu.wright.cs.fa15.ceg3120.concon.common.net.NetworkManager;
-import edu.wright.cs.fa15.ceg3120.concon.common.net.data.User;
+import edu.wright.cs.fa15.ceg3120.concon.common.net.data.UserData;
 import edu.wright.cs.fa15.ceg3120.concon.common.net.message.ChatMessage;
 
 public class CustomerClient {
@@ -31,8 +31,8 @@ public class CustomerClient {
 		NetworkManager.startClient("localhost", 9667);
 		ChatMessage message = new ChatMessage(
 				"Hello, Wendy", 
-				new User("Dave", "Thomas"), 
-				new User("Wendy", "Thomas")
+				new UserData("Dave", "Thomas"), 
+				new UserData("Wendy", "Thomas")
 		);
 		NetworkManager.sendMessage(message);
 	}

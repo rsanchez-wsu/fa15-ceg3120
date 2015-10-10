@@ -1,8 +1,8 @@
 /*
  * Copyright (C) 2015
- *
- *
- *
+ * 
+ * 
+ * 
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -21,12 +21,33 @@
 
 package edu.wright.cs.fa15.ceg3120.concon.common.net.message;
 
-import java.io.Serializable;
+import edu.wright.cs.fa15.ceg3120.concon.common.net.data.NetworkData;
 
-public abstract class NetworkMessage implements Serializable {
-	
-	private static final long serialVersionUID = -8618792710721202266L;
+import java.util.ArrayList;
+import java.util.List;
 
-	public NetworkMessage() {}
+/**
+ * A data message contains a list of JavaBean type NetworkData objects.
+ * 
+ * @author NathanJent
+ *
+ */
+public class DataMessage extends NetworkMessage {
 	
+	private static final long serialVersionUID = -5735416327662546203L;
+	private List<NetworkData> dataList = new ArrayList<>();
+
+	public DataMessage() {} // Default constructor required for java beans.
+
+	public void add(NetworkData data) {
+		dataList.add(data);
+	}
+
+	public List<NetworkData> getDataList() {
+		return dataList;
+	}
+
+	public void setDataList(List<NetworkData> dataList) {
+		this.dataList = dataList;
+	}
 }
