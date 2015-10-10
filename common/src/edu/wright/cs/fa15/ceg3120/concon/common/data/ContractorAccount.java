@@ -25,9 +25,19 @@ public class ContractorAccount extends UserAccount {
 
     // Contractor specific data fields
 
-    public ContractorAccount() {
-        super(AccountType.CONTRACTOR);
-        // TODO Auto-generated constructor stub
+	private String strCompanyName;
+
+    public ContractorAccount(AccountType accountType) {
+        super(accountType);
+    }
+    
+    public void setCompanyName(String strCn) {
+    	strCompanyName = strCn;
+    }
+    
+
+    public String getCompanyName() {
+    	return strCompanyName;
     }
 
     @Override

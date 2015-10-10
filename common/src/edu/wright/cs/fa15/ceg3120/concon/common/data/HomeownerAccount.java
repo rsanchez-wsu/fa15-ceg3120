@@ -23,20 +23,21 @@ package edu.wright.cs.fa15.ceg3120.concon.common.data;
 
 import java.lang.reflect.Method;
 
+@SuppressWarnings("unused")
 public class HomeownerAccount extends UserAccount {
 
 	/** Description. */
-	private String streetAddress;
+//	private String streetAddress;
 	/** Description. */
-	private String city;
+//	private String city;
 	/** Description. */
-	private String state;
+//	private String state;
 	/** Description. */
-	private String zipCode;
+//	private int zipCode;
 	/** Description. */
-	private String phoneNumber;
+//	private String phoneNumber;
 	/** Description. */
-	private String email;
+//	private String email;
     //other fields here
     
 	public HomeownerAccount() {
@@ -45,24 +46,13 @@ public class HomeownerAccount extends UserAccount {
 	}
 
 	@Override
-    public void launchGui() {
-        //(new CustomerClient()).buildGui();
-        try {
-            Class<?> homeowner = 
-                    Class.forName("edu.wright.cs.fa15.ceg3120.concon"
-                            + ".client.customer.CustomerClient");
-            Method meth = homeowner.getMethod("buildGui", this.getClass());
-            meth.invoke(homeowner.newInstance(), this);
-        } catch (RuntimeException e) { 
-            throw e;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+    public void launchGui() {        
+        
+	}
 
-    public String getStreetAddress() {
-        return streetAddress;
-    }
+/*	public String getStreetAddress() {
+		return streetAddress;
+	}
 
 	public void setStreetAddress(String streetAdress) {
 		this.streetAddress = streetAdress;
@@ -84,11 +74,11 @@ public class HomeownerAccount extends UserAccount {
 		this.state = state;
 	}
 
-	public String getZipCode() {
+	public int getZipCode() {
 		return zipCode;
 	}
 
-	public void setZipCode(String zipCode) {
+	public void setZipCode(int zipCode) {
 		this.zipCode = zipCode;
 	}
 
@@ -107,5 +97,5 @@ public class HomeownerAccount extends UserAccount {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-
+*/
 }
