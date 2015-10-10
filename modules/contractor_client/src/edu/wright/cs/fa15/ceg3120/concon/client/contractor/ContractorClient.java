@@ -21,8 +21,13 @@
 
 package edu.wright.cs.fa15.ceg3120.concon.client.contractor;
 
+import edu.wright.cs.fa15.ceg3120.concon.common.data.AccountType;
+import edu.wright.cs.fa15.ceg3120.concon.common.data.ContractorAccount;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.w3c.dom.Document;
+import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
 
 import java.awt.Color;
 import java.awt.Container;
@@ -59,12 +64,6 @@ import javax.swing.tree.DefaultTreeModel;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-
-import org.w3c.dom.Document;
-import org.w3c.dom.NodeList;
-import org.xml.sax.SAXException;
-import edu.wright.cs.fa15.ceg3120.concon.common.data.ContractorAccount;
-import edu.wright.cs.fa15.ceg3120.concon.common.data.AccountType;
 
 public class ContractorClient extends JFrame implements ActionListener {
 
