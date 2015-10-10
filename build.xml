@@ -1,96 +1,28 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!-- WARNING: Eclipse auto-generated file.
-              Any modifications will be overwritten.
-              To include a user specific buildfile here, simply create one in the same
-              directory with the processing instruction <?eclipse.ant.import?>
-              as the first entry and export the buildfile again. --><project basedir="." default="build" name="fa15-ceg3120">
-    <property environment="env"/>
-    <property name="ECLIPSE_HOME" value="../../eclipse/"/>
-    <property name="debuglevel" value="source,lines,vars"/>
-    <property name="target" value="1.8"/>
-    <property name="source" value="1.8"/>
-    <path id="Ivy.libraryclasspath">
-        <pathelement location="../../../.ivy2/cache/org.apache.derby/derby/jars/derby-10.11.1.1.jar"/>
-        <pathelement location="../../../.ivy2/cache/junit/junit/jars/junit-4.6.jar"/>
-        <pathelement location="../../../.ivy2/cache/org.apache.commons/commons-email/jars/commons-email-1.4.jar"/>
-        <pathelement location="../../../.ivy2/cache/com.sun.mail/javax.mail/jars/javax.mail-1.5.2.jar"/>
-        <pathelement location="../../../.ivy2/cache/javax.activation/activation/jars/activation-1.1.1.jar"/>
-    </path>
-    <path id="fa15-ceg3120.classpath">
-        <pathelement location="bin"/>
-        <pathelement location="wrapper/wrapper.jar"/>
-        <path refid="Ivy.libraryclasspath"/>
-    </path>
-    <target name="init">
-        <mkdir dir="bin"/>
-        <copy includeemptydirs="false" todir="bin">
-            <fileset dir="common/src">
-                <exclude name="**/*.launch"/>
-                <exclude name="**/*.java"/>
-            </fileset>
-        </copy>
-        <copy includeemptydirs="false" todir="bin">
-            <fileset dir="modules/contractor_client/src">
-                <exclude name="**/*.launch"/>
-                <exclude name="**/*.java"/>
-            </fileset>
-        </copy>
-        <copy includeemptydirs="false" todir="bin">
-            <fileset dir="modules/customer_client/src">
-                <exclude name="**/*.launch"/>
-                <exclude name="**/*.java"/>
-            </fileset>
-        </copy>
-        <copy includeemptydirs="false" todir="bin">
-            <fileset dir="modules/server/src">
-                <exclude name="**/*.launch"/>
-                <exclude name="**/*.java"/>
-            </fileset>
-        </copy>
+<project default="build">
+    <macrodef name="iterate">
+        <attribute name="target"/>
+        <sequential>
+            <subant target="@{target}">
+                <fileset dir="modules" includes="*/build.xml"/>
+           </subant>
+        </sequential>
+   </macrodef>
+
+    <target name="compile">
+        <iterate target="compile"/>
     </target>
+
+    <target name="build">
+      <iterate target="build"/>
+   </target>
+
     <target name="clean">
-        <delete dir="bin"/>
+        <iterate target="clean"/>
     </target>
-    <target depends="clean" name="cleanall"/>
-    <target depends="build-subprojects,build-project" name="build"/>
-    <target name="build-subprojects"/>
-    <target depends="init" name="build-project">
-        <echo message="${ant.project.name}: ${ant.file}"/>
-        <javac debug="true" debuglevel="${debuglevel}" destdir="bin" includeantruntime="false" source="${source}" target="${target}">
-            <src path="common/src"/>
-            <src path="modules/contractor_client/src"/>
-            <src path="modules/customer_client/src"/>
-            <src path="modules/server/src"/>
-            <classpath refid="fa15-ceg3120.classpath"/>
-        </javac>
+
+    <target name="test">
+        <iterate target="test"/>
     </target>
-    <target description="Build all projects which reference this project. Useful to propagate changes." name="build-refprojects"/>
-    <target description="copy Eclipse compiler jars to ant lib directory" name="init-eclipse-compiler">
-        <copy todir="${ant.library.dir}">
-            <fileset dir="${ECLIPSE_HOME}/plugins" includes="org.eclipse.jdt.core_*.jar"/>
-        </copy>
-        <unzip dest="${ant.library.dir}">
-            <patternset includes="jdtCompilerAdapter.jar"/>
-            <fileset dir="${ECLIPSE_HOME}/plugins" includes="org.eclipse.jdt.core_*.jar"/>
-        </unzip>
-    </target>
-    <target description="compile project with Eclipse compiler" name="build-eclipse-compiler">
-        <property name="build.compiler" value="org.eclipse.jdt.core.JDTCompilerAdapter"/>
-        <antcall target="build"/>
-    </target>
-    <target name="ServerGUI">
-        <java classname="edu.wright.cs.fa15.ceg3120.concon.server.ServerGUI" failonerror="true" fork="yes">
-            <classpath refid="fa15-ceg3120.classpath"/>
-        </java>
-    </target>
-    <target name="CustomerClient">
-        <java classname="edu.wright.cs.fa15.ceg3120.concon.client.customer.CustomerClient" failonerror="true" fork="yes">
-            <classpath refid="fa15-ceg3120.classpath"/>
-        </java>
-    </target>
-    <target name="ServerGui">
-        <java classname="edu.wright.cs.fa15.ceg3120.concon.server.ServerGui" failonerror="true" fork="yes">
-            <classpath refid="fa15-ceg3120.classpath"/>
-        </java>
-    </target>
-</project>
+
+    <!-- more targets -->
+</project> 
