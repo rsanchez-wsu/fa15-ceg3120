@@ -29,6 +29,10 @@ import org.slf4j.LoggerFactory;
 public class Server {
     private static final Logger LOG = LoggerFactory.getLogger(Server.class);
     
+    /**
+     * Main entry point. TODO Expand.
+     * @param args Arguments.
+     */
 	public static void main(String[] args) {
 		NetworkManager.startServer(9667);
 		System.out.println("Server running.");
