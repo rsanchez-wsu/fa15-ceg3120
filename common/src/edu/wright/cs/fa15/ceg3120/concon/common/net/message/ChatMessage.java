@@ -25,9 +25,6 @@ import edu.wright.cs.fa15.ceg3120.concon.common.net.data.UserData;
 
 public class ChatMessage extends NetworkMessage {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -2279299798905393963L;
 	private String message;
 	private UserData from;
@@ -35,8 +32,13 @@ public class ChatMessage extends NetworkMessage {
 
 	public ChatMessage() {} // Default constructor required for java beans.
 
-	public ChatMessage(String message, UserData from, UserData to)
-	{
+	/**
+	 * Description. TODO Fill out.
+	 * @param message Message text.
+	 * @param from Sender.
+	 * @param to Recipient.
+	 */
+	public ChatMessage(String message, UserData from, UserData to) {
 		this.message = message;
 		this.from = from;
 		this.to = to;

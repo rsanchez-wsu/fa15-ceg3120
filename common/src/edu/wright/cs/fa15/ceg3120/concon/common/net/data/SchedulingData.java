@@ -37,7 +37,13 @@ public class SchedulingData implements NetworkData {
     
     public SchedulingData() { }
     
-    public SchedulingData(String month, int day, String timeRange){
+    /**
+     * Description. TODO Fill out.
+     * @param month Month.
+     * @param day Day.
+     * @param timeRange Time range.
+     */
+    public SchedulingData(String month, int day, String timeRange) {
         this.month = month;
         this.day = day;
         this.timeRange = timeRange;

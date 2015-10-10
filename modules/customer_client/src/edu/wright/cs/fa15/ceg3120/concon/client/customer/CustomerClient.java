@@ -27,6 +27,10 @@ import edu.wright.cs.fa15.ceg3120.concon.common.net.message.ChatMessage;
 
 public class CustomerClient {
 
+	/**
+	 * Main entry point.
+	 * @param args Arguments.
+	 */
 	public static void main(String[] args) {
 		NetworkManager.startClient("localhost", 9667);
 		ChatMessage message = new ChatMessage(

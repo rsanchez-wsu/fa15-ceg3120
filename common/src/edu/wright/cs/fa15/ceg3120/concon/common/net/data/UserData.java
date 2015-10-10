@@ -41,6 +41,11 @@ public class UserData implements NetworkData {
 
 	public UserData() { }	
 	
+	/**
+	 * Description. TODO Fill out.
+	 * @param firstName User's first name.
+	 * @param lastName User's last name.
+	 */
 	public UserData(String firstName, String lastName) {
 		this.firstName = firstName;
 		this.lastName = lastName;

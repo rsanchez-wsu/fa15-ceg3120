@@ -29,52 +29,45 @@ import java.io.InputStreamReader;
 import java.net.Socket;
 
 //TODO have security
-public class ConConClient
-{
+public class ConConClient {
 	private String host;
     private int port;
 
-    public ConConClient(String host, int port)
-    {
+    public ConConClient(String host, int port) {
         this.host = host;
         this.port = port;
     }
 
-    public void sendMessage(String message)
-    {
+    public void sendMessage(String message) {
         new DispatchMessage(message).start();
     }
 
-    private class DispatchMessage extends Thread
-    {
+    private class DispatchMessage extends Thread {
         private String message;
 
-        public DispatchMessage(String message)
-        {
+        public DispatchMessage(String message) {
             this.message = message;
         }
 
         @Override
-        public void run()
-        {
-            try
-            {
+        public void run() {
+            try {
                 Socket clientSocket = new Socket(host, port);
                 DataOutputStream toServer = new DataOutputStream(clientSocket.getOutputStream());
-                BufferedReader fromServer = new BufferedReader(new InputStreamReader(clientSocket.getInputStream(), "UTF-8"));
+                BufferedReader fromServer = new BufferedReader(
+                		new InputStreamReader(clientSocket.getInputStream(), "UTF-8"));
 
                 toServer.writeBytes(message);
                 StringBuilder response = new StringBuilder();
-                int n = 0;
-                while ((n = fromServer.read()) != -1)
-                    response.append(n);
+                int ch = 0;
+                while ((ch = fromServer.read()) != -1) {
+                    response.append(ch);
+                }
 
                 NetworkManager.post(NetworkManager.decodeFromXML(response.toString()));
 
                 clientSocket.close();
-            }
-            catch (IOException e)
-            {
+            } catch (IOException e) {
                 e.printStackTrace();
             }
         }
