@@ -49,7 +49,10 @@ import javax.mail.internet.MimeMessage;
 public class MailManager {
 
         private final String sysHostProp = "mail.smtp.host";
-        private Properties props;
+        
+        @SuppressWarnings("unused")
+		private Properties props;
+        
         private String from;
         private String host;
         //private String fromName;
@@ -129,7 +132,8 @@ public class MailManager {
                 sysProps.setProperty(sysHostProp, host);
 
                 // Get the default Session object.
-                Session session = Session.getDefaultInstance(sysProps);
+                @SuppressWarnings("unused")
+				Session session = Session.getDefaultInstance(sysProps);
 
         }
 }

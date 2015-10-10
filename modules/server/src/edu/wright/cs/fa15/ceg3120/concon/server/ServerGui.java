@@ -595,7 +595,7 @@ public class ServerGui extends JPanel implements ActionListener {
     		@Override
         public void actionPerformed(ActionEvent event) {
     			try {
-            	//else if( there is nothing typed in the textfield){
+            	//else if( there is nothing typed in the text field){
             	//	System.out.println("You must enter a name to search");
             	//}
             	//else {
