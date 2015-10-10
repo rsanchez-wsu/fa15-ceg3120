@@ -21,28 +21,16 @@
 
 package edu.wright.cs.fa15.ceg3120.concon.common.data;
 
-public class ContractorAccount extends UserAccount {
+public class ServerAdminAccount extends UserAccount {
 
-    // Contractor specific data fields
+	public ServerAdminAccount() {
+		super(AccountType.SERVER_ADMIN);
+	}
 
-	private String strCompanyName;
-
-    public ContractorAccount() {
-        super(AccountType.CONTRACTOR);
-    }
-    
-    public void setCompanyName(String strCn) {
-    	strCompanyName = strCn;
-    }
-    
-
-    public String getCompanyName() {
-    	return strCompanyName;
-    }
-
-    @Override
-    public void launchGui() {
-
-    }
+	@Override
+	public void launchGui() {
+		// TODO Auto-generated method stub
+		
+	}
 
 }

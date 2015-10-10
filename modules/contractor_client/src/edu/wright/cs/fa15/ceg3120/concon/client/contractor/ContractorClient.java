@@ -67,7 +67,7 @@ import javax.xml.parsers.ParserConfigurationException;
 
 public class ContractorClient extends JFrame implements ActionListener {
 
-	private static ContractorAccount account = new ContractorAccount(null);
+	private static ContractorAccount account = new ContractorAccount();
 	private static final Logger LOG = LoggerFactory.getLogger(ContractorClient.class);
 	private static final long serialVersionUID = 1L;
 	private static JFrame frame;

@@ -21,6 +21,7 @@
 
 package edu.wright.cs.fa15.ceg3120.concon.common.net.data;
 
+import java.io.Serializable;
 
 /**
  * Description. TODO Fill out.

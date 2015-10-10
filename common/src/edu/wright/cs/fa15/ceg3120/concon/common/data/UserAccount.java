@@ -69,11 +69,7 @@ public class UserAccount {
     public UserAccount(String uuid, AccountType type, char[] pswd) {
         this.uuid = uuid;
         accountType = type;
-<<<<<<< HEAD
-        this.pswd = (char[])pswd.clone(); // XXX this WILL need changed
-=======
         this.pswd = pswd.clone(); // XXX this WILL need changed
->>>>>>> origin/HomeOwnerUIBase
     }
 
     public String getUuid() {
@@ -93,13 +89,6 @@ public class UserAccount {
     }
 
     public char[] getPswd() {
-<<<<<<< HEAD
-        return (char[])pswd.clone();
-    }
-
-    public void setPswd(char[] pswd) {
-        this.pswd = (char[])pswd.clone();
-=======
         return pswd.clone();
     }
 
@@ -113,7 +102,6 @@ public class UserAccount {
 
     public void setdbResponse(String dbResponse) {
         this.dbResponse = dbResponse;
->>>>>>> origin/HomeOwnerUIBase
     }
     
     public void setFirstName(String strFn) {
@@ -194,5 +182,5 @@ public class UserAccount {
      * Launches the account type specific GUI.
      * <p>Must be given functionality by UserAccount sub-classes.</p>
      */
-    public void launchGui(){}
+    public void launchGui() {}
 }
