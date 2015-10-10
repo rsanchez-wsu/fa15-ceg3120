@@ -25,6 +25,8 @@ import edu.wright.cs.fa15.ceg3120.concon.common.data.UserAccount;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.Externalizable;
@@ -34,6 +36,7 @@ import java.io.ObjectOutput;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.TimeUnit;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -73,6 +76,8 @@ public class LoginPopUp implements Externalizable{
         final JFrame loginFrame = new StringFrame(this);
         loginFrame.setSize(500, 300);
         uuidField.requestFocus();
+        
+        loginFrame.setIconImage(new ImageIcon(getClass().getResource("icon.png")).getImage());
 
         loginFrame.setVisible(true);
 
@@ -259,6 +264,8 @@ public class LoginPopUp implements Externalizable{
     @SuppressWarnings("serial")
     public class FieldPanel extends JPanel {
 
+    	Image img;
+    	
         /**
          * Creates a new instance of <code>FieldPanel</code>.
          */
@@ -271,8 +278,27 @@ public class LoginPopUp implements Externalizable{
             });
             currentLayout = new SpringLayout();
 
+            try {
+            	img = new ImageIcon(getClass().getResource("ceg3120_logos.png")).getImage();
+            } catch (Exception e) {
+            	/*handled in paint()*/
+            }
+            
             setupPanel();
         }
+        
+        @Override
+    	public void paint(Graphics graphics) {
+    		
+    		super.paint(graphics);
+    		if (img != null) {
+    			graphics.drawImage(img, this.getWidth() - 235, this.getHeight() - 290, 300, 300,
+    					this);
+    		} else {
+    			graphics.drawString("No image", 400, 200);
+    		} 
+    		
+    	}
 
         private void setupPanel() {
             this.setLayout(currentLayout);
