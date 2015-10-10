@@ -27,7 +27,7 @@ package edu.wright.cs.fa15.ceg3120.concon.common.data;
  * @author Quack
  *
  */
-public abstract class UserAccount {
+public class UserAccount {
 
     /** Description. */
     private String uuid;
@@ -35,9 +35,16 @@ public abstract class UserAccount {
     private AccountType accountType;
     /** Description. */
     private char[] pswd;
+    /** Response from database. */
+    private String dbResponse;
     // other common data fields
     // perhaps encrypted pswd?
 
+    /**
+     * Creates a new instance of <code>UserAccount</code>.
+     * 
+     * @param accountType (AccountType)
+     */
     public UserAccount(AccountType accountType) {
         uuid = "Debug";
         this.accountType = accountType;
@@ -46,17 +53,18 @@ public abstract class UserAccount {
     /**
      * Creates a new instance of <code>UserAccount</code>.
      * 
-     * @param uuid
-     *            - (String)
-     * @param type
-     *            - (AccountType)
-     * @param pswd
-     *            - (char[])
+     * @param uuid (String)
+     * @param type (AccountType)
+     * @param pswd (char[])
      */
     public UserAccount(String uuid, AccountType type, char[] pswd) {
         this.uuid = uuid;
         accountType = type;
+<<<<<<< HEAD
         this.pswd = (char[])pswd.clone(); // XXX this WILL need changed
+=======
+        this.pswd = pswd.clone(); // XXX this WILL need changed
+>>>>>>> origin/HomeOwnerUIBase
     }
 
     public String getUuid() {
@@ -76,16 +84,32 @@ public abstract class UserAccount {
     }
 
     public char[] getPswd() {
+<<<<<<< HEAD
         return (char[])pswd.clone();
     }
 
     public void setPswd(char[] pswd) {
         this.pswd = (char[])pswd.clone();
+=======
+        return pswd.clone();
+    }
+
+    public void setPswd(char[] pswd) {
+        this.pswd = pswd.clone();
+    }
+
+    public String getdbResponse() {
+        return dbResponse;
+    }
+
+    public void setdbResponse(String dbResponse) {
+        this.dbResponse = dbResponse;
+>>>>>>> origin/HomeOwnerUIBase
     }
 
     /**
      * Launches the account type specific GUI.
+     * <p>Must be given functionality by UserAccount sub-classes.</p>
      */
-    public abstract void launchGui();
-
+    public void launchGui(){}
 }

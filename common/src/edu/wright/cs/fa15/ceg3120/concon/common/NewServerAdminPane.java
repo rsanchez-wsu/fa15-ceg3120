@@ -19,20 +19,25 @@
  *
  */
 
-package edu.wright.cs.fa15.ceg3120.concon.common.data;
+package edu.wright.cs.fa15.ceg3120.concon.common;
 
-public class ContractorAccount extends UserAccount {
+import edu.wright.cs.fa15.ceg3120.concon.common.data.ContractorAccount;
+import edu.wright.cs.fa15.ceg3120.concon.common.data.UserAccount;
 
-    // Contractor specific data fields
+import java.awt.BorderLayout;
 
-    public ContractorAccount() {
-        super(AccountType.CONTRACTOR);
-        // TODO Auto-generated constructor stub
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+
+@SuppressWarnings("serial")
+class NewServerAdminPane extends JPanel {
+    public NewServerAdminPane() {
+        super(new BorderLayout());
+        JLabel temp = new JLabel("Server dudes need to implement this");
+        add(temp, BorderLayout.CENTER);
     }
-
-    @Override
-    public void launchGui() {
-
+    
+    public UserAccount packageAccount() {
+        return new ContractorAccount();
     }
-
 }

@@ -21,13 +21,80 @@
 
 package edu.wright.cs.fa15.ceg3120.concon.client.customer;
 
+import edu.wright.cs.fa15.ceg3120.concon.common.data.HomeownerAccount;
+//import edu.wright.cs.fa15.ceg3120.concon.common.data.HomeownerAccount;
+import edu.wright.cs.fa15.ceg3120.concon.common.net.NetworkManager;
+import edu.wright.cs.fa15.ceg3120.concon.common.net.message.BeanMessage;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class CustomerClient {
-	private static final Logger LOG = LoggerFactory.getLogger(CustomerClient.class);
+import java.awt.Toolkit;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
-	public static void main(String[] args) {
-		LOG.trace("Starting Customer client...");
-	}
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.WindowConstants;
+
+public class CustomerClient {
+    // LOG is currently unused. Remove this suppress when it gets used.
+    @SuppressWarnings("unused")
+    private static final Logger LOG = LoggerFactory.getLogger(CustomerClient.class);
+
+    private static final int WINDOW_WIDTH = Toolkit.getDefaultToolkit().getScreenSize().width - 150;
+    private static final int WINDOW_HEIGHT = Toolkit.getDefaultToolkit().getScreenSize().height
+            - 150;
+
+    @SuppressWarnings("unused")
+    private HomeownerAccount user;
+    
+    public CustomerClient() {
+        user = null;
+    }
+    
+//    public HomeownerAccount getUser() {
+//        return user;
+//    }
+    
+    /**
+     * Temp.
+     */
+    public void buildGui(HomeownerAccount user) {
+        this.user = user;
+        JFrame custFrame = new JFrame("TEMP TITLE");
+        custFrame.setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
+
+        // build UI here
+
+        custFrame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+        custFrame.addWindowListener(new MyWindowAdapter());
+
+        custFrame.setVisible(true);
+    }// end buildGui
+
+    /**
+     * we probably don't need a main if this is launched from LogininPopUp...
+     * 
+     * @param args
+     *            temp
+     */
+    public static void main(String[] args) {
+        NetworkManager.startClient("localhost", 9667);
+        BeanMessage message = new BeanMessage("Hello World");
+        NetworkManager.sendMessage(message);
+        new CustomerClient().buildGui(new HomeownerAccount());
+    }
+    
+    static class MyWindowAdapter extends WindowAdapter {
+        @Override
+        public void windowClosing(WindowEvent ev) {
+            int result = JOptionPane.showConfirmDialog(null, "Do you really wish to exit?",
+                    "Exit?", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+            if (result == 0) {
+                // release any network/file resources
+                System.exit(0);
+            }
+        }
+    }
 }

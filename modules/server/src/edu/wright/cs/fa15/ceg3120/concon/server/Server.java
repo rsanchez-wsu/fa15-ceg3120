@@ -21,13 +21,17 @@
 
 package edu.wright.cs.fa15.ceg3120.concon.server;
 
+import edu.wright.cs.fa15.ceg3120.concon.common.net.NetworkManager;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class Server {
-	private static final Logger LOG = LoggerFactory.getLogger(Server.class);
-
+    private static final Logger LOG = LoggerFactory.getLogger(Server.class);
+    
 	public static void main(String[] args) {
+		NetworkManager.startServer(9667);
+		System.out.println("Server running.");
 		LOG.trace("Starting server...");
 	}
 }

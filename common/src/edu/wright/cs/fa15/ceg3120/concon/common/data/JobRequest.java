@@ -97,11 +97,11 @@ public class JobRequest {
     }
 
     public Image[] getPicsOfCurrentState() {
-        return (Image[])picsOfCurrentState.clone();
+        return (picsOfCurrentState == null) ? null : picsOfCurrentState.clone();
     }
 
     public void setPicsOfCurrentState(Image[] picsOfCurrentState) {
-        this.picsOfCurrentState = (Image[])picsOfCurrentState.clone();
+        this.picsOfCurrentState = picsOfCurrentState.clone();
     }
 
 }
