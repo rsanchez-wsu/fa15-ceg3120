@@ -63,9 +63,12 @@ import javax.xml.parsers.ParserConfigurationException;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
+import edu.wright.cs.fa15.ceg3120.concon.common.data.ContractorAccount;
+import edu.wright.cs.fa15.ceg3120.concon.common.data.AccountType;
 
 public class ContractorClient extends JFrame implements ActionListener {
 
+	private static ContractorAccount account = new ContractorAccount(null);
 	private static final Logger LOG = LoggerFactory.getLogger(ContractorClient.class);
 	private static final long serialVersionUID = 1L;
 	private static JFrame frame;
@@ -77,6 +80,8 @@ public class ContractorClient extends JFrame implements ActionListener {
 	private static JLabel lblShowCurCity;
 	private static JLabel lblShowCurState;
 	private static JLabel lblShowCurZipCode;
+	private static JLabel lblShowCurPhoneNumber;
+	private static JLabel lblShowCurEmailAddress;
 	private static JTextField txtLastNameUpdate;
 	private static JTextField txtFirstNameUpdate;
 	private static JTextField txtCompanyNameUpdate;
@@ -85,14 +90,16 @@ public class ContractorClient extends JFrame implements ActionListener {
 	private static JTextField txtCityUpdate;
 	private static JTextField txtStateUpdate;
 	private static JTextField txtZipCodeUpdate;
-	private static String strLastName = "Person";
+	private static JTextField txtPhoneNumberUpdate;
+	private static JTextField txtEmailAddressUpdate;
+/*	private static String strLastName = "Person";
 	private static String strFirstName = "Random";
 	private static String strCompanyName = "ConCon";
 	private static String strAddress1 = "123 Main Street";
 	private static String strAddress2 = "";
 	private static String strCity = "Dayton";
 	private static String strState = "OH";
-	private static int intZipCode = 45400;
+	private static int intZipCode = 45400; */
 	private static JPanel profileTab;
 	private static JLabel lblNewProfile;
 	private static JLabel lblLastNameUpdate;
@@ -103,6 +110,8 @@ public class ContractorClient extends JFrame implements ActionListener {
 	private static JLabel lblCityUpdate;
 	private static JLabel lblStateUpdate;
 	private static JLabel lblZipCodeUpdate;
+	private static JLabel lblPhoneNumberUpdate;
+	private static JLabel lblEmailAddressUpdate;
 	private static JButton btnSave;
 	private static JButton btnCancel;
 	private static JButton btnClear;
@@ -119,7 +128,7 @@ public class ContractorClient extends JFrame implements ActionListener {
 	/**
 	 * Create the application.
 	 */
-	public ContractorClient() {
+	public ContractorClient() {		
 		initialize();
 	}
 
@@ -127,6 +136,7 @@ public class ContractorClient extends JFrame implements ActionListener {
 	 * Initialize the contents of the frame.
 	 */
 	private static void initialize() {
+		account.setAccountType(AccountType.CONTRACTOR);
 		frame = new JFrame();		
 		frame.setBounds(100, 100, 725, 475);
 		frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
@@ -378,7 +388,7 @@ public class ContractorClient extends JFrame implements ActionListener {
 						String[] tempArray = null;
 						tempArray = jobList.elementAt(i);
 						try {
-							curDistance = distanceCalculator(intZipCode, 
+							curDistance = distanceCalculator(account.getZipCode(), 
 									Integer.parseInt(tempArray[6]));
 						} catch (NumberFormatException e) {
 							e.printStackTrace();
@@ -492,70 +502,78 @@ public class ContractorClient extends JFrame implements ActionListener {
 		lblShowCurFirstName = new JLabel();
 		profileTab.add(lblShowCurFirstName);
 		lblShowCurFirstName.setBounds(145, 35, 120, 20);
-		lblShowCurFirstName.setText(strFirstName);
 
 		JLabel lblLastName = new JLabel("Last Name:");
 		profileTab.add(lblLastName);
-		lblLastName.setBounds(15, 60, 120, 20);
+		lblLastName.setBounds(15, 55, 120, 20);
 
 		lblShowCurLastName = new JLabel();
 		profileTab.add(lblShowCurLastName);
-		lblShowCurLastName.setBounds(145, 60, 120, 20);
-		lblShowCurLastName.setText(strLastName);
+		lblShowCurLastName.setBounds(145, 55, 120, 20);
 
 		JLabel lblCompanyName = new JLabel("Company Name:");
 		profileTab.add(lblCompanyName);
-		lblCompanyName.setBounds(15, 85, 120, 20);
+		lblCompanyName.setBounds(15, 75, 120, 20);
 
 		lblShowCurCompanyName = new JLabel();
 		profileTab.add(lblShowCurCompanyName);
-		lblShowCurCompanyName.setBounds(145, 85, 120, 20);
-		lblShowCurCompanyName.setText(strCompanyName);
+		lblShowCurCompanyName.setBounds(145, 75, 120, 20);
 
 		JLabel lblAddress1 = new JLabel("Address:");
 		profileTab.add(lblAddress1);
-		lblAddress1.setBounds(15, 110, 120, 20);
+		lblAddress1.setBounds(15, 95, 120, 20);
 
 		lblShowCurAddress1 = new JLabel();
 		profileTab.add(lblShowCurAddress1);
-		lblShowCurAddress1.setBounds(145, 110, 120, 20);
-		lblShowCurAddress1.setText(strAddress1);
+		lblShowCurAddress1.setBounds(145, 95, 120, 20);
 
 		JLabel lblAddress2 = new JLabel("Address (cont):");
 		profileTab.add(lblAddress2);
-		lblAddress2.setBounds(15, 135, 120, 20);
+		lblAddress2.setBounds(15, 115, 120, 20);
 
 		lblShowCurAddress2 = new JLabel();
 		profileTab.add(lblShowCurAddress2);
-		lblShowCurAddress2.setBounds(145, 135, 120, 20);
-		lblShowCurAddress2.setText(strAddress2);
+		lblShowCurAddress2.setBounds(145, 115, 120, 20);
 
 		JLabel lblCity = new JLabel("City:");
 		profileTab.add(lblCity);
-		lblCity.setBounds(15, 160, 120, 20);
+		lblCity.setBounds(15, 135, 120, 20);
 
 		lblShowCurCity = new JLabel();
 		profileTab.add(lblShowCurCity);
-		lblShowCurCity.setBounds(145, 160, 120, 20);
-		lblShowCurCity.setText(strCity);
+		lblShowCurCity.setBounds(145, 135, 120, 20);
 
 		JLabel lblState = new JLabel("State:");
 		profileTab.add(lblState);
-		lblState.setBounds(15, 185, 120, 20);
+		lblState.setBounds(15, 155, 120, 20);
 
 		lblShowCurState = new JLabel();
 		profileTab.add(lblShowCurState);
-		lblShowCurState.setBounds(145, 185, 120, 20);
-		lblShowCurState.setText(strState);
+		lblShowCurState.setBounds(145, 155, 120, 20);
 		
 		JLabel lblZipCode = new JLabel("Zip Code:");
 		profileTab.add(lblZipCode);
-		lblZipCode.setBounds(15, 210, 120, 20);
+		lblZipCode.setBounds(15, 175, 120, 20);
 
 		lblShowCurZipCode = new JLabel();
 		profileTab.add(lblShowCurZipCode);
-		lblShowCurZipCode.setBounds(145, 210, 120, 20);
-		lblShowCurZipCode.setText(String.format("%05d", intZipCode));
+		lblShowCurZipCode.setBounds(145, 175, 120, 20);
+		
+		JLabel lblPhoneNumber = new JLabel("Phone Number:");
+		profileTab.add(lblPhoneNumber);
+		lblPhoneNumber.setBounds(15, 195, 120, 20);
+		
+		lblShowCurPhoneNumber = new JLabel();
+		profileTab.add(lblShowCurPhoneNumber);
+		lblShowCurPhoneNumber.setBounds(145, 195, 120, 20);
+		
+		JLabel lblEmailAddress = new JLabel("Email Address:");
+		profileTab.add(lblEmailAddress);
+		lblEmailAddress.setBounds(15, 215, 120, 20);
+		
+		lblShowCurEmailAddress = new JLabel();
+		profileTab.add(lblShowCurEmailAddress);
+		lblShowCurEmailAddress.setBounds(145, 215, 120, 20);
 
 		lblNewProfile = new JLabel("Updated Profile Settings:");
 		profileTab.add(lblNewProfile);
@@ -574,73 +592,93 @@ public class ContractorClient extends JFrame implements ActionListener {
 
 		lblLastNameUpdate = new JLabel("Last Name:");
 		profileTab.add(lblLastNameUpdate);
-		lblLastNameUpdate.setBounds(345, 60, 120, 20);
+		lblLastNameUpdate.setBounds(345, 55, 120, 20);
 		lblLastNameUpdate.setVisible(false);
 
 		txtLastNameUpdate = new JTextField();
 		profileTab.add(txtLastNameUpdate);
-		txtLastNameUpdate.setBounds(475, 60, 120, 20);
+		txtLastNameUpdate.setBounds(475, 55, 120, 20);
 		txtLastNameUpdate.setVisible(false);
 
 		lblCompanyNameUpdate = new JLabel("Company Name:");
 		profileTab.add(lblCompanyNameUpdate);
-		lblCompanyNameUpdate.setBounds(345, 85, 120, 20);
+		lblCompanyNameUpdate.setBounds(345, 75, 120, 20);
 		lblCompanyNameUpdate.setVisible(false);
 
 		txtCompanyNameUpdate = new JTextField();
 		profileTab.add(txtCompanyNameUpdate);
-		txtCompanyNameUpdate.setBounds(475, 85, 120, 20);
+		txtCompanyNameUpdate.setBounds(475, 75, 120, 20);
 		txtCompanyNameUpdate.setVisible(false);
 
 		lblAddress1Update = new JLabel("Address:");
 		profileTab.add(lblAddress1Update);
-		lblAddress1Update.setBounds(345, 110, 120, 20);
+		lblAddress1Update.setBounds(345, 95, 120, 20);
 		lblAddress1Update.setVisible(false);
 
 		txtAddress1Update = new JTextField();
 		profileTab.add(txtAddress1Update);
-		txtAddress1Update.setBounds(475, 110, 120, 20);
+		txtAddress1Update.setBounds(475, 95, 120, 20);
 		txtAddress1Update.setVisible(false);
 
 		lblAddress2Update = new JLabel("Address (cont):");
 		profileTab.add(lblAddress2Update);
-		lblAddress2Update.setBounds(345, 135, 120, 20);
+		lblAddress2Update.setBounds(345, 115, 120, 20);
 		lblAddress2Update.setVisible(false);
 
 		txtAddress2Update = new JTextField();
 		profileTab.add(txtAddress2Update);
-		txtAddress2Update.setBounds(475, 135, 120, 20);
+		txtAddress2Update.setBounds(475, 115, 120, 20);
 		txtAddress2Update.setVisible(false);
 
 		lblCityUpdate = new JLabel("City:");
 		profileTab.add(lblCityUpdate);
-		lblCityUpdate.setBounds(345, 160, 120, 20);
+		lblCityUpdate.setBounds(345, 135, 120, 20);
 		lblCityUpdate.setVisible(false);
 
 		txtCityUpdate = new JTextField();
 		profileTab.add(txtCityUpdate);
-		txtCityUpdate.setBounds(475, 160, 120, 20);
+		txtCityUpdate.setBounds(475, 135, 120, 20);
 		txtCityUpdate.setVisible(false);
 
 		lblStateUpdate = new JLabel("State:");
 		profileTab.add(lblStateUpdate);
-		lblStateUpdate.setBounds(345, 185, 120, 20);
+		lblStateUpdate.setBounds(345, 155, 120, 20);
 		lblStateUpdate.setVisible(false);
 
 		txtStateUpdate = new JTextField();
 		profileTab.add(txtStateUpdate);
-		txtStateUpdate.setBounds(475, 185, 120, 20);
+		txtStateUpdate.setBounds(475, 155, 120, 20);
 		txtStateUpdate.setVisible(false);
 
 		lblZipCodeUpdate = new JLabel("Zip Code:");
 		profileTab.add(lblZipCodeUpdate);
-		lblZipCodeUpdate.setBounds(345, 210, 120, 20);
+		lblZipCodeUpdate.setBounds(345, 175, 120, 20);
 		lblZipCodeUpdate.setVisible(false);
 
 		txtZipCodeUpdate = new JTextField();
 		profileTab.add(txtZipCodeUpdate);
-		txtZipCodeUpdate.setBounds(475, 210, 120, 20);
+		txtZipCodeUpdate.setBounds(475, 175, 120, 20);
 		txtZipCodeUpdate.setVisible(false);
+		
+		lblPhoneNumberUpdate = new JLabel("Phone Number:");
+		profileTab.add(lblPhoneNumberUpdate);
+		lblPhoneNumberUpdate.setBounds(345, 195, 120, 20);
+		lblPhoneNumberUpdate.setVisible(false);
+		
+		txtPhoneNumberUpdate = new JTextField();
+		profileTab.add(txtPhoneNumberUpdate);
+		txtPhoneNumberUpdate.setBounds(475, 195, 120, 20);
+		txtPhoneNumberUpdate.setVisible(false);
+		
+		lblEmailAddressUpdate = new JLabel("Email Address:");
+		profileTab.add(lblEmailAddressUpdate);
+		lblEmailAddressUpdate.setBounds(345, 215, 120, 20);
+		lblEmailAddressUpdate.setVisible(false);
+		
+		txtEmailAddressUpdate = new JTextField();
+		profileTab.add(txtEmailAddressUpdate);
+		txtEmailAddressUpdate.setBounds(475, 215, 120, 20);
+		txtEmailAddressUpdate.setVisible(false);
 
 		btnSave = new JButton("Save");
 		profileTab.add(btnSave);
@@ -672,6 +710,24 @@ public class ContractorClient extends JFrame implements ActionListener {
 				editProfileCancel();
 			}
 		});
+		
+		loadCurrentProfile();
+	}
+	
+	/**
+	 * This method loads the current profile.
+	 */
+	public static void loadCurrentProfile() {
+		lblShowCurFirstName.setText(account.getFirstName());
+		lblShowCurLastName.setText(account.getLastName());
+		lblShowCurCompanyName.setText(account.getCompanyName());
+		lblShowCurAddress1.setText(account.getAddress1());
+		lblShowCurAddress2.setText(account.getAddress2());
+		lblShowCurCity.setText(account.getCity());
+		lblShowCurState.setText(account.getState());
+		lblShowCurZipCode.setText(String.format("%05d", account.getZipCode()));
+		lblShowCurPhoneNumber.setText(account.getPhoneNumber());
+		lblShowCurEmailAddress.setText(account.getEmailAddress());
 	}
 
 	/**
@@ -688,6 +744,8 @@ public class ContractorClient extends JFrame implements ActionListener {
 		lblCityUpdate.setVisible(true);
 		lblStateUpdate.setVisible(true);
 		lblZipCodeUpdate.setVisible(true);
+		lblPhoneNumberUpdate.setVisible(true);
+		lblEmailAddressUpdate.setVisible(true);
 		txtLastNameUpdate.setVisible(true);
 		txtFirstNameUpdate.setVisible(true);
 		txtCompanyNameUpdate.setVisible(true);
@@ -696,6 +754,8 @@ public class ContractorClient extends JFrame implements ActionListener {
 		txtCityUpdate.setVisible(true);
 		txtStateUpdate.setVisible(true);
 		txtZipCodeUpdate.setVisible(true);
+		txtPhoneNumberUpdate.setVisible(true);
+		txtEmailAddressUpdate.setVisible(true);
 		btnSave.setVisible(true);
 		btnClear.setVisible(true);
 		btnCancel.setVisible(true);
@@ -708,26 +768,27 @@ public class ContractorClient extends JFrame implements ActionListener {
 	 * @author Joshua Thomas
 	 */
 	public static void saveProfileUpdates() {
+		
 		if (txtLastNameUpdate.getText().length() > 0) {
-			strLastName = txtLastNameUpdate.getText();
+			account.setLastName(txtLastNameUpdate.getText());
 		}
 		if (txtFirstNameUpdate.getText().length() > 0) {
-			strFirstName = txtFirstNameUpdate.getText();
+			account.setFirstName(txtFirstNameUpdate.getText());
 		}
 		if (txtCompanyNameUpdate.getText().length() > 0) {
-			strCompanyName = txtCompanyNameUpdate.getText();		
+			account.setCompanyName(txtCompanyNameUpdate.getText()); 		
 		}
 		if (txtAddress1Update.getText().length() > 0) {
-			strAddress1 = txtAddress1Update.getText();
+			account.setAddress1(txtAddress1Update.getText());
 		}
 		if (txtAddress2Update.getText().length() > 0) {
-			strAddress2 = txtAddress2Update.getText();
+			account.setAddress2(txtAddress2Update.getText());
 		}
 		if (txtCityUpdate.getText().length() > 0) {
-			strCity = txtCityUpdate.getText();
+			account.setCity(txtCityUpdate.getText());
 		}
 		if (txtStateUpdate.getText().length() > 0) {
-			strState = txtStateUpdate.getText();
+			account.setState(txtStateUpdate.getText());
 		}
 		if (txtZipCodeUpdate.getText().length() > 0) {
 			int issueChecker = 0;
@@ -757,7 +818,7 @@ public class ContractorClient extends JFrame implements ActionListener {
 						if (Character.isDigit(c1)) {
 							if (j == 4 && issueTracker == 0) {
 								txtZipCodeUpdate.setText(strTzc);
-								intZipCode = Integer.parseInt(txtZipCodeUpdate.getText());
+								account.setZipCode(Integer.parseInt(txtZipCodeUpdate.getText()));
 								issueChecker = 0;
 								break;
 							}
@@ -766,8 +827,13 @@ public class ContractorClient extends JFrame implements ActionListener {
 						}
 					}
 				}
-
 			}
+		}
+		if (txtPhoneNumberUpdate.getText().length() > 0) {
+			account.setPhoneNumber(txtPhoneNumberUpdate.getText());
+		}
+		if (txtEmailAddressUpdate.getText().length() > 0) {
+			account.setEmailAddress(txtEmailAddressUpdate.getText());
 		}
 		profileTab.revalidate();
 	}
@@ -842,6 +908,8 @@ public class ContractorClient extends JFrame implements ActionListener {
 		txtCityUpdate.setText(null);
 		txtStateUpdate.setText(null);
 		txtZipCodeUpdate.setText(null);
+		txtPhoneNumberUpdate.setText(null);
+		txtEmailAddressUpdate.setText(null);
 	}
 
 	/**
@@ -869,6 +937,8 @@ public class ContractorClient extends JFrame implements ActionListener {
 		lblCityUpdate.setVisible(false);
 		lblStateUpdate.setVisible(false);
 		lblZipCodeUpdate.setVisible(false);
+		lblPhoneNumberUpdate.setVisible(false);
+		lblEmailAddressUpdate.setVisible(false);
 		profileTab.validate();
 		profileTab.repaint();
 	}

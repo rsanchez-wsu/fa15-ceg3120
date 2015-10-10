@@ -37,6 +37,15 @@ public abstract class UserAccount {
     private char[] pswd;
     // other common data fields
     // perhaps encrypted pswd?
+	private String strFirstName;
+	private String strLastName;
+	private String strAddress1;
+	private String strAddress2;
+	private String strCity;
+	private String strState;
+	private int intZipCode;
+	private String strPhoneNumber;
+	private String strEmailAddress;
 
     public UserAccount(AccountType accountType) {
         uuid = "Debug";
@@ -82,6 +91,80 @@ public abstract class UserAccount {
     public void setPswd(char[] pswd) {
         this.pswd = (char[])pswd.clone();
     }
+    
+    public void setFirstName(String strFn) {
+    	strFirstName = strFn;
+    }
+    
+    public void setLastName(String strLn) {
+    	strLastName = strLn;
+    }
+    
+    public void setAddress1(String strAdd1) {
+    	strAddress1 = strAdd1;
+    }
+    
+    public void setAddress2(String strAdd2) {
+    	strAddress2 = strAdd2;
+    }
+    
+    public void setCity(String strCt) {
+    	strCity = strCt;
+    }
+    
+    public void setState(String strSt) {
+    	strState = strSt;
+    }
+    
+    public void setZipCode(int zip) {
+    	intZipCode = zip;
+    }
+    
+    public void setPhoneNumber(String strPhone) {
+    	strPhoneNumber = strPhone;
+    }
+    
+    public void setEmailAddress(String strEmail) {
+    	strEmailAddress = strEmail;
+    }
+    
+    public String getFirstName() {
+    	return strFirstName;
+    }
+    
+    public String getLastName() {
+    	return strLastName;
+    }
+    
+    
+    public String getAddress1() {
+    	return strAddress1;
+    }
+    
+    public String getAddress2() {
+    	return strAddress2;
+    }
+    
+    public String getCity() {
+    	return strCity;
+    }
+    
+    public String getState() {
+    	return strState;
+    }
+    
+    public int getZipCode() {
+    	return intZipCode;
+    }
+    
+    public String getPhoneNumber() {
+    	return strPhoneNumber;
+    }
+    
+    public String getEmailAddress() {
+    	return strEmailAddress;
+    }
+
 
     /**
      * Launches the account type specific GUI.

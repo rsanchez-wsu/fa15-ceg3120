@@ -24,17 +24,17 @@ package edu.wright.cs.fa15.ceg3120.concon.common.data;
 public class HomeownerAccount extends UserAccount {
 
 	/** Description. */
-	private String streetAddress;
+//	private String streetAddress;
 	/** Description. */
-	private String city;
+//	private String city;
 	/** Description. */
-	private String state;
+//	private String state;
 	/** Description. */
-	private String zipCode;
+//	private int zipCode;
 	/** Description. */
-	private String phoneNumber;
+//	private String phoneNumber;
 	/** Description. */
-	private String email;
+//	private String email;
     //other fields here
     
 	public HomeownerAccount() {
@@ -48,7 +48,7 @@ public class HomeownerAccount extends UserAccount {
         
 	}
 
-	public String getStreetAddress() {
+/*	public String getStreetAddress() {
 		return streetAddress;
 	}
 
@@ -72,11 +72,11 @@ public class HomeownerAccount extends UserAccount {
 		this.state = state;
 	}
 
-	public String getZipCode() {
+	public int getZipCode() {
 		return zipCode;
 	}
 
-	public void setZipCode(String zipCode) {
+	public void setZipCode(int zipCode) {
 		this.zipCode = zipCode;
 	}
 
@@ -95,5 +95,5 @@ public class HomeownerAccount extends UserAccount {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-
+*/
 }
