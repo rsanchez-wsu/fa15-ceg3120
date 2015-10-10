@@ -54,17 +54,16 @@ public class ConConClient {
                 Socket clientSocket = new Socket(host, port);
                 DataOutputStream toServer = new DataOutputStream(clientSocket.getOutputStream());
                 BufferedReader fromServer = new BufferedReader(
-                        new InputStreamReader(clientSocket.getInputStream(), "UTF-8"));
+                		new InputStreamReader(clientSocket.getInputStream(), "UTF-8"));
 
                 toServer.writeBytes(message);
                 StringBuilder response = new StringBuilder();
-                int n = 0;
-
-                while ((n = fromServer.read()) != -1) {
-                    response.append(n);
+                int ch = 0;
+                while ((ch = fromServer.read()) != -1) {
+                    response.append(ch);
                 }
 
-                NetworkManager.post(NetworkManager.decodeFromXML(response.toString()));
+                NetworkManager.post(NetworkManager.decodeFromXml(response.toString()));
 
                 clientSocket.close();
             } catch (IOException e) {

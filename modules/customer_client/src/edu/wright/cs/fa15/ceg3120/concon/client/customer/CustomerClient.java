@@ -24,7 +24,8 @@ package edu.wright.cs.fa15.ceg3120.concon.client.customer;
 import edu.wright.cs.fa15.ceg3120.concon.common.data.HomeownerAccount;
 //import edu.wright.cs.fa15.ceg3120.concon.common.data.HomeownerAccount;
 import edu.wright.cs.fa15.ceg3120.concon.common.net.NetworkManager;
-import edu.wright.cs.fa15.ceg3120.concon.common.net.message.BeanMessage;
+import edu.wright.cs.fa15.ceg3120.concon.common.net.data.UserData;
+import edu.wright.cs.fa15.ceg3120.concon.common.net.message.ChatMessage;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

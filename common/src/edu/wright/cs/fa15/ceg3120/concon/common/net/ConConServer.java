@@ -30,12 +30,14 @@ import java.net.Socket;
 
 //TODO have security
 public class ConConServer extends Thread {
+
     private int port;
     private ServerSocket serverSocket = null;
     private boolean listening = true;
 
     public ConConServer(int port) {
         this.port = port;
+    
     }
 
     @Override
@@ -60,6 +62,9 @@ public class ConConServer extends Thread {
         }
     }
 
+    /**
+     * Description. TODO Fill out.
+     */
     public void quit() {
         this.listening = false;
         try {
@@ -70,6 +75,7 @@ public class ConConServer extends Thread {
     }
 
     private static class ConnectionWorker extends Thread {
+
         private Socket clientSocket = null;
 
         public ConnectionWorker(Socket clientSocket) {
@@ -81,15 +87,16 @@ public class ConConServer extends Thread {
             try {
                 DataOutputStream toClient = new DataOutputStream(clientSocket.getOutputStream());
                 BufferedReader fromClient = new BufferedReader(
-                        new InputStreamReader(clientSocket.getInputStream(), "UTF-8"));
+                		new InputStreamReader(clientSocket.getInputStream(), "UTF-8"));
 
-                int n = 0;
+
+                int ch = 0;
                 StringBuilder message = new StringBuilder();
-                while ((n = fromClient.read()) != -1) {
-                    message.append(n);
+                while ((ch = fromClient.read()) != -1) {
+                    message.append(ch);
                 }
 
-                NetworkManager.post(NetworkManager.decodeFromXML(message.toString()));
+                NetworkManager.post(NetworkManager.decodeFromXml(message.toString()));
 
                 toClient.close();
                 fromClient.close();
