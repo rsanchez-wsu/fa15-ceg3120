@@ -148,14 +148,19 @@ public class ContractorClient extends JFrame implements ActionListener {
 		frame.getContentPane().setLayout(null);
 
 		JPanel banner = new JPanel();
+		banner.setLayout(null);
 		banner.setBounds(6, 0, 703, 127);
 //		BufferedImage logo = new BufferedImage(127, 127, BufferedImage.TYPE_INT_RGB);
 		ImageIcon imageIcon = new ImageIcon("images/c2-image.png");
 		Image image = imageIcon.getImage();
-		Image newImg = image.getScaledInstance(127, 127, java.awt.Image.SCALE_SMOOTH);
+		Image newImg = image.getScaledInstance((int) (banner.getHeight() * .9), 
+				(int) (banner.getHeight() * .9), java.awt.Image.SCALE_SMOOTH);
 		imageIcon = new ImageIcon(newImg);		
 		JLabel picLabel = new JLabel(imageIcon);
 		banner.add(picLabel);	
+		picLabel.setBounds((int) ((banner.getWidth() * .95) - (banner.getHeight() * .75)),
+				(int) (banner.getHeight() * .05),(int) (banner.getHeight() * .90),
+				(int) (banner.getHeight() * .90));
 		picLabel.setOpaque(true);
 		picLabel.setBackground(Color.darkGray);
 
