@@ -28,6 +28,7 @@ import java.beans.XMLEncoder;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.UnsupportedEncodingException;
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
@@ -45,7 +46,7 @@ public class NetworkManager {
     public static void registerNetworkClass(Class<?> cl) {
         Method[] methods = cl.getMethods();
         for (Method m : methods) {
-            if (m.isAnnotationPresent(NetworkHandler.class)) {
+            if (m.isAnnotationPresent((Class<? extends Annotation>) NetworkHandler.class)) {
                 Class<?>[] argClasses = m.getParameterTypes();
                 if (argClasses.length != 1 
                 		|| !NetworkMessage.class.isAssignableFrom(argClasses[0])) {

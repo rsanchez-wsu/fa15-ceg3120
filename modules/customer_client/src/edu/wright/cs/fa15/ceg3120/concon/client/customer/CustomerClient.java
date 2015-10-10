@@ -24,8 +24,8 @@ package edu.wright.cs.fa15.ceg3120.concon.client.customer;
 import edu.wright.cs.fa15.ceg3120.concon.common.data.HomeownerAccount;
 //import edu.wright.cs.fa15.ceg3120.concon.common.data.HomeownerAccount;
 import edu.wright.cs.fa15.ceg3120.concon.common.net.NetworkManager;
-import edu.wright.cs.fa15.ceg3120.concon.common.net.data.UserData;
 import edu.wright.cs.fa15.ceg3120.concon.common.net.message.ChatMessage;
+import edu.wright.cs.fa15.ceg3120.concon.common.net.message.NetworkMessage;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -82,7 +82,7 @@ public class CustomerClient {
      */
     public static void main(String[] args) {
         NetworkManager.startClient("localhost", 9667);
-        BeanMessage message = new BeanMessage("Hello World");
+        NetworkMessage message = new ChatMessage("Hello World", null, null);
         NetworkManager.sendMessage(message);
         new CustomerClient().buildGui(new HomeownerAccount());
     }
