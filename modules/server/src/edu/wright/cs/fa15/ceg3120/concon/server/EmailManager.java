@@ -25,13 +25,13 @@ import org.apache.commons.mail.Email;
 import org.apache.commons.mail.EmailAttachment;
 import org.apache.commons.mail.EmailException;
 import org.apache.commons.mail.HtmlEmail;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.util.LinkedList;
 import java.util.Properties;
 import java.util.Queue;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javax.mail.Session;
 
@@ -43,6 +43,8 @@ import javax.mail.Session;
  *
  */
 public class EmailManager {
+	
+    private static final Logger LOG = LoggerFactory.getLogger(EmailManager.class);
 	private Queue<Email> mailQueue = new LinkedList<>();
 	private Properties props;
 
@@ -79,8 +81,7 @@ public class EmailManager {
 				mail.attach(attachment);
 			}
 		} catch (EmailException e) {
-			Logger.getLogger(this.getClass().getName())
-				.log(Level.WARNING, "Email was not added. ", e);
+			LOG.warn("Email was not added. ", e);
 		}
 		mailQueue.add(mail);
 	}
@@ -112,12 +113,10 @@ public class EmailManager {
 		try {
 			while (!mailQueue.isEmpty()) {
 				mailQueue.remove().send();
-				Logger.getLogger(this.getClass().getName())
-					.info("Sent message successfully....");
+				LOG.info("Sent message successfully....");
 			}
 		} catch (EmailException e) {
-			Logger.getLogger(this.getClass().getName())
-				.log(Level.WARNING, "Email was not sent. ", e);
+			LOG.warn("Email was not sent. ", e);
 		}
 	}
 }

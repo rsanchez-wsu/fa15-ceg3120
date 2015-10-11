@@ -34,8 +34,8 @@ public class Server {
      * @param args Arguments.
      */
 	public static void main(String[] args) {
+		LOG.trace("Starting server...");
 		NetworkManager.startServer(9667);
 		System.out.println("Server running.");
-		LOG.trace("Starting server...");
 	}
 }

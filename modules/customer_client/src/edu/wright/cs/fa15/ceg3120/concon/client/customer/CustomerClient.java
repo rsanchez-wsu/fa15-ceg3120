@@ -39,13 +39,12 @@ import javax.swing.JOptionPane;
 import javax.swing.WindowConstants;
 
 public class CustomerClient {
-    // LOG is currently unused. Remove this suppress when it gets used.
-    @SuppressWarnings("unused")
+	
     private static final Logger LOG = LoggerFactory.getLogger(CustomerClient.class);
-
-    private static final int WINDOW_WIDTH = Toolkit.getDefaultToolkit().getScreenSize().width - 150;
-    private static final int WINDOW_HEIGHT = Toolkit.getDefaultToolkit().getScreenSize().height
-            - 150;
+    private static final int WINDOW_WIDTH = 
+    		Toolkit.getDefaultToolkit().getScreenSize().width - 150;
+    private static final int WINDOW_HEIGHT = 
+    		Toolkit.getDefaultToolkit().getScreenSize().height - 150;
 
     @SuppressWarnings("unused")
     private HomeownerAccount user;
@@ -81,6 +80,7 @@ public class CustomerClient {
      *            temp
      */
     public static void main(String[] args) {
+		LOG.trace("Starting Customer client...");
         NetworkManager.startClient("localhost", 9667);
         NetworkMessage message = new ChatMessage("Hello World", null, null);
         NetworkManager.sendMessage(message);

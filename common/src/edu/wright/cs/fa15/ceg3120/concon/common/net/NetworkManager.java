@@ -25,42 +25,50 @@ import edu.wright.cs.fa15.ceg3120.concon.common.net.message.ChatMessage;
 import edu.wright.cs.fa15.ceg3120.concon.common.net.message.DataMessage;
 import edu.wright.cs.fa15.ceg3120.concon.common.net.message.NetworkMessage;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.beans.XMLDecoder;
 import java.beans.XMLEncoder;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.UnsupportedEncodingException;
 import java.lang.annotation.Annotation;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
 
 public class NetworkManager {
 	
+    private static final Logger LOG = LoggerFactory.getLogger(NetworkManager.class);
+	
+
 	private static final HashMap<Method, Class<?>> NETWORK_BUS = new HashMap<Method, Class<?>>();
 
 	private static ConConServer server;
 	private static ConConClient client;
 
-    /**
-     * Description. TODO Fill out.
-     * @param cl Class to register.
-     */
-    public static void registerNetworkClass(Class<?> cl) {
-        Method[] methods = cl.getMethods();
-        for (Method m : methods) {
-            if (m.isAnnotationPresent((Class<? extends Annotation>) NetworkHandler.class)) {
-                Class<?>[] argClasses = m.getParameterTypes();
-                if (argClasses.length != 1 
-                		|| !NetworkMessage.class.isAssignableFrom(argClasses[0])) {
-                    System.out.println("Invalid parameters on NetworkHandler method: " 
-                    		+ m.getName());
-                } else {
-                    NETWORK_BUS.put(m, argClasses[0]);
-                }
-            }
-        }
-    }
+	/**
+	 * Description. TODO Fill out.
+	 * 
+	 * @param cl
+	 *            Class to register.
+	 */
+	public static void registerNetworkClass(Class<?> cl) {
+		Method[] methods = cl.getMethods();
+		for (Method m : methods) {
+			if (m.isAnnotationPresent((Class<? extends Annotation>) NetworkHandler.class)) {
+				Class<?>[] argClasses = m.getParameterTypes();
+				if (argClasses.length != 1 
+						|| !NetworkMessage.class.isAssignableFrom(argClasses[0])) {
+					LOG.warn("Invalid parameters on NetworkHandler method: " + m.getName());
+				} else {
+					NETWORK_BUS.put(m, argClasses[0]);
+				}
+			}
+		}
+	}
 
 	/**
 	 * Description. TODO Fill out.
@@ -74,29 +82,14 @@ public class NetworkManager {
 				try {
 					System.out.println("Recieved message: " + message);
 					if (message instanceof ChatMessage) {
-
-
-    /**
-     * Description. TODO Fill out.
-     * @param port Port to use.
-     * @return false if failed.
-     */
-    public static synchronized boolean startServer(int port) {
-        if (server != null || client != null) {
-            return false;
-        }
-        server = new ConConServer(port);
-        server.start();
-        return true;
-    }
 						listener.getKey().invoke(null, (ChatMessage) message);
-
 					} else if (message instanceof DataMessage) {
 						listener.getKey().invoke(null, (DataMessage) message);
 					}
-				} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+				} catch (IllegalAccessException 
+						| IllegalArgumentException 
+						| InvocationTargetException e) {
+					LOG.error("Error Posting Message: ", e);
 				}
 			}
 		}
@@ -158,8 +151,7 @@ public class NetworkManager {
 		try {
 			client.sendMessage(encodeToXml(message));
 		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			LOG.warn("Improper message encoding: ", e);
 		}
 		return true;
 	}
@@ -173,7 +165,9 @@ public class NetworkManager {
 	 * @throws UnsupportedEncodingException
 	 *             TODO Reason.
 	 */
-	protected static NetworkMessage decodeFromXml(String xml) throws UnsupportedEncodingException {
+	protected static NetworkMessage decodeFromXml(String xml) 
+			throws UnsupportedEncodingException {
+		
 		// some reflection wizardry or switching or something
 		XMLDecoder xmlWizard = new XMLDecoder(new ByteArrayInputStream(xml.getBytes("UTF-8")));
 		NetworkMessage result = (NetworkMessage) xmlWizard.readObject();
@@ -190,7 +184,9 @@ public class NetworkManager {
 	 * @throws UnsupportedEncodingException
 	 *             TODO Reason.
 	 */
-	protected static String encodeToXml(NetworkMessage message) throws UnsupportedEncodingException {
+	protected static String encodeToXml(NetworkMessage message) 
+			throws UnsupportedEncodingException {
+		
 		// some reflection wizardry or switching or something
 		ByteArrayOutputStream out = new ByteArrayOutputStream();
 		XMLEncoder xmlWizard = new XMLEncoder(out, "UTF-8", false, 0);
