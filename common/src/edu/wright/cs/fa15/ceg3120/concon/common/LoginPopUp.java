@@ -57,6 +57,8 @@ public class LoginPopUp implements Externalizable{
     private SpringLayout currentLayout;
     private JTextField uuidField;
     private JPasswordField passwordField;
+    private Resources imageResources;
+	private static final String ICON_IMG = "icon.png";
     
     /**
      * Creates a new instance of <code>LogininPopUp</code>.
@@ -67,6 +69,7 @@ public class LoginPopUp implements Externalizable{
         btnCreateAccount = new JButton();
         uuidField = new JTextField();
         passwordField = new JPasswordField();
+        imageResources = new Resources();
     }
 
     /**
@@ -77,7 +80,7 @@ public class LoginPopUp implements Externalizable{
         loginFrame.setSize(500, 300);
         uuidField.requestFocus();
         
-        loginFrame.setIconImage(new ImageIcon(getClass().getResource("icon.png")).getImage());
+        loginFrame.setIconImage(imageResources.getImage(ICON_IMG ).getImage());
 
         loginFrame.setVisible(true);
 
@@ -220,6 +223,7 @@ public class LoginPopUp implements Externalizable{
     public FieldPanel createFieldPanel() {
         return new FieldPanel();
     }
+    
     /**
      * Entry point for the main unit.
      * 
@@ -248,8 +252,7 @@ public class LoginPopUp implements Externalizable{
         public StringFrame(LoginPopUp popUp) {
             super("Login");
             this.popup = popUp;
-            currentPanel = popup.createFieldPanel();
-
+        	currentPanel = popup.createFieldPanel();
             setupFrame();
 
         }
@@ -264,7 +267,7 @@ public class LoginPopUp implements Externalizable{
     @SuppressWarnings("serial")
     public class FieldPanel extends JPanel {
 
-    	Image img;
+    	ImageIcon img;
     	
         /**
          * Creates a new instance of <code>FieldPanel</code>.
@@ -279,8 +282,9 @@ public class LoginPopUp implements Externalizable{
             currentLayout = new SpringLayout();
 
             try {
-            	img = new ImageIcon(getClass().getResource("ceg3120_logos.png")).getImage();
+            	img = imageResources.getImage("ceg3120_logos.png");
             } catch (Exception e) {
+            	e.printStackTrace();
             	/*handled in paint()*/
             }
             
@@ -292,8 +296,13 @@ public class LoginPopUp implements Externalizable{
     		
     		super.paint(graphics);
     		if (img != null) {
-    			graphics.drawImage(img, this.getWidth() - 235, this.getHeight() - 290, 300, 300,
-    					this);
+    			graphics.drawImage(img.getImage(), 
+    					this.getWidth() - 235, 
+    					this.getHeight() - 290, 
+    					300, 
+    					300,
+    					this
+    			);
     		} else {
     			graphics.drawString("No image", 400, 200);
     		} 
