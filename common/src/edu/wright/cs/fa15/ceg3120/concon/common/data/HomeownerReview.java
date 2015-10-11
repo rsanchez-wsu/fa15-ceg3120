@@ -19,14 +19,13 @@
  *
  */
 
-package edu.wright.cs.fa15.ceg3120.concon.common.net.message;
+package edu.wright.cs.fa15.ceg3120.concon.common.data;
 
-import java.io.Serializable;
+public class HomeownerReview extends Review {
 
-public abstract class NetworkMessage implements Serializable {
-	
-	private static final long serialVersionUID = -8618792710721202266L;
+    public HomeownerReview(int id, int reviewerId, int subjectId, int jobId, String date,
+            String text, int rating) {
+        super(id, reviewerId, subjectId, jobId, date, text, rating);
+    }
 
-	public NetworkMessage() {}
-	
 }

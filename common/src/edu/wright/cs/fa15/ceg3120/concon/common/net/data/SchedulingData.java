@@ -21,13 +21,13 @@
 
 package edu.wright.cs.fa15.ceg3120.concon.common.net.data;
 
+import java.io.Serializable;
 
 /**
- * Holds basic scheduling data.
- * 
+ * Description. TODO Fill out.
  * @author Emily
  */
-public class SchedulingData implements NetworkData {
+public class SchedulingData implements Serializable {
 
 	private static final long serialVersionUID = 8642779085161182815L;
 	

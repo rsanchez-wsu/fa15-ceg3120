@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="src" path="common/src"/>
+	<classpathentry excluding="edu/wright/cs/fa15/ceg3120/concon/common/images/" kind="src" path="common/src"/>
 	<classpathentry kind="src" path="modules/contractor_client/src"/>
 	<classpathentry kind="src" path="modules/customer_client/src"/>
 	<classpathentry kind="src" path="modules/server/src"/>
+	<classpathentry kind="src" path="images"/>
 	<classpathentry kind="lib" path="wrapper/wrapper.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="con" path="org.apache.ivyde.eclipse.cpcontainer.IVYDE_CONTAINER/?project=fa15-ceg3120&amp;ivyXmlPath=ivy.xml&amp;confs=*"/>
-	<classpathentry kind="lib" path="/home/laburn/javax.mail.jar"/>
-	<classpathentry kind="lib" path="/home/laburn/commons-email-1.4/commons-email-1.4.jar"/>
-	<classpathentry kind="lib" path="/home/laburn/commons-email-1.4/commons-email-1.4-javadoc.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

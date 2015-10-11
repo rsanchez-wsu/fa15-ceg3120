@@ -19,14 +19,25 @@
  *
  */
 
-package edu.wright.cs.fa15.ceg3120.concon.common.net.message;
+package edu.wright.cs.fa15.ceg3120.concon.common;
 
-import java.io.Serializable;
+import edu.wright.cs.fa15.ceg3120.concon.common.data.ContractorAccount;
+import edu.wright.cs.fa15.ceg3120.concon.common.data.UserAccount;
 
-public abstract class NetworkMessage implements Serializable {
-	
-	private static final long serialVersionUID = -8618792710721202266L;
+import java.awt.BorderLayout;
 
-	public NetworkMessage() {}
-	
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+
+@SuppressWarnings("serial")
+class NewContractorPane extends JPanel {
+    public NewContractorPane() {
+        super(new BorderLayout());
+        JLabel temp = new JLabel("Contractor dudes need to implement this");
+        add(temp, BorderLayout.CENTER);
+    }
+    
+    public UserAccount packageAccount() {
+        return new ContractorAccount();
+    }
 }

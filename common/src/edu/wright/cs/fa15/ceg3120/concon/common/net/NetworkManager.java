@@ -30,7 +30,7 @@ import java.beans.XMLEncoder;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.UnsupportedEncodingException;
-import java.lang.reflect.InvocationTargetException;
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
@@ -42,25 +42,25 @@ public class NetworkManager {
 	private static ConConServer server;
 	private static ConConClient client;
 
-	/**
-	 * Description. TODO Fill out.
-	 * 
-	 * @param cl
-	 *            Class to register.
-	 */
-	public static void registerNetworkClass(Class<?> cl) {
-		Method[] methods = cl.getMethods();
-		for (Method m : methods) {
-			if (m.isAnnotationPresent(NetworkHandler.class)) {
-				Class<?>[] argClasses = m.getParameterTypes();
-				if (argClasses.length != 1 || !NetworkMessage.class.isAssignableFrom(argClasses[0])) {
-					System.out.println("Invalid parameters on NetworkHandler method: " + m.getName());
-				} else {
-					NETWORK_BUS.put(m, argClasses[0]);
-				}
-			}
-		}
-	}
+    /**
+     * Description. TODO Fill out.
+     * @param cl Class to register.
+     */
+    public static void registerNetworkClass(Class<?> cl) {
+        Method[] methods = cl.getMethods();
+        for (Method m : methods) {
+            if (m.isAnnotationPresent((Class<? extends Annotation>) NetworkHandler.class)) {
+                Class<?>[] argClasses = m.getParameterTypes();
+                if (argClasses.length != 1 
+                		|| !NetworkMessage.class.isAssignableFrom(argClasses[0])) {
+                    System.out.println("Invalid parameters on NetworkHandler method: " 
+                    		+ m.getName());
+                } else {
+                    NETWORK_BUS.put(m, argClasses[0]);
+                }
+            }
+        }
+    }
 
 	/**
 	 * Description. TODO Fill out.
@@ -75,6 +75,20 @@ public class NetworkManager {
 					System.out.println("Recieved message: " + message);
 					if (message instanceof ChatMessage) {
 
+
+    /**
+     * Description. TODO Fill out.
+     * @param port Port to use.
+     * @return false if failed.
+     */
+    public static synchronized boolean startServer(int port) {
+        if (server != null || client != null) {
+            return false;
+        }
+        server = new ConConServer(port);
+        server.start();
+        return true;
+    }
 						listener.getKey().invoke(null, (ChatMessage) message);
 
 					} else if (message instanceof DataMessage) {

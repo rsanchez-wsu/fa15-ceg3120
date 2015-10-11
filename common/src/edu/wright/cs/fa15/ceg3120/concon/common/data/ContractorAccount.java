@@ -19,14 +19,30 @@
  *
  */
 
-package edu.wright.cs.fa15.ceg3120.concon.common.net.message;
+package edu.wright.cs.fa15.ceg3120.concon.common.data;
 
-import java.io.Serializable;
+public class ContractorAccount extends UserAccount {
 
-public abstract class NetworkMessage implements Serializable {
-	
-	private static final long serialVersionUID = -8618792710721202266L;
+    // Contractor specific data fields
 
-	public NetworkMessage() {}
-	
+	private String strCompanyName;
+
+    public ContractorAccount() {
+        super(AccountType.CONTRACTOR);
+    }
+    
+    public void setCompanyName(String strCn) {
+    	strCompanyName = strCn;
+    }
+    
+
+    public String getCompanyName() {
+    	return strCompanyName;
+    }
+
+    @Override
+    public void launchGui() {
+
+    }
+
 }

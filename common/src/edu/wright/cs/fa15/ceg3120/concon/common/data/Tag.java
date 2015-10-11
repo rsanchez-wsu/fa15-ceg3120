@@ -19,14 +19,28 @@
  *
  */
 
-package edu.wright.cs.fa15.ceg3120.concon.common.net.message;
+package edu.wright.cs.fa15.ceg3120.concon.common.data;
 
-import java.io.Serializable;
+/**
+ * Tag used to search jobs.
+ * 
+ * @author Jonathan Thomas
+ *
+ */
+public class Tag {
+    private String text;
 
-public abstract class NetworkMessage implements Serializable {
-	
-	private static final long serialVersionUID = -8618792710721202266L;
+    /**
+     * Construct a new Tag.
+     * 
+     * @param text
+     *            The name of the tag.
+     */
+    public Tag(String text) {
+        this.text = text;
+    }
 
-	public NetworkMessage() {}
-	
+    public String getText() {
+        return text;
+    }
 }

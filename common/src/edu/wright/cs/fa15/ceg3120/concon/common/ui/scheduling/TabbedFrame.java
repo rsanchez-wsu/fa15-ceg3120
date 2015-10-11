@@ -19,7 +19,7 @@
  *
  */
 
-package edu.wright.cs.fa15.ceg3120.concon.paysched;
+package edu.wright.cs.fa15.ceg3120.concon.common.ui.scheduling;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;

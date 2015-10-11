@@ -19,14 +19,16 @@
  *
  */
 
-package edu.wright.cs.fa15.ceg3120.concon.common.net.message;
+package edu.wright.cs.fa15.ceg3120.concon.common.data;
 
-import java.io.Serializable;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-public abstract class NetworkMessage implements Serializable {
-	
-	private static final long serialVersionUID = -8618792710721202266L;
+public class DataAccessLayer {
 
-	public NetworkMessage() {}
-	
+	private static final Logger LOG = LoggerFactory.getLogger(DataAccessLayer.class);
+
+    public static void main(String[] args) {
+        LOG.trace("Starting Data Access Layer...");
+    }
 }

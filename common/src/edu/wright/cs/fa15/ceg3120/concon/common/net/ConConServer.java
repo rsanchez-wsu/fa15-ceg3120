@@ -19,7 +19,6 @@
  *
  */
 
-
 package edu.wright.cs.fa15.ceg3120.concon.common.net;
 
 import java.io.BufferedReader;
@@ -30,7 +29,8 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 //TODO have security
-public class ConConServer extends Thread{
+public class ConConServer extends Thread {
+
     private int port;
     private ServerSocket serverSocket = null;
     private boolean listening = true;
@@ -74,7 +74,8 @@ public class ConConServer extends Thread{
         }
     }
 
-    private static class ConnectionWorker extends Thread{
+    private static class ConnectionWorker extends Thread {
+
         private Socket clientSocket = null;
 
         public ConnectionWorker(Socket clientSocket) {
@@ -87,6 +88,7 @@ public class ConConServer extends Thread{
                 DataOutputStream toClient = new DataOutputStream(clientSocket.getOutputStream());
                 BufferedReader fromClient = new BufferedReader(
                 		new InputStreamReader(clientSocket.getInputStream(), "UTF-8"));
+
 
                 int ch = 0;
                 StringBuilder message = new StringBuilder();
