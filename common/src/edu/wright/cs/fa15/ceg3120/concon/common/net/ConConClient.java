@@ -27,8 +27,13 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.Socket;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 //TODO have security
 public class ConConClient {
+    private static final Logger LOG = LoggerFactory.getLogger(ConConClient.class);
+	
 	private String host;
     private int port;
 
@@ -67,7 +72,7 @@ public class ConConClient {
 
                 clientSocket.close();
             } catch (IOException e) {
-                e.printStackTrace();
+                LOG.error("Dispatch Message IO: ", e);
             }
         }
     }

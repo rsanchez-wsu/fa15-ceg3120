@@ -28,8 +28,13 @@ import java.io.InputStreamReader;
 import java.net.ServerSocket;
 import java.net.Socket;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 //TODO have security
 public class ConConServer extends Thread {
+    private static final Logger LOG = LoggerFactory.getLogger(ConConServer.class);
+	
 
     private int port;
     private ServerSocket serverSocket = null;
@@ -45,7 +50,7 @@ public class ConConServer extends Thread {
         try {
             this.serverSocket = new ServerSocket(this.port);
         } catch (IOException e) {
-            e.printStackTrace();
+            LOG.error("Server Socket init: ", e);
         }
         while (listening) {
             Socket clientSocket = null;
@@ -53,10 +58,10 @@ public class ConConServer extends Thread {
                 clientSocket = this.serverSocket.accept();
             } catch (IOException e) {
                 if (!listening) {
-                    System.out.println("Server Stopped.");
+                    LOG.error("Server Stopped: ", e);
                     return;
                 }
-                e.printStackTrace();
+                LOG.error("Client Socket: ", e);
             }
             new ConnectionWorker(clientSocket).start();
         }
@@ -70,7 +75,7 @@ public class ConConServer extends Thread {
         try {
             this.serverSocket.close();
         } catch (IOException e) {
-            e.printStackTrace();
+            LOG.error("Server Socket: ", e);
         }
     }
 
@@ -101,7 +106,7 @@ public class ConConServer extends Thread {
                 toClient.close();
                 fromClient.close();
             } catch (IOException e) {
-                e.printStackTrace();
+                LOG.error("Connection Worker IO: ", e);
             }
         }
     }
