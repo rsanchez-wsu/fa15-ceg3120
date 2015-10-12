@@ -60,6 +60,8 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.awt.event.KeyEvent;
 
 import javax.swing.BorderFactory;
@@ -67,6 +69,7 @@ import javax.swing.ButtonGroup;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JEditorPane;
 import javax.swing.JFrame;
@@ -160,10 +163,10 @@ public class ServerGui extends JPanel implements ActionListener {
 		ImageIcon iconReport = createImageIcon("images/Report.png");
 		reportFrame.setIconImage(iconReport.getImage());
 		
-		JComponent reportPane = new JPanel();
-		reportPane = makeTextPanel("Date             "
-				+ "User             Type             "
-				+ "Time issued             Status");
+		JComponent reportPane = createServerReportPanel();
+//		reportPane = makeTextPanel("Date             "
+//				+ "User             Type             "
+//				+ "Time issued             Status");
 		reportFrame.add(reportPane, BorderLayout.NORTH);
 		
 		final JFrame emerFrame = new JFrame("Emergency Message");
@@ -238,6 +241,7 @@ public class ServerGui extends JPanel implements ActionListener {
 		buttonReports.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				reportFrame.setVisible(true); 
+				
 			}
 			
 		});
@@ -668,6 +672,127 @@ public class ServerGui extends JPanel implements ActionListener {
     			}
     		}
     	}
+    	
+    	/*
+    	 * Creates server reports into the report panel
+    	 * initially this was supposed to be a new tab but when I saw the updates 
+    	 * I think it would make the most sense to put this here.
+    	 */
+    	protected JComponent createServerReportPanel() {
+            JPanel mainPanel = new JPanel(new BorderLayout());
+            
+            String[] dataOptions = { "System Errors", 
+            						"Database Errors", 
+            						 "System Resets and Backups"};
+            
+            JComboBox<String> dataOptionList = new JComboBox<String>(dataOptions);
+            
+            dataOptionList.setSelectedIndex(0);
+            JPanel SysErrorsPanel = new JPanel(new BorderLayout());
+        	SysErrorsPanel.add(new JTextField("Current System Errors"));
+        	JTable errorsList;
+        	
+        	errorsList = getSysErrorsFromDataBase();
+        	JScrollPane errorScroll = new JScrollPane(errorsList);
+        	SysErrorsPanel.add(errorScroll, BorderLayout.CENTER);
+        	mainPanel.add(SysErrorsPanel, BorderLayout.CENTER);
+            dataOptionList.addItemListener(new ItemListener() {
+                public void itemStateChanged(ItemEvent arg0) {
+                	mainPanel.removeAll();
+                	mainPanel.add(dataOptionList, BorderLayout.NORTH);
+                    if(dataOptionList.getSelectedIndex()==0){
+                    	JPanel SysErrorsPanel = new JPanel(new BorderLayout());
+                    	SysErrorsPanel.add(new JTextField("Current System Errors"));
+                    	JTable errorsList;
+                    	
+                    	errorsList = getSysErrorsFromDataBase();
+                    	JScrollPane errorScroll = new JScrollPane(errorsList);
+                    	SysErrorsPanel.add(errorScroll, BorderLayout.CENTER);
+                    	mainPanel.add(SysErrorsPanel, BorderLayout.CENTER);
+                    }
+                    else if(dataOptionList.getSelectedIndex()==1){
+                    	JPanel databaseErrorPanel = new JPanel(new BorderLayout());
+                    	databaseErrorPanel.add(new JTextField("Current Database Errors"));
+                    	JTable errorsList;
+                    	//TODO refine this once the database calling is worked out
+                    	errorsList = getDBErrorsFromDatabase();
+                    	JScrollPane errorScroll = new JScrollPane(errorsList);
+                    	databaseErrorPanel.add(errorScroll, BorderLayout.CENTER);
+                    	mainPanel.add(databaseErrorPanel, BorderLayout.CENTER);	
+                    }
+                    else if(dataOptionList.getSelectedIndex()==2){
+                    	JPanel SysResetPanel = new JPanel(new BorderLayout());
+                    	SysResetPanel.add(new JTextField("\nResets and Backups"));
+                    	JList<String> resetList = new JList<>();
+                    	//TODO refine this once the database calling is worked out
+                    	resetList = getResetAndBackupsFromDataBase();
+                    	SysResetPanel.add(resetList, BorderLayout.CENTER);
+                    	mainPanel.add(SysResetPanel, BorderLayout.CENTER);
+                    }
+                    mainPanel.revalidate();
+                    mainPanel.repaint();
+                }
+            });
+
+            //Lay out the demo.
+            mainPanel.add(dataOptionList, BorderLayout.NORTH);
+        
+            return mainPanel;
+        }
+    	
+    	/*
+    	 * is the same as sys errors but might change or be combined based on 
+    	 * how database calling will end up working
+    	 */
+    	protected JTable getDBErrorsFromDatabase() {
+    		String errorCount;
+    		errorCount = "10";//TODO add database call for this
+    		
+    		//CHANGE IF COLUMNS ARE CHANGED FOR THE REPORTS
+    		Object[] columnTitles= {"Error", "Date", "Status"};
+    		Object[][] errorData = new String[Integer.parseInt(errorCount)] [3];
+    		/////////////////////////////////////////////
+    		
+    		for (int i =0; i < Float.valueOf(errorCount); ++i){
+    			errorData[i][0]= "Culpa";//replace with calls to database
+    			errorData[i][1]= "Datum";
+    			errorData[i][2]= "Est";		
+    		}
+    		JTable errorTable = new JTable( errorData, columnTitles);
+    		return errorTable;
+    	}
+
+    	protected JList<String> getResetAndBackupsFromDataBase() {
+    		
+    		JList<String> resetAndBackupList = new JList<String>();
+    		DefaultListModel<String> selectedModel = new DefaultListModel<>();
+    		selectedModel.addElement("Last System Reset On: ");//TODO get database call
+    		selectedModel.addElement("Last Backup On: ");//TODO get database call
+    		
+    		resetAndBackupList.setModel(selectedModel);
+    		
+    		return resetAndBackupList;
+    	}
+
+    	protected JTable getSysErrorsFromDataBase() {
+    		String errorCount;
+    		errorCount = "10";//TODO add database call for this
+    		
+    		//CHANGE IF COLUMNS ARE CHANGED FOR THE REPORTS
+    		Object[] columnTitles= {"Error", "Date", "Status"};
+    		Object[][] errorData = new String[Integer.parseInt(errorCount)] [3];
+    		/////////////////////////////////////////////
+    		
+    		for (int i =0; i < Float.valueOf(errorCount); ++i){
+    			errorData[i][0]= "Culpa";//replace with calls to database
+    			errorData[i][1]= "Datum";
+    			errorData[i][2]= "Est";		
+    		}
+    		JTable errorTable = new JTable( errorData, columnTitles);
+    		return errorTable;
+    	}
+    	
+    	
     	/**
     	 * CheckStyle is cancer	.
     	 * @param CheckStyleisCancer.
