@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Configuration>
+	<Appenders>
+		<Console name="STDOUT" target="SYSTEM_OUT">
+			<PatternLayout pattern="%d %-5p [%t] %C{2} (%F:%L) - %m%n"/>
+		</Console>
+		
+	    <File name="fileAppender" fileName="logs/app.log">
+			<PatternLayout pattern="%d %p %c{1.} [%t] %m%n"/>
+	    </File>
+		
+		<!-- TODO make the database appender work
+	    <JDBC name="databaseAppender" tableName="concon.logs">
+			<DataSource jndiName="java:/comp/env/jdbc/LoggingDataSource" />
+			<Column name="eventDate" isEventTimestamp="true" />
+			<Column name="level" pattern="%level" />
+			<Column name="logger" pattern="%logger" />
+			<Column name="message" pattern="%message" />
+			<Column name="exception" pattern="%ex{full}" />
+	    </JDBC>
+	     -->
+	</Appenders>
+	
+	<Loggers>
+		<!-- 
+		<Logger name="databaseLogger" level="info">
+			<AppenderRef ref="databaseAppender"/>
+		</Logger>
+		-->
+		
+		<Logger name="edu.wright.cs.fa15.ceg3120.concon" level="debug">
+			<AppenderRef ref="fileAppender"/>
+		</Logger>
+		
+		<Root level="error">
+			<AppenderRef ref="STDOUT"/>
+		</Root>
+	</Loggers>
+</Configuration>
+		
