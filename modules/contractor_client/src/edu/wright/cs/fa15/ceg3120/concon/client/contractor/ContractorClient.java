@@ -21,8 +21,13 @@
 
 package edu.wright.cs.fa15.ceg3120.concon.client.contractor;
 
-//import edu.wright.cs.fa15.ceg3120.concon.common.data.AccountType;
-//import edu.wright.cs.fa15.ceg3120.concon.common.data.ContractorAccount;
+/*
+ * The following imports will be utilized once we are able to create and save
+ * account information other than locally
+ * 
+ * import edu.wright.cs.fa15.ceg3120.concon.common.data.AccountType;
+ * import edu.wright.cs.fa15.ceg3120.concon.common.data.ContractorAccount;
+ */
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
@@ -65,9 +70,18 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
+/**
+ * Javadoc needed.
+ * 
+ *
+ */
 public class ContractorClient extends JFrame implements ActionListener {
 
-//	private static ContractorAccount account = new ContractorAccount();
+/* The following variable to be implemented when AccountType and ContractorAccount
+ * imports are implemented
+ * 
+ * 	private static ContractorAccount account = new ContractorAccount();
+*/
 	private static final Logger LOG = LoggerFactory.getLogger(ContractorClient.class);
 	private static final long serialVersionUID = 1L;
 	private static JFrame frame;
@@ -137,7 +151,12 @@ public class ContractorClient extends JFrame implements ActionListener {
 	 * Initialize the contents of the frame.
 	 */
 	private static void initialize() {
-//		account.setAccountType(AccountType.CONTRACTOR);
+/*
+ * The following line to be implemented when AccountType and ContractorAccount
+ * imports are implemented
+ * 
+ * 		account.setAccountType(AccountType.CONTRACTOR);
+ */
 		frame = new JFrame();		
 		frame.setBounds(100, 100, 725, 475);
 		frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
@@ -161,7 +180,6 @@ public class ContractorClient extends JFrame implements ActionListener {
 		JPanel banner = new JPanel();
 		banner.setLayout(null);
 		banner.setBounds(6, 0, 703, 127);
-//		BufferedImage logo = new BufferedImage(127, 127, BufferedImage.TYPE_INT_RGB);
 		ImageIcon imageIcon = new ImageIcon("images/c2-image.png");
 		Image image = imageIcon.getImage();
 		Image newImg = image.getScaledInstance((int) (banner.getHeight() * .9), 
@@ -318,7 +336,6 @@ public class ContractorClient extends JFrame implements ActionListener {
 
 			@Override
 			public void actionPerformed(ActionEvent e1) {
-//				final String strTest = cboSearchOptions.getSelectedItem().toString();
 				switch (cboSearchOptions.getSelectedItem().toString()) {
 				case "Show All":
 					intSearch = 0;
@@ -391,8 +408,13 @@ public class ContractorClient extends JFrame implements ActionListener {
 						try {
 							curDistance = distanceCalculator(intZipCode, 
 									Integer.parseInt(tempArray[6]));
-//							curDistance = distanceCalculator(account.getZipCode(), 
-//									Integer.parseInt(tempArray[6]));
+							
+/*
+ * The following lines of code to be implemented when AccountType and 
+ * ContractorAccount imports are implemented
+ * 							curDistance = distanceCalculator(account.getZipCode(), 
+ *									Integer.parseInt(tempArray[6]));
+ */
 						} catch (NumberFormatException e) {
 							e.printStackTrace();
 						} catch (IOException e) {
@@ -731,18 +753,21 @@ public class ContractorClient extends JFrame implements ActionListener {
 		lblShowCurZipCode.setText(String.format("%05d", intZipCode));
 		lblShowCurPhoneNumber.setText(strPhoneNumber);
 		lblShowCurEmailAddress.setText(strEmailAddress);
-		/*
-		lblShowCurFirstName.setText(account.getFirstName());
-		lblShowCurLastName.setText(account.getLastName());
-		lblShowCurCompanyName.setText(account.getCompanyName());
-		lblShowCurAddress1.setText(account.getAddress1());
-		lblShowCurAddress2.setText(account.getAddress2());
-		lblShowCurCity.setText(account.getCity());
-		lblShowCurState.setText(account.getState());
-		lblShowCurZipCode.setText(String.format("%05d", account.getZipCode()));
-		lblShowCurPhoneNumber.setText(account.getPhoneNumber());
-		lblShowCurEmailAddress.setText(account.getEmailAddress());
-		*/
+/*
+ * The following code to be implemented when the AccountType and ContractorAccount
+ * imports are implemented.
+ *  
+ *		lblShowCurFirstName.setText(account.getFirstName());
+ *		lblShowCurLastName.setText(account.getLastName());
+ *		lblShowCurCompanyName.setText(account.getCompanyName());
+ *		lblShowCurAddress1.setText(account.getAddress1());
+ *		lblShowCurAddress2.setText(account.getAddress2());
+ *		lblShowCurCity.setText(account.getCity());
+ *		lblShowCurState.setText(account.getState());
+ *		lblShowCurZipCode.setText(String.format("%05d", account.getZipCode()));
+ *		lblShowCurPhoneNumber.setText(account.getPhoneNumber());
+ *		lblShowCurEmailAddress.setText(account.getEmailAddress());
+ */
 	}
 
 	/**
@@ -786,31 +811,66 @@ public class ContractorClient extends JFrame implements ActionListener {
 		
 		if (txtLastNameUpdate.getText().length() > 0) {
 			strLastName = txtLastNameUpdate.getText();
-//			account.setLastName(txtLastNameUpdate.getText());
+/*
+ * The following line to be implemented when the AccountType and ContractorAccount
+ * imports are implemented.
+ * 
+ * 			account.setLastName(txtLastNameUpdate.getText());
+ */
 		}
 		if (txtFirstNameUpdate.getText().length() > 0) {
 			strFirstName = txtFirstNameUpdate.getText();
-//			account.setFirstName(txtFirstNameUpdate.getText());
+/*
+ * The following line to be implemented when the AccountType and ContractorAccount
+ * imports are implemented.
+ * 
+ * 			account.setFirstName(txtFirstNameUpdate.getText());
+ */
 		}
 		if (txtCompanyNameUpdate.getText().length() > 0) {
 			strCompanyName = txtCompanyNameUpdate.getText();
-//			account.setCompanyName(txtCompanyNameUpdate.getText()); 		
+/*
+ * The following line to be implemented when the AccountType and ContractorAccount
+ * imports are implemented.
+ * 
+ * 			account.setCompanyName(txtCompanyNameUpdate.getText()); 
+ */		
 		}
 		if (txtAddress1Update.getText().length() > 0) {
 			strAddress1 = txtAddress1Update.getText();
-//			account.setAddress1(txtAddress1Update.getText());
+/*
+ * The following line to be implemented when the AccountType and ContractorAccount
+ * imports are implemented.
+ * 
+ * 			account.setAddress1(txtAddress1Update.getText());
+ */
 		}
 		if (txtAddress2Update.getText().length() > 0) {
 			strAddress2 = txtAddress2Update.getText();
-//			account.setAddress2(txtAddress2Update.getText());
+/*
+ * The following line to be implemented when the AccountType and ContractorAccount
+ * imports are implemented.
+ * 
+ * 			account.setAddress2(txtAddress2Update.getText());
+ */
 		}
 		if (txtCityUpdate.getText().length() > 0) {
 			strCity = txtCityUpdate.getText();
-//			account.setCity(txtCityUpdate.getText());
+/*
+ * The following line to be implemented when the AccountType and ContractorAccount
+ * imports are implemented.
+ * 
+ * 			account.setCity(txtCityUpdate.getText());
+ */
 		}
 		if (txtStateUpdate.getText().length() > 0) {
 			strState = txtStateUpdate.getText();
-//			account.setState(txtStateUpdate.getText());
+/*
+ * The following line to be implemented when the AccountType and ContractorAccount
+ * imports are implemented.
+ * 
+ * 			account.setState(txtStateUpdate.getText());
+ */
 		}
 		if (txtZipCodeUpdate.getText().length() > 0) {
 			int issueChecker = 0;
@@ -820,7 +880,7 @@ public class ContractorClient extends JFrame implements ActionListener {
 			for (int i = 0; i < txtZipCodeUpdate.getText().length(); i++) {
 				char c0 = txtZipCodeUpdate.getText().charAt(i);
 				if (Character.isDigit(c0)) {
-					// do nothing if character is a digit
+					// move to next index i in above for loop if character is a digit
 				} else {
 					issueChecker = 1;
 				}
@@ -840,7 +900,12 @@ public class ContractorClient extends JFrame implements ActionListener {
 						if (Character.isDigit(c1)) {
 							if (j == 4 && issueTracker == 0) {
 								txtZipCodeUpdate.setText(strTzc);
-//								account.setZipCode(Integer.parseInt(txtZipCodeUpdate.getText()));
+/*
+ * The following line to be implemented when the AccountType and ContractorAccount
+ * imports are implemented.
+ * 
+ * 								account.setZipCode(Integer.parseInt(txtZipCodeUpdate.getText()));
+ */
 								issueChecker = 0;
 								break;
 							}
@@ -854,11 +919,21 @@ public class ContractorClient extends JFrame implements ActionListener {
 		}
 		if (txtPhoneNumberUpdate.getText().length() > 0) {
 			strPhoneNumber = txtPhoneNumberUpdate.getText();
-//			account.setPhoneNumber(txtPhoneNumberUpdate.getText());
+/*
+ * The following line to be implemented when the AccountType and ContractorAccount
+ * imports are implemented.
+ * 
+ * 			account.setPhoneNumber(txtPhoneNumberUpdate.getText());
+ */		
 		}
 		if (txtEmailAddressUpdate.getText().length() > 0) {
 			strEmailAddress = txtEmailAddressUpdate.getText();
-//			account.setEmailAddress(txtEmailAddressUpdate.getText());
+/*
+ * The following line to be implemented when the AccountType and ContractorAccount
+ * imports are implemented.
+ * 
+ * 			account.setEmailAddress(txtEmailAddressUpdate.getText());
+ */
 		}
 		loadCurrentProfile();
 		profileTab.revalidate();
@@ -885,11 +960,17 @@ public class ContractorClient extends JFrame implements ActionListener {
 		jobList.add(3,job4);
 	}
 	
-	/**
-	 * This method calculates the distance between two ZIP codes.
-	 * Contractor Connection registered with ZipCodeAPI.com on the free plan to get static API code.
-	 * Registered under Joshua Thomas' email address (thomas.611@wright.edu).
-	 */
+/* CHANGE TO BE MADE TO distanceCalculator() ONCE DATABASE IS IMPLEMENTED:
+ * Change to "Zip Codes by Radius" via ZipCodeAPI and then compare results
+ * with database results to limit requests pushed to ZipCodeAPI and streamline
+ * search process
+ */
+	
+/**
+ * This method calculates the distance between two ZIP codes.
+ * Contractor Connection registered with ZipCodeAPI.com on the free plan to get static API code.
+ * Registered under Joshua Thomas' email address (thomas.611@wright.edu).
+ */
 	public static double distanceCalculator(int zip1, int zip2) throws IOException {
 		String strApiKey = "DyJlPe7F6MgACobvKEUcqeOMf5TCJ1VmAEIpSQ5YDlyfKKLuoFGOTuA9AuMkvHH6";
 		String url1 = "https://www.zipcodeapi.com/rest/";
@@ -972,6 +1053,9 @@ public class ContractorClient extends JFrame implements ActionListener {
 		profileTab.repaint();
 	}
 	
+	/**
+	 * This method sets the table model.
+	 */
 	public static void buildTable() {
 		model1 = new DefaultTableModel(columnNames, 0);
 	}
@@ -985,7 +1069,6 @@ public class ContractorClient extends JFrame implements ActionListener {
 			public void run() {
 				try {
 					ContractorClient.initialize();
-//					ContractorClient window = new ContractorClient();
 					ContractorClient.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
