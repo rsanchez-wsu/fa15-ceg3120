@@ -26,7 +26,6 @@ import edu.wright.cs.fa15.ceg3120.concon.common.data.UserAccount;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
-import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.Externalizable;
@@ -47,6 +46,12 @@ import javax.swing.JTextField;
 import javax.swing.SpringLayout;
 import javax.swing.SwingUtilities;
 
+/**
+ * Unified entry point for all users.
+ * 
+ * @author Paul Quackenbush
+ *
+ */
 public class LoginPopUp implements Externalizable{
 
     private UserAccount user;
@@ -78,6 +83,7 @@ public class LoginPopUp implements Externalizable{
     private void buildGui() {
         final JFrame loginFrame = new StringFrame(this);
         loginFrame.setSize(500, 300);
+        loginFrame.setLocationRelativeTo(null);
         uuidField.requestFocus();
         
         loginFrame.setIconImage(imageResources.getImage(ICON_IMG ).getImage());
@@ -220,6 +226,10 @@ public class LoginPopUp implements Externalizable{
         
     }// end launchNewAccountGUI
 
+    /**
+     * Create a new FieldPanel.
+     * @return FieldPanel object.
+     */
     public FieldPanel createFieldPanel() {
         return new FieldPanel();
     }
@@ -241,6 +251,12 @@ public class LoginPopUp implements Externalizable{
 
     }
 
+    /**
+     * TODO Explain.
+     * 
+     * @author Paul Quackenbush
+     *
+     */
     @SuppressWarnings("serial")
     public static class StringFrame extends JFrame {
         private FieldPanel currentPanel;
@@ -257,6 +273,9 @@ public class LoginPopUp implements Externalizable{
 
         }
 
+        /**
+         * Retrieve the content pane from {@code currentPanel}.
+         */
         private void setupFrame() {
             this.setContentPane(currentPanel);
 
@@ -264,6 +283,12 @@ public class LoginPopUp implements Externalizable{
 
     }
     
+    /**
+     * JPanel containing the login text fields.
+     * 
+     * @author Paul Quackenbush
+     *
+     */
     @SuppressWarnings("serial")
     public class FieldPanel extends JPanel {
 
@@ -309,6 +334,9 @@ public class LoginPopUp implements Externalizable{
     		
     	}
 
+        /**
+         * Generate the panel.
+         */
         private void setupPanel() {
             this.setLayout(currentLayout);
             this.add(loginButton);

@@ -35,17 +35,30 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+/**
+ * Used to create a new user account and pass it to the login window.
+ * 
+ * @author Paul Quackenbush
+ *
+ */
 public class CreateNewAccount {
 
     private JFrame newAccountFrame;
     private JPanel centers;
     private JComboBox<String> myBox;
     
+    /**
+     * Construct a new CreateNewAccount window.
+     */
     public CreateNewAccount() {
         newAccountFrame = new JFrame();
         centers = new JPanel();
     }
     
+    /**
+     * Entry point. Testing purposes only.
+     * @param args Arguments
+     */
     public static void main(String[] args) {
         new CreateNewAccount().buildGui();
     }
@@ -58,6 +71,7 @@ public class CreateNewAccount {
         newAccountFrame = new JFrame("Create New Account");
         // build UI
         newAccountFrame.setSize(300, 300);
+        newAccountFrame.setLocationRelativeTo(null);
         newAccountFrame.setLayout(new BorderLayout());
         
         String[] forCombo = {"Homeowner Account", "Contractor Account", "Server Admin"};
@@ -122,6 +136,10 @@ public class CreateNewAccount {
     static class ComboListener implements ActionListener {
         private CreateNewAccount window;
         
+        /**
+         * Create a new ComboListener for this frame.
+         * @param window Frame to apply to.
+         */
         public ComboListener(CreateNewAccount window) {
             super();
             this.window = window;

@@ -32,12 +32,17 @@ import javax.swing.ImageIcon;
 public final class Resources {
 
 	/**
-	 * 
+	 * Construct a new Resources object.
 	 */
 	public Resources() {
 		// TODO Auto-generated constructor stub
 	}
 	
+	/**
+	 * Get the image with the given name.
+	 * @param img Image to get.
+	 * @return ImageIcon object specified.
+	 */
 	public ImageIcon getImage(String img) {
 		return new ImageIcon(getClass().getResource(img));
 	}
