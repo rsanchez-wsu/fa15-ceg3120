@@ -21,8 +21,8 @@
 
 package edu.wright.cs.fa15.ceg3120.concon.client.contractor;
 
-import edu.wright.cs.fa15.ceg3120.concon.common.data.AccountType;
-import edu.wright.cs.fa15.ceg3120.concon.common.data.ContractorAccount;
+//import edu.wright.cs.fa15.ceg3120.concon.common.data.AccountType;
+//import edu.wright.cs.fa15.ceg3120.concon.common.data.ContractorAccount;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
@@ -67,7 +67,7 @@ import javax.xml.parsers.ParserConfigurationException;
 
 public class ContractorClient extends JFrame implements ActionListener {
 
-	private static ContractorAccount account = new ContractorAccount();
+//	private static ContractorAccount account = new ContractorAccount();
 	private static final Logger LOG = LoggerFactory.getLogger(ContractorClient.class);
 	private static final long serialVersionUID = 1L;
 	private static JFrame frame;
@@ -91,14 +91,16 @@ public class ContractorClient extends JFrame implements ActionListener {
 	private static JTextField txtZipCodeUpdate;
 	private static JTextField txtPhoneNumberUpdate;
 	private static JTextField txtEmailAddressUpdate;
-/*	private static String strLastName = "Person";
+	private static String strLastName = "Person";
 	private static String strFirstName = "Random";
 	private static String strCompanyName = "ConCon";
 	private static String strAddress1 = "123 Main Street";
 	private static String strAddress2 = "";
 	private static String strCity = "Dayton";
 	private static String strState = "OH";
-	private static int intZipCode = 45400; */
+	private static int intZipCode = 45400;
+	private static String strPhoneNumber = "937-555-1212";
+	private static String strEmailAddress = "thomas.611@wright.edu";
 	private static JPanel profileTab;
 	private static JLabel lblNewProfile;
 	private static JLabel lblLastNameUpdate;
@@ -135,7 +137,7 @@ public class ContractorClient extends JFrame implements ActionListener {
 	 * Initialize the contents of the frame.
 	 */
 	private static void initialize() {
-		account.setAccountType(AccountType.CONTRACTOR);
+//		account.setAccountType(AccountType.CONTRACTOR);
 		frame = new JFrame();		
 		frame.setBounds(100, 100, 725, 475);
 		frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
@@ -387,8 +389,10 @@ public class ContractorClient extends JFrame implements ActionListener {
 						String[] tempArray = null;
 						tempArray = jobList.elementAt(i);
 						try {
-							curDistance = distanceCalculator(account.getZipCode(), 
+							curDistance = distanceCalculator(intZipCode, 
 									Integer.parseInt(tempArray[6]));
+//							curDistance = distanceCalculator(account.getZipCode(), 
+//									Integer.parseInt(tempArray[6]));
 						} catch (NumberFormatException e) {
 							e.printStackTrace();
 						} catch (IOException e) {
@@ -717,6 +721,17 @@ public class ContractorClient extends JFrame implements ActionListener {
 	 * This method loads the current profile.
 	 */
 	public static void loadCurrentProfile() {
+		lblShowCurFirstName.setText(strFirstName);
+		lblShowCurLastName.setText(strLastName);
+		lblShowCurCompanyName.setText(strCompanyName);
+		lblShowCurAddress1.setText(strAddress1);
+		lblShowCurAddress2.setText(strAddress2);
+		lblShowCurCity.setText(strCity);
+		lblShowCurState.setText(strState);
+		lblShowCurZipCode.setText(String.format("%05d", intZipCode));
+		lblShowCurPhoneNumber.setText(strPhoneNumber);
+		lblShowCurEmailAddress.setText(strEmailAddress);
+		/*
 		lblShowCurFirstName.setText(account.getFirstName());
 		lblShowCurLastName.setText(account.getLastName());
 		lblShowCurCompanyName.setText(account.getCompanyName());
@@ -727,6 +742,7 @@ public class ContractorClient extends JFrame implements ActionListener {
 		lblShowCurZipCode.setText(String.format("%05d", account.getZipCode()));
 		lblShowCurPhoneNumber.setText(account.getPhoneNumber());
 		lblShowCurEmailAddress.setText(account.getEmailAddress());
+		*/
 	}
 
 	/**
@@ -769,25 +785,32 @@ public class ContractorClient extends JFrame implements ActionListener {
 	public static void saveProfileUpdates() {
 		
 		if (txtLastNameUpdate.getText().length() > 0) {
-			account.setLastName(txtLastNameUpdate.getText());
+			strLastName = txtLastNameUpdate.getText();
+//			account.setLastName(txtLastNameUpdate.getText());
 		}
 		if (txtFirstNameUpdate.getText().length() > 0) {
-			account.setFirstName(txtFirstNameUpdate.getText());
+			strFirstName = txtFirstNameUpdate.getText();
+//			account.setFirstName(txtFirstNameUpdate.getText());
 		}
 		if (txtCompanyNameUpdate.getText().length() > 0) {
-			account.setCompanyName(txtCompanyNameUpdate.getText()); 		
+			strCompanyName = txtCompanyNameUpdate.getText();
+//			account.setCompanyName(txtCompanyNameUpdate.getText()); 		
 		}
 		if (txtAddress1Update.getText().length() > 0) {
-			account.setAddress1(txtAddress1Update.getText());
+			strAddress1 = txtAddress1Update.getText();
+//			account.setAddress1(txtAddress1Update.getText());
 		}
 		if (txtAddress2Update.getText().length() > 0) {
-			account.setAddress2(txtAddress2Update.getText());
+			strAddress2 = txtAddress2Update.getText();
+//			account.setAddress2(txtAddress2Update.getText());
 		}
 		if (txtCityUpdate.getText().length() > 0) {
-			account.setCity(txtCityUpdate.getText());
+			strCity = txtCityUpdate.getText();
+//			account.setCity(txtCityUpdate.getText());
 		}
 		if (txtStateUpdate.getText().length() > 0) {
-			account.setState(txtStateUpdate.getText());
+			strState = txtStateUpdate.getText();
+//			account.setState(txtStateUpdate.getText());
 		}
 		if (txtZipCodeUpdate.getText().length() > 0) {
 			int issueChecker = 0;
@@ -817,7 +840,8 @@ public class ContractorClient extends JFrame implements ActionListener {
 						if (Character.isDigit(c1)) {
 							if (j == 4 && issueTracker == 0) {
 								txtZipCodeUpdate.setText(strTzc);
-								account.setZipCode(Integer.parseInt(txtZipCodeUpdate.getText()));
+								intZipCode = Integer.parseInt(txtZipCodeUpdate.getText());
+//								account.setZipCode(Integer.parseInt(txtZipCodeUpdate.getText()));
 								issueChecker = 0;
 								break;
 							}
@@ -829,10 +853,12 @@ public class ContractorClient extends JFrame implements ActionListener {
 			}
 		}
 		if (txtPhoneNumberUpdate.getText().length() > 0) {
-			account.setPhoneNumber(txtPhoneNumberUpdate.getText());
+			strPhoneNumber = txtPhoneNumberUpdate.getText();
+//			account.setPhoneNumber(txtPhoneNumberUpdate.getText());
 		}
 		if (txtEmailAddressUpdate.getText().length() > 0) {
-			account.setEmailAddress(txtEmailAddressUpdate.getText());
+			strEmailAddress = txtEmailAddressUpdate.getText();
+//			account.setEmailAddress(txtEmailAddressUpdate.getText());
 		}
 		profileTab.revalidate();
 	}
