@@ -41,7 +41,7 @@ public class LoginPopUp {
          * Temp comment.
          */
         private void buildGui() {
-                JFrame loginFrame = new JFrame("TEMP TITLE");
+                final JFrame loginFrame = new JFrame("TEMP TITLE");
                 // TODO Auto-generated method stub
                 // Build login UI here
 
