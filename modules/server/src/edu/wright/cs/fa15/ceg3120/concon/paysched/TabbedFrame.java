@@ -56,6 +56,17 @@ public class TabbedFrame extends JFrame{
     private JTextField jtextField1;
     private JTextField jtextField2;
     private JTextField jtextField3;
+    
+    //added by Jon
+    private javax.swing.JButton paymentApprove;
+    private javax.swing.JButton paymentCancel;
+    private JLabel amountOwedLabel;
+    private JLabel amountInWalletLabel;
+    private JLabel amountRemainingLabel;
+    private JTextField amountOwed;
+    private JTextField amountInWallet;
+    private JTextField amountRemaining;
+    
     // End of variables declaration//GEN-END:variables
 
     /**
@@ -92,7 +103,30 @@ public class TabbedFrame extends JFrame{
         jbutton3 = new javax.swing.JButton();
         jlabel5 = new javax.swing.JLabel();
         jtextField3 = new javax.swing.JTextField();
-
+        paymentApprove = new javax.swing.JButton();
+        paymentCancel = new javax.swing.JButton();
+        amountOwedLabel = new JLabel();
+        amountInWalletLabel = new JLabel();
+        amountRemainingLabel = new JLabel();
+        amountOwed = new JTextField();
+        amountInWallet = new JTextField();
+        amountRemaining = new JTextField();
+        
+        
+        amountOwedLabel.setText("Amount Owed:");
+        amountInWalletLabel.setText("Amount in Wallet:");
+        amountRemainingLabel.setText("Amount Remaining");
+        amountOwed.setText("$0.00");
+        amountOwed.setEditable(false);
+        amountInWallet.setText("$0.00");
+        amountInWallet.setEditable(false);
+        amountRemaining.setText("$0.00");
+        amountRemaining.setEditable(false);
+        paymentApprove.setText("Approve");
+        paymentCancel.setText("Cancel");
+        
+        
+        
         jlabel1.setText("Select The Month, Day, and Perferred time frame");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -103,11 +137,7 @@ public class TabbedFrame extends JFrame{
             jpanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 409, Short.MAX_VALUE)
         );
-        jpanel1Layout.setVerticalGroup(
-            jpanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 272, Short.MAX_VALUE)
-        );
-
+        
         jtabbedPane1.addTab("Payment", jpanel1);
 
         jcomboBox1.setModel(new DefaultComboBoxModel(new String[] { "January", "Feburary", "March",
@@ -184,7 +214,7 @@ public class TabbedFrame extends JFrame{
 
         jlabel3.setText("Total Payment:");
 
-        jtextField1.setText("$");
+        jtextField1.setText("$0.00");
 
         jlabel4.setText("Scheduled Appointment Time:");
 
