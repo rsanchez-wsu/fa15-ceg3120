@@ -679,13 +679,13 @@ public class ServerGui extends JPanel implements ActionListener {
     	 * I think it would make the most sense to put this here.
     	 */
     	protected JComponent createServerReportPanel() {
-            JPanel mainPanel = new JPanel(new BorderLayout());
+            final JPanel mainPanel = new JPanel(new BorderLayout());
             
             String[] dataOptions = { "System Errors", 
             						"Database Errors", 
             						 "System Resets and Backups"};
-            
-            JComboBox<String> dataOptionList = new JComboBox<String>(dataOptions);
+         
+            final JComboBox<String> dataOptionList = new JComboBox<String>(dataOptions);
             
             dataOptionList.setSelectedIndex(0);
             JPanel SysErrorsPanel = new JPanel(new BorderLayout());
