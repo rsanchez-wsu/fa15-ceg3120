@@ -38,6 +38,10 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.WindowConstants;
 
+/**
+ * Javadoc needed.
+ *
+ */
 public class CustomerClient {
 	
     private static final Logger LOG = LoggerFactory.getLogger(CustomerClient.class);
@@ -49,6 +53,9 @@ public class CustomerClient {
     @SuppressWarnings("unused")
     private HomeownerAccount user;
     
+    /**
+     * Javadoc needed.
+     */
     public CustomerClient() {
         user = null;
     }
@@ -87,6 +94,10 @@ public class CustomerClient {
         new CustomerClient().buildGui(new HomeownerAccount());
     }
     
+    /**
+     * Javadoc needed.
+     *
+     */
     static class MyWindowAdapter extends WindowAdapter {
         @Override
         public void windowClosing(WindowEvent ev) {
