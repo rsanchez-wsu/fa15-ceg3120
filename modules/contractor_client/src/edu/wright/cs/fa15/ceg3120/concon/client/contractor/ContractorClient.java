@@ -840,7 +840,6 @@ public class ContractorClient extends JFrame implements ActionListener {
 						if (Character.isDigit(c1)) {
 							if (j == 4 && issueTracker == 0) {
 								txtZipCodeUpdate.setText(strTzc);
-								intZipCode = Integer.parseInt(txtZipCodeUpdate.getText());
 //								account.setZipCode(Integer.parseInt(txtZipCodeUpdate.getText()));
 								issueChecker = 0;
 								break;
@@ -851,6 +850,7 @@ public class ContractorClient extends JFrame implements ActionListener {
 					}
 				}
 			}
+			intZipCode = Integer.parseInt(txtZipCodeUpdate.getText());
 		}
 		if (txtPhoneNumberUpdate.getText().length() > 0) {
 			strPhoneNumber = txtPhoneNumberUpdate.getText();
@@ -860,7 +860,9 @@ public class ContractorClient extends JFrame implements ActionListener {
 			strEmailAddress = txtEmailAddressUpdate.getText();
 //			account.setEmailAddress(txtEmailAddressUpdate.getText());
 		}
+		loadCurrentProfile();
 		profileTab.revalidate();
+		profileTab.repaint();
 	}
 	
 	/**
@@ -951,6 +953,8 @@ public class ContractorClient extends JFrame implements ActionListener {
 		txtCityUpdate.setVisible(false);
 		txtStateUpdate.setVisible(false);
 		txtZipCodeUpdate.setVisible(false);
+		txtPhoneNumberUpdate.setVisible(false);
+		txtEmailAddressUpdate.setVisible(false);
 		btnSave.setVisible(false);
 		btnClear.setVisible(false);
 		btnCancel.setVisible(false);
