@@ -52,7 +52,7 @@ import javax.swing.SwingUtilities;
  * UI corresponding the account type of the user once verified at the database
  * level.
  * 
- * @author Quack
+ * @author Paul Quackenbush
  *
  */
 public class LoginPopUp implements Externalizable{
@@ -86,6 +86,7 @@ public class LoginPopUp implements Externalizable{
 	private void buildGui() {
 		final JFrame loginFrame = new StringFrame(this);
 		loginFrame.setSize(500, 300);
+		loginFrame.setLocationRelativeTo(null);
 		uuidField.requestFocus();
 		
 		loginFrame.setIconImage(imageResources.getImage(ICON_IMG ).getImage());
@@ -254,7 +255,10 @@ public class LoginPopUp implements Externalizable{
 	}
 
 	/**
-	 * Cory please add your comments here...
+	 * TODO Explain.
+	 * 
+	 * @author Paul Quackenbush
+	 *
 	 */
 	public static class StringFrame extends JFrame {
 		private static final long serialVersionUID = 1L;
@@ -273,17 +277,18 @@ public class LoginPopUp implements Externalizable{
 		}
 
 		/**
-		 * Cory please add your comments here...
+		 * Retrieve the content pane from {@code currentPanel}.
 		 */
 		private void setupFrame() {
 			this.setContentPane(currentPanel);
-
 		}
 
 	}
 	
 	/**
-	 * Cory please add your comments here...
+	 * JPanel containing the login text fields.
+	 * 
+	 * @author 
 	 */
 	public class FieldPanel extends JPanel {
 		private static final long serialVersionUID = 1L;
@@ -326,7 +331,7 @@ public class LoginPopUp implements Externalizable{
 		} //end paint 
 
 		/**
-		 * Cory please add your comments here...
+		 * Generate the panel.
 		 */
 		private void setupPanel() {
 			this.setLayout(currentLayout);

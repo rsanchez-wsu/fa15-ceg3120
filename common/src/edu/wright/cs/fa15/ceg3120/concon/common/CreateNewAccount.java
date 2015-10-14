@@ -41,7 +41,7 @@ import javax.swing.JPanel;
  * database.  The database will then use this data to create a new account
  * profile.
  * 
- * @author Quack
+ * @author Paul Quackenbush
  *
  */
 public class CreateNewAccount {
@@ -75,6 +75,7 @@ public class CreateNewAccount {
 		newAccountFrame = new JFrame("Create New Account");
 		// build UI
 		newAccountFrame.setSize(300, 350);
+		newAccountFrame.setLocationRelativeTo(null);
 		newAccountFrame.setLayout(new BorderLayout());
 		
 		String[] forCombo = {"Homeowner Account", "Contractor Account", "Server Admin"};
