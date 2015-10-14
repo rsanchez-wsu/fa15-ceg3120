@@ -42,13 +42,21 @@ import javax.swing.text.BadLocationException;
 import javax.swing.text.DocumentFilter;
 import javax.swing.text.MaskFormatter;
 
-@SuppressWarnings("serial")
+/**
+ * temp.
+ * @author Quack
+ *
+ */
 public class NewHomeownerPane extends JPanel {
-    
+
+    private static final long serialVersionUID = 1L;
     private JTextField uuidText;
     private JTextField pswd1Field;
     private JTextField pswd2Field;
-    private JTextField addText;
+    private JTextField firstNameField;
+    private JTextField lastNameField;
+    private JTextField add1Text;
+    private JTextField add2Text;
     private JTextField cityText;
     private JComboBox<String> stateText;
     private JFormattedTextField zipText;
@@ -56,11 +64,17 @@ public class NewHomeownerPane extends JPanel {
     private JFormattedTextField emailText;
     
 
+    /**
+     * Creates a new instance of <code>NewHomeOwnerPane</code>.
+     */
     public NewHomeownerPane() {
         super(new BorderLayout());
         addContainers();
     }
 
+    /**
+     * Adds the image and user input areas to the Pane.
+     */
     private void addContainers() {
         //add(addImageArea(), BorderLayout.SOUTH);
         add(addTextFields(), BorderLayout.CENTER);
@@ -70,9 +84,14 @@ public class NewHomeownerPane extends JPanel {
     // return null;
     // }
 
+    /**
+     * Constructs the Container holding all the label and user input fields.
+     * 
+     * @return a Container holding all the user input fields
+     */
     private Container addTextFields() {
         Container cont = new Container();
-        cont.setLayout(new GridLayout(9, 2));
+        cont.setLayout(new GridLayout(12, 2));
         
         try {
             final JLabel uuidLabel = new JLabel("Username:");
@@ -84,9 +103,18 @@ public class NewHomeownerPane extends JPanel {
             final JLabel password2Label = new JLabel("Confirm Password:");
             pswd2Field = new JPasswordField();
     
-            final JLabel addLabel = new JLabel("Street Address:");
-            addText = new JTextField();
+            final JLabel firstNameLabel = new JLabel("First Name:");
+            firstNameField = new JTextField();
+            
+            final JLabel lastNameLabel = new JLabel("last Name:");
+            lastNameField = new JTextField();
+            
+            final JLabel add1Label = new JLabel("Street Address 1:");
+            add1Text = new JTextField();
     
+            final JLabel add2Label = new JLabel("Street Address 2:");
+            add2Text = new JTextField();
+            
             final JLabel cityLabel = new JLabel("City:");
             cityText = new JTextField();
     
@@ -125,8 +153,14 @@ public class NewHomeownerPane extends JPanel {
             cont.add(pswd1Field);
             cont.add(password2Label);
             cont.add(pswd2Field);
-            cont.add(addLabel);
-            cont.add(addText);
+            cont.add(firstNameLabel);
+            cont.add(firstNameField);
+            cont.add(lastNameLabel);
+            cont.add(lastNameField);
+            cont.add(add1Label);
+            cont.add(add1Text);
+            cont.add(add2Label);
+            cont.add(add2Text);
             cont.add(cityLabel);
             cont.add(cityText);
             cont.add(stateLabel);
@@ -145,19 +179,37 @@ public class NewHomeownerPane extends JPanel {
         return cont;
     }
     
+    /**
+     * Reads and verifies all user input creating a new HomeownerAccount with
+     * user inputted data.
+     * 
+     * @return new HomeownerAccount
+     */
     public UserAccount packageAccount() {
         return new HomeownerAccount();
     }
     
+    /**
+     * My very own variant of the FocusListener. 
+     * 
+     * @author Quack
+     *
+     */
     private static class MyTextFocusListener implements FocusListener {
         private JTextField field;
         
+        /**
+         * Creates a new instance of <code>MyTextFocusListener</code>.
+         * 
+         * @param field the text field that this listener is listening to
+         */
         public MyTextFocusListener(JFormattedTextField field) {
             this.field = field;
         }
         
         @Override
         public void focusLost(FocusEvent ev) {
+            // Verify email upon focusLostEvent
             String name = field.getName();
             AbstractDocument doc = (AbstractDocument) field.getDocument();
             DocumentFilter filt = doc.getDocumentFilter();
@@ -182,7 +234,7 @@ public class NewHomeownerPane extends JPanel {
                 
                 @Override
                 public void run() {
-                    // TODO Auto-generated method stub
+                    // insert caret at start of text field
                     field.setCaretPosition(0);
                 }
             });
