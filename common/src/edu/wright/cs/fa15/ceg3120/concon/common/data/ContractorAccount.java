@@ -24,7 +24,7 @@ package edu.wright.cs.fa15.ceg3120.concon.common.data;
 public class ContractorAccount extends UserAccount {
 
 	// Contractor specific data fields
-
+	private static final long serialVersionUID = 1L;
 	private String strCompanyName;
 
 	public ContractorAccount() {

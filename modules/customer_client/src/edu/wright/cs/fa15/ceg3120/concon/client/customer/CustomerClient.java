@@ -53,7 +53,6 @@ public class CustomerClient {
 	private static final int WINDOW_HEIGHT = Toolkit.getDefaultToolkit().getScreenSize().height
 			- 150;
 
-	@SuppressWarnings("unused")
 	private HomeownerAccount user;
 	
 	/**
@@ -75,8 +74,8 @@ public class CustomerClient {
 		JFrame custFrame = new JFrame("TEMP TITLE");
 		custFrame.setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
 
-		HomeownerMainPanel currentPanel = new HomeownerMainPanel();
-        
+		HomeownerMainPanel currentPanel = new HomeownerMainPanel(this.user);
+		
 		custFrame.setContentPane(currentPanel);
 		// build UI here
 
@@ -96,7 +95,16 @@ public class CustomerClient {
 		NetworkManager.startClient("localhost", 9667);
 		NetworkMessage message = new ChatMessage("Hello World", null, null);
 		NetworkManager.sendMessage(message);
-		new CustomerClient().buildGui(new HomeownerAccount());
+		HomeownerAccount user = new HomeownerAccount();
+		user.setUuid("Debug");
+		char[] ps = {'a','b', 'c'};
+		user.setPswd(ps);
+		user.setFirstName("John");
+		user.setLastName("Doe");
+		user.setAddress1("123 Nowhere St");
+		user.setCity("Lost");
+		user.setEmailAddress("test123@temp.com");
+		new CustomerClient().buildGui(user);
 	}
 	
 	/**

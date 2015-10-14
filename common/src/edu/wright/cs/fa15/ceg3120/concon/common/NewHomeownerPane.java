@@ -30,6 +30,8 @@ import java.awt.GridLayout;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.text.ParseException;
+import java.util.Arrays;
+
 import javax.swing.JComboBox;
 import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
@@ -63,12 +65,14 @@ public class NewHomeownerPane extends JPanel {
 	private JFormattedTextField phoneText;
 	private JFormattedTextField emailText;
 	
+	private HomeownerAccount user;
 
 	/**
 	 * Creates a new instance of <code>NewHomeOwnerPane</code>.
 	 */
-	public NewHomeownerPane() {
+	public NewHomeownerPane(HomeownerAccount user) {
 		super(new BorderLayout());
+		this.user = user;
 		addContainers();
 	}
 
@@ -95,28 +99,28 @@ public class NewHomeownerPane extends JPanel {
 		
 		try {
 			final JLabel uuidLabel = new JLabel("Username:");
-			uuidText = new JTextField();
+			uuidText = new JTextField((user == null) ? "" : user.getUuid());
 	
 			final JLabel password1Label = new JLabel("Password:");
-			pswd1Field = new JPasswordField();
+			pswd1Field = new JPasswordField((user == null) ? "" : Arrays.toString(user.getPswd()));
 	
 			final JLabel password2Label = new JLabel("Confirm Password:");
-			pswd2Field = new JPasswordField();
+			pswd2Field = new JPasswordField((user == null) ? "" : Arrays.toString(user.getPswd()));
 	
 			final JLabel firstNameLabel = new JLabel("First Name:");
-			firstNameField = new JTextField();
+			firstNameField = new JTextField((user == null) ? "" : user.getFirstName());
 			
 			final JLabel lastNameLabel = new JLabel("last Name:");
-			lastNameField = new JTextField();
+			lastNameField = new JTextField((user == null) ? "" : user.getLastName());
 			
 			final JLabel add1Label = new JLabel("Street Address 1:");
-			add1Text = new JTextField();
+			add1Text = new JTextField((user == null) ? "" : user.getAddress1());
 	
 			final JLabel add2Label = new JLabel("Street Address 2:");
-			add2Text = new JTextField();
+			add2Text = new JTextField((user == null) ? "" : user.getAddress2());
 			
 			final JLabel cityLabel = new JLabel("City:");
-			cityText = new JTextField();
+			cityText = new JTextField((user == null) ? "" : user.getCity());
 	
 			final JLabel stateLabel = new JLabel("State:");
 			String[] states = { "AK", "AL", "AR", "AZ", "CA", "CO", "CT", "DE", "FL", "GA", "HI",
@@ -145,7 +149,7 @@ public class NewHomeownerPane extends JPanel {
 					new DocumentEmailFilter());
 			emailText.setName("email");
 			emailText.addFocusListener(new MyTextFocusListener(emailText));
-			
+			emailText.setText((user == null) ? "" : user.getEmailAddress());
 	
 			cont.add(uuidLabel);
 			cont.add(uuidText);

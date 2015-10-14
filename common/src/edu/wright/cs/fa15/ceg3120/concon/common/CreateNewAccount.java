@@ -90,7 +90,7 @@ public class CreateNewAccount {
 		myBox.addActionListener(new ComboListener(this));
 		
 		
-		centers = new NewHomeownerPane();
+		centers = new NewHomeownerPane(null);
 		
 		Container subCont = new Container();
 		subCont.setLayout(new FlowLayout(FlowLayout.RIGHT));
@@ -155,7 +155,7 @@ public class CreateNewAccount {
 			
 			if (selected == 0 && !(window.centers instanceof NewHomeownerPane)) {
 				window.newAccountFrame.remove(window.centers);
-				window.centers = new NewHomeownerPane();
+				window.centers = new NewHomeownerPane(null);
 				window.newAccountFrame.add(window.centers, BorderLayout.CENTER);
 				window.newAccountFrame.validate();
 				System.out.println("new HomeownerPane created and added");
