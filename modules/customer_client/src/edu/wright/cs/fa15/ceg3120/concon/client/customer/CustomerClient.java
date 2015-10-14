@@ -39,7 +39,8 @@ import javax.swing.JOptionPane;
 import javax.swing.WindowConstants;
 
 /**
- * temp.
+ * This class contains the launch point for the Homeowner UI.
+ * 
  * @author Quack
  *
  */
@@ -56,7 +57,7 @@ public class CustomerClient {
 	private HomeownerAccount user;
 	
 	/**
-	 * temp.
+	 * Creates a new instance of <code>CustomerClient</code>.
 	 */
 	public CustomerClient() {
 		user = null;
@@ -67,13 +68,16 @@ public class CustomerClient {
 //	}
 	
 	/**
-	 * Temp.
+	 * Creates the Homeowner UI.
 	 */
 	public void buildGui(HomeownerAccount user) {
 		this.user = user;
 		JFrame custFrame = new JFrame("TEMP TITLE");
 		custFrame.setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
 
+		HomeownerMainPanel currentPanel = new HomeownerMainPanel();
+        
+		custFrame.setContentPane(currentPanel);
 		// build UI here
 
 		custFrame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
@@ -96,7 +100,9 @@ public class CustomerClient {
 	}
 	
 	/**
-	 * temp.
+	 * This class extends WindowAdapter to give the frame a new default closing
+	 * operation.  Asks the user for confirmation before closing.
+	 * 
 	 * @author Quack
 	 *
 	 */
