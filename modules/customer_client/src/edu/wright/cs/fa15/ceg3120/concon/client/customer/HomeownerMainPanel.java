@@ -21,6 +21,9 @@
 
 package edu.wright.cs.fa15.ceg3120.concon.client.customer;
 
+import edu.wright.cs.fa15.ceg3120.concon.common.NewHomeownerPane;
+
+import java.awt.BorderLayout;
 import java.awt.Color;
 
 import javax.swing.JLayeredPane;
@@ -41,7 +44,10 @@ public class HomeownerMainPanel extends JTabbedPane {
 		setBackground(Color.ORANGE);
 
 		JLayeredPane tab1 = new JLayeredPane();
-		addTab("Profile", null, tab1, null);
+		tab1.setLayout(new BorderLayout());
+		NewHomeownerPane profile = new NewHomeownerPane();
+		tab1.add(profile, BorderLayout.CENTER);
+		addTab("Profile", null, tab1, "View and change your profile here");
 		setEnabledAt(0, true);
 		setBackgroundAt(0, Color.WHITE);
 
