@@ -41,18 +41,18 @@ public class HomeownerMainPanel extends JTabbedPane {
 		setBackground(Color.ORANGE);
 
 		JLayeredPane tab1 = new JLayeredPane();
-		addTab("tab1", null, tab1, null);
+		addTab("Profile", null, tab1, null);
 		setEnabledAt(0, true);
 		setBackgroundAt(0, Color.WHITE);
 
 		JLayeredPane tab2 = new JLayeredPane();
-		addTab("tab2", null, tab2, null);
+		addTab("Open Jobs", null, tab2, null);
 
 		tab3 = new JLayeredPane();
-		addTab("tab3", null, tab3, null);
+		addTab("Create New Job", null, tab3, null);
 
 		JLayeredPane tab4 = new JLayeredPane();
-		addTab("tab4", null, tab4, null);
+		addTab("Show Contractors", null, tab4, null);
 
 		JLayeredPane tab5 = new JLayeredPane();
 		addTab("tab5", null, tab5, null);
