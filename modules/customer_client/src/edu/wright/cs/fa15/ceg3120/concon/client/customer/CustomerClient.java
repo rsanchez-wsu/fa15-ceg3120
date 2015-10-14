@@ -38,6 +38,11 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.WindowConstants;
 
+/**
+ * temp.
+ * @author Quack
+ *
+ */
 public class CustomerClient {
 	// LOG is currently unused. Remove this suppress when it gets used.
 	@SuppressWarnings("unused")
@@ -50,6 +55,9 @@ public class CustomerClient {
 	@SuppressWarnings("unused")
 	private HomeownerAccount user;
 	
+	/**
+	 * temp.
+	 */
 	public CustomerClient() {
 		user = null;
 	}
@@ -87,6 +95,11 @@ public class CustomerClient {
 		new CustomerClient().buildGui(new HomeownerAccount());
 	}
 	
+	/**
+	 * temp.
+	 * @author Quack
+	 *
+	 */
 	static class MyWindowAdapter extends WindowAdapter {
 		@Override
 		public void windowClosing(WindowEvent ev) {

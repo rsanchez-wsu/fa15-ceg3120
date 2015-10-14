@@ -30,15 +30,29 @@ import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.DocumentFilter;
 
+/**
+ * This filter will be used to ensure a valid email address is used.
+ * 
+ * @author Quack
+ *
+ */
 public class DocumentEmailFilter extends DocumentFilter {
 	private Pattern regEx;
 	private boolean filter;
 	
+	/**
+	 * Creates a new instance of <code>DocumentEmailFilter</code>.
+	 */
 	public DocumentEmailFilter() {
 		regEx = Pattern.compile("^[A-Za-z0-9_]+?@.+?\\..+$");
 		filter = false;
 	}// ^[A-Za-z0-9_][^!#$%^&*()+=<>?,.\\/\\\\\\[\\]\\{\\}`~]+?@.+?\\..+$
 	
+	/**
+	 * Set whether to apply the filter.
+	 * 
+	 * @param filt true if filter is to be applied
+	 */
 	public void setToFilter(boolean filt) {
 		filter = filt;
 	}

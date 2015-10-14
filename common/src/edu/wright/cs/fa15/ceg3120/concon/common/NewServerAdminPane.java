@@ -29,14 +29,29 @@ import java.awt.BorderLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-@SuppressWarnings("serial")
+/**
+ * temp.
+ * @author Quack
+ *
+ */
 class NewServerAdminPane extends JPanel {
+	private static final long serialVersionUID = 1L;
+
+	/**
+	 * Creates a new instance of <code>NewServerAdminPane</code>.
+	 */
 	public NewServerAdminPane() {
 		super(new BorderLayout());
 		JLabel temp = new JLabel("Server dudes need to implement this");
 		add(temp, BorderLayout.CENTER);
 	}
 	
+	/**
+	 * Reads and verifies all user input creating a new HomeownerAccount with
+	 * user inputted data.
+	 * 
+	 * @return new SeverAdminAccount
+	 */
 	public UserAccount packageAccount() {
 		return new ContractorAccount();
 	}
