@@ -22,7 +22,6 @@
 package edu.wright.cs.fa15.ceg3120.concon.client.customer;
 
 import edu.wright.cs.fa15.ceg3120.concon.common.data.HomeownerAccount;
-//import edu.wright.cs.fa15.ceg3120.concon.common.data.HomeownerAccount;
 import edu.wright.cs.fa15.ceg3120.concon.common.net.NetworkManager;
 import edu.wright.cs.fa15.ceg3120.concon.common.net.message.ChatMessage;
 import edu.wright.cs.fa15.ceg3120.concon.common.net.message.NetworkMessage;
@@ -49,7 +48,8 @@ public class CustomerClient {
 	@SuppressWarnings("unused")
 	private static final Logger LOG = LoggerFactory.getLogger(CustomerClient.class);
 
-	private static final int WINDOW_WIDTH = Toolkit.getDefaultToolkit().getScreenSize().width - 150;
+	private static final int WINDOW_WIDTH = Toolkit.getDefaultToolkit().getScreenSize().width
+			- 150;
 	private static final int WINDOW_HEIGHT = Toolkit.getDefaultToolkit().getScreenSize().height
 			- 150;
 
@@ -73,6 +73,7 @@ public class CustomerClient {
 		this.user = user;
 		JFrame custFrame = new JFrame("TEMP TITLE");
 		custFrame.setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
+		custFrame.setLocationRelativeTo(null);
 
 		HomeownerMainPanel currentPanel = new HomeownerMainPanel(this.user);
 		
