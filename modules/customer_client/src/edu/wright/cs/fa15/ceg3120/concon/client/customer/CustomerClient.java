@@ -39,63 +39,63 @@ import javax.swing.JOptionPane;
 import javax.swing.WindowConstants;
 
 public class CustomerClient {
-    // LOG is currently unused. Remove this suppress when it gets used.
-    @SuppressWarnings("unused")
-    private static final Logger LOG = LoggerFactory.getLogger(CustomerClient.class);
+	// LOG is currently unused. Remove this suppress when it gets used.
+	@SuppressWarnings("unused")
+	private static final Logger LOG = LoggerFactory.getLogger(CustomerClient.class);
 
-    private static final int WINDOW_WIDTH = Toolkit.getDefaultToolkit().getScreenSize().width - 150;
-    private static final int WINDOW_HEIGHT = Toolkit.getDefaultToolkit().getScreenSize().height
-            - 150;
+	private static final int WINDOW_WIDTH = Toolkit.getDefaultToolkit().getScreenSize().width - 150;
+	private static final int WINDOW_HEIGHT = Toolkit.getDefaultToolkit().getScreenSize().height
+			- 150;
 
-    @SuppressWarnings("unused")
-    private HomeownerAccount user;
-    
-    public CustomerClient() {
-        user = null;
-    }
-    
-//    public HomeownerAccount getUser() {
-//        return user;
-//    }
-    
-    /**
-     * Temp.
-     */
-    public void buildGui(HomeownerAccount user) {
-        this.user = user;
-        JFrame custFrame = new JFrame("TEMP TITLE");
-        custFrame.setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
+	@SuppressWarnings("unused")
+	private HomeownerAccount user;
+	
+	public CustomerClient() {
+		user = null;
+	}
+	
+//	public HomeownerAccount getUser() {
+//		return user;
+//	}
+	
+	/**
+	 * Temp.
+	 */
+	public void buildGui(HomeownerAccount user) {
+		this.user = user;
+		JFrame custFrame = new JFrame("TEMP TITLE");
+		custFrame.setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
 
-        // build UI here
+		// build UI here
 
-        custFrame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
-        custFrame.addWindowListener(new MyWindowAdapter());
+		custFrame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+		custFrame.addWindowListener(new MyWindowAdapter());
 
-        custFrame.setVisible(true);
-    }// end buildGui
+		custFrame.setVisible(true);
+	}// end buildGui
 
-    /**
-     * we probably don't need a main if this is launched from LogininPopUp...
-     * 
-     * @param args
-     *            temp
-     */
-    public static void main(String[] args) {
-        NetworkManager.startClient("localhost", 9667);
-        NetworkMessage message = new ChatMessage("Hello World", null, null);
-        NetworkManager.sendMessage(message);
-        new CustomerClient().buildGui(new HomeownerAccount());
-    }
-    
-    static class MyWindowAdapter extends WindowAdapter {
-        @Override
-        public void windowClosing(WindowEvent ev) {
-            int result = JOptionPane.showConfirmDialog(null, "Do you really wish to exit?",
-                    "Exit?", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-            if (result == 0) {
-                // release any network/file resources
-                System.exit(0);
-            }
-        }
-    }
+	/**
+	 * we probably don't need a main if this is launched from LogininPopUp...
+	 * 
+	 * @param args
+	 *			temp
+	 */
+	public static void main(String[] args) {
+		NetworkManager.startClient("localhost", 9667);
+		NetworkMessage message = new ChatMessage("Hello World", null, null);
+		NetworkManager.sendMessage(message);
+		new CustomerClient().buildGui(new HomeownerAccount());
+	}
+	
+	static class MyWindowAdapter extends WindowAdapter {
+		@Override
+		public void windowClosing(WindowEvent ev) {
+			int result = JOptionPane.showConfirmDialog(null, "Do you really wish to exit?",
+					"Exit?", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+			if (result == 0) {
+				// release any network/file resources
+				System.exit(0);
+			}
+		}
+	}
 }

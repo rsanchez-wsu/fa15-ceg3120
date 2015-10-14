@@ -147,12 +147,12 @@ public class ContractorClient extends JFrame implements ActionListener {
 		frame.setTitle("Contractor Connect");
 		frame.addWindowListener(new WindowAdapter() {
 			@Override
-		    public void windowClosing(WindowEvent w0) { 
-		        int exit = JOptionPane.showConfirmDialog(frame, "Do you want to exit?");
-		        if (exit == JOptionPane.YES_OPTION) {
-		            System.exit(0);
-		        }
-		    }
+			public void windowClosing(WindowEvent w0) { 
+				int exit = JOptionPane.showConfirmDialog(frame, "Do you want to exit?");
+				if (exit == JOptionPane.YES_OPTION) {
+					System.exit(0);
+				}
+			}
 		});
 		frame.getContentPane().setLayout(null);
 
@@ -388,7 +388,7 @@ public class ContractorClient extends JFrame implements ActionListener {
 						tempArray = jobList.elementAt(i);
 						try {
 							curDistance = distanceCalculator(
-							        Integer.parseInt(account.getZipCode()), 
+									Integer.parseInt(account.getZipCode()), 
 									Integer.parseInt(tempArray[6]));
 						} catch (NumberFormatException e) {
 							e.printStackTrace();
@@ -452,17 +452,17 @@ public class ContractorClient extends JFrame implements ActionListener {
 		paymentsTab.add(paymentsSearchButton);
 		
 		final JTextField paymentsSearchOptions = new JTextField();
-        paymentsSearchOptions.setBounds(275, 5, 240, 20);
+		paymentsSearchOptions.setBounds(275, 5, 240, 20);
 		paymentsTab.add(paymentsSearchOptions);
 		
 		String[] columnName = {"Job Number", "Cost", "Payments", "Balance"};
-        final DefaultTableModel payments = new DefaultTableModel(columnName, 0);
-        JTable tblPaymentsResults2 = new JTable(payments);
-        tblPaymentsResults2.setModel(payments);
-        JScrollPane paymentsResults = new JScrollPane(tblPaymentsResults2);
-        paymentsResults.setBounds(45, 45, 605, 100);
-        paymentsTab.add(paymentsResults);
-        	
+		final DefaultTableModel payments = new DefaultTableModel(columnName, 0);
+		JTable tblPaymentsResults2 = new JTable(payments);
+		tblPaymentsResults2.setModel(payments);
+		JScrollPane paymentsResults = new JScrollPane(tblPaymentsResults2);
+		paymentsResults.setBounds(45, 45, 605, 100);
+		paymentsTab.add(paymentsResults);
+			
 		profileTab = new JPanel();
 		pageTabs.addTab("Edit Profile", null, profileTab, null);
 		profileTab.setLayout(null);

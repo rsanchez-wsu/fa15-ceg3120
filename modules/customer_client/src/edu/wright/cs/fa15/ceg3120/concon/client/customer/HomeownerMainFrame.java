@@ -29,12 +29,12 @@ import javax.swing.JFrame;
  *
  */
 public class HomeownerMainFrame extends JFrame {
-    private static final long serialVersionUID = 1L;
-    private HomeownerMainPanel currentPanel;
+	private static final long serialVersionUID = 1L;
+	private HomeownerMainPanel currentPanel;
 	
-    /**
-     * temp.
-     */
+	/**
+	 * temp.
+	 */
 	public HomeownerMainFrame() {
 		currentPanel = new HomeownerMainPanel();
 		

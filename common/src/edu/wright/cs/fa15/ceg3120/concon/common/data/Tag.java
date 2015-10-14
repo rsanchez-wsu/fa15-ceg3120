@@ -28,19 +28,19 @@ package edu.wright.cs.fa15.ceg3120.concon.common.data;
  *
  */
 public class Tag {
-    private String text;
+	private String text;
 
-    /**
-     * Construct a new Tag.
-     * 
-     * @param text
-     *            The name of the tag.
-     */
-    public Tag(String text) {
-        this.text = text;
-    }
+	/**
+	 * Construct a new Tag.
+	 * 
+	 * @param text
+	 *			The name of the tag.
+	 */
+	public Tag(String text) {
+		this.text = text;
+	}
 
-    public String getText() {
-        return text;
-    }
+	public String getText() {
+		return text;
+	}
 }

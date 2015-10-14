@@ -31,13 +31,13 @@ import javax.swing.JPanel;
 
 @SuppressWarnings("serial")
 class NewContractorPane extends JPanel {
-    public NewContractorPane() {
-        super(new BorderLayout());
-        JLabel temp = new JLabel("Contractor dudes need to implement this");
-        add(temp, BorderLayout.CENTER);
-    }
-    
-    public UserAccount packageAccount() {
-        return new ContractorAccount();
-    }
+	public NewContractorPane() {
+		super(new BorderLayout());
+		JLabel temp = new JLabel("Contractor dudes need to implement this");
+		add(temp, BorderLayout.CENTER);
+	}
+	
+	public UserAccount packageAccount() {
+		return new ContractorAccount();
+	}
 }

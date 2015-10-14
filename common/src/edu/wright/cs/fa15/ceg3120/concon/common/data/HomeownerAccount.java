@@ -32,27 +32,27 @@ import java.lang.reflect.Method;
  */
 public class HomeownerAccount extends UserAccount {
 
-    /**
-     * Creates a new instance of <code>HomeownerAccount</code>.
-     */
-    public HomeownerAccount() {
-        super(AccountType.HOMEOWNER);
+	/**
+	 * Creates a new instance of <code>HomeownerAccount</code>.
+	 */
+	public HomeownerAccount() {
+		super(AccountType.HOMEOWNER);
 
-    }
+	}
 
-    @Override
-    public void launchGui() {
-        //(new CustomerClient()).buildGui();
-        try {
-            Class<?> homeowner = 
-                    Class.forName("edu.wright.cs.fa15.ceg3120.concon"
-                            + ".client.customer.CustomerClient");
-            Method meth = homeowner.getMethod("buildGui", this.getClass());
-            meth.invoke(homeowner.newInstance(), this);
-        } catch (RuntimeException e) { 
-            throw e;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+	@Override
+	public void launchGui() {
+		//(new CustomerClient()).buildGui();
+		try {
+			Class<?> homeowner = 
+					Class.forName("edu.wright.cs.fa15.ceg3120.concon"
+							+ ".client.customer.CustomerClient");
+			Method meth = homeowner.getMethod("buildGui", this.getClass());
+			meth.invoke(homeowner.newInstance(), this);
+		} catch (RuntimeException e) { 
+			throw e;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 }

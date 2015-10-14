@@ -31,13 +31,13 @@ import javax.swing.JPanel;
 
 @SuppressWarnings("serial")
 class NewServerAdminPane extends JPanel {
-    public NewServerAdminPane() {
-        super(new BorderLayout());
-        JLabel temp = new JLabel("Server dudes need to implement this");
-        add(temp, BorderLayout.CENTER);
-    }
-    
-    public UserAccount packageAccount() {
-        return new ContractorAccount();
-    }
+	public NewServerAdminPane() {
+		super(new BorderLayout());
+		JLabel temp = new JLabel("Server dudes need to implement this");
+		add(temp, BorderLayout.CENTER);
+	}
+	
+	public UserAccount packageAccount() {
+		return new ContractorAccount();
+	}
 }
