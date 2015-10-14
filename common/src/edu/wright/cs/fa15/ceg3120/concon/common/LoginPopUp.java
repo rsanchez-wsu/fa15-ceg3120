@@ -26,7 +26,6 @@ import edu.wright.cs.fa15.ceg3120.concon.common.data.UserAccount;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
-import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.Externalizable;
@@ -47,8 +46,17 @@ import javax.swing.JTextField;
 import javax.swing.SpringLayout;
 import javax.swing.SwingUtilities;
 
+/**
+ * This is the main launch point for the UIs.  It is responsible for creating
+ * the unified login window, interfacing with the net-stack, and launching the
+ * UI corresponding the account type of the user once verified at the database
+ * level.
+ * 
+ * @author Quack
+ *
+ */
 public class LoginPopUp implements Externalizable{
-
+    private static final long serialVersionUID = 1L;
     private UserAccount user;
     private static ArrayBlockingQueue<UserAccount> incoming = new ArrayBlockingQueue<>(3);
 
@@ -220,6 +228,11 @@ public class LoginPopUp implements Externalizable{
         
     }// end launchNewAccountGUI
 
+    /**
+     * Creates the text field panel for the UI.
+     * 
+     * @return Fully constructed text field panel
+     */
     public FieldPanel createFieldPanel() {
         return new FieldPanel();
     }
@@ -227,8 +240,7 @@ public class LoginPopUp implements Externalizable{
     /**
      * Entry point for the main unit.
      * 
-     * @param args
-     *            - Command line arguments
+     * @param args Command line arguments
      */
     public static void main(String[] args) {
         // Schedules the GUI construction on the EDT
@@ -241,8 +253,11 @@ public class LoginPopUp implements Externalizable{
 
     }
 
-    @SuppressWarnings("serial")
+    /**
+     * Cory please add your comments here...
+     */
     public static class StringFrame extends JFrame {
+        private static final long serialVersionUID = 1L;
         private FieldPanel currentPanel;
         private LoginPopUp popup;
         
@@ -257,6 +272,9 @@ public class LoginPopUp implements Externalizable{
 
         }
 
+        /**
+         * Cory please add your comments here...
+         */
         private void setupFrame() {
             this.setContentPane(currentPanel);
 
@@ -264,9 +282,11 @@ public class LoginPopUp implements Externalizable{
 
     }
     
-    @SuppressWarnings("serial")
+    /**
+     * Cory please add your comments here...
+     */
     public class FieldPanel extends JPanel {
-
+        private static final long serialVersionUID = 1L;
     	ImageIcon img;
     	
         /**
@@ -275,10 +295,6 @@ public class LoginPopUp implements Externalizable{
         public FieldPanel() {
             setBackground(Color.ORANGE);
             loginButton = new JButton("Login");
-            loginButton.addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent arg0) {
-                }
-            });
             currentLayout = new SpringLayout();
 
             try {
@@ -307,8 +323,11 @@ public class LoginPopUp implements Externalizable{
     			graphics.drawString("No image", 400, 200);
     		} 
     		
-    	}
+    	} //end paint 
 
+        /**
+         * Cory please add your comments here...
+         */
         private void setupPanel() {
             this.setLayout(currentLayout);
             this.add(loginButton);
@@ -377,7 +396,7 @@ public class LoginPopUp implements Externalizable{
             lblPassword.setFont(new Font("Times New Roman", Font.PLAIN, 12));
             add(lblPassword);
         }
-    }
+    } //ends FieldPanel
 
     @Override
     public void writeExternal(ObjectOutput out) throws IOException {

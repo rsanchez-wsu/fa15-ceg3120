@@ -35,29 +35,46 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+/**
+ * This class will be responsible for collecting user input in order to
+ * construct a UserAccount object for shipment down the wire to the
+ * database.  The database will then use this data to create a new account
+ * profile.
+ * 
+ * @author Quack
+ *
+ */
 public class CreateNewAccount {
 
     private JFrame newAccountFrame;
     private JPanel centers;
     private JComboBox<String> myBox;
     
+    /**
+     * Creates a new instance of <code>CreateNewAccount</code>.
+     */
     public CreateNewAccount() {
         newAccountFrame = new JFrame();
         centers = new JPanel();
     }
     
+    /**
+     * For testing only.
+     * @param args command line args
+     */
     public static void main(String[] args) {
         new CreateNewAccount().buildGui();
     }
+    
     /**
-     * temp comment.
+     * Builds the create new account UI.
      * 
-     * @return nothing yet
+     * @return not sure if this is really necessary...
      */
     public boolean buildGui() {
         newAccountFrame = new JFrame("Create New Account");
         // build UI
-        newAccountFrame.setSize(300, 300);
+        newAccountFrame.setSize(300, 350);
         newAccountFrame.setLayout(new BorderLayout());
         
         String[] forCombo = {"Homeowner Account", "Contractor Account", "Server Admin"};
@@ -86,7 +103,7 @@ public class CreateNewAccount {
         
         newAccountFrame.setVisible(true);
 
-        // This is solely for functionality testings
+        // XXX This is solely for functionality testings and I didn't want to stash it
 //        SwingUtilities.invokeLater(new Runnable() {
 //            
 //            @Override
@@ -104,7 +121,7 @@ public class CreateNewAccount {
             LoginPopUp.addUserToQueue(new HomeownerAccount());
         } catch (InterruptedException e) {
             e.printStackTrace();
-        } //end functionality test stuffs
+        } // XXX end functionality test stuffs
         
         
         return true;
@@ -122,6 +139,11 @@ public class CreateNewAccount {
     static class ComboListener implements ActionListener {
         private CreateNewAccount window;
         
+        /**
+         * Creates a new <code>ComboListener</code>.
+         * 
+         * @param window The overlying JFrame. Needed to grab reference to myBox
+         */
         public ComboListener(CreateNewAccount window) {
             super();
             this.window = window;
