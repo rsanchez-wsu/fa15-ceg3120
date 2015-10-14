@@ -1,4 +1,25 @@
 /*
+ * Copyright (C) 2015
+ * 
+ * 
+ * 
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ */
+
+/*
  *	TabbedFrame class
  *	Group 3 - Payment-Scheduling
  *  Initially started in NetBeans
@@ -8,7 +29,15 @@
  */
 
 package edu.wright.cs.fa15.ceg3120.concon.paysched;
-import javax.swing.*;
+
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTabbedPane;
+import javax.swing.JTextField;
 
 /*
  *
@@ -58,7 +87,8 @@ public class TabbedFrame extends JFrame{
     /**
      * This method is called from within the constructor to initialize the form.
      */
-    @SuppressWarnings({ "unchecked", "rawtypes" })	//Suppresses warnings that complain about rawtypes
+    //Suppresses warnings that complain about rawtypes
+    @SuppressWarnings({ "unchecked", "rawtypes" })	
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -304,8 +334,8 @@ public class TabbedFrame extends JFrame{
                         .addComponent(chosenContractor)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED,
                         		javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(chosenContractorLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 93,
-                        		javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(chosenContractorLabel, javax.swing.GroupLayout.PREFERRED_SIZE,
+                        		93, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jpanel3Layout.createSequentialGroup()
                         .addComponent(totalPaymentOverview)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED,
@@ -316,8 +346,8 @@ public class TabbedFrame extends JFrame{
                         .addComponent(finalScheduledApptTime)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50,
                         		Short.MAX_VALUE)
-                        .addComponent(finalScheduledApptLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 93,
-                        		javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(finalScheduledApptLabel, javax.swing.GroupLayout
+                        		.PREFERRED_SIZE, 93,javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(90, 90, 90))
         );
         jpanel3Layout.setVerticalGroup(
