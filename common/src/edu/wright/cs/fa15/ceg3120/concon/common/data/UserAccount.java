@@ -38,14 +38,13 @@ public class UserAccount {
     /** Response from database. */
     private String dbResponse;
     // other common data fields
-    // perhaps encrypted pswd?
 	private String strFirstName;
 	private String strLastName;
 	private String strAddress1;
 	private String strAddress2;
 	private String strCity;
 	private String strState;
-	private int intZipCode;
+	private String zipCode;
 	private String strPhoneNumber;
 	private String strEmailAddress;
 
@@ -128,8 +127,8 @@ public class UserAccount {
     	strState = strSt;
     }
     
-    public void setZipCode(int zip) {
-    	intZipCode = zip;
+    public void setZipCode(String zip) {
+    	zipCode = zip;
     }
     
     public void setPhoneNumber(String strPhone) {
@@ -165,8 +164,8 @@ public class UserAccount {
     	return strState;
     }
     
-    public int getZipCode() {
-    	return intZipCode;
+    public String getZipCode() {
+    	return zipCode;
     }
     
     public String getPhoneNumber() {

@@ -387,7 +387,8 @@ public class ContractorClient extends JFrame implements ActionListener {
 						String[] tempArray = null;
 						tempArray = jobList.elementAt(i);
 						try {
-							curDistance = distanceCalculator(account.getZipCode(), 
+							curDistance = distanceCalculator(
+							        Integer.parseInt(account.getZipCode()), 
 									Integer.parseInt(tempArray[6]));
 						} catch (NumberFormatException e) {
 							e.printStackTrace();
@@ -724,7 +725,7 @@ public class ContractorClient extends JFrame implements ActionListener {
 		lblShowCurAddress2.setText(account.getAddress2());
 		lblShowCurCity.setText(account.getCity());
 		lblShowCurState.setText(account.getState());
-		lblShowCurZipCode.setText(String.format("%05d", account.getZipCode()));
+		lblShowCurZipCode.setText(String.format("%05d", Integer.parseInt(account.getZipCode())));
 		lblShowCurPhoneNumber.setText(account.getPhoneNumber());
 		lblShowCurEmailAddress.setText(account.getEmailAddress());
 	}
@@ -817,7 +818,7 @@ public class ContractorClient extends JFrame implements ActionListener {
 						if (Character.isDigit(c1)) {
 							if (j == 4 && issueTracker == 0) {
 								txtZipCodeUpdate.setText(strTzc);
-								account.setZipCode(Integer.parseInt(txtZipCodeUpdate.getText()));
+								account.setZipCode(txtZipCodeUpdate.getText());
 								issueChecker = 0;
 								break;
 							}
