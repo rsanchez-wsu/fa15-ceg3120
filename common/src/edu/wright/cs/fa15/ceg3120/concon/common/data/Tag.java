@@ -19,26 +19,28 @@
  *
  */
 
-package edu.wright.cs.fa15.ceg3120.concon.paysched;
+package edu.wright.cs.fa15.ceg3120.concon.common.data;
 
-/**this class for the data to send to others.
+/**
+ * Tag used to search jobs.
+ * 
+ * @author Jonathan Thomas
  *
- * @author Emily
  */
-public class SchedulingData<T> {
- 
-	//private String month;
-	//private String day;
-	//private String timeRange;
-	
-	/**Constructs the data to send.
+public class Tag {
+	private String text;
+
+	/**
+	 * Construct a new Tag.
 	 * 
-	 * @param month month to send
-	 * @param day day to send
-	 * @param timeRange time to send
+	 * @param text
+	 *			The name of the tag.
 	 */
-	
-	public SchedulingData(){} //Default constructor
-	
-   
+	public Tag(String text) {
+		this.text = text;
+	}
+
+	public String getText() {
+		return text;
+	}
 }

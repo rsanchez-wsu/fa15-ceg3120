@@ -19,26 +19,7 @@
  *
  */
 
-package edu.wright.cs.fa15.ceg3120.concon.paysched;
-
-/**this class for the data to send to others.
- *
- * @author Emily
+/**
+ * Data model classes that represent various objects that can be stored in the database.
  */
-public class SchedulingData<T> {
- 
-	//private String month;
-	//private String day;
-	//private String timeRange;
-	
-	/**Constructs the data to send.
-	 * 
-	 * @param month month to send
-	 * @param day day to send
-	 * @param timeRange time to send
-	 */
-	
-	public SchedulingData(){} //Default constructor
-	
-   
-}
+package edu.wright.cs.fa15.ceg3120.concon.common.data;

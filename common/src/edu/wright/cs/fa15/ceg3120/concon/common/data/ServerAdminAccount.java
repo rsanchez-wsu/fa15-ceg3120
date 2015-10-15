@@ -19,26 +19,19 @@
  *
  */
 
-package edu.wright.cs.fa15.ceg3120.concon.paysched;
+package edu.wright.cs.fa15.ceg3120.concon.common.data;
 
-/**this class for the data to send to others.
- *
- * @author Emily
- */
-public class SchedulingData<T> {
- 
-	//private String month;
-	//private String day;
-	//private String timeRange;
+public class ServerAdminAccount extends UserAccount {
+	private static final long serialVersionUID = 1L;
 	
-	/**Constructs the data to send.
-	 * 
-	 * @param month month to send
-	 * @param day day to send
-	 * @param timeRange time to send
-	 */
-	
-	public SchedulingData(){} //Default constructor
-	
-   
+	public ServerAdminAccount() {
+		super(AccountType.SERVER_ADMIN);
+	}
+
+	@Override
+	public void launchGui() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

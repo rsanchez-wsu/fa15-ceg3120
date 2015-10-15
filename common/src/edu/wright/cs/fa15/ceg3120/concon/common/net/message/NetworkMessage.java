@@ -19,26 +19,14 @@
  *
  */
 
-package edu.wright.cs.fa15.ceg3120.concon.paysched;
+package edu.wright.cs.fa15.ceg3120.concon.common.net.message;
 
-/**this class for the data to send to others.
- *
- * @author Emily
- */
-public class SchedulingData<T> {
- 
-	//private String month;
-	//private String day;
-	//private String timeRange;
+import java.io.Serializable;
+
+public abstract class NetworkMessage implements Serializable {
 	
-	/**Constructs the data to send.
-	 * 
-	 * @param month month to send
-	 * @param day day to send
-	 * @param timeRange time to send
-	 */
+	private static final long serialVersionUID = -8618792710721202266L;
+
+	public NetworkMessage() {}
 	
-	public SchedulingData(){} //Default constructor
-	
-   
 }

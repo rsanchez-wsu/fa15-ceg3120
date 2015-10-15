@@ -1,8 +1,8 @@
 /*
  * Copyright (C) 2015
- * 
- * 
- * 
+ *
+ *
+ *
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,26 +19,14 @@
  *
  */
 
-package edu.wright.cs.fa15.ceg3120.concon.paysched;
 
-/**this class for the data to send to others.
- *
- * @author Emily
- */
-public class SchedulingData<T> {
- 
-	//private String month;
-	//private String day;
-	//private String timeRange;
-	
-	/**Constructs the data to send.
-	 * 
-	 * @param month month to send
-	 * @param day day to send
-	 * @param timeRange time to send
-	 */
-	
-	public SchedulingData(){} //Default constructor
-	
-   
-}
+package edu.wright.cs.fa15.ceg3120.concon.common.net;
+
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+
+@Target(ElementType.METHOD)
+@Retention(RetentionPolicy.RUNTIME)
+public @interface NetworkHandler {}

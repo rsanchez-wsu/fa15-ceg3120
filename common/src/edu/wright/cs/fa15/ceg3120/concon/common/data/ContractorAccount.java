@@ -19,26 +19,30 @@
  *
  */
 
-package edu.wright.cs.fa15.ceg3120.concon.paysched;
+package edu.wright.cs.fa15.ceg3120.concon.common.data;
 
-/**this class for the data to send to others.
- *
- * @author Emily
- */
-public class SchedulingData<T> {
- 
-	//private String month;
-	//private String day;
-	//private String timeRange;
+public class ContractorAccount extends UserAccount {
+
+	// Contractor specific data fields
+	private static final long serialVersionUID = 1L;
+	private String strCompanyName;
+
+	public ContractorAccount() {
+		super(AccountType.CONTRACTOR);
+	}
 	
-	/**Constructs the data to send.
-	 * 
-	 * @param month month to send
-	 * @param day day to send
-	 * @param timeRange time to send
-	 */
+	public void setCompanyName(String strCn) {
+		strCompanyName = strCn;
+	}
 	
-	public SchedulingData(){} //Default constructor
-	
-   
+
+	public String getCompanyName() {
+		return strCompanyName;
+	}
+
+	@Override
+	public void launchGui() {
+
+	}
+
 }

@@ -19,26 +19,34 @@
  *
  */
 
-package edu.wright.cs.fa15.ceg3120.concon.paysched;
+package edu.wright.cs.fa15.ceg3120.concon.common;
 
-/**this class for the data to send to others.
+import javax.swing.ImageIcon;
+
+/**
+ * Access resources such as images.
+ * 
+ * @author NathanJent
  *
- * @author Emily
  */
-public class SchedulingData<T> {
- 
-	//private String month;
-	//private String day;
-	//private String timeRange;
-	
-	/**Constructs the data to send.
-	 * 
-	 * @param month month to send
-	 * @param day day to send
-	 * @param timeRange time to send
+public final class Resources {
+
+	/**
+	 * Creates a new <code>Resources</code> instance.
 	 */
+	public Resources() {
+		// TODO Auto-generated constructor stub
+	}
 	
-	public SchedulingData(){} //Default constructor
-	
-   
+	/**
+	 * Gets an ImageIcon representation of the image at the given path.
+	 * 
+	 * @param img String representation of the path to the image
+	 * 
+	 * @return an ImageIcon of the image at the given path
+	 */
+	public ImageIcon getImage(String img) {
+		return new ImageIcon(getClass().getResource(img));
+	}
+
 }

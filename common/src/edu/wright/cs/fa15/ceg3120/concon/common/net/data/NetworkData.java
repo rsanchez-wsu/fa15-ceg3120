@@ -19,26 +19,17 @@
  *
  */
 
-package edu.wright.cs.fa15.ceg3120.concon.paysched;
+package edu.wright.cs.fa15.ceg3120.concon.common.net.data;
 
-/**this class for the data to send to others.
+import java.io.Serializable;
+
+/**
+ * Implement this class for data objects that need to be
+ * sent over the network in DataMessage.
+ * 
+ * @author NathanJent
  *
- * @author Emily
  */
-public class SchedulingData<T> {
- 
-	//private String month;
-	//private String day;
-	//private String timeRange;
+public interface NetworkData extends Serializable {
 	
-	/**Constructs the data to send.
-	 * 
-	 * @param month month to send
-	 * @param day day to send
-	 * @param timeRange time to send
-	 */
-	
-	public SchedulingData(){} //Default constructor
-	
-   
 }

@@ -19,26 +19,15 @@
  *
  */
 
-package edu.wright.cs.fa15.ceg3120.concon.paysched;
+package edu.wright.cs.fa15.ceg3120.concon.common.data;
 
-/**this class for the data to send to others.
- *
- * @author Emily
- */
-public class SchedulingData<T> {
- 
-	//private String month;
-	//private String day;
-	//private String timeRange;
-	
-	/**Constructs the data to send.
-	 * 
-	 * @param month month to send
-	 * @param day day to send
-	 * @param timeRange time to send
-	 */
-	
-	public SchedulingData(){} //Default constructor
-	
-   
+//import org.slf4j.Logger;
+//import org.slf4j.LoggerFactory;
+
+public class Server {
+	//private static final Logger LOG = LoggerFactory.getLogger(Server.class);
+
+	//public static void main(String[] args) {
+//		LOG.trace("Starting server...");
+	//}
 }

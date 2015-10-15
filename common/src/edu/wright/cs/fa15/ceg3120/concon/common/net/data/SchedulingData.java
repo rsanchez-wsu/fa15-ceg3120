@@ -28,25 +28,26 @@ import java.io.Serializable;
  * @author Emily
  */
 public class SchedulingData implements Serializable {
- 
+
 	private static final long serialVersionUID = 8642779085161182815L;
+	
 	private String month = "";
-    private int day = 0;
-    private String timeRange = "";
-    
-    public SchedulingData() { }
-    
-    /**
-     * Description. TODO Fill out.
-     * @param month Month.
-     * @param day Day.
-     * @param timeRange Range of times.
-     */
-    public SchedulingData(String month, int day, String timeRange) {
-        this.month = month;
-        this.day = day;
-        this.timeRange = timeRange;
-    }
+	private int day = 0;
+	private String timeRange = "";
+	
+	public SchedulingData() { }
+	
+	/**
+	 * Description. TODO Fill out.
+	 * @param month Month.
+	 * @param day Day.
+	 * @param timeRange Time range.
+	 */
+	public SchedulingData(String month, int day, String timeRange) {
+		this.month = month;
+		this.day = day;
+		this.timeRange = timeRange;
+	}
 
 	public String getMonth() {
 		return month;
@@ -71,5 +72,10 @@ public class SchedulingData implements Serializable {
 	public void setTimeRange(String timeRange) {
 		this.timeRange = timeRange;
 	}
-    
+
+	@Override
+	public String toString() {
+		return "SchedulingData [month=" + month + ", day=" + day + ", timeRange=" + timeRange + "]";
+	}
+	
 }
