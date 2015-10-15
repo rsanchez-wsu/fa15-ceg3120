@@ -21,6 +21,12 @@
 
 package edu.wright.cs.fa15.ceg3120.concon.common.data;
 
+/**
+ * Enumeration with different types of user account.
+ * 
+ * @author Quack
+ *
+ */
 public enum AccountType {
     HOMEOWNER, CONTRACTOR, SERVER_ADMIN
 }

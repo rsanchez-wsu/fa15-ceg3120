@@ -21,21 +21,39 @@
 
 package edu.wright.cs.fa15.ceg3120.concon.common.data;
 
+/**
+ * ContractorAccount holds user data for a contractor-type user.
+ * In addition to the normal fields in a UserAccount, a ContractorAccount also holds the name
+ * of the contractor's employer.
+ * 
+ * @author Quack
+ *
+ */
 public class ContractorAccount extends UserAccount {
 
     // Contractor specific data fields
 
 	private String strCompanyName;
 
+	/**
+	 * Construct a new contractor account.
+	 */
     public ContractorAccount() {
         super(AccountType.CONTRACTOR);
     }
     
+    /**
+     * Set the name of the contractor's employer.
+     * @param strCn String containing name.
+     */
     public void setCompanyName(String strCn) {
     	strCompanyName = strCn;
     }
     
-
+    /**
+     * Get the name of the contractor's employer.
+     * @return String object containing name.
+     */
     public String getCompanyName() {
     	return strCompanyName;
     }

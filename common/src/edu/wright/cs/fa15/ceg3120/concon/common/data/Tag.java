@@ -40,6 +40,10 @@ public class Tag {
         this.text = text;
     }
 
+    /**
+     * Text content of the tag.
+     * @return String object.
+     */
     public String getText() {
         return text;
     }

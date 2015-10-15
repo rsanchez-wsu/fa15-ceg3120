@@ -72,107 +72,210 @@ public class UserAccount {
         this.pswd = pswd.clone(); // XXX this WILL need changed
     }
 
+    /** 
+     * Get the user's unique ID
+     * @return String representation of the ID. 
+     */
     public String getUuid() {
         return uuid;
     }
 
+    /** 
+     * Set the user's ID.
+     * @param uuid String representation of the ID.
+     */
     public void setUuid(String uuid) {
         this.uuid = uuid;
     }
 
+    /**
+     * Get the user's account type.
+     * @return an AccountType
+     */
     public AccountType getAccountType() {
         return accountType;
     }
 
+    /**
+     * Set the user's account type.
+     * @param accountType an AccountType
+     */
     public void setAccountType(AccountType accountType) {
         this.accountType = accountType;
     }
 
+    /**
+     * Get the user's password.
+     * @return character array representation of the password.
+     */
     public char[] getPswd() {
         return pswd.clone();
     }
 
+    /**
+     * Set the user's password.
+     * @param pswd character array
+     */
     public void setPswd(char[] pswd) {
         this.pswd = pswd.clone();
     }
 
+    /**
+     * Get user's database response. TODO What is this?
+     * @return String representation of dbresponse.
+     */
     public String getdbResponse() {
         return dbResponse;
     }
 
+    /**
+     * Set the user's database response. TODO What is this?
+     * @param dbResponse String representation of dbresponse.
+     */
     public void setdbResponse(String dbResponse) {
         this.dbResponse = dbResponse;
     }
     
+    /**
+     * Set user's first name.
+     * @param strFn String
+     */
     public void setFirstName(String strFn) {
     	strFirstName = strFn;
     }
     
+    /**
+     * Set user's last name.
+     * @param strLn String
+     */
     public void setLastName(String strLn) {
     	strLastName = strLn;
     }
     
+    /**
+     * 
+     * @param strAdd1
+     */
     public void setAddress1(String strAdd1) {
     	strAddress1 = strAdd1;
     }
     
+    /**
+     * 
+     * @param strAdd2
+     */
     public void setAddress2(String strAdd2) {
     	strAddress2 = strAdd2;
     }
     
+    /**
+     * 
+     * @param strCt
+     */
     public void setCity(String strCt) {
     	strCity = strCt;
     }
     
+    /**
+     * 
+     * @param strSt
+     */
     public void setState(String strSt) {
     	strState = strSt;
     }
     
+    /**
+     * 
+     * @param zip
+     */
     public void setZipCode(int zip) {
     	intZipCode = zip;
     }
     
+    /**
+     * 
+     * @param strPhone
+     */
     public void setPhoneNumber(String strPhone) {
     	strPhoneNumber = strPhone;
     }
     
+    /**
+     * 
+     * @param strEmail
+     */
     public void setEmailAddress(String strEmail) {
     	strEmailAddress = strEmail;
     }
     
+    /**
+     * 
+     * @return
+     */
     public String getFirstName() {
     	return strFirstName;
     }
     
+    /**
+     * 
+     * @return
+     */
     public String getLastName() {
     	return strLastName;
     }
     
-    
+    /**
+     * 
+     * @return
+     */
     public String getAddress1() {
     	return strAddress1;
     }
     
+    /**
+     * 
+     * @return
+     */
     public String getAddress2() {
     	return strAddress2;
     }
     
+    /**
+     * 
+     * @return
+     */
     public String getCity() {
     	return strCity;
     }
     
+    /**
+     * 
+     * @return
+     */
     public String getState() {
     	return strState;
     }
     
+    /**
+     * 
+     * @return
+     */
     public int getZipCode() {
     	return intZipCode;
     }
     
+    /**
+     * 
+     * @return
+     */
     public String getPhoneNumber() {
     	return strPhoneNumber;
     }
     
+    /**
+     * 
+     * @return
+     */
     public String getEmailAddress() {
     	return strEmailAddress;
     }
