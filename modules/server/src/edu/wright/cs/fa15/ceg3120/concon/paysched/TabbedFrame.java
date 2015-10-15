@@ -95,7 +95,7 @@ public class TabbedFrame extends JFrame{
     	//Tabs and Panes
     	overviewTabPanel = new JPanel();
         jtabbedPane = new javax.swing.JTabbedPane();
-        paymentTabPanel = new javax.swing.JPanel();
+        paymentTabPanel = new JPanel();
         schedulingTabPanel = new javax.swing.JPanel();
         
         //Scheduling tab Variables
@@ -144,55 +144,74 @@ public class TabbedFrame extends JFrame{
         
         
 
-      /*  javax.swing.GroupLayout jpanel1Layout = new javax.swing.GroupLayout(paymentTabPanel);
+        javax.swing.GroupLayout jpanel1Layout = new javax.swing.GroupLayout(paymentTabPanel);
         paymentTabPanel.setLayout(jpanel1Layout);
         jpanel1Layout.setHorizontalGroup(
-            jpanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING) 
+            jpanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpanel1Layout.createSequentialGroup()
+                .addGap(100, 100, 100)
+                .addComponent(paymentApprove)
+                .addGap(46, 46, 46)
+                .addComponent(paymentCancel)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jpanel1Layout.createSequentialGroup()
+                .addGap(34, 34, 34)
                 .addGroup(jpanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment
                 		.LEADING)
                     .addGroup(jpanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(amountOwed, javax.swing.GroupLayout.PREFERRED_SIZE, 100,
-                        		javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(amountInWallet, javax.swing.GroupLayout.PREFERRED_SIZE,
-                        		134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(14, 14, 14)
-                        .addComponent(amountRemaining, javax.swing.GroupLayout.PREFERRED_SIZE,
-                        		131, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(amountOwedLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED,
+                        		javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(amountOwed, javax.swing.GroupLayout.PREFERRED_SIZE,
+                        		93, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jpanel1Layout.createSequentialGroup()
-                        .addGap(79, 79, 79)
-                        .addComponent(amountOwedLabel))
+                        .addComponent(amountInWalletLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED,
+                        		javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(amountInWallet, javax.swing.GroupLayout.PREFERRED_SIZE, 93,
+                        		javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jpanel1Layout.createSequentialGroup()
-                        .addGap(160, 160, 160)
-                        .addComponent(paymentApprove)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );*/
-        /*
+                        .addComponent(amountRemainingLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50,
+                        		Short.MAX_VALUE)
+                        .addComponent(amountRemaining, javax.swing.GroupLayout
+                        		.PREFERRED_SIZE, 93,javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(90, 90, 90))
+        );
         jpanel1Layout.setVerticalGroup(
             jpanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpanel1Layout.createSequentialGroup()
-                .addGap(53, 53, 53)
-                .addComponent(schedulingTabHeader)
-                .addGap(18, 18, 18)
+                .addGap(37, 37, 37)
                 .addGroup(jpanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment
                 		.BASELINE)
-                    .addComponent(monthsList, javax.swing.GroupLayout.PREFERRED_SIZE,
-                    		javax.swing.GroupLayout.DEFAULT_SIZE,
-                    		javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(daysList, javax.swing.GroupLayout.PREFERRED_SIZE,
-                    		javax.swing.GroupLayout.DEFAULT_SIZE,
-                    		javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(timesList, javax.swing.GroupLayout.PREFERRED_SIZE,
+                    .addComponent(amountOwedLabel)
+                    .addComponent(amountOwed, javax.swing.GroupLayout.PREFERRED_SIZE,
                     		javax.swing.GroupLayout.DEFAULT_SIZE,
                     		javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED,
-                		85, Short.MAX_VALUE)
-                .addComponent(jbutton1)
-                .addGap(59, 59, 59))
+                .addGap(31, 31, 31)
+                .addGroup(jpanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment
+                		.BASELINE)
+                    .addComponent(amountInWalletLabel)
+                    .addComponent(amountInWallet, javax.swing.GroupLayout.PREFERRED_SIZE,
+                    		javax.swing.GroupLayout.DEFAULT_SIZE,
+                    		javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(30, 30, 30)
+                .addGroup(jpanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment
+                		.BASELINE)
+                    .addComponent(amountRemainingLabel)
+                    .addComponent(amountRemaining, javax.swing.GroupLayout.PREFERRED_SIZE, 
+                    		javax.swing.GroupLayout.DEFAULT_SIZE,
+                    		javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50,
+                		Short.MAX_VALUE)
+                .addGroup(jpanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment
+                		.BASELINE)
+                    .addComponent(paymentApprove)
+                    .addComponent(paymentCancel))
+                .addGap(41, 41, 41))
         );
-         */    
+
+        
            
        
         jtabbedPane.addTab("Payment", paymentTabPanel);
