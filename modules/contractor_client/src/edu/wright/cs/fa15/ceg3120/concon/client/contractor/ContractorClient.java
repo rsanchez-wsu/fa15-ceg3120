@@ -21,8 +21,13 @@
 
 package edu.wright.cs.fa15.ceg3120.concon.client.contractor;
 
-import edu.wright.cs.fa15.ceg3120.concon.common.data.AccountType;
-import edu.wright.cs.fa15.ceg3120.concon.common.data.ContractorAccount;
+/*
+ * The following imports will be utilized once we are able to create and save
+ * account information other than locally
+ * 
+ * import edu.wright.cs.fa15.ceg3120.concon.common.data.AccountType;
+ * import edu.wright.cs.fa15.ceg3120.concon.common.data.ContractorAccount;
+ */
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
@@ -65,9 +70,18 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
+/**
+ * Javadoc needed.
+ * 
+ *
+ */
 public class ContractorClient extends JFrame implements ActionListener {
 
-	private static ContractorAccount account = new ContractorAccount();
+/* The following variable to be implemented when AccountType and ContractorAccount
+ * imports are implemented
+ * 
+ * 	private static ContractorAccount account = new ContractorAccount();
+*/
 	private static final Logger LOG = LoggerFactory.getLogger(ContractorClient.class);
 	private static final long serialVersionUID = 1L;
 	private static JFrame frame;
@@ -91,14 +105,16 @@ public class ContractorClient extends JFrame implements ActionListener {
 	private static JTextField txtZipCodeUpdate;
 	private static JTextField txtPhoneNumberUpdate;
 	private static JTextField txtEmailAddressUpdate;
-/*	private static String strLastName = "Person";
+	private static String strLastName = "Person";
 	private static String strFirstName = "Random";
 	private static String strCompanyName = "ConCon";
 	private static String strAddress1 = "123 Main Street";
 	private static String strAddress2 = "";
 	private static String strCity = "Dayton";
 	private static String strState = "OH";
-	private static int intZipCode = 45400; */
+	private static int intZipCode = 45400;
+	private static String strPhoneNumber = "937-555-1212";
+	private static String strEmailAddress = "thomas.611@wright.edu";
 	private static JPanel profileTab;
 	private static JLabel lblNewProfile;
 	private static JLabel lblLastNameUpdate;
@@ -121,7 +137,7 @@ public class ContractorClient extends JFrame implements ActionListener {
 	private static Vector<String[]> jobList = new Vector<String[]>();
 	private static int intSearch = 0;
 	private static String[] columnNames = {"Job Number", "Title", "Description", "City", "Cost", 
-										   "Duration", "Zip Code"};
+											"Duration", "Zip Code"};
 	private static DefaultTableModel model1 = null;
 	
 	/**
@@ -135,7 +151,12 @@ public class ContractorClient extends JFrame implements ActionListener {
 	 * Initialize the contents of the frame.
 	 */
 	private static void initialize() {
-		account.setAccountType(AccountType.CONTRACTOR);
+/*
+ * The following line to be implemented when AccountType and ContractorAccount
+ * imports are implemented
+ * 
+ * 		account.setAccountType(AccountType.CONTRACTOR);
+ */
 		frame = new JFrame();		
 		frame.setBounds(100, 100, 725, 475);
 		frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
@@ -147,19 +168,18 @@ public class ContractorClient extends JFrame implements ActionListener {
 		frame.setTitle("Contractor Connect");
 		frame.addWindowListener(new WindowAdapter() {
 			@Override
-		    public void windowClosing(WindowEvent w0) { 
-		        int exit = JOptionPane.showConfirmDialog(frame, "Do you want to exit?");
-		        if (exit == JOptionPane.YES_OPTION) {
-		            System.exit(0);
-		        }
-		    }
+			public void windowClosing(WindowEvent w0) { 
+				int exit = JOptionPane.showConfirmDialog(frame, "Do you want to exit?");
+				if (exit == JOptionPane.YES_OPTION) {
+					System.exit(0);
+				}
+			}
 		});
 		frame.getContentPane().setLayout(null);
 
 		JPanel banner = new JPanel();
 		banner.setLayout(null);
 		banner.setBounds(6, 0, 703, 127);
-//		BufferedImage logo = new BufferedImage(127, 127, BufferedImage.TYPE_INT_RGB);
 		ImageIcon imageIcon = new ImageIcon("images/c2-image.png");
 		Image image = imageIcon.getImage();
 		Image newImg = image.getScaledInstance((int) (banner.getHeight() * .9), 
@@ -239,15 +259,24 @@ public class ContractorClient extends JFrame implements ActionListener {
 		GridLayout myLayout = new GridLayout(0, 2);
 		curBidsTab.setLayout(myLayout);
 		final DecimalFormat f0 = new DecimalFormat("##.00");
-		final JLabel[] currentBids = new JLabel[10];
+		final JLabel[] lblCurrentBids = new JLabel[10];
 		final JButton[] update = new JButton[10];
+		final double[] currentBids = new double[10];
+		final double[] previousBids = new double[10];
 		for (int i = 0; i < 5; i++) {
 			final int j = i;
-			currentBids[i] = new JLabel("You have a bid for " + f0.format(Math.random() * 115));
-			curBidsTab.add(currentBids[i]);
+			currentBids[i] = Math.random() * 115;
+			previousBids[i] = Math.random() * 115;
+			if (currentBids[i] > previousBids[i]) {
+				lblCurrentBids[i] = new JLabel("<html>You have a bid for "
+						+ f0.format(currentBids[i]) + "<br>You have been outbid by " 
+							+ f0.format(previousBids[i]) + "</html>");
+			} else {
+				lblCurrentBids[i] = new JLabel("You have a bid for " + f0.format(currentBids[i]));
+			}
+			curBidsTab.add(lblCurrentBids[i]);
 			update[i] = new JButton("Update Bid");
 			curBidsTab.add(update[i]);
-			
 			update[i].addActionListener(new ActionListener() {
 
 				@Override
@@ -255,10 +284,17 @@ public class ContractorClient extends JFrame implements ActionListener {
 					try {
 						String input = JOptionPane.showInputDialog(frame, "Enter new bid");
 						if (input != null) {
-							double newBid = Double.parseDouble(input);
-							currentBids[j].setText("You have a bid for " + f0.format(newBid));
-							curBidsTab.validate();
-							curBidsTab.repaint();
+							currentBids[j] = Double.parseDouble(input);
+							if (currentBids[j] > previousBids[j]) {
+								JOptionPane.showMessageDialog(frame, 
+										"You must enter a bid less than the previous bid",
+											"Invalid Bid", JOptionPane.ERROR_MESSAGE);
+							} else {
+								lblCurrentBids[j].setText("You have a bid for "
+										+ f0.format(currentBids[j]));
+								curBidsTab.validate();
+								curBidsTab.repaint();
+							}
 						}
 						
 					} catch (IllegalArgumentException e) {
@@ -316,7 +352,6 @@ public class ContractorClient extends JFrame implements ActionListener {
 
 			@Override
 			public void actionPerformed(ActionEvent e1) {
-//				final String strTest = cboSearchOptions.getSelectedItem().toString();
 				switch (cboSearchOptions.getSelectedItem().toString()) {
 				case "Show All":
 					intSearch = 0;
@@ -387,8 +422,15 @@ public class ContractorClient extends JFrame implements ActionListener {
 						String[] tempArray = null;
 						tempArray = jobList.elementAt(i);
 						try {
-							curDistance = distanceCalculator(account.getZipCode(), 
+							curDistance = distanceCalculator(intZipCode, 
 									Integer.parseInt(tempArray[6]));
+							
+/*
+ * The following lines of code to be implemented when AccountType and 
+ * ContractorAccount imports are implemented
+ * 							curDistance = distanceCalculator(account.getZipCode(), 
+ *									Integer.parseInt(tempArray[6]));
+ */
 						} catch (NumberFormatException e) {
 							e.printStackTrace();
 						} catch (IOException e) {
@@ -451,17 +493,17 @@ public class ContractorClient extends JFrame implements ActionListener {
 		paymentsTab.add(paymentsSearchButton);
 		
 		final JTextField paymentsSearchOptions = new JTextField();
-        paymentsSearchOptions.setBounds(275, 5, 240, 20);
+		paymentsSearchOptions.setBounds(275, 5, 240, 20);
 		paymentsTab.add(paymentsSearchOptions);
 		
 		String[] columnName = {"Job Number", "Cost", "Payments", "Balance"};
-        final DefaultTableModel payments = new DefaultTableModel(columnName, 0);
-        JTable tblPaymentsResults2 = new JTable(payments);
-        tblPaymentsResults2.setModel(payments);
-        JScrollPane paymentsResults = new JScrollPane(tblPaymentsResults2);
-        paymentsResults.setBounds(45, 45, 605, 100);
-        paymentsTab.add(paymentsResults);
-        	
+		final DefaultTableModel payments = new DefaultTableModel(columnName, 0);
+		JTable tblPaymentsResults2 = new JTable(payments);
+		tblPaymentsResults2.setModel(payments);
+		JScrollPane paymentsResults = new JScrollPane(tblPaymentsResults2);
+		paymentsResults.setBounds(45, 45, 605, 100);
+		paymentsTab.add(paymentsResults);
+
 		profileTab = new JPanel();
 		pageTabs.addTab("Edit Profile", null, profileTab, null);
 		profileTab.setLayout(null);
@@ -717,16 +759,31 @@ public class ContractorClient extends JFrame implements ActionListener {
 	 * This method loads the current profile.
 	 */
 	public static void loadCurrentProfile() {
-		lblShowCurFirstName.setText(account.getFirstName());
-		lblShowCurLastName.setText(account.getLastName());
-		lblShowCurCompanyName.setText(account.getCompanyName());
-		lblShowCurAddress1.setText(account.getAddress1());
-		lblShowCurAddress2.setText(account.getAddress2());
-		lblShowCurCity.setText(account.getCity());
-		lblShowCurState.setText(account.getState());
-		lblShowCurZipCode.setText(String.format("%05d", account.getZipCode()));
-		lblShowCurPhoneNumber.setText(account.getPhoneNumber());
-		lblShowCurEmailAddress.setText(account.getEmailAddress());
+		lblShowCurFirstName.setText(strFirstName);
+		lblShowCurLastName.setText(strLastName);
+		lblShowCurCompanyName.setText(strCompanyName);
+		lblShowCurAddress1.setText(strAddress1);
+		lblShowCurAddress2.setText(strAddress2);
+		lblShowCurCity.setText(strCity);
+		lblShowCurState.setText(strState);
+		lblShowCurZipCode.setText(String.format("%05d", intZipCode));
+		lblShowCurPhoneNumber.setText(strPhoneNumber);
+		lblShowCurEmailAddress.setText(strEmailAddress);
+/*
+ * The following code to be implemented when the AccountType and ContractorAccount
+ * imports are implemented.
+ *  
+ *		lblShowCurFirstName.setText(account.getFirstName());
+ *		lblShowCurLastName.setText(account.getLastName());
+ *		lblShowCurCompanyName.setText(account.getCompanyName());
+ *		lblShowCurAddress1.setText(account.getAddress1());
+ *		lblShowCurAddress2.setText(account.getAddress2());
+ *		lblShowCurCity.setText(account.getCity());
+ *		lblShowCurState.setText(account.getState());
+ *		lblShowCurZipCode.setText(String.format("%05d", account.getZipCode()));
+ *		lblShowCurPhoneNumber.setText(account.getPhoneNumber());
+ *		lblShowCurEmailAddress.setText(account.getEmailAddress());
+ */
 	}
 
 	/**
@@ -769,25 +826,67 @@ public class ContractorClient extends JFrame implements ActionListener {
 	public static void saveProfileUpdates() {
 		
 		if (txtLastNameUpdate.getText().length() > 0) {
-			account.setLastName(txtLastNameUpdate.getText());
+			strLastName = txtLastNameUpdate.getText();
+/*
+ * The following line to be implemented when the AccountType and ContractorAccount
+ * imports are implemented.
+ * 
+ * 			account.setLastName(txtLastNameUpdate.getText());
+ */
 		}
 		if (txtFirstNameUpdate.getText().length() > 0) {
-			account.setFirstName(txtFirstNameUpdate.getText());
+			strFirstName = txtFirstNameUpdate.getText();
+/*
+ * The following line to be implemented when the AccountType and ContractorAccount
+ * imports are implemented.
+ * 
+ * 			account.setFirstName(txtFirstNameUpdate.getText());
+ */
 		}
 		if (txtCompanyNameUpdate.getText().length() > 0) {
-			account.setCompanyName(txtCompanyNameUpdate.getText()); 		
+			strCompanyName = txtCompanyNameUpdate.getText();
+/*
+ * The following line to be implemented when the AccountType and ContractorAccount
+ * imports are implemented.
+ * 
+ * 			account.setCompanyName(txtCompanyNameUpdate.getText()); 
+ */		
 		}
 		if (txtAddress1Update.getText().length() > 0) {
-			account.setAddress1(txtAddress1Update.getText());
+			strAddress1 = txtAddress1Update.getText();
+/*
+ * The following line to be implemented when the AccountType and ContractorAccount
+ * imports are implemented.
+ * 
+ * 			account.setAddress1(txtAddress1Update.getText());
+ */
 		}
 		if (txtAddress2Update.getText().length() > 0) {
-			account.setAddress2(txtAddress2Update.getText());
+			strAddress2 = txtAddress2Update.getText();
+/*
+ * The following line to be implemented when the AccountType and ContractorAccount
+ * imports are implemented.
+ * 
+ * 			account.setAddress2(txtAddress2Update.getText());
+ */
 		}
 		if (txtCityUpdate.getText().length() > 0) {
-			account.setCity(txtCityUpdate.getText());
+			strCity = txtCityUpdate.getText();
+/*
+ * The following line to be implemented when the AccountType and ContractorAccount
+ * imports are implemented.
+ * 
+ * 			account.setCity(txtCityUpdate.getText());
+ */
 		}
 		if (txtStateUpdate.getText().length() > 0) {
-			account.setState(txtStateUpdate.getText());
+			strState = txtStateUpdate.getText();
+/*
+ * The following line to be implemented when the AccountType and ContractorAccount
+ * imports are implemented.
+ * 
+ * 			account.setState(txtStateUpdate.getText());
+ */
 		}
 		if (txtZipCodeUpdate.getText().length() > 0) {
 			int issueChecker = 0;
@@ -797,7 +896,7 @@ public class ContractorClient extends JFrame implements ActionListener {
 			for (int i = 0; i < txtZipCodeUpdate.getText().length(); i++) {
 				char c0 = txtZipCodeUpdate.getText().charAt(i);
 				if (Character.isDigit(c0)) {
-					// do nothing if character is a digit
+					// move to next index i in above for loop if character is a digit
 				} else {
 					issueChecker = 1;
 				}
@@ -817,7 +916,12 @@ public class ContractorClient extends JFrame implements ActionListener {
 						if (Character.isDigit(c1)) {
 							if (j == 4 && issueTracker == 0) {
 								txtZipCodeUpdate.setText(strTzc);
-								account.setZipCode(Integer.parseInt(txtZipCodeUpdate.getText()));
+/*
+ * The following line to be implemented when the AccountType and ContractorAccount
+ * imports are implemented.
+ * 
+ * 								account.setZipCode(Integer.parseInt(txtZipCodeUpdate.getText()));
+ */
 								issueChecker = 0;
 								break;
 							}
@@ -827,29 +931,43 @@ public class ContractorClient extends JFrame implements ActionListener {
 					}
 				}
 			}
+			intZipCode = Integer.parseInt(txtZipCodeUpdate.getText());
 		}
 		if (txtPhoneNumberUpdate.getText().length() > 0) {
-			account.setPhoneNumber(txtPhoneNumberUpdate.getText());
+			strPhoneNumber = txtPhoneNumberUpdate.getText();
+/*
+ * The following line to be implemented when the AccountType and ContractorAccount
+ * imports are implemented.
+ * 
+ * 			account.setPhoneNumber(txtPhoneNumberUpdate.getText());
+ */		
 		}
 		if (txtEmailAddressUpdate.getText().length() > 0) {
-			account.setEmailAddress(txtEmailAddressUpdate.getText());
+			strEmailAddress = txtEmailAddressUpdate.getText();
+/*
+ * The following line to be implemented when the AccountType and ContractorAccount
+ * imports are implemented.
+ * 
+ * 			account.setEmailAddress(txtEmailAddressUpdate.getText());
+ */
 		}
+		loadCurrentProfile();
 		profileTab.revalidate();
+		profileTab.repaint();
 	}
 	
 	/**
 	 * This method populates a job list array for building and testing the Search functions.
 	 */
 	public static void populateJobListArray() {
-		job1 = new String[] {"001", "Hole in Wall","Kid smashed head through drywall", 
-							  "Dayton", "500", "7", "45402"};
-		job2 = new String[] {"002", "New Toilet", "Would like new toilet installed", 
-							  "Englewood", "100", "1", "45322"};
-		job3 = new String[] {"017", "Replace Wall Outlet", "Need new outlet installed", 
-							  "Centerville", "100", "1", "45458"};
+		job1 = new String[] {"001", "Hole in Wall", "Kid smashed head through "
+				+ "drywall", "Dayton", "500", "7", "45402"};
+		job2 = new String[] {"002", "New Toilet", "Would like new toilet "
+				+ "installed", "Englewood", "100", "1", "45322"};
+		job3 = new String[] {"017", "Replace Wall Outlet", "Need new outlet "
+				+ "installed", "Centerville", "100", "1", "45458"};
 		job4 = new String[] {"042", "New Porch", "I want a large enclosed porch built "
-				+ "on the back of my house", "Kettering", 
-							  "3500", "14", "45429"};
+				+ "on the back of my house", "Kettering", "3500", "14", "45429"};
 		jobList.removeAllElements();
 		jobList.add(0,job1);
 		jobList.add(1,job2);
@@ -857,11 +975,19 @@ public class ContractorClient extends JFrame implements ActionListener {
 		jobList.add(3,job4);
 	}
 	
-	/**
-	 * This method calculates the distance between two ZIP codes.
-	 * Contractor Connection registered with ZipCodeAPI.com on the free plan to get static API code.
-	 * Registered under Joshua Thomas' email address (thomas.611@wright.edu).
-	 */
+/* CHANGE TO BE MADE TO distanceCalculator() ONCE DATABASE IS IMPLEMENTED:
+ * Change to "Zip Codes by Radius" via ZipCodeAPI and then compare results
+ * with database results to limit requests pushed to ZipCodeAPI and streamline
+ * search process
+ */
+	
+/**
+ * This method calculates the distance between two ZIP codes.
+ * Contractor Connection registered with ZipCodeAPI.com on the free plan to get static API code.
+ * Registered under Joshua Thomas' email address (thomas.611@wright.edu).
+ * Units used: miles
+ * 
+ */
 	public static double distanceCalculator(int zip1, int zip2) throws IOException {
 		String strApiKey = "DyJlPe7F6MgACobvKEUcqeOMf5TCJ1VmAEIpSQ5YDlyfKKLuoFGOTuA9AuMkvHH6";
 		String url1 = "https://www.zipcodeapi.com/rest/";
@@ -925,6 +1051,8 @@ public class ContractorClient extends JFrame implements ActionListener {
 		txtCityUpdate.setVisible(false);
 		txtStateUpdate.setVisible(false);
 		txtZipCodeUpdate.setVisible(false);
+		txtPhoneNumberUpdate.setVisible(false);
+		txtEmailAddressUpdate.setVisible(false);
 		btnSave.setVisible(false);
 		btnClear.setVisible(false);
 		btnCancel.setVisible(false);
@@ -942,6 +1070,9 @@ public class ContractorClient extends JFrame implements ActionListener {
 		profileTab.repaint();
 	}
 	
+	/**
+	 * This method sets the table model.
+	 */
 	public static void buildTable() {
 		model1 = new DefaultTableModel(columnNames, 0);
 	}
@@ -955,7 +1086,6 @@ public class ContractorClient extends JFrame implements ActionListener {
 			public void run() {
 				try {
 					ContractorClient.initialize();
-//					ContractorClient window = new ContractorClient();
 					ContractorClient.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();

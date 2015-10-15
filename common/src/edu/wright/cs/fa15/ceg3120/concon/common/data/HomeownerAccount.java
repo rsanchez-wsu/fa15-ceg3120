@@ -1,8 +1,8 @@
 /*
  * Copyright (C) 2015
- * 
- * 
- * 
+ *
+ *
+ *
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -24,24 +24,36 @@ package edu.wright.cs.fa15.ceg3120.concon.common.data;
 import java.lang.reflect.Method;
 
 /**
- * HomeownerAccount holds user data for a homeowner-type user.
- * 
+ * This class will house any homeowner specific data fields.  It also launches
+ * the homeowner UI.
+ *
  * @author Quack
  *
  */
-@SuppressWarnings("unused")
 public class HomeownerAccount extends UserAccount {
-    
-    /**
-     * Construct a new homeowner account.
-     */
+	private static final long serialVersionUID = 1L;
+
+	/**
+	 * Creates a new instance of <code>HomeownerAccount</code>.
+	 */
 	public HomeownerAccount() {
-        super(AccountType.HOMEOWNER);
-        
+		super(AccountType.HOMEOWNER);
+
 	}
 
 	@Override
-    public void launchGui() {        
-        
+	public void launchGui() {
+		//(new CustomerClient()).buildGui();
+		try {
+			Class<?> homeowner =
+					Class.forName("edu.wright.cs.fa15.ceg3120.concon"
+							+ ".client.customer.CustomerClient");
+			Method meth = homeowner.getMethod("buildGui", this.getClass());
+			meth.invoke(homeowner.newInstance(), this);
+		} catch (RuntimeException e) {
+			throw e;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 }

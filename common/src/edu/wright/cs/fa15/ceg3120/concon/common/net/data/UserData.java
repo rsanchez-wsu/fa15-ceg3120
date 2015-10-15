@@ -39,6 +39,10 @@ public class UserData implements NetworkData {
 	private String uuid;
 	private ImageIcon  avatar;
 
+	/**
+	 * Javadoc needed.
+	 *
+	 */
 	public UserData() { }	
 	
 	/**
@@ -52,34 +56,66 @@ public class UserData implements NetworkData {
 		this.uuid = "A49F"; //TODO need methods to generate new UUID
 	}
 
+	/**
+	 * Javadoc needed.
+	 *
+	 */
 	public String getFirstName() {
 		return firstName;
 	}
 
+	/**
+	 * Javadoc needed.
+	 *
+	 */
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
 	}
 
+	/**
+	 * Javadoc needed.
+	 *
+	 */
 	public String getLastName() {
 		return lastName;
 	}
 
+	/**
+	 * Javadoc needed.
+	 *
+	 */
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
 
+	/**
+	 * Javadoc needed.
+	 *
+	 */
 	public String getUuid() {
 		return uuid;
 	}
 
+	/**
+	 * Javadoc needed.
+	 *
+	 */
 	public void setUuid(String uuid) {
 		this.uuid = uuid;
 	}
 
+	/**
+	 * Javadoc needed.
+	 *
+	 */
 	public ImageIcon getAvatar() {
 		return avatar;
 	}
 
+	/**
+	 * Javadoc needed.
+	 *
+	 */
 	public void setAvatar(ImageIcon avatar) {
 		this.avatar = avatar;
 	}

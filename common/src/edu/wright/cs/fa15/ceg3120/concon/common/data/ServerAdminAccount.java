@@ -1,8 +1,8 @@
 /*
  * Copyright (C) 2015
- * 
- * 
- * 
+ *
+ *
+ *
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -23,22 +23,24 @@ package edu.wright.cs.fa15.ceg3120.concon.common.data;
 
 /**
  * ServerAdminAccount holds user data for an admin-type user.
- * 
+ *
  * @author Quack
  *
  */
 public class ServerAdminAccount extends UserAccount {
 
-    /**
-     * Construct a new server admin account.
-     */
+	private static final long serialVersionUID = 1L;
+
+	/**
+	 * Construct a new server admin account.
+	 */
 	public ServerAdminAccount() {
 		super(AccountType.SERVER_ADMIN);
 	}
 
 	@Override
 	public void launchGui() {
-		
+
 	}
 
 }

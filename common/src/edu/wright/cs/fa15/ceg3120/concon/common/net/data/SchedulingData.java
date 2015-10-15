@@ -32,43 +32,71 @@ public class SchedulingData implements Serializable {
 	private static final long serialVersionUID = 8642779085161182815L;
 	
 	private String month = "";
-    private int day = 0;
-    private String timeRange = "";
-    
-    public SchedulingData() { }
-    
-    /**
-     * Description. TODO Fill out.
-     * @param month Month.
-     * @param day Day.
-     * @param timeRange Time range.
-     */
-    public SchedulingData(String month, int day, String timeRange) {
-        this.month = month;
-        this.day = day;
-        this.timeRange = timeRange;
-    }
+	private int day = 0;
+	private String timeRange = "";
+	
+	/**
+	 * Javadoc needed.
+	 *
+	 */
+	public SchedulingData() { }
+	
+	/**
+	 * Description. TODO Fill out.
+	 * @param month Month.
+	 * @param day Day.
+	 * @param timeRange Time range.
+	 */
+	public SchedulingData(String month, int day, String timeRange) {
+		this.month = month;
+		this.day = day;
+		this.timeRange = timeRange;
+	}
 
+	/**
+	 * Javadoc needed.
+	 *
+	 */
 	public String getMonth() {
 		return month;
 	}
 
+	/**
+	 * Javadoc needed.
+	 *
+	 */
 	public void setMonth(String month) {
 		this.month = month;
 	}
 
+	/**
+	 * Javadoc needed.
+	 *
+	 */
 	public int getDay() {
 		return day;
 	}
 
+	/**
+	 * Javadoc needed.
+	 *
+	 */
 	public void setDay(int day) {
 		this.day = day;
 	}
 
+	/**
+	 * Javadoc needed.
+	 *
+	 */
 	public String getTimeRange() {
 		return timeRange;
 	}
 
+	/**
+	 * Javadoc needed.
+	 *
+	 */
 	public void setTimeRange(String timeRange) {
 		this.timeRange = timeRange;
 	}
@@ -77,5 +105,5 @@ public class SchedulingData implements Serializable {
 	public String toString() {
 		return "SchedulingData [month=" + month + ", day=" + day + ", timeRange=" + timeRange + "]";
 	}
-    
+	
 }

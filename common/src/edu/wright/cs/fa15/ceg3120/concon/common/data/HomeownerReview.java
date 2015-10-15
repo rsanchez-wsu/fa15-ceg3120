@@ -21,11 +21,19 @@
 
 package edu.wright.cs.fa15.ceg3120.concon.common.data;
 
+/**
+ * Javadoc needed.
+ *
+ */
 public class HomeownerReview extends Review {
 
-    public HomeownerReview(int id, int reviewerId, int subjectId, int jobId, String date,
-            String text, int rating) {
-        super(id, reviewerId, subjectId, jobId, date, text, rating);
-    }
+	/**
+	 * Javadoc needed.
+	 *
+	 */
+	public HomeownerReview(int id, int reviewerId, int subjectId, int jobId, String date,
+			String text, int rating) {
+		super(id, reviewerId, subjectId, jobId, date, text, rating);
+	}
 
 }
