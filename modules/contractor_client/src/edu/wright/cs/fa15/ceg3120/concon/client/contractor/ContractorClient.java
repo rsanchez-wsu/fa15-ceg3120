@@ -137,7 +137,7 @@ public class ContractorClient extends JFrame implements ActionListener {
 	private static Vector<String[]> jobList = new Vector<String[]>();
 	private static int intSearch = 0;
 	private static String[] columnNames = {"Job Number", "Title", "Description", "City", "Cost", 
-										   "Duration", "Zip Code"};
+											"Duration", "Zip Code"};
 	private static DefaultTableModel model1 = null;
 	
 	/**
@@ -168,12 +168,12 @@ public class ContractorClient extends JFrame implements ActionListener {
 		frame.setTitle("Contractor Connect");
 		frame.addWindowListener(new WindowAdapter() {
 			@Override
-		    public void windowClosing(WindowEvent w0) { 
-		        int exit = JOptionPane.showConfirmDialog(frame, "Do you want to exit?");
-		        if (exit == JOptionPane.YES_OPTION) {
-		            System.exit(0);
-		        }
-		    }
+			public void windowClosing(WindowEvent w0) { 
+				int exit = JOptionPane.showConfirmDialog(frame, "Do you want to exit?");
+				if (exit == JOptionPane.YES_OPTION) {
+					System.exit(0);
+				}
+			}
 		});
 		frame.getContentPane().setLayout(null);
 
@@ -477,17 +477,17 @@ public class ContractorClient extends JFrame implements ActionListener {
 		paymentsTab.add(paymentsSearchButton);
 		
 		final JTextField paymentsSearchOptions = new JTextField();
-        paymentsSearchOptions.setBounds(275, 5, 240, 20);
+		paymentsSearchOptions.setBounds(275, 5, 240, 20);
 		paymentsTab.add(paymentsSearchOptions);
 		
 		String[] columnName = {"Job Number", "Cost", "Payments", "Balance"};
-        final DefaultTableModel payments = new DefaultTableModel(columnName, 0);
-        JTable tblPaymentsResults2 = new JTable(payments);
-        tblPaymentsResults2.setModel(payments);
-        JScrollPane paymentsResults = new JScrollPane(tblPaymentsResults2);
-        paymentsResults.setBounds(45, 45, 605, 100);
-        paymentsTab.add(paymentsResults);
-        	
+		final DefaultTableModel payments = new DefaultTableModel(columnName, 0);
+		JTable tblPaymentsResults2 = new JTable(payments);
+		tblPaymentsResults2.setModel(payments);
+		JScrollPane paymentsResults = new JScrollPane(tblPaymentsResults2);
+		paymentsResults.setBounds(45, 45, 605, 100);
+		paymentsTab.add(paymentsResults);
+
 		profileTab = new JPanel();
 		pageTabs.addTab("Edit Profile", null, profileTab, null);
 		profileTab.setLayout(null);
@@ -944,15 +944,14 @@ public class ContractorClient extends JFrame implements ActionListener {
 	 * This method populates a job list array for building and testing the Search functions.
 	 */
 	public static void populateJobListArray() {
-		job1 = new String[] {"001", "Hole in Wall","Kid smashed head through drywall", 
-							  "Dayton", "500", "7", "45402"};
-		job2 = new String[] {"002", "New Toilet", "Would like new toilet installed", 
-							  "Englewood", "100", "1", "45322"};
-		job3 = new String[] {"017", "Replace Wall Outlet", "Need new outlet installed", 
-							  "Centerville", "100", "1", "45458"};
+		job1 = new String[] {"001", "Hole in Wall", "Kid smashed head through "
+				+ "drywall", "Dayton", "500", "7", "45402"};
+		job2 = new String[] {"002", "New Toilet", "Would like new toilet "
+				+ "installed", "Englewood", "100", "1", "45322"};
+		job3 = new String[] {"017", "Replace Wall Outlet", "Need new outlet "
+				+ "installed", "Centerville", "100", "1", "45458"};
 		job4 = new String[] {"042", "New Porch", "I want a large enclosed porch built "
-				+ "on the back of my house", "Kettering", 
-							  "3500", "14", "45429"};
+				+ "on the back of my house", "Kettering", "3500", "14", "45429"};
 		jobList.removeAllElements();
 		jobList.add(0,job1);
 		jobList.add(1,job2);
