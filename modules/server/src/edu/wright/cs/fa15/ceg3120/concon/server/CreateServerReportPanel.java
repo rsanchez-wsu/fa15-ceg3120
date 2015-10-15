@@ -103,9 +103,7 @@ public class CreateServerReportPanel {
         				JScrollPane errorScroll = new JScrollPane(errorsList);
         				syserrorspanel.add(errorScroll, BorderLayout.CENTER);
         				mainPanel.add(syserrorspanel, BorderLayout.CENTER);
-        			}
-        			
-        			else if (dataOptionList.getSelectedIndex() == 1) {
+        			} else if (dataOptionList.getSelectedIndex() == 1) {
         				JPanel databaseErrorPanel = new JPanel(new BorderLayout());
         				databaseErrorPanel.add(new JTextField(
         						  "Current Database Errors"));
@@ -116,9 +114,7 @@ public class CreateServerReportPanel {
         				databaseErrorPanel.add(errorScroll, BorderLayout.CENTER);
         				mainPanel.add(databaseErrorPanel, BorderLayout.CENTER);	
         				
-        			}
-        			
-        			else if (dataOptionList.getSelectedIndex() == 2) {
+        			} else if (dataOptionList.getSelectedIndex() == 2) {
         				JPanel sysresetpanel = new JPanel(new BorderLayout());
         				sysresetpanel.add(new JTextField("\nResets and Backups"));
         				JList<String> resetList = new JList<>();
