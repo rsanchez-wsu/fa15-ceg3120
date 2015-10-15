@@ -108,12 +108,12 @@ public class UserAccount implements Serializable{
 	}
 
 	/**
-     * Set the account type for the user.
-     * 
-     * @param accountType the type of account
-     * 
-     * @see edu.wright.cs.fa15.ceg3120.concon.common.data.AccountType
-     */
+	 * Set the account type for the user.
+	 * 
+	 * @param accountType the type of account
+	 * 
+	 * @see edu.wright.cs.fa15.ceg3120.concon.common.data.AccountType
+	 */
 	public void setAccountType(AccountType accountType) {
 		this.accountType = accountType;
 	}
@@ -231,7 +231,7 @@ public class UserAccount implements Serializable{
 	 * Sets the user's email.
 	 * 
 	 * @param strEmail must currently match this RegEx pattern: 
-	 *     ^[A-Za-z0-9_]+?@.+?\..+$
+	 *	 ^[A-Za-z0-9_]+?@.+?\..+$
 	 */
 	public void setEmailAddress(String strEmail) {
 		strEmailAddress = strEmail;
@@ -247,10 +247,10 @@ public class UserAccount implements Serializable{
 	}
 	
 	/**
-     * Gets the user's last name.
-     * 
-     * @return last name
-     */
+	 * Gets the user's last name.
+	 * 
+	 * @return last name
+	 */
 	public String getLastName() {
 		return strLastName;
 	}
@@ -265,10 +265,10 @@ public class UserAccount implements Serializable{
 	}
 	
 	/**
-     * Gets the second line of the user's mailing address.
-     * 
-     * @return mailing address line 2
-     */
+	 * Gets the second line of the user's mailing address.
+	 * 
+	 * @return mailing address line 2
+	 */
 	public String getAddress2() {
 		return strAddress2;
 	}
