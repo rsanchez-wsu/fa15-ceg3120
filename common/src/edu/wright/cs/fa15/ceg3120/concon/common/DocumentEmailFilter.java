@@ -71,7 +71,9 @@ public class DocumentEmailFilter extends DocumentFilter {
 				if (!matcher.matches()) {
 					remove(fb, 0, length);
 					JOptionPane.showMessageDialog(null,
-							"Your email does not match the predefined format."
+							"Your email:"
+							+ "\n     \"" + text + "\""
+							+ "\ndoes not match the predefined format."
 							+ "\nPlease try again...",
 							"Error", JOptionPane.ERROR_MESSAGE);
 				} else {

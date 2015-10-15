@@ -119,7 +119,20 @@ public class CreateNewAccount {
 //		});
 
 		try {
-			LoginPopUp.addUserToQueue(new HomeownerAccount());
+			HomeownerAccount user = new HomeownerAccount();
+			user.setUuid("Debug");
+			char[] ps = {'a','b', 'c'};
+			user.setPswd(ps);
+			user.setFirstName("John");
+			user.setLastName("Doe");
+			user.setAddress1("123 Nowhere St");
+			user.setAddress2("Don't really know what goes here");
+			user.setState("FL");
+			user.setZipCode("12345");
+			user.setPhoneNumber("123-456-7890");
+			user.setCity("Lost");
+			user.setEmailAddress("test123@temp.com");
+			LoginPopUp.addUserToQueue(user);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		} // XXX end functionality test stuffs

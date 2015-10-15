@@ -24,7 +24,8 @@ package edu.wright.cs.fa15.ceg3120.concon.common.data;
 import java.awt.Image;
 
 /**
- * temp.
+ * Model for a JobRequest.
+ * 
  * @author Quack
  *
  */
@@ -72,8 +73,8 @@ public class JobRequest {
 	}
 
 	/**
-	 * Javadoc needed.
-	 *
+	 * XXX.
+	 * @return dateRangeEnd
 	 */
 	public String getDateRangeEnd() {
 		return dateRangeEnd;

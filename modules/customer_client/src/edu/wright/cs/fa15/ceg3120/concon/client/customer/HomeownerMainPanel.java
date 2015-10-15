@@ -29,8 +29,9 @@ import javax.swing.JLayeredPane;
 import javax.swing.JTabbedPane;
 
 /**
- * temp.
+ * XXX temp. 
  *
+ * @author Corey Miller
  */
 public class HomeownerMainPanel extends JTabbedPane {
 	private static final long serialVersionUID = 1L;
@@ -64,7 +65,7 @@ public class HomeownerMainPanel extends JTabbedPane {
 	}
 
 	/**
-	 * temp.
+	 * XXX temp.
 	 */
 	private void setupPanel() {
 

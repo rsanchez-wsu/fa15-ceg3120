@@ -970,6 +970,8 @@ public class ContractorClient extends JFrame implements ActionListener {
  * This method calculates the distance between two ZIP codes.
  * Contractor Connection registered with ZipCodeAPI.com on the free plan to get static API code.
  * Registered under Joshua Thomas' email address (thomas.611@wright.edu).
+ * Units used: miles
+ * 
  */
 	public static double distanceCalculator(int zip1, int zip2) throws IOException {
 		String strApiKey = "DyJlPe7F6MgACobvKEUcqeOMf5TCJ1VmAEIpSQ5YDlyfKKLuoFGOTuA9AuMkvHH6";
