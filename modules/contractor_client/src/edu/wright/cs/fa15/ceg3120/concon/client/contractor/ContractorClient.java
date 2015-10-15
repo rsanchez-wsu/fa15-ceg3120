@@ -259,15 +259,24 @@ public class ContractorClient extends JFrame implements ActionListener {
 		GridLayout myLayout = new GridLayout(0, 2);
 		curBidsTab.setLayout(myLayout);
 		final DecimalFormat f0 = new DecimalFormat("##.00");
-		final JLabel[] currentBids = new JLabel[10];
+		final JLabel[] lblCurrentBids = new JLabel[10];
 		final JButton[] update = new JButton[10];
+		final double[] currentBids = new double[10];
+		final double[] previousBids = new double[10];
 		for (int i = 0; i < 5; i++) {
 			final int j = i;
-			currentBids[i] = new JLabel("You have a bid for " + f0.format(Math.random() * 115));
-			curBidsTab.add(currentBids[i]);
+			currentBids[i] = Math.random() * 115;
+			previousBids[i] = Math.random() * 115;
+			if (currentBids[i] > previousBids[i]) {
+				lblCurrentBids[i] = new JLabel("<html>You have a bid for "
+						+ f0.format(currentBids[i]) + "<br>You have been outbid by " 
+							+ f0.format(previousBids[i]) + "</html>");
+			} else {
+				lblCurrentBids[i] = new JLabel("You have a bid for " + f0.format(currentBids[i]));
+			}
+			curBidsTab.add(lblCurrentBids[i]);
 			update[i] = new JButton("Update Bid");
 			curBidsTab.add(update[i]);
-			
 			update[i].addActionListener(new ActionListener() {
 
 				@Override
@@ -275,10 +284,17 @@ public class ContractorClient extends JFrame implements ActionListener {
 					try {
 						String input = JOptionPane.showInputDialog(frame, "Enter new bid");
 						if (input != null) {
-							double newBid = Double.parseDouble(input);
-							currentBids[j].setText("You have a bid for " + f0.format(newBid));
-							curBidsTab.validate();
-							curBidsTab.repaint();
+							currentBids[j] = Double.parseDouble(input);
+							if (currentBids[j] > previousBids[j]) {
+								JOptionPane.showMessageDialog(frame, 
+										"You must enter a bid less than the previous bid",
+											"Invalid Bid", JOptionPane.ERROR_MESSAGE);
+							} else {
+								lblCurrentBids[j].setText("You have a bid for "
+										+ f0.format(currentBids[j]));
+								curBidsTab.validate();
+								curBidsTab.repaint();
+							}
 						}
 						
 					} catch (IllegalArgumentException e) {
@@ -481,13 +497,13 @@ public class ContractorClient extends JFrame implements ActionListener {
 		paymentsTab.add(paymentsSearchOptions);
 		
 		String[] columnName = {"Job Number", "Cost", "Payments", "Balance"};
-        final DefaultTableModel payments = new DefaultTableModel(columnName, 0);
-        JTable tblPaymentsResults2 = new JTable(payments);
-        tblPaymentsResults2.setModel(payments);
-        JScrollPane paymentsResults = new JScrollPane(tblPaymentsResults2);
-        paymentsResults.setBounds(45, 45, 605, 100);
-        paymentsTab.add(paymentsResults);
-        	
+		final DefaultTableModel payments = new DefaultTableModel(columnName, 0);
+		JTable tblPaymentsResults2 = new JTable(payments);
+		tblPaymentsResults2.setModel(payments);
+		JScrollPane paymentsResults = new JScrollPane(tblPaymentsResults2);
+		paymentsResults.setBounds(45, 45, 605, 100);
+		paymentsTab.add(paymentsResults);
+
 		profileTab = new JPanel();
 		pageTabs.addTab("Edit Profile", null, profileTab, null);
 		profileTab.setLayout(null);
