@@ -31,6 +31,8 @@
 
 package edu.wright.cs.fa15.ceg3120.concon.paysched;
 
+import java.text.DecimalFormat;
+
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -73,8 +75,11 @@ public class TabbedFrame extends JFrame{
     private JLabel amountInWalletLabel; // Label attached to the amount in wallet text box
     private JLabel amountRemainingLabel; //label attached to the amount remaining text box
     private JTextField amountOwed; //Will display the amount of money owed in the payment tab
-    private JTextField amountInWallet; //Will display the amount of money currently in the user's wallet in the payment tab
-    private JTextField amountRemaining; //will display the amount of money remaining after the amount owed is subtracted from the amount in wallet
+    private JTextField amountInWallet; 
+    //Will display the amount of money currently in the user's wallet in the payment tab
+    private JTextField amountRemaining; 
+    //will display the amount of money remaining after the
+    //amount owed is subtracted from the amount in wallet
     
     // End of variables declaration//GEN-END:variables
 
@@ -129,19 +134,20 @@ public class TabbedFrame extends JFrame{
         
 //////////////////////////////////////////////////////////
 //Payment Tab. Set label text, text field values and 
-//text for jbuttons.
+//text for JButtons.
 //////////////////////////////////////////////////////////
-        Double owed = 10.00;
-        Double wallet = 15.00;
-        Double remaining = wallet-owed;
+        DecimalFormat df = new DecimalFormat("##.00");
+        Double owed = 9.75;
+        Double wallet = 15.25;
+        Double remaining = wallet - owed;
+        amountOwed.setText("$" + df.format(owed));
+        amountInWallet.setText("$" + df.format(wallet));
+        amountRemaining.setText("$" + df.format(remaining));
         amountOwedLabel.setText("Amount Owed:");
         amountInWalletLabel.setText("Amount in Wallet:");
         amountRemainingLabel.setText("Amount Remaining");
-        amountOwed.setText("$"+owed.toString());
         amountOwed.setEditable(false);
-        amountInWallet.setText("$"+wallet.toString());
         amountInWallet.setEditable(false);
-        amountRemaining.setText("$"+(wallet-owed));
         amountRemaining.setEditable(false);
         paymentApprove.setText("Approve");
         paymentCancel.setText("Cancel");
@@ -447,7 +453,7 @@ public class TabbedFrame extends JFrame{
     	//GEN-FIRST:event_jTextField2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField2ActionPerformed
-
+    
     private void jtextField3ActionPerformed(java.awt.event.ActionEvent evt) {
     	//GEN-FIRST:event_jTextField3ActionPerformed
         // TODO add your handling code here:
