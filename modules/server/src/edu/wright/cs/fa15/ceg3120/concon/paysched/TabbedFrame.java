@@ -67,14 +67,14 @@ public class TabbedFrame extends JFrame{
     private JTextField chosenContractorLabel; //Chosen Contractor
     
     //added by Jon
-    private javax.swing.JButton paymentApprove;
-    private javax.swing.JButton paymentCancel;
-    private JLabel amountOwedLabel;
-    private JLabel amountInWalletLabel;
-    private JLabel amountRemainingLabel;
-    private JTextField amountOwed;
-    private JTextField amountInWallet;
-    private JTextField amountRemaining;
+    private javax.swing.JButton paymentApprove; //Button for payment approve on payment tab
+    private javax.swing.JButton paymentCancel; //Button for payment cancel on payment tab
+    private JLabel amountOwedLabel; //Label attached to the amount owed text box
+    private JLabel amountInWalletLabel; // Label attached to the amount in wallet text box
+    private JLabel amountRemainingLabel; //label attached to the amount remaining text box
+    private JTextField amountOwed; //Will display the amount of money owed in the payment tab
+    private JTextField amountInWallet; //Will display the amount of money currently in the user's wallet in the payment tab
+    private JTextField amountRemaining; //will display the amount of money remaining after the amount owed is subtracted from the amount in wallet
     
     // End of variables declaration//GEN-END:variables
 
@@ -131,14 +131,17 @@ public class TabbedFrame extends JFrame{
 //Payment Tab. Set label text, text field values and 
 //text for jbuttons.
 //////////////////////////////////////////////////////////
+        Double owed = 10.00;
+        Double wallet = 15.00;
+        Double remaining = wallet-owed;
         amountOwedLabel.setText("Amount Owed:");
         amountInWalletLabel.setText("Amount in Wallet:");
         amountRemainingLabel.setText("Amount Remaining");
-        amountOwed.setText("$0.00");
+        amountOwed.setText("$"+owed.toString());
         amountOwed.setEditable(false);
-        amountInWallet.setText("$0.00");
+        amountInWallet.setText("$"+wallet.toString());
         amountInWallet.setEditable(false);
-        amountRemaining.setText("$0.00");
+        amountRemaining.setText("$"+(wallet-owed));
         amountRemaining.setEditable(false);
         paymentApprove.setText("Approve");
         paymentCancel.setText("Cancel");
