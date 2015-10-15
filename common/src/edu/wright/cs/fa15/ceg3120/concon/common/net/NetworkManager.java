@@ -45,7 +45,7 @@ import java.util.Map;
  */
 public class NetworkManager {
 	
-    private static final Logger LOG = LoggerFactory.getLogger(NetworkManager.class);
+	private static final Logger LOG = LoggerFactory.getLogger(NetworkManager.class);
 	
 
 	private static final HashMap<Method, Class<?>> NETWORK_BUS = new HashMap<Method, Class<?>>();
