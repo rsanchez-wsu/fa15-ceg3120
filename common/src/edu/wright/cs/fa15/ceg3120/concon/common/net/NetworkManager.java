@@ -64,7 +64,8 @@ public class NetworkManager {
 			if (m.isAnnotationPresent((Class<? extends Annotation>) NetworkHandler.class)) {
 				Class<?>[] argClasses = m.getParameterTypes();
 				if (argClasses.length != 1 
-						|| !NetworkMessage.class.isAssignableFrom(argClasses[0])) {
+						|| !NetworkMessage.class.isAssignableFrom(argClasses[0])
+						|| NETWORK_BUS.values().contains(argClasses[0])) {
 					System.out.println("Invalid parameters on NetworkHandler method: " 
 							+ m.getName());
 				} else {
@@ -78,7 +79,7 @@ public class NetworkManager {
 	 * Description. TODO Fill out.
 	 * @param message Message to post.
 	 */
-	public static void post(NetworkMessage message) {
+	public static NetworkMessage post(NetworkMessage message) {
 		for (Map.Entry<Method, Class<?>> listener : NETWORK_BUS.entrySet()) {
 			if (listener.getValue().isAssignableFrom(message.getClass())) {
 				try {
@@ -91,6 +92,7 @@ public class NetworkManager {
 				}
 			}
 		}
+		return null;
 	}
 
 
@@ -104,7 +106,7 @@ public class NetworkManager {
 			return false;
 		}
 		server = new ConConServer(port);
-		server.start();
+		new Thread(server).start();
 		return true;
 	}
 

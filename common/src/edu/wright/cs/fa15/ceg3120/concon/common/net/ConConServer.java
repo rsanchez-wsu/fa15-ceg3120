@@ -29,7 +29,10 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 //TODO have security
-public class ConConServer extends Thread {
+/**
+ * The server should only be able to instantiate 1 server or 1 client.
+ */
+public class ConConServer implements Runnable {
 
 	private int port;
 	private ServerSocket serverSocket = null;
@@ -74,10 +77,17 @@ public class ConConServer extends Thread {
 		}
 	}
 
+	/**
+	 * Handles the actual client<->server communications.
+	 */
 	private static class ConnectionWorker extends Thread {
 
 		private Socket clientSocket = null;
 
+		/**
+		 * This is a constructor.
+		 * @param clientSocket the socket the worker is communicating over.
+		 */
 		public ConnectionWorker(Socket clientSocket) {
 			this.clientSocket = clientSocket;
 		}

@@ -28,22 +28,38 @@ import java.io.InputStreamReader;
 import java.net.Socket;
 
 //TODO have security
+
+/**
+ * The clientside counterpart to conconserver.
+ */
 public class ConConClient {
 	private String host;
 	private int port;
 
+	/**
+	 * Constructs a client which will talk to the designated host:port.
+	 * @param host an IP address or similar.
+	 * @param port will fail if in use.
+	 */
 	public ConConClient(String host, int port) {
 		this.host = host;
 		this.port = port;
 	}
 
 	public void sendMessage(String message) {
-		new DispatchMessage(message).start();
+		new Thread(new DispatchMessage(message)).start();
 	}
 
-	private class DispatchMessage extends Thread {
+	/**
+	 * The threaded class which will handle the actual sending of messages.
+	 */
+	private class DispatchMessage implements Runnable {
 		private String message;
 
+		/**
+		 * Constructor.
+		 * @param message the raw text of a message.
+		 */
 		public DispatchMessage(String message) {
 			this.message = message;
 		}
