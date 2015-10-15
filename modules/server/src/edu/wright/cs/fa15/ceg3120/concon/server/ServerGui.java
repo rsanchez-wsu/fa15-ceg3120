@@ -60,16 +60,11 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 import java.awt.event.KeyEvent;
-
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
 import javax.swing.DefaultListModel;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JEditorPane;
 import javax.swing.JFrame;
@@ -83,54 +78,54 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.swing.JToolBar;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.table.AbstractTableModel;
 
+
 public class ServerGui extends JPanel implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
-	protected JTextField textField;
-	protected JTextArea textArea;
-	protected JRadioButton homeOwner;
-	protected JRadioButton contractor;
-	private static final String newline = "\n";
+	public JTextField textField;
+	public JTextArea textArea;
+	public JRadioButton homeOwner;
+	public JRadioButton contractor;
+	public static final String newline = "\n";
 
 /**
- * CheckStyle is cancer	.
- * @param CheckStyleisCancer.
+ * main GUI class call sub classes to form components.
+ * @param GUIcomponents
+ * 
  */
 	public ServerGui() { 
 		
 		super(new GridLayout(1, 1));
 
 		JTabbedPane tabbedPane = new JTabbedPane();
-		ImageIcon icon = createImageIcon("images/Dash.png"); //import your own logo.
-		ImageIcon iconDashBoard = createImageIcon("images/Dash.png");
 		
-		JComponent panel1 = makeDashBoard();
-		tabbedPane.addTab("Dash board", iconDashBoard, panel1, "Does nothing");
+		tabbedPane.addTab("Dash board", CreateImageIcon.iconDashBoard, 
+						MakeDashBoard.panelDashBoard, "Does nothing");
 		tabbedPane.setMnemonicAt(0, KeyEvent.VK_1);
 
 
-		JComponent panel2 = createButtonsSearch();
-		tabbedPane.addTab("User's info", icon, panel2,
+		JComponent panel2 = new CreateButtonsSearch();
+		tabbedPane.addTab("User's info", CreateImageIcon.icon, panel2,
 						"Does twice as much nothing");
 		tabbedPane.setMnemonicAt(1, KeyEvent.VK_2);
 
 		JComponent panel3 = createButtonsMessages();
-		tabbedPane.addTab("Messages", icon, panel3, "Still does nothing");
+		tabbedPane.addTab("Messages", CreateImageIcon.icon, panel3, "Still does nothing");
 		tabbedPane.setMnemonicAt(2, KeyEvent.VK_3);
 
 		JComponent panel4 = createControlPanel();
 		panel4.setPreferredSize(new Dimension(410, 50));
-		tabbedPane
-				.addTab("Remote Control", icon, panel4, "Does nothing at all");
+		tabbedPane.addTab("Remote Control", CreateImageIcon.icon, 
+						panel4, "Does nothing at all");
 		tabbedPane.setMnemonicAt(3, KeyEvent.VK_5);
 
 		JComponent panel5 = createTransactionsPanel();
-		tabbedPane.addTab("Transactions", icon, panel5, "Still does nothing");
+		tabbedPane.addTab("Transactions", CreateImageIcon.icon, 
+						panel5, "Still does nothing");
 		tabbedPane.setMnemonicAt(4, KeyEvent.VK_4);
 
 		// Add the tab pane to this panel.
@@ -149,134 +144,6 @@ public class ServerGui extends JPanel implements ActionListener {
 		return panel;
 	}
 	
-	protected JComponent makeDashBoard() {
-		//JToolBar reportBar = new JToolBar();
-		textArea = new JTextArea(10, 20);
-		textArea.setLineWrap(true);
-		textArea.setWrapStyleWord(true);
-		textArea.setEditable(false);
-		
-		final JFrame reportFrame = new JFrame("Reports");
-		reportFrame.pack();
-		reportFrame.setSize(new Dimension(500,250));
-		reportFrame.setVisible(false);
-		ImageIcon iconReport = createImageIcon("images/Report.png");
-		reportFrame.setIconImage(iconReport.getImage());
-		
-		JComponent reportPane = createServerReportPanel();
-//		reportPane = makeTextPanel("Date             "
-//				+ "User             Type             "
-//				+ "Time issued             Status");
-		reportFrame.add(reportPane, BorderLayout.NORTH);
-		
-		final JFrame emerFrame = new JFrame("Emergency Message");
-		emerFrame.pack();
-		emerFrame.setVisible(false);
-		emerFrame.setResizable(false);
-		emerFrame.setSize(new Dimension(300,150));
-		ImageIcon iconMessage = createImageIcon("images/Message.png");
-		emerFrame.setIconImage(iconMessage.getImage());
-		
-		final JTextArea mergText = new JTextArea(10, 50);
-		JLabel mergLabel = new JLabel("Enter the message:");
-		mergLabel.setPreferredSize(new Dimension(5,30));
-		mergText.setLineWrap(true);
-		mergText.setWrapStyleWord(true);
-		
-		JButton jsend = new JButton("Send");
-		jsend.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent arg0) {
-				displayInTextArea("Message sent: " + mergText.getText());
-				emerFrame.dispose();
-			}
-		});
-		JButton jclear = new JButton("Clear");
-		jclear.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent arg0) {
-				mergText.setText("");
-			}
-			
-		});
-		JButton jclose = new JButton("Close");
-		jclose.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent arg0) {
-				emerFrame.dispose();
-			}
-			
-		});
-		
-		JPanel emerPane = new JPanel();
-		emerPane.setLayout(new BorderLayout());
-		emerPane.add(jsend, BorderLayout.WEST);
-		emerPane.add(jclear,  BorderLayout.CENTER);
-		emerPane.add(jclose, BorderLayout.EAST);
-		
-		JPanel emerPane1 = new JPanel();
-		JScrollPane scrollPane = new JScrollPane(mergText);
-		emerPane1.add(emerPane,  BorderLayout.CENTER);
-		emerFrame.add(mergLabel, BorderLayout.NORTH);
-		emerFrame.add(scrollPane,BorderLayout.CENTER);
-		emerFrame.add(emerPane1, BorderLayout.SOUTH);
-	
-		JButton toolButtons = null;
-		toolButtons = new JButton("Server Status");
-		toolButtons.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent arg0) {
-				displayInTextArea("Server is offline.");
-			}
-			
-		});
-		JToolBar toolBar = new JToolBar();
-		toolBar.add(toolButtons, BorderLayout.NORTH);
-		
-		JPanel contentPane = new JPanel();
-		JScrollPane pane = new JScrollPane(textArea);
-		contentPane.setLayout(new BorderLayout());
-		contentPane.setPreferredSize(new Dimension(400, 100));
-		contentPane.add(toolBar, BorderLayout.NORTH);
-		contentPane.add(pane, BorderLayout.WEST);
-		//pop up reviewing all news reports from users (abusive, scam...etc reports)
-		
-		JButton buttonReports = new JButton("Reports");
-		buttonReports.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				reportFrame.setVisible(true); 
-				
-			}
-			
-		});
-		
-		JButton currentUsers = new JButton("Current users");
-		currentUsers.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent arg0) {
-				int number = 420;
-				//access the database, request # of online users and post it.
-				displayInTextArea("Current online users: " + number); 
-			}
-			
-		});
-		
-		
-		JButton emergencyMessages = new JButton("Emergency Message");
-		emergencyMessages.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent arg0) {
-					emerFrame.setVisible(true);
-				}
-		});
-		toolBar.add(emergencyMessages, BorderLayout.NORTH);
-		toolBar.add(buttonReports, BorderLayout.NORTH);
-		toolBar.add(currentUsers, BorderLayout.NORTH);
-		JPanel mainPanel = new JPanel(new BorderLayout());
-		mainPanel.add(contentPane);
-		return mainPanel;
-		
-	}
-	
-	protected void displayInTextArea(String actionDescription) {
-		textArea.append(actionDescription + newline);
-	}
-
-
 	protected JComponent createControlPanel() {
 
 		// SchedulePanel
@@ -323,45 +190,6 @@ public class ServerGui extends JPanel implements ActionListener {
 		mainPanel.add(schedulePanel);
 		mainPanel.add(consolePanel, BorderLayout.SOUTH);
 		return mainPanel;
-	}
-
-	protected JComponent createButtonsSearch() {
-		JPanel panel = new JPanel();
-		panel.setLayout(new FlowLayout());
-		
-		JPanel searching = new JPanel();
-		searching.setLayout(new GridLayout(1,4));
-		
-		JTextField searchBar = new JTextField(25);
-		searching.add(searchBar);
-		JButton search = new JButton();
-		search.setText("Search");
-		search.addActionListener(new UserListener());
-		//search.addActionListener(new ButtonListener());
-		searching.add(search);
-
-		homeOwner = new JRadioButton();
-		homeOwner.setText("Homeowner");
-		homeOwner.setSelected(true);
-		ButtonGroup userTypes = new ButtonGroup();
-		userTypes.add(homeOwner);
-		searching.add(homeOwner);
-		contractor = new JRadioButton();
-		contractor.setText("Contractor");
-		userTypes.add(contractor);
-		searching.add(contractor);
-		
-		panel.add(searching);
-		
-		JPanel results = new JPanel();
-		results.setLayout(new GridLayout(1,1));
-		JTable searchResults = new JTable();
-		JScrollPane sr = new JScrollPane();
-		sr.add(searchResults);
-		results.add(sr);
-		
-		panel.add(results);
-        	return panel;
 	}
 
 	protected JComponent createButtonsMessages() {
@@ -506,17 +334,6 @@ public class ServerGui extends JPanel implements ActionListener {
 		textArea.setCaretPosition(textArea.getDocument().getLength());
 	}
 
-	/** Returns an ImageIcon, or null if the path was invalid. */
-	protected static ImageIcon createImageIcon(String path) {
-		java.net.URL imgUrl = ServerGui.class.getResource(path);
-		if (imgUrl != null) {
-			return new ImageIcon(imgUrl);
-		} else {
-			System.err.println("Couldn't find file: " + path);
-			return null;
-		}
-	}
-
 	class TransactionTableModel extends AbstractTableModel {
 		private static final long serialVersionUID = 1L;
 
@@ -592,210 +409,12 @@ public class ServerGui extends JPanel implements ActionListener {
 		// Display the window.
 		frame.pack();
 		frame.setVisible(true);
-	}
-
-    	@SuppressWarnings("unused")
-	private class ButtonListener implements ActionListener{
-    		@Override
-        public void actionPerformed(ActionEvent event) {
-    			try {
-            	//else if( there is nothing typed in the text field){
-            	//	System.out.println("You must enter a name to search");
-            	//}
-            	//else {
-            		//search database for that name
-            	//}
-    			} catch (Exception ex) {
-    				System.out.println("Error occured searching "
-    								+ "for users with that name");
-    			}
-    		}
-    	}
-    
-    	private class UserListener implements ActionListener{
-    		@Override
-        public void actionPerformed(ActionEvent event) {
-    			try {
-    				System.out.println("Button Pushed");
-    				JFrame userInfo = new JFrame("Detail User Info");
-    				userInfo.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-            	
-    				JPanel info = new JPanel();
-    				info.setLayout(new GridLayout(3,1));
-            	
-	            		JPanel editableInfo = new JPanel();
-	            		editableInfo.setLayout(new GridLayout(1,4));
-            	
-	            		JTextField name = new JTextField(25);
-	            		name.setText("Barbara Kean");
-	            		editableInfo.add(name);
-            	
-	            		JTextField address = new JTextField(25);
-	            		address.setText("123 Main St. Gotham City");
-            			editableInfo.add(address);
-            	
-            			JTextField phone = new JTextField(13);
-            			phone.setText("(555)555-5555");
-            			editableInfo.add(phone);
-            		
-            			JTextField email = new JTextField(20);
-            			email.setText("mrs.gordon@gcpd.gov");
-            			editableInfo.add(email);
-            	
-            			info.add(editableInfo);
-            	
-            			JPanel functions = new JPanel();
-            			functions.setLayout(new GridLayout(1,3));
-            	
-            			JButton message = new JButton();
-            			message.setText("Send Message");
-            			functions.add(message);
-            	
-            			JButton disable = new JButton();
-            			disable.setText("Disable Account");
-            			functions.add(disable);
-            	
-            			JButton reset = new JButton();
-            			reset.setText("Reset Password");
-            			functions.add(reset);
-            	
-            			info.add(functions);
-
-            	
-            			userInfo.add(info);
-            			userInfo.pack();
-            			userInfo.setVisible(true);
-    			} catch (Exception ex) {
-    				System.out.println("Error occured searching "
-    									+ "for users "
-    									+ "with that name");
-    			}
-    		}
-    	}
-    	
-    	/*
-    	 * Creates server reports into the report panel
-    	 * initially this was supposed to be a new tab but when I saw the updates 
-    	 * I think it would make the most sense to put this here.
-    	 */
-    	protected JComponent createServerReportPanel() {
-            final JPanel mainPanel = new JPanel(new BorderLayout());
-            
-            String[] dataOptions = { "System Errors", 
-            						"Database Errors", 
-            						 "System Resets and Backups"};
-         
-            final JComboBox<String> dataOptionList = new JComboBox<String>(dataOptions);
-            
-            dataOptionList.setSelectedIndex(0);
-            JPanel SysErrorsPanel = new JPanel(new BorderLayout());
-        	SysErrorsPanel.add(new JTextField("Current System Errors"));
-        	JTable errorsList;
-        	
-        	errorsList = getSysErrorsFromDataBase();
-        	JScrollPane errorScroll = new JScrollPane(errorsList);
-        	SysErrorsPanel.add(errorScroll, BorderLayout.CENTER);
-        	mainPanel.add(SysErrorsPanel, BorderLayout.CENTER);
-            dataOptionList.addItemListener(new ItemListener() {
-                public void itemStateChanged(ItemEvent arg0) {
-                	mainPanel.removeAll();
-                	mainPanel.add(dataOptionList, BorderLayout.NORTH);
-                    if(dataOptionList.getSelectedIndex()==0){
-                    	JPanel SysErrorsPanel = new JPanel(new BorderLayout());
-                    	SysErrorsPanel.add(new JTextField("Current System Errors"));
-                    	JTable errorsList;
-                    	
-                    	errorsList = getSysErrorsFromDataBase();
-                    	JScrollPane errorScroll = new JScrollPane(errorsList);
-                    	SysErrorsPanel.add(errorScroll, BorderLayout.CENTER);
-                    	mainPanel.add(SysErrorsPanel, BorderLayout.CENTER);
-                    }
-                    else if(dataOptionList.getSelectedIndex()==1){
-                    	JPanel databaseErrorPanel = new JPanel(new BorderLayout());
-                    	databaseErrorPanel.add(new JTextField("Current Database Errors"));
-                    	JTable errorsList;
-                    	//TODO refine this once the database calling is worked out
-                    	errorsList = getDBErrorsFromDatabase();
-                    	JScrollPane errorScroll = new JScrollPane(errorsList);
-                    	databaseErrorPanel.add(errorScroll, BorderLayout.CENTER);
-                    	mainPanel.add(databaseErrorPanel, BorderLayout.CENTER);	
-                    }
-                    else if(dataOptionList.getSelectedIndex()==2){
-                    	JPanel SysResetPanel = new JPanel(new BorderLayout());
-                    	SysResetPanel.add(new JTextField("\nResets and Backups"));
-                    	JList<String> resetList = new JList<>();
-                    	//TODO refine this once the database calling is worked out
-                    	resetList = getResetAndBackupsFromDataBase();
-                    	SysResetPanel.add(resetList, BorderLayout.CENTER);
-                    	mainPanel.add(SysResetPanel, BorderLayout.CENTER);
-                    }
-                    mainPanel.revalidate();
-                    mainPanel.repaint();
-                }
-            });
-
-            //Lay out the demo.
-            mainPanel.add(dataOptionList, BorderLayout.NORTH);
-        
-            return mainPanel;
-        }
-    	
-    	/*
-    	 * is the same as sys errors but might change or be combined based on 
-    	 * how database calling will end up working
-    	 */
-    	protected JTable getDBErrorsFromDatabase() {
-    		String errorCount;
-    		errorCount = "10";//TODO add database call for this
+	}	
     		
-    		//CHANGE IF COLUMNS ARE CHANGED FOR THE REPORTS
-    		Object[] columnTitles= {"Error", "Date", "Status"};
-    		Object[][] errorData = new String[Integer.parseInt(errorCount)] [3];
-    		/////////////////////////////////////////////
-    		
-    		for (int i =0; i < Float.valueOf(errorCount); ++i){
-    			errorData[i][0]= "Culpa";//replace with calls to database
-    			errorData[i][1]= "Datum";
-    			errorData[i][2]= "Est";		
-    		}
-    		JTable errorTable = new JTable( errorData, columnTitles);
-    		return errorTable;
-    	}
-
-    	protected JList<String> getResetAndBackupsFromDataBase() {
-    		
-    		JList<String> resetAndBackupList = new JList<String>();
-    		DefaultListModel<String> selectedModel = new DefaultListModel<>();
-    		selectedModel.addElement("Last System Reset On: ");//TODO get database call
-    		selectedModel.addElement("Last Backup On: ");//TODO get database call
-    		
-    		resetAndBackupList.setModel(selectedModel);
-    		
-    		return resetAndBackupList;
-    	}
-
-    	protected JTable getSysErrorsFromDataBase() {
-    		String errorCount;
-    		errorCount = "10";//TODO add database call for this
-    		
-    		//CHANGE IF COLUMNS ARE CHANGED FOR THE REPORTS
-    		Object[] columnTitles= {"Error", "Date", "Status"};
-    		Object[][] errorData = new String[Integer.parseInt(errorCount)] [3];
-    		/////////////////////////////////////////////
-    		
-    		for (int i =0; i < Float.valueOf(errorCount); ++i){
-    			errorData[i][0]= "Culpa";//replace with calls to database
-    			errorData[i][1]= "Datum";
-    			errorData[i][2]= "Est";		
-    		}
-    		JTable errorTable = new JTable( errorData, columnTitles);
-    		return errorTable;
-    	}
-    	
-    	
     	/**
-    	 * CheckStyle is cancer	.
-    	 * @param CheckStyleisCancer.
+    	 * Main class.
+    	 * @param GUICreateandShow
+    	 * 
     	 */
 	public static void main(String[] args) {
 		// Schedule a job for the event dispatch thread:
