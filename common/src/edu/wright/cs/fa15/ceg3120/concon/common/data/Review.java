@@ -28,73 +28,73 @@ package edu.wright.cs.fa15.ceg3120.concon.common.data;
  *
  */
 public abstract class Review {
-    protected int id;
-    protected int reviewerId;
-    protected int subjectId;
-    protected int jobId;
-    protected String date;
+	protected int id;
+	protected int reviewerId;
+	protected int subjectId;
+	protected int jobId;
+	protected String date;
 
-    protected String text;
+	protected String text;
 
-    // TODO Decide exactly how to store the rating. Options are:
-    // Char, int, or possibly an enum. I vote enum, personally.
-    protected int rating;
+	// TODO Decide exactly how to store the rating. Options are:
+	// Char, int, or possibly an enum. I vote enum, personally.
+	protected int rating;
 
-    /**
-     * Construct a Review object with the given values.
-     * 
-     * @param id
-     *            Unique id for the review.
-     * @param reviewerId
-     *            Id of the person doing the review.
-     * @param subjectId
-     *            Id of the person being reviewed.
-     * @param jobId
-     *            Id of the job being reviewed TODO Should this be here?
-     * @param date
-     *            Date the review was posted.
-     * @param text
-     *            Text of the review.
-     * @param rating
-     *            Rating, ranging from 1 to 5.
-     */
-    public Review(int id, int reviewerId, int subjectId, int jobId, String date, String text,
-            int rating) {
-        this.id = id;
-        this.reviewerId = reviewerId;
-        this.subjectId = subjectId;
-        this.jobId = jobId;
-        this.date = date;
-        this.text = text;
-        this.rating = rating;
-    }
+	/**
+	 * Construct a Review object with the given values.
+	 * 
+	 * @param id
+	 *			Unique id for the review.
+	 * @param reviewerId
+	 *			Id of the person doing the review.
+	 * @param subjectId
+	 *			Id of the person being reviewed.
+	 * @param jobId
+	 *			Id of the job being reviewed TODO Should this be here?
+	 * @param date
+	 *			Date the review was posted.
+	 * @param text
+	 *			Text of the review.
+	 * @param rating
+	 *			Rating, ranging from 1 to 5.
+	 */
+	public Review(int id, int reviewerId, int subjectId, int jobId, String date, String text,
+			int rating) {
+		this.id = id;
+		this.reviewerId = reviewerId;
+		this.subjectId = subjectId;
+		this.jobId = jobId;
+		this.date = date;
+		this.text = text;
+		this.rating = rating;
+	}
 
-    public int getId() {
-        return id;
-    }
+	public int getId() {
+		return id;
+	}
 
-    public int getReviewerId() {
-        return reviewerId;
-    }
+	public int getReviewerId() {
+		return reviewerId;
+	}
 
-    public int getSubjectId() {
-        return subjectId;
-    }
+	public int getSubjectId() {
+		return subjectId;
+	}
 
-    public int getJobId() {
-        return jobId;
-    }
+	public int getJobId() {
+		return jobId;
+	}
 
-    public String getDate() {
-        return date;
-    }
+	public String getDate() {
+		return date;
+	}
 
-    public String getText() {
-        return text;
-    }
+	public String getText() {
+		return text;
+	}
 
-    public int getRating() {
-        return rating;
-    }
+	public int getRating() {
+		return rating;
+	}
 
 }

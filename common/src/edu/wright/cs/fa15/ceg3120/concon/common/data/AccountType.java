@@ -21,6 +21,12 @@
 
 package edu.wright.cs.fa15.ceg3120.concon.common.data;
 
+/**
+ * Enumeration of valid account types.
+ * 
+ * @author Quack
+ *
+ */
 public enum AccountType {
-    HOMEOWNER, CONTRACTOR, SERVER_ADMIN
+	HOMEOWNER, CONTRACTOR, SERVER_ADMIN
 }

@@ -39,74 +39,90 @@ import javax.swing.JOptionPane;
 import javax.swing.WindowConstants;
 
 /**
- * Javadoc needed.
+ * This class contains the launch point for the Homeowner UI.
+ * 
+ * @author Quack
  *
  */
 public class CustomerClient {
+	// LOG is currently unused. Remove this suppress when it gets used.
+	@SuppressWarnings("unused")
+	private static final Logger LOG = LoggerFactory.getLogger(CustomerClient.class);
+
+	private static final int WINDOW_WIDTH = Toolkit.getDefaultToolkit().getScreenSize().width - 150;
+	private static final int WINDOW_HEIGHT = Toolkit.getDefaultToolkit().getScreenSize().height
+			- 150;
+
+	private HomeownerAccount user;
 	
-    private static final Logger LOG = LoggerFactory.getLogger(CustomerClient.class);
-    private static final int WINDOW_WIDTH = 
-    		Toolkit.getDefaultToolkit().getScreenSize().width - 150;
-    private static final int WINDOW_HEIGHT = 
-    		Toolkit.getDefaultToolkit().getScreenSize().height - 150;
+	/**
+	 * Creates a new instance of <code>CustomerClient</code>.
+	 */
+	public CustomerClient() {
+		user = null;
+	}
+	
+//	public HomeownerAccount getUser() {
+//		return user;
+//	}
+	
+	/**
+	 * Creates the Homeowner UI.
+	 */
+	public void buildGui(HomeownerAccount user) {
+		this.user = user;
+		JFrame custFrame = new JFrame("TEMP TITLE");
+		custFrame.setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
 
-    @SuppressWarnings("unused")
-    private HomeownerAccount user;
-    
-    /**
-     * Javadoc needed.
-     */
-    public CustomerClient() {
-        user = null;
-    }
-    
-//    public HomeownerAccount getUser() {
-//        return user;
-//    }
-    
-    /**
-     * Temp.
-     */
-    public void buildGui(HomeownerAccount user) {
-        this.user = user;
-        JFrame custFrame = new JFrame("TEMP TITLE");
-        custFrame.setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
+		HomeownerMainPanel currentPanel = new HomeownerMainPanel(this.user);
+		
+		custFrame.setContentPane(currentPanel);
+		// build UI here
 
-        // build UI here
+		custFrame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+		custFrame.addWindowListener(new MyWindowAdapter());
 
-        custFrame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
-        custFrame.addWindowListener(new MyWindowAdapter());
+		custFrame.setVisible(true);
+	}// end buildGui
 
-        custFrame.setVisible(true);
-    }// end buildGui
-
-    /**
-     * we probably don't need a main if this is launched from LogininPopUp...
-     * 
-     * @param args
-     *            temp
-     */
-    public static void main(String[] args) {
-		LOG.trace("Starting Customer client...");
-        NetworkManager.startClient("localhost", 9667);
-        NetworkMessage message = new ChatMessage("Hello World", null, null);
-        NetworkManager.sendMessage(message);
-        new CustomerClient().buildGui(new HomeownerAccount());
-    }
-    
-    /**
-     * Javadoc needed.
-     *
-     */
-    static class MyWindowAdapter extends WindowAdapter {
-        @Override
-        public void windowClosing(WindowEvent ev) {
-            int result = JOptionPane.showConfirmDialog(null, "Do you really wish to exit?",
-                    "Exit?", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-            if (result == 0) {
-                // release any network/file resources
-                System.exit(0);
-            }
-        }
-    }
+	/**
+	 * we probably don't need a main if this is launched from LogininPopUp...
+	 * 
+	 * @param args
+	 *			temp
+	 */
+	public static void main(String[] args) {
+		NetworkManager.startClient("localhost", 9667);
+		NetworkMessage message = new ChatMessage("Hello World", null, null);
+		NetworkManager.sendMessage(message);
+		HomeownerAccount user = new HomeownerAccount();
+		user.setUuid("Debug");
+		char[] ps = {'a','b', 'c'};
+		user.setPswd(ps);
+		user.setFirstName("John");
+		user.setLastName("Doe");
+		user.setAddress1("123 Nowhere St");
+		user.setCity("Lost");
+		user.setEmailAddress("test123@temp.com");
+		new CustomerClient().buildGui(user);
+	}
+	
+	/**
+	 * This class extends WindowAdapter to give the frame a new default closing
+	 * operation.  Asks the user for confirmation before closing.
+	 * 
+	 * @author Quack
+	 *
+	 */
+	static class MyWindowAdapter extends WindowAdapter {
+		@Override
+		public void windowClosing(WindowEvent ev) {
+			int result = JOptionPane.showConfirmDialog(null, "Do you really wish to exit?",
+					"Exit?", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+			if (result == 0) {
+				// release any network/file resources
+				System.exit(0);
+			}
+		}
+	}
 }
