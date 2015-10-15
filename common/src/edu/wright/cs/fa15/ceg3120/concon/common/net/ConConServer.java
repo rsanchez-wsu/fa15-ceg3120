@@ -36,9 +36,9 @@ public class ConConServer implements Runnable {
     private static final Logger LOG = LoggerFactory.getLogger(ConConServer.class);
 	
     private ConnectionPool pool;
-    private int port;
-    private ServerSocket serverSocket = null;
-    private boolean listening = true;
+	private int port;
+	private ServerSocket serverSocket = null;
+	private boolean listening = true;
 
     public ConConServer(int port, int poolSize) {
         this.port = port;
@@ -77,9 +77,9 @@ public class ConConServer implements Runnable {
 
         private final Socket clientSocket;
 
-        public ConnectionWorker(Socket clientSocket) {
-            this.clientSocket = clientSocket;
-        }
+		public ConnectionWorker(Socket clientSocket) {
+			this.clientSocket = clientSocket;
+		}
 
         @Override
         public void run() {
@@ -89,13 +89,13 @@ public class ConConServer implements Runnable {
                 BufferedReader fromClient = new BufferedReader(
                 		new InputStreamReader(clientSocket.getInputStream(), "UTF-8"));
 
-                int ch = 0;
-                StringBuilder message = new StringBuilder();
-                while ((ch = fromClient.read()) != -1) {
-                    message.append(ch);
-                }
+				int ch = 0;
+				StringBuilder message = new StringBuilder();
+				while ((ch = fromClient.read()) != -1) {
+					message.append(ch);
+				}
 
-                NetworkManager.post(NetworkManager.decodeFromXml(message.toString()));
+				NetworkManager.post(NetworkManager.decodeFromXml(message.toString()));
 
                 toClient.close();
                 fromClient.close();

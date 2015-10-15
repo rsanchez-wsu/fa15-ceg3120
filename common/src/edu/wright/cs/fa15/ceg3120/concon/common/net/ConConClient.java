@@ -35,12 +35,12 @@ public class ConConClient {
     private static final Logger LOG = LoggerFactory.getLogger(ConConClient.class);
     
 	private String host;
-    private int port;
+	private int port;
 
-    public ConConClient(String host, int port) {
-        this.host = host;
-        this.port = port;
-    }
+	public ConConClient(String host, int port) {
+		this.host = host;
+		this.port = port;
+	}
 
     public void sendMessage(String message) {
     	Thread dispatch = new Thread(new DispatchMessage(message));
@@ -50,26 +50,26 @@ public class ConConClient {
     private class DispatchMessage implements Runnable {
         private String message;
 
-        public DispatchMessage(String message) {
-            this.message = message;
-        }
+		public DispatchMessage(String message) {
+			this.message = message;
+		}
 
-        @Override
-        public void run() {
-            try {
-                Socket clientSocket = new Socket(host, port);
-                DataOutputStream toServer = new DataOutputStream(clientSocket.getOutputStream());
-                BufferedReader fromServer = new BufferedReader(
-                		new InputStreamReader(clientSocket.getInputStream(), "UTF-8"));
+		@Override
+		public void run() {
+			try {
+				Socket clientSocket = new Socket(host, port);
+				DataOutputStream toServer = new DataOutputStream(clientSocket.getOutputStream());
+				BufferedReader fromServer = new BufferedReader(
+						new InputStreamReader(clientSocket.getInputStream(), "UTF-8"));
 
-                toServer.writeBytes(message);
-                StringBuilder response = new StringBuilder();
-                int ch = 0;
-                while ((ch = fromServer.read()) != -1) {
-                    response.append(ch);
-                }
+				toServer.writeBytes(message);
+				StringBuilder response = new StringBuilder();
+				int ch = 0;
+				while ((ch = fromServer.read()) != -1) {
+					response.append(ch);
+				}
 
-                NetworkManager.post(NetworkManager.decodeFromXml(response.toString()));
+				NetworkManager.post(NetworkManager.decodeFromXml(response.toString()));
 
                 clientSocket.close();
             } catch (IOException e) {

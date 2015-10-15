@@ -28,7 +28,7 @@ public class DataAccessLayer {
 
 	private static final Logger LOG = LoggerFactory.getLogger(DataAccessLayer.class);
 
-    public static void main(String[] args) {
-        LOG.trace("Starting Data Access Layer...");
-    }
+	public static void main(String[] args) {
+		LOG.trace("Starting Data Access Layer...");
+	}
 }

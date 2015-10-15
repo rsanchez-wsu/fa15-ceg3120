@@ -36,22 +36,22 @@ public class PaymentSchedulingWindow extends JFrame{
 
 	/**
 	 * Main entry point.
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-    	SwingUtilities.invokeLater(new Runnable(){
-    		public void run() {
-    	    	   
-    			TabbedFrame paymentAndScheduling = new TabbedFrame();
-    			paymentAndScheduling.setDefaultCloseOperation(EXIT_ON_CLOSE);
-    			paymentAndScheduling.setSize(475, 300);
-    			//TabbedFrame grid = new TabbedFrame();
-    			//grid.setVisible(true);
-    			//paymentAndScheduling.add(grid);
-    			paymentAndScheduling.setVisible(true);
-    		}
-    	});
-    }
+	 * @param args the command line arguments
+	 */
+	public static void main(String[] args) {
+		SwingUtilities.invokeLater(new Runnable(){
+			public void run() {
+				   
+				TabbedFrame paymentAndScheduling = new TabbedFrame();
+				paymentAndScheduling.setDefaultCloseOperation(EXIT_ON_CLOSE);
+				paymentAndScheduling.setSize(475, 300);
+				//TabbedFrame grid = new TabbedFrame();
+				//grid.setVisible(true);
+				//paymentAndScheduling.add(grid);
+				paymentAndScheduling.setVisible(true);
+			}
+		});
+	}
 }
-    
+	
 
