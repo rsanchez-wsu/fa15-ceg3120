@@ -103,6 +103,10 @@ public class CustomerClient {
 		user.setFirstName("John");
 		user.setLastName("Doe");
 		user.setAddress1("123 Nowhere St");
+		user.setAddress2("Don't really know what goes here");
+		user.setState("FL");
+		user.setZipCode("12345");
+		user.setPhoneNumber("123-456-7890");
 		user.setCity("Lost");
 		user.setEmailAddress("test123@temp.com");
 		new CustomerClient().buildGui(user);

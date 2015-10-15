@@ -45,7 +45,10 @@ import javax.swing.text.DocumentFilter;
 import javax.swing.text.MaskFormatter;
 
 /**
- * temp.
+ * Responsible for constructing the user input fields required to build a
+ * HomeownerAccount instance.  Will also verify user input before creating
+ * this instance.
+ * 
  * @author Quack
  *
  */
@@ -123,12 +126,21 @@ public class NewHomeownerPane extends JPanel {
 			cityText = new JTextField((user == null) ? "" : user.getCity());
 	
 			final JLabel stateLabel = new JLabel("State:");
-			String[] states = { "AK", "AL", "AR", "AZ", "CA", "CO", "CT", "DE", "FL", "GA", "HI",
-								"IA", "ID", "IL", "IN", "KS", "KY", "LA", "MA", "MD", "ME", "MI",
-								"MN", "MO", "MS", "MT", "NC", "ND", "NE", "NH", "NJ", "NM", "NV",
-								"NY", "OH", "OK", "OR", "PA", "RI", "SC", "SD", "TN", "TX", "UT",
-								"VA", "VT", "WA", "WI", "WV", "WY" };
+			String[] states = { "NONE", "AK", "AL", "AR", "AZ", "CA", "CO", "CT", "DE", "FL", "GA",
+								"HI", "IA", "ID", "IL", "IN", "KS", "KY", "LA", "MA", "MD", "ME",
+								"MI", "MN", "MO", "MS", "MT", "NC", "ND", "NE", "NH", "NJ", "NM",
+								"NV", "NY", "OH", "OK", "OR", "PA", "RI", "SC", "SD", "TN", "TX",
+								"UT", "VA", "VT", "WA", "WI", "WV", "WY" };
 			stateText = new JComboBox<>(states);
+			if (user != null) {
+				String userState = user.getState();
+				for (int i = 0; i < states.length; ++i) {
+					if (states[i].equalsIgnoreCase(userState)) {
+						stateText.setSelectedIndex(i);
+						break;
+					}
+				}
+			}
 	
 			final JLabel zipLabel = new JLabel("Zip Code:");
 
@@ -136,12 +148,14 @@ public class NewHomeownerPane extends JPanel {
 			format.setPlaceholderCharacter('#');
 			zipText = new JFormattedTextField(format);
 			zipText.addFocusListener(new MyTextFocusListener(zipText));
+			zipText.setText((user == null) ? "" : user.getZipCode());
 			
 			final JLabel phoneLabel = new JLabel("Phone:");
 			format = new MaskFormatter("###-###-####");
 			format.setPlaceholderCharacter('#');
 			phoneText = new JFormattedTextField(format);
 			phoneText.addFocusListener(new MyTextFocusListener(phoneText));
+			phoneText.setText((user == null) ? "" : user.getPhoneNumber());
 	
 			final JLabel emailLabel = new JLabel("Email:");
 			emailText = new JFormattedTextField();
