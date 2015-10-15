@@ -27,7 +27,7 @@ package edu.wright.cs.fa15.ceg3120.concon.paysched;
  * @param <T>.
  */
 public class SchedulingData<T> {
- 
+
 	//private String month;
 	//private String day;
 	//private String timeRange;
@@ -41,5 +41,5 @@ public class SchedulingData<T> {
 	
 	public SchedulingData(){} //Default constructor
 	
-   
+
 }

@@ -44,7 +44,7 @@ import javax.mail.Session;
  */
 public class EmailManager {
 	
-    private static final Logger LOG = LoggerFactory.getLogger(EmailManager.class);
+	private static final Logger LOG = LoggerFactory.getLogger(EmailManager.class);
 	private Queue<Email> mailQueue = new LinkedList<>();
 	private Properties props;
 
