@@ -102,6 +102,7 @@ public class MakeDashBoard {
 		
 		JButton jsend = new JButton("Send");
 		jsend.addActionListener(new ActionListener(){
+			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				displayInTextArea("Message sent: " + mergText.getText());
 				emerFrame.dispose();
@@ -109,6 +110,7 @@ public class MakeDashBoard {
 		});
 		JButton jclear = new JButton("Clear");
 		jclear.addActionListener(new ActionListener(){
+			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				mergText.setText("");
 			}
@@ -116,6 +118,7 @@ public class MakeDashBoard {
 		});
 		JButton jclose = new JButton("Close");
 		jclose.addActionListener(new ActionListener(){
+			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				emerFrame.dispose();
 			}
@@ -138,6 +141,7 @@ public class MakeDashBoard {
 		JButton toolButtons = null;
 		toolButtons = new JButton("Server Status");
 		toolButtons.addActionListener(new ActionListener(){
+			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				displayInTextArea("Server is offline.");
 			}
@@ -156,6 +160,7 @@ public class MakeDashBoard {
 		
 		JButton buttonReports = new JButton("Reports");
 		buttonReports.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				reportFrame.setVisible(true); 
 				
@@ -165,6 +170,7 @@ public class MakeDashBoard {
 		
 		JButton currentUsers = new JButton("Current users");
 		currentUsers.addActionListener(new ActionListener(){
+			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				int number = 420;
 				//access the database, request # of online users and post it.
@@ -176,6 +182,7 @@ public class MakeDashBoard {
 		
 		JButton emergencyMessages = new JButton("Emergency Message");
 		emergencyMessages.addActionListener(new ActionListener() {
+				@Override
 				public void actionPerformed(ActionEvent arg0) {
 					emerFrame.setVisible(true);
 				}
