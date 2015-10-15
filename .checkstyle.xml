@@ -166,6 +166,11 @@ Based on the Google CheckStyle configuration.
     <module name="EmptyCatchBlock">
       <property name="exceptionVariableName" value="expected"/>
     </module>
+    <module name="RegexpSinglelineJava">
+      <property name="format" value="^\t* "/>
+      <property name="message" value="Indent must use tab characters"/>
+      <property name="ignoreComments" value="true"/>
+    </module>
   </module>
   <module name="FileTabCharacter">
     <property name="severity" value="ignore"/>
