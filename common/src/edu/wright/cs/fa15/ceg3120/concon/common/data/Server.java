@@ -24,6 +24,10 @@ package edu.wright.cs.fa15.ceg3120.concon.common.data;
 //import org.slf4j.Logger;
 //import org.slf4j.LoggerFactory;
 
+/**
+ * Javadoc needed.
+ *
+ */
 public class Server {
 	//private static final Logger LOG = LoggerFactory.getLogger(Server.class);
 

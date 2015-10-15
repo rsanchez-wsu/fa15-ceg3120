@@ -21,8 +21,8 @@
 
 package edu.wright.cs.fa15.ceg3120.concon.common.net;
 
-import edu.wright.cs.fa15.ceg3120.concon.common.net.message.ChatMessage;
-import edu.wright.cs.fa15.ceg3120.concon.common.net.message.DataMessage;
+//import edu.wright.cs.fa15.ceg3120.concon.common.net.message.ChatMessage;
+//import edu.wright.cs.fa15.ceg3120.concon.common.net.message.DataMessage;
 import edu.wright.cs.fa15.ceg3120.concon.common.net.message.NetworkMessage;
 
 import org.slf4j.Logger;
@@ -34,11 +34,15 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.UnsupportedEncodingException;
 import java.lang.annotation.Annotation;
-import java.lang.reflect.InvocationTargetException;
+//import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Javadoc needed.
+ *
+ */
 public class NetworkManager {
 	
     private static final Logger LOG = LoggerFactory.getLogger(NetworkManager.class);
@@ -101,7 +105,11 @@ public class NetworkManager {
 		server.start();
 		return true;
 	}
-
+	
+	/**
+	 * Javadoc needed.
+	 *
+	 */
 	public static void stopServer() {
 		server.quit();
 		server = null;
@@ -121,6 +129,10 @@ public class NetworkManager {
 		return true;
 	}
 
+	/**
+	 * Javadoc needed.
+	 *
+	 */
 	public static void stopClient() {
 		client = null;
 	}

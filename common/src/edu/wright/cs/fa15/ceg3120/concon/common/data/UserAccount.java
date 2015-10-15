@@ -73,107 +73,210 @@ public class UserAccount implements Serializable{
 		this.pswd = pswd.clone(); // XXX this WILL need changed
 	}
 
+	/**
+	 * Javadoc needed.
+	 *
+	 */
 	public String getUuid() {
 		return uuid;
 	}
 
+	/**
+	 * Javadoc needed.
+	 *
+	 */
 	public void setUuid(String uuid) {
 		this.uuid = uuid;
 	}
 
+	/**
+	 * Javadoc needed.
+	 *
+	 */
 	public AccountType getAccountType() {
 		return accountType;
 	}
 
+	/**
+	 * Javadoc needed.
+	 *
+	 */
 	public void setAccountType(AccountType accountType) {
 		this.accountType = accountType;
 	}
 
+	/**
+	 * Javadoc needed.
+	 *
+	 */
 	public char[] getPswd() {
 		return pswd.clone();
 	}
 
+	/**
+	 * Javadoc needed.
+	 *
+	 */
 	public void setPswd(char[] pswd) {
 		this.pswd = pswd.clone();
 	}
 
+	/**
+	 * Javadoc needed.
+	 *
+	 */
 	public String getdbResponse() {
 		return dbResponse;
 	}
 
+	/**
+	 * Javadoc needed.
+	 *
+	 */
 	public void setdbResponse(String dbResponse) {
 		this.dbResponse = dbResponse;
 	}
 	
+	/**
+	 * Javadoc needed.
+	 *
+	 */
 	public void setFirstName(String strFn) {
 		strFirstName = strFn;
 	}
 	
+	/**
+	 * Javadoc needed.
+	 *
+	 */
 	public void setLastName(String strLn) {
 		strLastName = strLn;
 	}
 	
+	/**
+	 * Javadoc needed.
+	 *
+	 */
 	public void setAddress1(String strAdd1) {
 		strAddress1 = strAdd1;
 	}
 	
+	/**
+	 * Javadoc needed.
+	 *
+	 */
 	public void setAddress2(String strAdd2) {
 		strAddress2 = strAdd2;
 	}
 	
+	/**
+	 * Javadoc needed.
+	 *
+	 */
 	public void setCity(String strCt) {
 		strCity = strCt;
 	}
 	
+	/**
+	 * Javadoc needed.
+	 *
+	 */
 	public void setState(String strSt) {
 		strState = strSt;
 	}
 	
+	/**
+	 * Javadoc needed.
+	 *
+	 */
 	public void setZipCode(String zip) {
 		zipCode = zip;
 	}
 	
+	/**
+	 * Javadoc needed.
+	 *
+	 */
 	public void setPhoneNumber(String strPhone) {
 		strPhoneNumber = strPhone;
 	}
 	
+	/**
+	 * Javadoc needed.
+	 *
+	 */
 	public void setEmailAddress(String strEmail) {
 		strEmailAddress = strEmail;
 	}
 	
+	/**
+	 * Javadoc needed.
+	 *
+	 */
 	public String getFirstName() {
 		return strFirstName;
 	}
 	
+	/**
+	 * Javadoc needed.
+	 *
+	 */
 	public String getLastName() {
 		return strLastName;
 	}
 	
-	
+	/**
+	 * Javadoc needed.
+	 *
+	 */
 	public String getAddress1() {
 		return strAddress1;
 	}
 	
+	/**
+	 * Javadoc needed.
+	 *
+	 */
 	public String getAddress2() {
 		return strAddress2;
 	}
 	
+	/**
+	 * Javadoc needed.
+	 *
+	 */
 	public String getCity() {
 		return strCity;
 	}
 	
+	/**
+	 * Javadoc needed.
+	 *
+	 */
 	public String getState() {
 		return strState;
 	}
 	
+	/**
+	 * Javadoc needed.
+	 *
+	 */
 	public String getZipCode() {
 		return zipCode;
 	}
 	
+	/**
+	 * Javadoc needed.
+	 *
+	 */
 	public String getPhoneNumber() {
 		return strPhoneNumber;
 	}
 	
+	/**
+	 * Javadoc needed.
+	 *
+	 */
 	public String getEmailAddress() {
 		return strEmailAddress;
 	}

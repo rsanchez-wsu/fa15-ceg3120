@@ -21,9 +21,17 @@
 
 package edu.wright.cs.fa15.ceg3120.concon.common.data;
 
+/**
+ * Javadoc needed.
+ *
+ */
 public class ServerAdminAccount extends UserAccount {
 	private static final long serialVersionUID = 1L;
 	
+	/**
+	 * Javadoc needed.
+	 *
+	 */
 	public ServerAdminAccount() {
 		super(AccountType.SERVER_ADMIN);
 	}

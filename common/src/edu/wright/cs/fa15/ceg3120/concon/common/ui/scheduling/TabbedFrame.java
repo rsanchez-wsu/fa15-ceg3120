@@ -30,9 +30,9 @@ import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 
-/*
+/**
  *
- * @author Emily
+ * @author Emily.
  */
 @SuppressWarnings("serial")
 public class TabbedFrame extends JFrame{
@@ -100,12 +100,12 @@ public class TabbedFrame extends JFrame{
 		javax.swing.GroupLayout jpanel1Layout = new javax.swing.GroupLayout(jpanel1);
 		jpanel1.setLayout(jpanel1Layout);
 		jpanel1Layout.setHorizontalGroup(
-			jpanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-			.addGap(0, 409, Short.MAX_VALUE)
+			 jpanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+			 .addGap(0, 409, Short.MAX_VALUE)
 		);
 		jpanel1Layout.setVerticalGroup(
-			jpanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-			.addGap(0, 272, Short.MAX_VALUE)
+			 jpanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+			 .addGap(0, 272, Short.MAX_VALUE)
 		);
 
 		jtabbedPane1.addTab("Payment", jpanel1);
@@ -135,8 +135,8 @@ public class TabbedFrame extends JFrame{
 		javax.swing.GroupLayout jpanel2Layout = new javax.swing.GroupLayout(jpanel2);
 		jpanel2.setLayout(jpanel2Layout);
 		jpanel2Layout.setHorizontalGroup(
-			jpanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-			.addGroup(jpanel2Layout.createSequentialGroup()
+			 jpanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+			 .addGroup(jpanel2Layout.createSequentialGroup()
 				.addGroup(jpanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment
 						.LEADING)
 					.addGroup(jpanel2Layout.createSequentialGroup()
@@ -158,8 +158,8 @@ public class TabbedFrame extends JFrame{
 				.addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 		);
 		jpanel2Layout.setVerticalGroup(
-			jpanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-			.addGroup(jpanel2Layout.createSequentialGroup()
+			 jpanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+			 .addGroup(jpanel2Layout.createSequentialGroup()
 				.addGap(53, 53, 53)
 				.addComponent(jlabel2)
 				.addGap(18, 18, 18)
@@ -219,14 +219,14 @@ public class TabbedFrame extends JFrame{
 		javax.swing.GroupLayout jpanel3Layout = new javax.swing.GroupLayout(jpanel3);
 		jpanel3.setLayout(jpanel3Layout);
 		jpanel3Layout.setHorizontalGroup(
-			jpanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-			.addGroup(jpanel3Layout.createSequentialGroup()
+			 jpanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+			 .addGroup(jpanel3Layout.createSequentialGroup()
 				.addGap(100, 100, 100)
 				.addComponent(jbutton2)
 				.addGap(46, 46, 46)
 				.addComponent(jbutton3)
 				.addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-			.addGroup(jpanel3Layout.createSequentialGroup()
+			 .addGroup(jpanel3Layout.createSequentialGroup()
 				.addGap(34, 34, 34)
 				.addGroup(jpanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment
 						.LEADING)
@@ -251,8 +251,8 @@ public class TabbedFrame extends JFrame{
 				.addGap(90, 90, 90))
 		);
 		jpanel3Layout.setVerticalGroup(
-			jpanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-			.addGroup(jpanel3Layout.createSequentialGroup()
+			 jpanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+			 .addGroup(jpanel3Layout.createSequentialGroup()
 				.addGap(37, 37, 37)
 				.addGroup(jpanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment
 						.BASELINE)
@@ -288,18 +288,22 @@ public class TabbedFrame extends JFrame{
 		javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
 		getContentPane().setLayout(layout);
 		layout.setHorizontalGroup(
-			layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-			.addComponent(jtabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 400,
+			 layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+			 .addComponent(jtabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 400,
 					Short.MAX_VALUE)
 		);
 		layout.setVerticalGroup(
-			layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-			.addComponent(jtabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
+			 layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+			 .addComponent(jtabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
 		);
 
 		pack();
 	}// </editor-fold>//GEN-END:initComponents
 
+	/**
+	 * Javadoc needed.
+	 * @param evt.
+	 */
 	private void jbutton1MouseClicked(java.awt.event.MouseEvent evt) {
 		//GEN-FIRST:event_jButton1MouseClicked
 		month = (String)jcomboBox1.getSelectedItem();
@@ -310,21 +314,37 @@ public class TabbedFrame extends JFrame{
 		//SchedulingData<?> data = new SchedulingData<>(month,day,timeRange);
 	}//GEN-LAST:event_jButton1MouseClicked
 
+	/**
+	 * Javadoc needed.
+	 * @param evt.
+	 */
 	private void jbutton2MouseClicked(java.awt.event.MouseEvent evt) {
 		//GEN-FIRST:event_jButton2MouseClicked
 		// TODO add your handling code here:
 	}//GEN-LAST:event_jButton2MouseClicked
 
+	/**
+	 * Javadoc needed.
+	 * @param evt.
+	 */
 	private void jbutton3MouseClicked(java.awt.event.MouseEvent evt) {
 		//GEN-FIRST:event_jButton3MouseClicked
 		// TODO add your handling code here:
 	}//GEN-LAST:event_jButton3MouseClicked
 
+	/**
+	 * Javadoc needed.
+	 * @param evt.
+	 */
 	private void jtextField2ActionPerformed(java.awt.event.ActionEvent evt) {
 		//GEN-FIRST:event_jTextField2ActionPerformed
 		// TODO add your handling code here:
 	}//GEN-LAST:event_jTextField2ActionPerformed
 
+	/**
+	 * Javadoc needed.
+	 * @param evt.
+	 */
 	private void jtextField3ActionPerformed(java.awt.event.ActionEvent evt) {
 		//GEN-FIRST:event_jTextField3ActionPerformed
 		// TODO add your handling code here:

@@ -37,16 +37,32 @@ public class DataMessage extends NetworkMessage {
 	private static final long serialVersionUID = -5735416327662546203L;
 	private List<NetworkData> dataList = new ArrayList<>();
 
+	/**
+	 * Javadoc needed.
+	 *
+	 */
 	public DataMessage() {} // Default constructor required for java beans.
 
+	/**
+	 * Javadoc needed.
+	 *
+	 */
 	public void add(NetworkData data) {
 		dataList.add(data);
 	}
 
+	/**
+	 * Javadoc needed.
+	 *
+	 */
 	public List<NetworkData> getDataList() {
 		return dataList;
 	}
 
+	/**
+	 * Javadoc needed.
+	 *
+	 */
 	public void setDataList(List<NetworkData> dataList) {
 		this.dataList = dataList;
 	}

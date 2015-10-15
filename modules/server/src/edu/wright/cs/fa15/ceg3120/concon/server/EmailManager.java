@@ -48,6 +48,10 @@ public class EmailManager {
 	private Queue<Email> mailQueue = new LinkedList<>();
 	private Properties props;
 
+	/**
+	 * Javadoc needed.
+	 *
+	 */
 	public EmailManager(Properties props) {
 		this.props = props;
 	}
