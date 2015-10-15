@@ -27,18 +27,18 @@ package edu.wright.cs.fa15.ceg3120.concon.paysched;
  */
 public class SchedulingData<T> {
  
-    //private String month;
-    //private String day;
-    //private String timeRange;
-    
-    /**Constructs the data to send.
-     * 
-     * @param month month to send
-     * @param day day to send
-     * @param timeRange time to send
-     */
-    
-    public SchedulingData(){} //Default constructor
-    
+	//private String month;
+	//private String day;
+	//private String timeRange;
+	
+	/**Constructs the data to send.
+	 * 
+	 * @param month month to send
+	 * @param day day to send
+	 * @param timeRange time to send
+	 */
+	
+	public SchedulingData(){} //Default constructor
+	
    
 }

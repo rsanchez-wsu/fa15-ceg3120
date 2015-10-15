@@ -30,45 +30,45 @@ import java.net.Socket;
 //TODO have security
 public class ConConClient {
 	private String host;
-    private int port;
+	private int port;
 
-    public ConConClient(String host, int port) {
-        this.host = host;
-        this.port = port;
-    }
+	public ConConClient(String host, int port) {
+		this.host = host;
+		this.port = port;
+	}
 
-    public void sendMessage(String message) {
-        new DispatchMessage(message).start();
-    }
+	public void sendMessage(String message) {
+		new DispatchMessage(message).start();
+	}
 
-    private class DispatchMessage extends Thread {
-        private String message;
+	private class DispatchMessage extends Thread {
+		private String message;
 
-        public DispatchMessage(String message) {
-            this.message = message;
-        }
+		public DispatchMessage(String message) {
+			this.message = message;
+		}
 
-        @Override
-        public void run() {
-            try {
-                Socket clientSocket = new Socket(host, port);
-                DataOutputStream toServer = new DataOutputStream(clientSocket.getOutputStream());
-                BufferedReader fromServer = new BufferedReader(
-                		new InputStreamReader(clientSocket.getInputStream(), "UTF-8"));
+		@Override
+		public void run() {
+			try {
+				Socket clientSocket = new Socket(host, port);
+				DataOutputStream toServer = new DataOutputStream(clientSocket.getOutputStream());
+				BufferedReader fromServer = new BufferedReader(
+						new InputStreamReader(clientSocket.getInputStream(), "UTF-8"));
 
-                toServer.writeBytes(message);
-                StringBuilder response = new StringBuilder();
-                int ch = 0;
-                while ((ch = fromServer.read()) != -1) {
-                    response.append(ch);
-                }
+				toServer.writeBytes(message);
+				StringBuilder response = new StringBuilder();
+				int ch = 0;
+				while ((ch = fromServer.read()) != -1) {
+					response.append(ch);
+				}
 
-                NetworkManager.post(NetworkManager.decodeFromXml(response.toString()));
+				NetworkManager.post(NetworkManager.decodeFromXml(response.toString()));
 
-                clientSocket.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }
+				clientSocket.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+	}
 }
