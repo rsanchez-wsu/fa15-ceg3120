@@ -24,6 +24,7 @@ package edu.wright.cs.fa15.ceg3120.concon.client.customer;
 import edu.wright.cs.fa15.ceg3120.concon.common.data.HomeownerAccount;
 //import edu.wright.cs.fa15.ceg3120.concon.common.data.HomeownerAccount;
 import edu.wright.cs.fa15.ceg3120.concon.common.net.NetworkManager;
+import edu.wright.cs.fa15.ceg3120.concon.common.net.data.User;
 import edu.wright.cs.fa15.ceg3120.concon.common.net.message.ChatMessage;
 import edu.wright.cs.fa15.ceg3120.concon.common.net.message.NetworkMessage;
 
@@ -82,8 +83,14 @@ public class CustomerClient {
     public static void main(String[] args) {
 		LOG.trace("Starting Customer client...");
         NetworkManager.startClient("localhost", 9667);
-        NetworkMessage message = new ChatMessage("Hello World", null, null);
+        LOG.trace("Sending test message...");
+        NetworkMessage message = new ChatMessage(
+        		"Hello World", 
+        		new User("Steve", "Brown"), 
+        		new User("Eric", " Grayson")
+        		);
         NetworkManager.sendMessage(message);
+        LOG.trace("Message Sent");
         new CustomerClient().buildGui(new HomeownerAccount());
     }
     

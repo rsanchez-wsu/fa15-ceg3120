@@ -30,7 +30,7 @@ import javax.swing.ImageIcon;
  * @author NathanJent
  *
  */
-public class UserData implements NetworkData {
+public class User implements NetworkData {
 
 	private static final long serialVersionUID = -1804728648292102844L;
 	
@@ -39,17 +39,17 @@ public class UserData implements NetworkData {
 	private String uuid;
 	private ImageIcon  avatar;
 
-	public UserData() { }	
+	public User() { }	
 	
 	/**
 	 * Description. TODO Fill out.
 	 * @param firstName User's first name.
 	 * @param lastName User's last name.
 	 */
-	public UserData(String firstName, String lastName) {
+	public User(String firstName, String lastName) {
 		this.firstName = firstName;
 		this.lastName = lastName;
-		this.uuid = "A49F"; //TODO need methods to generate new UUID
+		this.uuid = "A49F" + lastName; //TODO need methods to generate new UUID
 	}
 
 	public String getFirstName() {

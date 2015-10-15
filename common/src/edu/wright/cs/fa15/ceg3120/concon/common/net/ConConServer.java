@@ -21,6 +21,9 @@
 
 package edu.wright.cs.fa15.ceg3120.concon.common.net;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -28,60 +31,51 @@ import java.io.InputStreamReader;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 //TODO have security
-public class ConConServer extends Thread {
+public class ConConServer implements Runnable {
     private static final Logger LOG = LoggerFactory.getLogger(ConConServer.class);
 	
-
+    private ConnectionPool pool;
     private int port;
     private ServerSocket serverSocket = null;
     private boolean listening = true;
 
-    public ConConServer(int port) {
+    public ConConServer(int port, int poolSize) {
         this.port = port;
-    
+        pool = new ConnectionPool(poolSize);
     }
 
     @Override
     public void run() {
-        try {
-            this.serverSocket = new ServerSocket(this.port);
-        } catch (IOException e) {
-            LOG.error("Server Socket init: ", e);
-        }
         while (listening) {
-            Socket clientSocket = null;
-            try {
-                clientSocket = this.serverSocket.accept();
-            } catch (IOException e) {
-                if (!listening) {
-                    LOG.error("Server Stopped: ", e);
-                    return;
-                }
-                LOG.error("Client Socket: ", e);
-            }
-            new ConnectionWorker(clientSocket).start();
+	        try {
+	            this.serverSocket = new ServerSocket(this.port);
+	        	pool.add(new ConnectionWorker(serverSocket.accept()));
+	        } catch (IOException e) {
+	        	pool.shutdown();
+	        }
         }
     }
 
-    /**
-     * Description. TODO Fill out.
+	/**
+     * Closes the Server Socket and patiently shuts down the thread pool.
      */
     public void quit() {
         this.listening = false;
         try {
             this.serverSocket.close();
         } catch (IOException e) {
-            LOG.error("Server Socket: ", e);
+            LOG.error("Server Socketnot closed: ", e);
         }
+        pool.shutdown(); 
     }
 
-    private static class ConnectionWorker extends Thread {
+    /**
+     * Manages client socket data streams.
+     */
+    private static class ConnectionWorker implements Runnable {
 
-        private Socket clientSocket = null;
+        private final Socket clientSocket;
 
         public ConnectionWorker(Socket clientSocket) {
             this.clientSocket = clientSocket;
@@ -90,10 +84,10 @@ public class ConConServer extends Thread {
         @Override
         public void run() {
             try {
+            	LOG.trace("Connection Received: " + clientSocket.getInetAddress());
                 DataOutputStream toClient = new DataOutputStream(clientSocket.getOutputStream());
                 BufferedReader fromClient = new BufferedReader(
                 		new InputStreamReader(clientSocket.getInputStream(), "UTF-8"));
-
 
                 int ch = 0;
                 StringBuilder message = new StringBuilder();

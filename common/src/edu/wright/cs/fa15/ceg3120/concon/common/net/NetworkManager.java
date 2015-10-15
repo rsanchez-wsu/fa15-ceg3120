@@ -106,8 +106,8 @@ public class NetworkManager {
 		if (server != null || client != null) {
 			return false;
 		}
-		server = new ConConServer(port);
-		server.start();
+		Thread serverThread = new Thread(new ConConServer(port, 50));
+		serverThread.start();
 		return true;
 	}
 
@@ -152,6 +152,7 @@ public class NetworkManager {
 			client.sendMessage(encodeToXml(message));
 		} catch (UnsupportedEncodingException e) {
 			LOG.warn("Improper message encoding: ", e);
+			return false;
 		}
 		return true;
 	}

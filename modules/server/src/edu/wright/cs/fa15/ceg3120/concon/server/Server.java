@@ -36,6 +36,5 @@ public class Server {
 	public static void main(String[] args) {
 		LOG.trace("Starting server...");
 		NetworkManager.startServer(9667);
-		System.out.println("Server running.");
 	}
 }

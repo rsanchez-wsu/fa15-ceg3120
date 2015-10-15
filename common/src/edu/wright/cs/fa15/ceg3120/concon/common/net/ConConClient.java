@@ -21,19 +21,19 @@
 
 package edu.wright.cs.fa15.ceg3120.concon.common.net;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.Socket;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 //TODO have security
 public class ConConClient {
     private static final Logger LOG = LoggerFactory.getLogger(ConConClient.class);
-	
+    
 	private String host;
     private int port;
 
@@ -43,10 +43,11 @@ public class ConConClient {
     }
 
     public void sendMessage(String message) {
-        new DispatchMessage(message).start();
+    	Thread dispatch = new Thread(new DispatchMessage(message));
+        dispatch.start();
     }
 
-    private class DispatchMessage extends Thread {
+    private class DispatchMessage implements Runnable {
         private String message;
 
         public DispatchMessage(String message) {
