@@ -36,6 +36,7 @@ import org.xml.sax.SAXException;
 
 import java.awt.Color;
 import java.awt.Container;
+import java.awt.Desktop;
 import java.awt.EventQueue;
 import java.awt.GridLayout;
 import java.awt.Image;
@@ -46,6 +47,9 @@ import java.awt.event.WindowEvent;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.text.DecimalFormat;
 import java.util.Vector;
@@ -1075,6 +1079,29 @@ public class ContractorClient extends JFrame implements ActionListener {
 	 */
 	public static void buildTable() {
 		model1 = new DefaultTableModel(columnNames, 0);
+	}
+	
+	/**
+	 * Needs Javadoc.
+	 */
+	
+	public static void openWebpage(URL url) {
+		URI uri = null;
+		try {
+			uri = url.toURI();
+		} catch (URISyntaxException e1) {
+			JOptionPane.showMessageDialog(frame, "The given URL is invalid", 
+					"Invalid URL", JOptionPane.ERROR_MESSAGE);
+		}
+		Desktop desktop = Desktop.isDesktopSupported() ? Desktop.getDesktop() : null;
+		if (desktop != null && desktop.isSupported(Desktop.Action.BROWSE)) {
+			try {
+				desktop.browse(uri);
+			} catch (Exception e) {
+				JOptionPane.showMessageDialog(frame, "The webpage couldn't open",
+						"Couldn't Open Page", JOptionPane.ERROR_MESSAGE);
+			}
+		}
 	}
 
 	/**
