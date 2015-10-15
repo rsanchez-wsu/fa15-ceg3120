@@ -231,7 +231,7 @@ public class UserAccount implements Serializable{
 	 * Sets the user's email.
 	 * 
 	 * @param strEmail must currently match this RegEx pattern: 
-	 *	 ^[A-Za-z0-9_]+?@.+?\..+$
+	 *	    ^[A-Za-z0-9_]+?@.+?\..+$
 	 */
 	public void setEmailAddress(String strEmail) {
 		strEmailAddress = strEmail;

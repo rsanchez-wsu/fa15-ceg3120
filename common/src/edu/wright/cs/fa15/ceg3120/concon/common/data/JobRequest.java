@@ -80,47 +80,88 @@ public class JobRequest {
 		return dateRangeEnd;
 	}
 
+	/**
+	 * Javadoc needed.
+	 *
+	 */
 	public void setDateRangeEnd(String dateRangeEnd) {
 		this.dateRangeEnd = dateRangeEnd;
 	}
 
+	/**
+	 * Javadoc needed.
+	 *
+	 */
 	public String getRequestType() {
 		return requestType;
 	}
 
+	/**
+	 * Javadoc needed.
+	 *
+	 */
 	public void setRequestType(String requestType) {
 		this.requestType = requestType;
 	}
 
+	/**
+	 * Javadoc needed.
+	 *
+	 */
 	public HomeownerAccount getUser() {
 		// clone this?
 		return user;
 	}
 
+	/**
+	 * Javadoc needed.
+	 *
+	 */
 	public void setUser(HomeownerAccount user) {
 		this.user = user;
 	}
 
+	/**
+	 * Javadoc needed.
+	 *
+	 */
 	public String getJobField() {
 		return jobField;
 	}
 
+	/**
+	 * Javadoc needed.
+	 *
+	 */
 	public void setJobField(String jobField) {
 		this.jobField = jobField;
 	}
 
+	/**
+	 * Javadoc needed.
+	 *
+	 */
 	public String getJobDescr() {
 		return jobDescr;
 	}
-
+	/**
+	 * Javadoc needed.
+	 *
+	 */
 	public void setJobDescr(String jobDescr) {
 		this.jobDescr = jobDescr;
 	}
-
+	/**
+	 * Javadoc needed.
+	 *
+	 */
 	public Image[] getPicsOfCurrentState() {
 		return (picsOfCurrentState == null) ? null : picsOfCurrentState.clone();
 	}
-
+	/**
+	 * Javadoc needed.
+	 *
+	 */
 	public void setPicsOfCurrentState(Image[] picsOfCurrentState) {
 		this.picsOfCurrentState = picsOfCurrentState.clone();
 	}

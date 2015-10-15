@@ -29,12 +29,20 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 //TODO have security
+/**
+ * Javadoc needed.
+ *
+ */
 public class ConConServer extends Thread {
 
 	private int port;
 	private ServerSocket serverSocket = null;
 	private boolean listening = true;
 
+	/**
+	 * Javadoc needed.
+	 *
+	 */
 	public ConConServer(int port) {
 		this.port = port;
 	
@@ -74,10 +82,18 @@ public class ConConServer extends Thread {
 		}
 	}
 
+	/**
+	 * Javadoc needed.
+	 *
+	 */
 	private static class ConnectionWorker extends Thread {
 
 		private Socket clientSocket = null;
 
+		/**
+		 * Javadoc needed.
+		 *
+		 */
 		public ConnectionWorker(Socket clientSocket) {
 			this.clientSocket = clientSocket;
 		}

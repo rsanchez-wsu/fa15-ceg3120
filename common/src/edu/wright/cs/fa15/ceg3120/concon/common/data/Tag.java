@@ -40,6 +40,10 @@ public class Tag {
 		this.text = text;
 	}
 
+	/**
+	 * Javadoc needed.
+	 *
+	 */
 	public String getText() {
 		return text;
 	}

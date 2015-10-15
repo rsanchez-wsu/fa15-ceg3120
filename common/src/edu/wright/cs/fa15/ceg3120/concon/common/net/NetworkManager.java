@@ -21,7 +21,12 @@
 
 package edu.wright.cs.fa15.ceg3120.concon.common.net;
 
+//import edu.wright.cs.fa15.ceg3120.concon.common.net.message.ChatMessage;
+//import edu.wright.cs.fa15.ceg3120.concon.common.net.message.DataMessage;
 import edu.wright.cs.fa15.ceg3120.concon.common.net.message.NetworkMessage;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.beans.XMLDecoder;
 import java.beans.XMLEncoder;
@@ -29,11 +34,20 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.UnsupportedEncodingException;
 import java.lang.annotation.Annotation;
+//import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Javadoc needed.
+ *
+ */
 public class NetworkManager {
+	
+	private static final Logger LOG = LoggerFactory.getLogger(NetworkManager.class);
+	
+
 	private static final HashMap<Method, Class<?>> NETWORK_BUS = new HashMap<Method, Class<?>>();
 
 	private static ConConServer server;
@@ -78,7 +92,6 @@ public class NetworkManager {
 		}
 	}
 
-
 	/**
 	 * Description. TODO Fill out.
 	 * @param port Port to use.
@@ -92,7 +105,11 @@ public class NetworkManager {
 		server.start();
 		return true;
 	}
-
+	
+	/**
+	 * Javadoc needed.
+	 *
+	 */
 	public static void stopServer() {
 		server.quit();
 		server = null;
@@ -112,6 +129,10 @@ public class NetworkManager {
 		return true;
 	}
 
+	/**
+	 * Javadoc needed.
+	 *
+	 */
 	public static void stopClient() {
 		client = null;
 	}
@@ -128,8 +149,7 @@ public class NetworkManager {
 		try {
 			client.sendMessage(encodeToXml(message));
 		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			LOG.warn("Improper message encoding: ", e);
 		}
 		return true;
 	}
