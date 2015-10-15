@@ -39,9 +39,14 @@ import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * This class is used to manage network connections.
+ * @author Networking Team
+ *
+ */
 public class NetworkManager {
 	
-    private static final Logger LOG = LoggerFactory.getLogger(NetworkManager.class);
+	private static final Logger LOG = LoggerFactory.getLogger(NetworkManager.class);
 	
 
 	private static final HashMap<Method, Class<?>> NETWORK_BUS = new HashMap<Method, Class<?>>();
@@ -103,6 +108,9 @@ public class NetworkManager {
 		return true;
 	}
 
+	/**
+	 * Method safely stops the server.
+	 */
 	public static void stopServer() {
 		server.quit();
 		server = null;
@@ -123,6 +131,10 @@ public class NetworkManager {
 		return true;
 	}
 
+	/**
+	 * Deletes the client object.
+	 * Collects the garbage.
+	 */
 	public static void stopClient() {
 		client = null;
 	}
