@@ -25,12 +25,20 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.JFrame;
 
+
+
 /**
  * 
  * @author Office Depot
  *
  */
 public class AddMoneyFrame extends JFrame {
+	
+	private javax.swing.JButton jbutton1;
+    private javax.swing.JButton jbutton2;
+    private javax.swing.JLabel jlabel1;
+    private javax.swing.JLabel jlabel2;
+    private javax.swing.JTextField jtextField1;
 	 /**a sentence to shut checkstyle up.
 	 * 
 	 */
@@ -164,10 +172,6 @@ public class AddMoneyFrame extends JFrame {
     }
 
     // Variables declaration - do not modify                     
-    private javax.swing.JButton jbutton1;
-    private javax.swing.JButton jbutton2;
-    private javax.swing.JLabel jlabel1;
-    private javax.swing.JLabel jlabel2;
-    private javax.swing.JTextField jtextField1;
+    
     // End of variables declaration                   
 }
