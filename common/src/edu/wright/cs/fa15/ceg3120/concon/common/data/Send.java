@@ -21,25 +21,22 @@
 
 package edu.wright.cs.fa15.ceg3120.concon.common.data;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 /**
- * Class for accessing database. Will be communicating with db through network stack.
+ * Class to communicate objects to the network stack.
+ * @author Cody Bensman
  */
-@SuppressWarnings("unused")
-public class DataAccessLayer {
-	private Send send = null;
-	private String statement = "";
-	private ObjectPurpose purp = null;
-	private static final Logger LOG = LoggerFactory.getLogger(DataAccessLayer.class);
-
-	
+public class Send {
 	
 	/**
-	 * Main method, starts Logger.
+	 * Constructor that takes in object to be sent to network stack,
+	 * along with the object purpose.
 	 */
-	public static void main(String[] args) {
-		LOG.trace("Starting Data Access Layer...");
+	public Send(DataAccessLayer dal, ObjectPurpose purp) {}
+	
+	/**
+	 * Will need networking code to communicate with networking stack.
+	 */
+	public void sendData(){
+		
 	}
 }
