@@ -37,7 +37,6 @@ public class Database {
 	private Statement statement = null;
 	private ResultSet results = null;
 	private Connection conn = null;
-	private String st = "";
 	
 	/**
 	 * No argument constructor.
@@ -47,7 +46,7 @@ public class Database {
 	/**
 	 * Connect to database.
 	 */
-	private void connect() {
+	public void connect() {
 		try {
 			Class.forName("org.apache.derby.jdbc.EmbeddedDriver").newInstance();
 			conn = DriverManager.getConnection(url);
@@ -72,11 +71,25 @@ public class Database {
 	/**
 	 * Method to update database.
 	 */
-	public void writeDatabase(String stmt) {
+	public void writeDatabaseColumns(String tableName, String columns, String values) {
 		this.connect();
 		try {
-			this.st = stmt;
-			statement.executeUpdate(st);
+			statement.executeUpdate("INSERT INTO " 
+					+ tableName + " (" + columns + ") VALUES (" + values + ");");
+			statement.close();
+		} catch (SQLException e) {
+			System.out.println(e);
+		}
+		this.closeConnection();
+	}
+	
+	/**
+	 * Method to update database.
+	 */
+	public void writeDatabase(String tableName, String values) {
+		this.connect();
+		try {
+			statement.executeUpdate("INSERT INTO " + tableName + " VALUES (" + values + ");");
 			statement.close();
 		} catch (SQLException e) {
 			System.out.println(e);
@@ -88,11 +101,10 @@ public class Database {
 	 * Method to read from database.
 	 * Returns a ResultSet object.
 	 */
-	public ResultSet readDatabase(String stmt) {
+	public ResultSet readDatabase(String select, String tableName) {
 		this.connect();
 		try {
-			this.st = stmt;
-			results = statement.executeQuery(st);
+			results = statement.executeQuery("SELECT " + select + " FROM " + tableName + ";");
 			statement.close();
 		} catch (SQLException e) {
 			System.out.println(e);

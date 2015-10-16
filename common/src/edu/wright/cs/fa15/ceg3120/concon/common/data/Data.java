@@ -39,7 +39,7 @@ public class Data {
 	 * Creates a new home owner account in database.
 	 */
 	public void createHomeowner(UserAccount user) {
-		
+		db.connect();
 	}
 	
 	/**
@@ -47,6 +47,7 @@ public class Data {
 	 * 
 	 */
 	public UserAccount getHomeowner(String id) {
+		db.connect();
 		return null;
 	}
 	
@@ -54,13 +55,14 @@ public class Data {
 	 * Creates a new contractor account in database.
 	 */
 	public void createContractor(UserAccount user) {
-		
+		db.connect();
 	}
 	
 	/**
 	 * Returns information to a specific contractor account.
 	 */
 	public UserAccount getContractor(String id) {
+		db.connect();
 		return null;
 	}
 	
@@ -68,13 +70,14 @@ public class Data {
 	 * Creates a new job request in database.
 	 */
 	public void createJob(JobRequest job) {
-		
+		db.connect();
 	}
 	
 	/**
 	 * Returns information for a specific job in the database.
 	 */
 	public JobRequest getJob(String id) {
+		db.connect();
 		return null;
 	}
 	
@@ -82,20 +85,21 @@ public class Data {
 	 * Creates a new review in database.
 	 */
 	public void createReview() {
-		
+		db.connect();
 	}
 	
 	/**
 	 * Returns information for a specific review in the database.
 	 */
 	public Review getReview() {
+		db.connect();
 		return null;
 	}
 	
 	/**
 	 * Receive de-serialized Send object from networking team.
 	 */
-	private void receive(Send send){
-		
+	private void receive(Send send) {
+		db.connect();
 	}
 }
