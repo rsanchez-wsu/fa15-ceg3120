@@ -52,6 +52,7 @@
 
 package edu.wright.cs.fa15.ceg3120.concon.server;
 
+import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -65,6 +66,7 @@ import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.table.AbstractTableModel;
 
 public class CreateButtonsSearch extends JPanel{
 
@@ -72,129 +74,166 @@ public class CreateButtonsSearch extends JPanel{
 	private static final long serialVersionUID = 1L;
 	protected JRadioButton contractor;
 	protected JRadioButton homeOwner;
+	protected JTextField searchBar;
 	
 	/**
 	 * Creates a panel for the User's Tab.
 	 */
 	public CreateButtonsSearch() {
 		super();
-		this.setLayout(new FlowLayout());
+		this.setLayout(new BorderLayout());
 		
-		JPanel searching = new JPanel();
-		searching.setLayout(new GridLayout(1,4));
+		JPanel functionality = new JPanel();
+		functionality.setLayout(new GridLayout(2,4));
 		
-		JTextField searchBar = new JTextField(25);
-		searching.add(searchBar);
+		searchBar = new JTextField(25);
+		functionality.add(searchBar);
 		JButton search = new JButton();
 		search.setText("Search");
-		search.addActionListener(new UserListener());
-		//search.addActionListener(new ButtonListener());
-		searching.add(search);
-
+		search.addActionListener(new SearchListener());
+		functionality.add(search);
+		
 		homeOwner = new JRadioButton();
 		homeOwner.setText("Homeowner");
 		homeOwner.setSelected(true);
 		ButtonGroup userTypes = new ButtonGroup();
 		userTypes.add(homeOwner);
-		searching.add(homeOwner);
+		functionality.add(homeOwner);
 		contractor = new JRadioButton();
 		contractor.setText("Contractor");
 		userTypes.add(contractor);
-		searching.add(contractor);
+		functionality.add(contractor);
 		
-		this.add(searching);
+		JButton message = new JButton();
+		message.setText("Send Message");
+		message.addActionListener(new MessageListener());
+		functionality.add(message);
+
+		JButton disable = new JButton();
+		disable.setText("Disable Account");
+		disable.addActionListener(new DisableListener());
+		functionality.add(disable);
+
+		JButton reset = new JButton();
+		reset.setText("Reset Password");
+		reset.addActionListener(new ResetListener());
+		functionality.add(reset);
 		
-		JPanel results = new JPanel();
-		results.setLayout(new GridLayout(1,1));
-		JTable searchResults = new JTable();
-		JScrollPane sr = new JScrollPane();
-		sr.add(searchResults);
-		results.add(sr);
+		this.add(functionality, BorderLayout.NORTH);
 		
-		this.add(results);
-	}
+		JTable users = new JTable(new UserTableModel());
+		users.setFillsViewportHeight(true);		
+		
+		this.add(new JScrollPane(users), BorderLayout.CENTER);
+	}//end constructor
 	
-	@SuppressWarnings("unused")
-	private class ButtonListener implements ActionListener{
+	class UserTableModel extends AbstractTableModel { //Copied from Transactions tab
+		private static final long serialVersionUID = 1L;
+
+		private String[] columnNames = { "Name", "Phone Number","Address", "E-Mail" };
+
+		private Object[][] dummyData = {
+		  { "Kathy", "(555)555-5555", "123 Main St.", "Kathy@gmail.com" },
+		  { "Geroge", "(555)555-5555", "456 S. West Dr.", "George@yahoo.com" },
+		  { "Megan", "(555)555-5555", "789 Oak Rd.", "Megan@hotmail.com" },
+		  { "Mitch", "(555)555-5555","1011 Maple Ave.", "Mitch@aol.com"},
+		  { "Barbara", "(555)555-5555", "1213  Pennyworth Blvd","mrs.gordon@gcpd.gov"}
+		};
+
+		@Override
+		public int getColumnCount() {
+			return columnNames.length;
+		}
+		
+		@Override
+		public String getColumnName(int col) {
+            		return columnNames[col];
+        	}
+
+		@Override
+		public int getRowCount() {
+			return dummyData.length;
+		}
+
+		@Override
+		public Object getValueAt(int row, int col) {
+			return dummyData[row][col];
+		}
+		
+		@Override
+		public Class<?> getColumnClass(int column) {
+			return getValueAt(0, column).getClass();
+		}
+		
+		/*
+		 * Possible implementation of resolving issues
+		 */
+		@Override
+		public boolean isCellEditable(int row, int col) {
+			return true; // Could return true on different columns.
+		}
+		
+		@Override
+		public void setValueAt(Object value, int row, int col) {
+			// TODO validation
+			dummyData[row][col] = value;
+			fireTableCellUpdated(row, col);
+		}
+
+	}//end UserTableModel
+	
+	
+	private class SearchListener implements ActionListener{
     		@Override
         public void actionPerformed(ActionEvent event) {
     			try {
-            	//else if( there is nothing typed in the text field){
-    				//TODO add search functionality
-            	//	System.out.println("You must enter a name to search");
-            	//}
-            	//else {
-            		//search database for that name
-            	//}
+    				if (searchBar.getText().isEmpty()) {
+    					System.out.println("You must enter a name to search");
+    				} else {
+    					System.out.println("The search is not empty");
+    					//TODO add search functionality, probably return a 2D array
+    				}
     			} catch (Exception ex) {
     				System.out.println("Error occured searching "
     								+ "for users with that name");
-    			}
-    		}
-    	}
-    
-    	private class UserListener implements ActionListener{
-    		@Override
-        public void actionPerformed(ActionEvent event) {
-    			try { //TODO format this window better
-    				System.out.println("Button Pushed");
-    				JFrame userInfo = new JFrame("Detail User Info");
-    				userInfo.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-            	
-    				JPanel info = new JPanel();
-    				info.setLayout(new GridLayout(3,1));
-    				
-            			JPanel editableInfo = new JPanel();
-            			editableInfo.setLayout(new GridLayout(1,4));
-            	
-	            		JTextField name = new JTextField(25);
-	            		name.setText("Barbara Kean");
-	            		editableInfo.add(name);
-            	
-	            		JTextField address = new JTextField(25);
-	            		address.setText("123 Main St. Gotham City");
-            			editableInfo.add(address);
-            	
-            			JTextField phone = new JTextField(13);
-            			phone.setText("(555)555-5555");
-            			editableInfo.add(phone);
-            		
-            			JTextField email = new JTextField(20);
-            			email.setText("mrs.gordon@gcpd.gov");
-            			editableInfo.add(email);
-            	
-            			info.add(editableInfo);
-            	
-            			JPanel functions = new JPanel();
-            			functions.setLayout(new GridLayout(1,3));
-            	
-            			JButton message = new JButton();
-            			message.setText("Send Message");
-            			functions.add(message);
-            	
-            			JButton disable = new JButton();
-            			disable.setText("Disable Account");
-            			functions.add(disable);
-            	
-            			JButton reset = new JButton();
-            			reset.setText("Reset Password");
-            			functions.add(reset);
-            	
-            			info.add(functions);
-
-            	
-            			userInfo.add(info);
-            			userInfo.pack();
-            			userInfo.setVisible(true);
-    			} catch (Exception ex) {
-    				//F
-    				//U
-    				//Checkstyle
-    				System.out.println("Error occured "
-    								+ "searching for users with "
-    								+ "that name");
     			} //end catch
-    		}//end ActionPerformed
-    	}//end UserListener
+    		}//end actionPerformed
+    	}//end SearchListener
+	
+	private class ResetListener implements ActionListener{
+		@Override
+    public void actionPerformed(ActionEvent event) {
+			try {
+				//TODO add search functionality, probably return a 2D array
+			} catch (Exception ex) {
+				System.out.println("Error occured resetting");
+			} //end catch
+		}//end actionPerformed
+	}//end ResetListener
+	
+	private class DisableListener implements ActionListener{
+		@Override
+    public void actionPerformed(ActionEvent event) {
+			try {
+				//TODO add search functionality, probably return a 2D array
+			} catch (Exception ex) {
+				System.out.println("Error occured disabling");
+			} //end catch
+		}//end actionPerformed
+	}//end DisableListener
+	
+	private class MessageListener implements ActionListener{
+		@Override
+    public void actionPerformed(ActionEvent event) {
+			try {
+				//TODO add search functionality, probably return a 2D array
+			} catch (Exception ex) {
+				System.out.println("Error occured sending message");
+			} //end catch
+		}//end actionPerformed
+	}//end MessageListener
+	
+	
+	
 	
 }//end CreateButtonsSearch
