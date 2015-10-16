@@ -166,12 +166,10 @@ public class AddMoneyFrame extends JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> {
-            	new AddMoneyFrame().setVisible(true);
-        	});
+        //java.awt.EventQueue.invokeLater(() -> {
+          //  	new AddMoneyFrame().setVisible(true);
+        	//});
     }
 
-    // Variables declaration - do not modify                     
-    
-    // End of variables declaration                   
+                    
 }
