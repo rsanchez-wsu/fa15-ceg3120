@@ -174,11 +174,22 @@ public class Data {
 	}
 	
 	/**
+	 * Used to return results from query.
+	 * Should not return a string. It is just a placeholder.
+	 */
+	public String getResults() {
+		String rs = processResultSet();
+		return rs;
+	}
+	
+	/**
 	 * This method will process the data from a result set.
 	 * Good chance that this will need implemented specifically
 	 * for each get/query statement.
+	 * This should not return string. It is just a place holder.
 	 */
-	private void processResultSet() {
+	private String processResultSet() {
+		String resultsString = "";
 		try {
 			while (results.next()) {
 				//get data from results.
@@ -186,15 +197,16 @@ public class Data {
 		} catch (SQLException e) {
 			System.out.println(e);
 		}
-		
+		return resultsString;
 	}
+	
 	
 	/**
 	 * Receive de-serialized Send object from networking team.
 	 */
-	private void receive(Send send) {
-		connect();
-	}
+	/*private void receive(Send send) {
+		
+	}*/
 	
 	/**
 	 * Connects to the database.
@@ -211,15 +223,4 @@ public class Data {
 		db.closeConnection();
 	}
 	
-	
-	
-	/**
-	 * This is a fake method used to trick findbugs into not failing the build.
-	 */
-	public void useUnusedMethodsBecauseFindBugs() {
-		DataAccessLayer dal = new DataAccessLayer();
-		Send temp = new Send(dal, ObjectPurpose.CREATE_CONTRACTOR);
-		receive(temp);
-		processResultSet();
-	}
 }
