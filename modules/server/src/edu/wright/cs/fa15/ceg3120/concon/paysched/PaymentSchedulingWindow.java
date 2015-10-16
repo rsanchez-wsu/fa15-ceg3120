@@ -27,7 +27,7 @@ import javax.swing.SwingUtilities;
 //import static javax.swing.JFrame.EXIT_ON_CLOSE;
 
 /**
- * Description. TODO Fill out.
+ *
  * @author Emily
  */
 public class PaymentSchedulingWindow extends JFrame{
@@ -45,9 +45,6 @@ public class PaymentSchedulingWindow extends JFrame{
 				TabbedFrame paymentAndScheduling = new TabbedFrame();
 				paymentAndScheduling.setDefaultCloseOperation(EXIT_ON_CLOSE);
 				paymentAndScheduling.setSize(475, 300);
-				//TabbedFrame grid = new TabbedFrame();
-				//grid.setVisible(true);
-				//paymentAndScheduling.add(grid);
 				paymentAndScheduling.setVisible(true);
 			}
 		});

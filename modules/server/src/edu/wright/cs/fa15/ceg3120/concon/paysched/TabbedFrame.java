@@ -41,6 +41,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
 
 /*
  *
@@ -445,39 +446,27 @@ public class TabbedFrame extends JFrame{
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(AddMoneyFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> {
-            new AddMoneyFrame().setVisible(true);
-        });
+    	SwingUtilities.invokeLater(new Runnable(){
+			public void run() {
+				   
+				AddMoneyFrame addMoney = new AddMoneyFrame();
+				addMoney.setDefaultCloseOperation(EXIT_ON_CLOSE);
+				addMoney.setSize(475, 300);
+				addMoney.setVisible(true);
+			}
+		});
     }//GEN-LAST:event_jButton2MouseClicked
 
     private void jbutton3MouseClicked(java.awt.event.MouseEvent evt) {
     	//GEN-FIRST:event_jButton3MouseClicked
-        // TODO add your handling code here:
     }//GEN-LAST:event_jButton3MouseClicked
 
     private void jtextField2ActionPerformed(java.awt.event.ActionEvent evt) {
     	//GEN-FIRST:event_jTextField2ActionPerformed
-        // TODO add your handling code here:
     }//GEN-LAST:event_jTextField2ActionPerformed
     
     private void jtextField3ActionPerformed(java.awt.event.ActionEvent evt) {
     	//GEN-FIRST:event_jTextField3ActionPerformed
-        // TODO add your handling code here:
     }//GEN-LAST:event_jTextField3ActionPerformed
 
     /**This is the main method.
