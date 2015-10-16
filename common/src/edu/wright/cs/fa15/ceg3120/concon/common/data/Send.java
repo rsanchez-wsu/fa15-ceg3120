@@ -21,29 +21,21 @@
 
 package edu.wright.cs.fa15.ceg3120.concon.common.data;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 /**
- * Javadoc needed.
- *
+ * Class to communicate objects to the network stack.
  */
-public class DataAccessLayer {
-	private Send send = null;
-	private String statement = "";
-	private ObjectPurpose purp = null;
-	private static final Logger LOG = LoggerFactory.getLogger(DataAccessLayer.class);
+public class Send {
 	
 	/**
-	 * No argument constructor.
+	 * Constructor that takes in object to be sent to network stack,
+	 * along with the object purpose.
 	 */
-	public DataAccessLayer() {}
-
+	public Send(DataAccessLayer dal, ObjectPurpose purp) {}
+	
 	/**
-	 * Javadoc needed.
-	 *
+	 * Will need networking code to communicate with networking stack.
 	 */
-	public static void main(String[] args) {
-		LOG.trace("Starting Data Access Layer...");
+	public void sendData(){
+		
 	}
 }

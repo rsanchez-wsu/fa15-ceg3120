@@ -21,29 +21,11 @@
 
 package edu.wright.cs.fa15.ceg3120.concon.common.data;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 /**
- * Javadoc needed.
- *
+ * Enum class to describe purpose of data object once sent through networking stack.
+ * @author Cody Bensman
  */
-public class DataAccessLayer {
-	private Send send = null;
-	private String statement = "";
-	private ObjectPurpose purp = null;
-	private static final Logger LOG = LoggerFactory.getLogger(DataAccessLayer.class);
-	
-	/**
-	 * No argument constructor.
-	 */
-	public DataAccessLayer() {}
-
-	/**
-	 * Javadoc needed.
-	 *
-	 */
-	public static void main(String[] args) {
-		LOG.trace("Starting Data Access Layer...");
-	}
+public enum ObjectPurpose {
+	CREATE_HOMEOWNER, GET_HOMEOWNER, CREATE_CONTRACTOR, GET_CONTRACTOR,CREATE_JOB, GET_JOB,
+	CREATE_REVIEW, GET_REVIEW, 
 }
