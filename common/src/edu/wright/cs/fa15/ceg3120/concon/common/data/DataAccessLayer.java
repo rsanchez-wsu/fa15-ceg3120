@@ -29,15 +29,8 @@ import org.slf4j.LoggerFactory;
  *
  */
 public class DataAccessLayer {
-	private Send send = null;
-	private String statement = "";
-	private ObjectPurpose purp = null;
+
 	private static final Logger LOG = LoggerFactory.getLogger(DataAccessLayer.class);
-	
-	/**
-	 * No argument constructor.
-	 */
-	public DataAccessLayer() {}
 
 	/**
 	 * Javadoc needed.
