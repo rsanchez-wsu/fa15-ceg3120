@@ -23,7 +23,6 @@ package edu.wright.cs.fa15.ceg3120.concon.common.data;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -35,13 +34,19 @@ public class Database {
 	//This URL will need to be changed per database.
 	private String url = "jdbc:derby:/home/cbensman/Test_DB_Connection;create=true";
 	private Statement statement = null;
-	private ResultSet results = null;
 	private Connection conn = null;
 	
 	/**
 	 * No argument constructor.
 	 */
 	public Database() {}
+	
+	/**
+	 * Returns the connection statement.
+	 */
+	public Statement getStatement() {
+		return this.statement;
+	}
 	
 	/**
 	 * Connect to database.
@@ -60,7 +65,7 @@ public class Database {
 	/**
 	 * Close connection to the database.
 	 */
-	private void closeConnection() {
+	public void closeConnection() {
 		try {
 			conn.close();
 		} catch (SQLException e) {
@@ -71,7 +76,7 @@ public class Database {
 	/**
 	 * Method to update database.
 	 */
-	public void writeDatabaseColumns(String tableName, String columns, String values) {
+	/*public void writeDatabaseColumns(String tableName, String columns, String values) {
 		this.connect();
 		try {
 			statement.executeUpdate("INSERT INTO " 
@@ -81,12 +86,12 @@ public class Database {
 			System.out.println(e);
 		}
 		this.closeConnection();
-	}
+	}*/
 	
 	/**
 	 * Method to update database.
 	 */
-	public void writeDatabase(String tableName, String values) {
+	/*public void writeDatabase(String tableName, String values) {
 		this.connect();
 		try {
 			statement.executeUpdate("INSERT INTO " + tableName + " VALUES (" + values + ");");
@@ -95,13 +100,13 @@ public class Database {
 			System.out.println(e);
 		}
 		this.closeConnection();
-	}
+	}*/
 	
 	/**
 	 * Method to read from database.
 	 * Returns a ResultSet object.
 	 */
-	public ResultSet readDatabase(String select, String tableName) {
+	/*public ResultSet readDatabase(String select, String tableName) {
 		this.connect();
 		try {
 			results = statement.executeQuery("SELECT " + select + " FROM " + tableName + ";");
@@ -111,7 +116,7 @@ public class Database {
 		}
 		this.closeConnection();
 		return results;
-	}
+	}*/
 }
 
 
