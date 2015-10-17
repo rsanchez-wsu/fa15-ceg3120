@@ -32,7 +32,6 @@
 package edu.wright.cs.fa15.ceg3120.concon.paysched;
 
 import java.text.DecimalFormat;
-
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -41,7 +40,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
-import javax.swing.SwingUtilities;
+//import javax.swing.SwingUtilities;
 
 /*
  *
@@ -446,15 +445,14 @@ public class TabbedFrame extends JFrame{
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
-    	SwingUtilities.invokeLater(new Runnable(){
-			public void run() {
-				   
+    	
+				/*   
 				AddMoneyFrame addMoney = new AddMoneyFrame();
 				addMoney.setDefaultCloseOperation(EXIT_ON_CLOSE);
 				addMoney.setSize(475, 300);
 				addMoney.setVisible(true);
-			}
-		});
+			
+		*/
     }//GEN-LAST:event_jButton2MouseClicked
 
     private void jbutton3MouseClicked(java.awt.event.MouseEvent evt) {
