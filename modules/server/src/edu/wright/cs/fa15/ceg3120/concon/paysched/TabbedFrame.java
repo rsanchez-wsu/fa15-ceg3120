@@ -1,8 +1,8 @@
 /*
  * Copyright (C) 2015
- * 
- * 
- * 
+ *
+ *
+ *
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -36,7 +36,7 @@ import javax.swing.JTextField;
  */
 @SuppressWarnings("serial")
 public class TabbedFrame extends JFrame{
-	
+
 	// Variables declaration - do not modify//GEN-BEGIN:variables
 	private javax.swing.JButton jbutton1;
 	private javax.swing.JButton jbutton2;
@@ -271,7 +271,7 @@ public class TabbedFrame extends JFrame{
 				.addGroup(jpanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment
 						.BASELINE)
 					.addComponent(jlabel4)
-					.addComponent(jtextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 
+					.addComponent(jtextField2, javax.swing.GroupLayout.PREFERRED_SIZE,
 							javax.swing.GroupLayout.DEFAULT_SIZE,
 							javax.swing.GroupLayout.PREFERRED_SIZE))
 				.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50,
@@ -349,17 +349,17 @@ public class TabbedFrame extends JFrame{
 	}//GEN-LAST:event_jTextField3ActionPerformed
 
 	/**This is the main method.
-	 * 
+	 *
 	 * @param args arguments
 	 */
 	public static void main(String[] args) {
 		/* Set the Nimbus look and feel */
 		//<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
 		/* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel
-		 * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+		 * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
 		 */
 		try {
-			for (javax.swing.UIManager.LookAndFeelInfo info : 
+			for (javax.swing.UIManager.LookAndFeelInfo info :
 					javax.swing.UIManager.getInstalledLookAndFeels()) {
 				if ("Nimbus".equals(info.getName())) {
 					javax.swing.UIManager.setLookAndFeel(info.getClassName());
@@ -392,5 +392,5 @@ public class TabbedFrame extends JFrame{
 	String month;
 	String day;
 	String timeRange;
-   
+
 }

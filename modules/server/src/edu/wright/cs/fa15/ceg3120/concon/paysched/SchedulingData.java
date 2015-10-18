@@ -1,8 +1,8 @@
 /*
  * Copyright (C) 2015
- * 
- * 
- * 
+ *
+ *
+ *
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -27,19 +27,18 @@ package edu.wright.cs.fa15.ceg3120.concon.paysched;
  * @param <T>.
  */
 public class SchedulingData<T> {
- 
+
 	//private String month;
 	//private String day;
 	//private String timeRange;
-	
+
 	/**
 	 * Constructs the data to send.
 	 * param month month to send.
 	 * param day day to send.
 	 * param timeRange time to send.
 	 */
-	
+
 	public SchedulingData(){} //Default constructor
-	
-   
+
 }
