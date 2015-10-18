@@ -338,7 +338,7 @@ public class ServerGui extends JPanel implements ActionListener {
 	/**
 	 * Default class model for Transaction Table.
 	 */
-	class TransactionTableModel extends AbstractTableModel {
+	static class TransactionTableModel extends AbstractTableModel {
 		/**
 		 * Default class model for Transaction Table.
 		 */
@@ -348,13 +348,13 @@ public class ServerGui extends JPanel implements ActionListener {
 		 	"Price" };
 
 		private Object[][] dummyData = {
-			{ "Kathy", "Bob's Building", new Integer(1001),
+			{ "Kathy", "Bob's Building", Integer.valueOf(1001),
 			"Aug 31, 2015", "$120.15" },
-			{ "Geroge", "Home Depot", new Integer(1002),
+			{ "Geroge", "Home Depot", Integer.valueOf(1002),
 			"Aug 29, 2015", "$1000.00" },
-			{ "Megan", "Constructors", new Integer(1003), 
+			{ "Megan", "Constructors", Integer.valueOf(1003), 
 			"Aug 30, 2015", "$120.15" },
-			{ "Mitch", "Joe's", new Integer(1004), 
+			{ "Mitch", "Joe's", Integer.valueOf(1004), 
 			"Aug 31, 2015", "$120.15"}
 		};
 
