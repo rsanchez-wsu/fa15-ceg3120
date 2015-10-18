@@ -1,8 +1,8 @@
 /*
  * Copyright (C) 2015
- *
- *
- *
+ * 
+ * 
+ * 
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -21,5 +21,20 @@
 
 package edu.wright.cs.fa15.ceg3120.concon.common.net.message;
 
-public abstract class NetworkMessage {
+import java.io.Serializable;
+
+/**
+ * Javadoc needed.
+ *
+ */
+public abstract class NetworkMessage implements Serializable {
+	
+	private static final long serialVersionUID = -8618792710721202266L;
+
+	/**
+	 * Javadoc needed.
+	 *
+	 */
+	public NetworkMessage() {}
+	
 }

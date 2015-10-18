@@ -21,7 +21,6 @@
 
 package edu.wright.cs.fa15.ceg3120.concon.common.net;
 
-
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -30,75 +29,96 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 //TODO have security
+/**
+ * Javadoc needed.
+ *
+ */
 public class ConConServer extends Thread {
-        private int port;
-        private ServerSocket serverSocket = null;
-        private boolean listening = true;
 
-        public ConConServer(int port) {
-                this.port = port;
-        }
+	private int port;
+	private ServerSocket serverSocket = null;
+	private boolean listening = true;
 
-        @Override
-        public void run() {
-                try {
-                        this.serverSocket = new ServerSocket(this.port);
-                } catch (IOException e) {
-                        e.printStackTrace();
-                }
-                while (listening) {
-                        Socket clientSocket = null;
-                        try {
-                                clientSocket = this.serverSocket.accept();
-                        } catch (IOException e) {
-                                if (!listening) {
-                                        System.out.println("Server Stopped.");
-                                        return;
-                                }
-                                e.printStackTrace();
-                        }
-                        new ConnectionWorker(clientSocket).start();
-                }
-        }
+	/**
+	 * Javadoc needed.
+	 *
+	 */
+	public ConConServer(int port) {
+		this.port = port;
+	
+	}
 
-        public void quit() {
-                this.listening = false;
-                try {
-                        this.serverSocket.close();
-                } catch (IOException e) {
-                        e.printStackTrace();
-                }
-        }
+	@Override
+	public void run() {
+		try {
+			this.serverSocket = new ServerSocket(this.port);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		while (listening) {
+			Socket clientSocket = null;
+			try {
+				clientSocket = this.serverSocket.accept();
+			} catch (IOException e) {
+				if (!listening) {
+					System.out.println("Server Stopped.");
+					return;
+				}
+				e.printStackTrace();
+			}
+			new ConnectionWorker(clientSocket).start();
+		}
+	}
 
-        private class ConnectionWorker extends Thread {
-                private Socket clientSocket = null;
+	/**
+	 * Description. TODO Fill out.
+	 */
+	public void quit() {
+		this.listening = false;
+		try {
+			this.serverSocket.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 
-                public ConnectionWorker(Socket clientSocket) {
-                        this.clientSocket = clientSocket;
-                }
+	/**
+	 * Javadoc needed.
+	 *
+	 */
+	private static class ConnectionWorker extends Thread {
 
-                @Override
-                public void run() {
-                        try {
-                                DataOutputStream toClient = new DataOutputStream(
-                                                clientSocket.getOutputStream());
-                                BufferedReader fromClient = new BufferedReader(
-                                                new InputStreamReader(
-                                                                clientSocket.getInputStream()));
+		private Socket clientSocket = null;
 
-                                int n = 0;
-                                String message = "";
-                                while ((n = fromClient.read()) != -1) {
-                                        message += (char) n;
-                                }
-                                
-                                NetworkManager.post(NetworkManager.decodeFromXML(message));
+		/**
+		 * Javadoc needed.
+		 *
+		 */
+		public ConnectionWorker(Socket clientSocket) {
+			this.clientSocket = clientSocket;
+		}
 
-                                toClient.close();
-                                fromClient.close();
-                        } catch (IOException e) {
-                                e.printStackTrace();
-                        }
-                }
-        }
+		@Override
+		public void run() {
+			try {
+				DataOutputStream toClient = new DataOutputStream(clientSocket.getOutputStream());
+				BufferedReader fromClient = new BufferedReader(
+						new InputStreamReader(clientSocket.getInputStream(), "UTF-8"));
+
+
+				int ch = 0;
+				StringBuilder message = new StringBuilder();
+				while ((ch = fromClient.read()) != -1) {
+					message.append(ch);
+				}
+
+				NetworkManager.post(NetworkManager.decodeFromXml(message.toString()));
+
+				toClient.close();
+				fromClient.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+	}
 }

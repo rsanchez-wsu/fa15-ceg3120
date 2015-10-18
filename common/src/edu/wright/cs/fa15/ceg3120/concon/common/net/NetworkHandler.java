@@ -19,6 +19,7 @@
  *
  */
 
+
 package edu.wright.cs.fa15.ceg3120.concon.common.net;
 
 import java.lang.annotation.ElementType;
@@ -26,7 +27,10 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+/**
+ * Javadoc needed.
+ *
+ */
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface NetworkHandler {
-}
+public @interface NetworkHandler {}

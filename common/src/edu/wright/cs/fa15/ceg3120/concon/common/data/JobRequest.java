@@ -23,86 +23,147 @@ package edu.wright.cs.fa15.ceg3120.concon.common.data;
 
 import java.awt.Image;
 
+/**
+ * Model for a JobRequest.
+ * 
+ * @author Quack
+ *
+ */
 public class JobRequest {
 
-        /**
-         * Signifies whether this request is a new job or a request for all jobs from a given
-         * account.
-         */
-        private String requestType;
-        /** User making request. */
-        private HomeOwnerAccount user;
-        /** Earliest construction can begin. */
-        private String dateRangeStart;
-        /** Latest date construction can begin. */
-        private String dateRangeEnd;
-        /** What type of job this is (plumbing, electrical, etc). */
-        private String jobField;
-        /** User description of what they want done. */
-        private String jobDescr;
-        /** Images of what the future jobsite looks like now. */
-        private Image[] picsOfCurrentState;// do we want to allow multiple images?
-        // or maybe convert to a ByteArrayInputStream[] and pass raw data around?
+	/**
+	 * Signifies whether this request is a new job or a request for all jobs from a given account.
+	 */
+	private String requestType;
+	/** User making request. */
+	private HomeownerAccount user;
+	/** Earliest construction can begin. */
+	private String dateRangeStart;
+	/** Latest date construction can begin. */
+	private String dateRangeEnd;
+	/** What type of job this is (plumbing, electrical, etc). */
+	private String jobField;
+	/** User description of what they want done. */
+	private String jobDescr;
+	/** Images of what the future jobsite looks like now. */
+	private Image[] picsOfCurrentState;// do we want to allow multiple images?
+	// or maybe convert to a ByteArrayInputStream[] and pass raw data around?
 
-        public JobRequest() {
+	/**
+	 * Creates a new instance of <code>JobRequest</code>.
+	 */
+	public JobRequest() {
+		picsOfCurrentState = null;
+	}
 
-        }
+	/**
+	 * Get dateRangeStart.
+	 * @return dateRangeStart
+	 */
+	public String getDateRangeStart() {
+		return dateRangeStart;
+	}
 
-        public String getDateRangeStart() {
-                return dateRangeStart;
-        }
+	/**
+	 * Set dateRangeStart.
+	 * @param dateRangeStart String
+	 */
+	public void setDateRangeStart(String dateRangeStart) {
+		this.dateRangeStart = dateRangeStart;
+	}
 
-        public void setDateRangeStart(String dateRangeStart) {
-                this.dateRangeStart = dateRangeStart;
-        }
+	/**
+	 * XXX.
+	 * @return dateRangeEnd
+	 */
+	public String getDateRangeEnd() {
+		return dateRangeEnd;
+	}
 
-        public String getDateRangeEnd() {
-                return dateRangeEnd;
-        }
+	/**
+	 * Javadoc needed.
+	 *
+	 */
+	public void setDateRangeEnd(String dateRangeEnd) {
+		this.dateRangeEnd = dateRangeEnd;
+	}
 
-        public void setDateRangeEnd(String dateRangeEnd) {
-                this.dateRangeEnd = dateRangeEnd;
-        }
+	/**
+	 * Javadoc needed.
+	 *
+	 */
+	public String getRequestType() {
+		return requestType;
+	}
 
-        public String getRequestType() {
-                return requestType;
-        }
+	/**
+	 * Javadoc needed.
+	 *
+	 */
+	public void setRequestType(String requestType) {
+		this.requestType = requestType;
+	}
 
-        public void setRequestType(String requestType) {
-                this.requestType = requestType;
-        }
+	/**
+	 * Javadoc needed.
+	 *
+	 */
+	public HomeownerAccount getUser() {
+		// clone this?
+		return user;
+	}
 
-        public HomeOwnerAccount getUser() {
-                // clone this?
-                return user;
-        }
+	/**
+	 * Javadoc needed.
+	 *
+	 */
+	public void setUser(HomeownerAccount user) {
+		this.user = user;
+	}
 
-        public void setUser(HomeOwnerAccount user) {
-                this.user = user;
-        }
+	/**
+	 * Javadoc needed.
+	 *
+	 */
+	public String getJobField() {
+		return jobField;
+	}
 
-        public String getJobField() {
-                return jobField;
-        }
+	/**
+	 * Javadoc needed.
+	 *
+	 */
+	public void setJobField(String jobField) {
+		this.jobField = jobField;
+	}
 
-        public void setJobField(String jobField) {
-                this.jobField = jobField;
-        }
-
-        public String getJobDescr() {
-                return jobDescr;
-        }
-
-        public void setJobDescr(String jobDescr) {
-                this.jobDescr = jobDescr;
-        }
-
-        public Image[] getPicsOfCurrentState() {
-                return picsOfCurrentState;
-        }
-
-        public void setPicsOfCurrentState(Image[] picsOfCurrentState) {
-                this.picsOfCurrentState = picsOfCurrentState;
-        }
+	/**
+	 * Javadoc needed.
+	 *
+	 */
+	public String getJobDescr() {
+		return jobDescr;
+	}
+	/**
+	 * Javadoc needed.
+	 *
+	 */
+	public void setJobDescr(String jobDescr) {
+		this.jobDescr = jobDescr;
+	}
+	/**
+	 * Javadoc needed.
+	 *
+	 */
+	public Image[] getPicsOfCurrentState() {
+		return (picsOfCurrentState == null) ? null : picsOfCurrentState.clone();
+	}
+	/**
+	 * Javadoc needed.
+	 *
+	 */
+	public void setPicsOfCurrentState(Image[] picsOfCurrentState) {
+		this.picsOfCurrentState = picsOfCurrentState.clone();
+	}
 
 }

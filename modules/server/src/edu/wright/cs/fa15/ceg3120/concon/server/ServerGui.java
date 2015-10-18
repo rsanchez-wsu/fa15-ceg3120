@@ -189,7 +189,10 @@ public class ServerGui extends JPanel implements ActionListener {
 		mainPanel.add(consolePanel, BorderLayout.SOUTH);
 		return mainPanel;
 	}
-
+	
+	/**
+	 * Not sure this name makes sense.
+	 */
 	protected JComponent createButtonsMessages() {
 		/*
 		 * Instantiation of the north panel. This panel will hold the two list
@@ -331,22 +334,28 @@ public class ServerGui extends JPanel implements ActionListener {
 		// was a selection in the text area.
 		textArea.setCaretPosition(textArea.getDocument().getLength());
 	}
-
+	
+	/**
+	 * Default class model for Transaction Table.
+	 */
 	class TransactionTableModel extends AbstractTableModel {
+		/**
+		 * Default class model for Transaction Table.
+		 */
 		private static final long serialVersionUID = 1L;
 
 		private String[] columnNames = { "Home Owner", "Contactor","Transaction #", "Date",
-		  "Price" };
+		 	"Price" };
 
 		private Object[][] dummyData = {
-		  { "Kathy", "Bob's Building", new Integer(1001),
+			{ "Kathy", "Bob's Building", new Integer(1001),
 			"Aug 31, 2015", "$120.15" },
-		  { "Geroge", "Home Depot", new Integer(1002),
-		    "Aug 29, 2015", "$1000.00" },
-		  { "Megan", "Constructors", new Integer(1003), 
-		    "Aug 30, 2015", "$120.15" },
-		  { "Mitch", "Joe's", new Integer(1004), 
-		    "Aug 31, 2015", "$120.15"}
+			{ "Geroge", "Home Depot", new Integer(1002),
+			"Aug 29, 2015", "$1000.00" },
+			{ "Megan", "Constructors", new Integer(1003), 
+			"Aug 30, 2015", "$120.15" },
+			{ "Mitch", "Joe's", new Integer(1004), 
+			"Aug 31, 2015", "$120.15"}
 		};
 
 		@Override
@@ -356,8 +365,8 @@ public class ServerGui extends JPanel implements ActionListener {
 		
 		@Override
 		public String getColumnName(int col) {
-            		return columnNames[col];
-        	}
+			return columnNames[col];
+		}
 
 		@Override
 		public int getRowCount() {
@@ -408,8 +417,8 @@ public class ServerGui extends JPanel implements ActionListener {
 		frame.pack();
 		frame.setVisible(true);
 	}	
-    		
-    	/**
+	
+		/**
     	 * Main class.
     	 * @param GUICreateandShow
     	 * 

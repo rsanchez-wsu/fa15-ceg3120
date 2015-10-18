@@ -21,18 +21,43 @@
 
 package edu.wright.cs.fa15.ceg3120.concon.common.data;
 
+/**
+ * Javadoc needed.
+ *
+ */
 public class ContractorAccount extends UserAccount {
 
-        // Contractor specific data fields
+	// Contractor specific data fields
+	private static final long serialVersionUID = 1L;
+	private String strCompanyName;
 
-        public ContractorAccount(AccountType accountType) {
-                super(accountType);
-                // TODO Auto-generated constructor stub
-        }
+	/**
+	 * Javadoc needed.
+	 *
+	 */
+	public ContractorAccount() {
+		super(AccountType.CONTRACTOR);
+	}
+	
+	/**
+	 * Javadoc needed.
+	 *
+	 */
+	public void setCompanyName(String strCn) {
+		strCompanyName = strCn;
+	}
 
-        @Override
-        public void launchGui() {
+	/**
+	 * Javadoc needed.
+	 *
+	 */
+	public String getCompanyName() {
+		return strCompanyName;
+	}
 
-        }
+	@Override
+	public void launchGui() {
+
+	}
 
 }

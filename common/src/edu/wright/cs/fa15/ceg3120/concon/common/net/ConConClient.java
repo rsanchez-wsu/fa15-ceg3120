@@ -28,48 +28,67 @@ import java.io.InputStreamReader;
 import java.net.Socket;
 
 //TODO have security
+/**
+ * Javadoc needed.
+ *
+ */
 public class ConConClient {
-        private String host;
-        private int port;
+	private String host;
+	private int port;
+	
+	/**
+	 * Javadoc needed.
+	 *
+	 */
+	public ConConClient(String host, int port) {
+		this.host = host;
+		this.port = port;
+	}
 
-        public ConConClient(String host, int port) {
-                this.host = host;
-                this.port = port;
-        }
+	/**
+	 * Javadoc needed.
+	 *
+	 */
+	public void sendMessage(String message) {
+		new DispatchMessage(message).start();
+	}
 
-        public void sendMessage(String message) {
-                new DisptatchMessage(message).start();
-        }
+	/**
+	 * Javadoc needed.
+	 *
+	 */
+	private class DispatchMessage extends Thread {
+		private String message;
 
-        private class DisptatchMessage extends Thread {
-                private String message;
+		/**
+		 * Javadoc needed.
+		 *
+		 */
+		public DispatchMessage(String message) {
+			this.message = message;
+		}
 
-                public DisptatchMessage(String message) {
-                        this.message = message;
-                }
+		@Override
+		public void run() {
+			try {
+				Socket clientSocket = new Socket(host, port);
+				DataOutputStream toServer = new DataOutputStream(clientSocket.getOutputStream());
+				BufferedReader fromServer = new BufferedReader(
+						new InputStreamReader(clientSocket.getInputStream(), "UTF-8"));
 
-                @Override
-                public void run() {
-                        try {
-                                Socket clientSocket = new Socket(host, port);
-                                DataOutputStream toServer = new DataOutputStream(
-                                                clientSocket.getOutputStream());
-                                BufferedReader fromServer = new BufferedReader(
-                                                new InputStreamReader(
-                                                                clientSocket.getInputStream()));
+				toServer.writeBytes(message);
+				StringBuilder response = new StringBuilder();
+				int ch = 0;
+				while ((ch = fromServer.read()) != -1) {
+					response.append(ch);
+				}
 
-                                toServer.writeBytes(message);
-                                String response = "";
-                                int n = 0;
-                                while ((n = fromServer.read()) != -1) {
-                                        response += (char) n;
-                                }
-                                // do something
+				NetworkManager.post(NetworkManager.decodeFromXml(response.toString()));
 
-                                clientSocket.close();
-                        } catch (IOException e) {
-                                e.printStackTrace();
-                        }
-                }
-        }
+				clientSocket.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+	}
 }
