@@ -127,17 +127,17 @@ public class CreateButtonsSearch extends JPanel{
 		this.add(new JScrollPane(users), BorderLayout.CENTER);
 	}//end constructor
 	
-	class UserTableModel extends AbstractTableModel { //Copied from Transactions tab
+	static class UserTableModel extends AbstractTableModel { //Copied from Transactions tab
 		private static final long serialVersionUID = 1L;
 
 		private String[] columnNames = { "Name", "Phone Number","Address", "E-Mail" };
 
 		private Object[][] dummyData = {
-		  { "Kathy", "(555)555-5555", "123 Main St.", "Kathy@gmail.com" },
-		  { "Geroge", "(555)555-5555", "456 S. West Dr.", "George@yahoo.com" },
-		  { "Megan", "(555)555-5555", "789 Oak Rd.", "Megan@hotmail.com" },
-		  { "Mitch", "(555)555-5555","1011 Maple Ave.", "Mitch@aol.com"},
-		  { "Barbara", "(555)555-5555", "1213  Pennyworth Blvd","mrs.gordon@gcpd.gov"}
+			{ "Kathy", "(555)555-5555", "123 Main St.", "Kathy@gmail.com" },
+			{ "Geroge", "(555)555-5555", "456 S. West Dr.", "George@yahoo.com" },
+			{ "Megan", "(555)555-5555", "789 Oak Rd.", "Megan@hotmail.com" },
+			{ "Mitch", "(555)555-5555","1011 Maple Ave.", "Mitch@aol.com"},
+			{ "Barbara", "(555)555-5555", "1213  Pennyworth Blvd","mrs.gordon@gcpd.gov"}
 		};
 
 		@Override
@@ -147,8 +147,8 @@ public class CreateButtonsSearch extends JPanel{
 		
 		@Override
 		public String getColumnName(int col) {
-            		return columnNames[col];
-        	}
+			return columnNames[col];
+		}
 
 		@Override
 		public int getRowCount() {
@@ -183,55 +183,55 @@ public class CreateButtonsSearch extends JPanel{
 	}//end UserTableModel
 	
 	
-	private class SearchListener implements ActionListener{
-    		@Override
-        public void actionPerformed(ActionEvent event) {
-    			try {
-    				if (searchBar.getText().isEmpty()) {
-    					System.out.println("You must enter a name to search");
-    				} else {
-    					System.out.println("The search is not empty");
-    					//TODO add search functionality, probably return a 2D array
-    				}
-    			} catch (Exception ex) {
-    				System.out.println("Error occured searching "
-    								+ "for users with that name");
-    			} //end catch
-    		}//end actionPerformed
-    	}//end SearchListener
-	
-	private class ResetListener implements ActionListener{
-		@Override
-    public void actionPerformed(ActionEvent event) {
-			try {
-				//TODO add search functionality, probably return a 2D array
-			} catch (Exception ex) {
-				System.out.println("Error occured resetting");
-			} //end catch
-		}//end actionPerformed
-	}//end ResetListener
-	
-	private class DisableListener implements ActionListener{
-		@Override
-    public void actionPerformed(ActionEvent event) {
-			try {
-				//TODO add search functionality, probably return a 2D array
-			} catch (Exception ex) {
-				System.out.println("Error occured disabling");
-			} //end catch
-		}//end actionPerformed
-	}//end DisableListener
-	
-	private class MessageListener implements ActionListener{
-		@Override
-    public void actionPerformed(ActionEvent event) {
-			try {
-				//TODO add search functionality, probably return a 2D array
-			} catch (Exception ex) {
-				System.out.println("Error occured sending message");
-			} //end catch
-		}//end actionPerformed
-	}//end MessageListener
+//	private class SearchListener implements ActionListener{
+//		@Override
+//		public void actionPerformed(ActionEvent event) {
+//			try {
+//				if (searchBar.getText().isEmpty()) {
+//					System.out.println("You must enter a name to search");
+//				} else {
+//					System.out.println("The search is not empty");
+//					//TODO add search functionality, probably return a 2D array
+//				}
+//			} catch (Exception ex) {
+//				System.out.println("Error occured searching "
+//						+ "for users with that name");
+//			} //end catch
+//		}//end actionPerformed
+//	}//end SearchListener
+//	
+//	private static class ResetListener implements ActionListener{
+//		@Override
+//		public void actionPerformed(ActionEvent event) {
+//			try {
+//				//TODO add search functionality, probably return a 2D array
+//			} catch (Exception ex) {
+//				System.out.println("Error occured resetting");
+//			} //end catch
+//		}//end actionPerformed
+//	}//end ResetListener
+//	
+//	private static class DisableListener implements ActionListener{
+//		@Override
+//		public void actionPerformed(ActionEvent event) {
+//			try {
+//				//TODO add search functionality, probably return a 2D array
+//			} catch (Exception ex) {
+//				System.out.println("Error occured disabling");
+//			} //end catch
+//		}//end actionPerformed
+//	}//end DisableListener
+//	
+//	private static class MessageListener implements ActionListener{
+//		@Override
+//		public void actionPerformed(ActionEvent event) {
+//			try {
+//				//TODO add search functionality, probably return a 2D array
+//			} catch (Exception ex) {
+//				System.out.println("Error occured sending message");
+//			} //end catch
+//		}//end actionPerformed
+//	}//end MessageListener
 	
 	
 	
