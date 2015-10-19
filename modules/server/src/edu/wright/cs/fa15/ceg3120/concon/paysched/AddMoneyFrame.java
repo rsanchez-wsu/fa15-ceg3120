@@ -58,7 +58,7 @@ public class AddMoneyFrame extends JFrame {
     private void jtextField1ActionPerformed(ActionEvent evt) {                                            
     }                                           
 
-    private void jbutton1ActionPerformed(ActionEvent evt) {                                         
+    private void jbutton1ActionPerformed(ActionEvent evt) {   
     }                                        
 
     private void jbutton2ActionPerformed(ActionEvent evt) {                                         
@@ -167,8 +167,14 @@ public class AddMoneyFrame extends JFrame {
 
         /* Create and display the form */
         //java.awt.EventQueue.invokeLater(() -> {
-          //  	new AddMoneyFrame().setVisible(true);
+           //	new AddMoneyFrame().setVisible(true);
         	//});
+        
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new AddMoneyFrame().setVisible(true);
+            }
+        });
     }
 
                     

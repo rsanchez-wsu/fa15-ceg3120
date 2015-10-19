@@ -154,7 +154,11 @@ public class TabbedFrame extends JFrame{
         paymentApprove.setText("Approve");
         paymentCancel.setText("Cancel");
         addMoney.setText("Add ConCoin");
-        
+        addMoney.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jbutton2MouseClicked(evt);
+            }
+        });
         
 
         javax.swing.GroupLayout jpanel1Layout = new javax.swing.GroupLayout(paymentTabPanel);
@@ -342,11 +346,7 @@ public class TabbedFrame extends JFrame{
         });
 
         confirmButton.setText("Confirm");
-        confirmButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jbutton2MouseClicked(evt);
-            }
-        });
+        
 
         cancelButton.setText("Cancel");
         cancelButton.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -464,13 +464,13 @@ public class TabbedFrame extends JFrame{
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
     	
-				/*   
-				AddMoneyFrame addMoney = new AddMoneyFrame();
-				addMoney.setDefaultCloseOperation(EXIT_ON_CLOSE);
-				addMoney.setSize(475, 300);
-				addMoney.setVisible(true);
+			  
+		AddMoneyFrame addMoney = new AddMoneyFrame();
+		addMoney.setDefaultCloseOperation(EXIT_ON_CLOSE);
+		addMoney.setSize(475, 300);
+		addMoney.setVisible(true);
 			
-		*/
+	
     }//GEN-LAST:event_jButton2MouseClicked
 
     private void jbutton3MouseClicked(java.awt.event.MouseEvent evt) {
