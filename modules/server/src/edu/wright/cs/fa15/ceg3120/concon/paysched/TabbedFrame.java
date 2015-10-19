@@ -71,7 +71,7 @@ public class TabbedFrame extends JFrame{
     //added by Jon
     private javax.swing.JButton paymentApprove; //Button for payment approve on payment tab
     private javax.swing.JButton paymentCancel; //Button for payment cancel on payment tab
-    private JButton addMoney;
+    private JButton addMoneyButton;
     private JLabel amountOwedLabel; //Label attached to the amount owed text box
     private JLabel amountInWalletLabel; // Label attached to the amount in wallet text box
     private JLabel amountRemainingLabel; //label attached to the amount remaining text box
@@ -125,7 +125,7 @@ public class TabbedFrame extends JFrame{
         //Payment tab variables
         paymentApprove = new javax.swing.JButton();
         paymentCancel = new javax.swing.JButton();
-        addMoney = new javax.swing.JButton();
+        addMoneyButton = new javax.swing.JButton();
         amountOwedLabel = new JLabel();
         amountInWalletLabel = new JLabel();
         amountRemainingLabel = new JLabel();
@@ -153,10 +153,10 @@ public class TabbedFrame extends JFrame{
         amountRemaining.setEditable(false);
         paymentApprove.setText("Approve");
         paymentCancel.setText("Cancel");
-        addMoney.setText("Add ConCoin");
-        addMoney.addMouseListener(new java.awt.event.MouseAdapter() {
+        addMoneyButton.setText("Add ConCoin");
+        addMoneyButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jbutton2MouseClicked(evt);
+                addMoneyWindowListener(evt);
             }
         });
         
@@ -189,7 +189,7 @@ public class TabbedFrame extends JFrame{
                         .addComponent(amountInWallet, javax.swing.GroupLayout.PREFERRED_SIZE, 93,
                         		javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jpanel1Layout.createSequentialGroup()
-                    		.addComponent(addMoney)
+                    		.addComponent(addMoneyButton)
                     		.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED,
                         		javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jpanel1Layout.createSequentialGroup()
@@ -221,7 +221,7 @@ public class TabbedFrame extends JFrame{
                 .addGroup(jpanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment
                 		.BASELINE)
                 		
-                		.addComponent(addMoney, javax.swing.GroupLayout.PREFERRED_SIZE,
+                		.addComponent(addMoneyButton, javax.swing.GroupLayout.PREFERRED_SIZE,
                     		javax.swing.GroupLayout.DEFAULT_SIZE,
                     		javax.swing.GroupLayout.PREFERRED_SIZE)
                 		)
@@ -457,7 +457,7 @@ public class TabbedFrame extends JFrame{
         //SchedulingData<?> data = new SchedulingData<>(month,day,timeRange);
     }//GEN-LAST:event_jButton1MouseClicked
 
-    private void jbutton2MouseClicked(java.awt.event.MouseEvent evt) {
+    private void addMoneyWindowListener(java.awt.event.MouseEvent evt) {
     	 /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
