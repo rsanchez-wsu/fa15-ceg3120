@@ -71,6 +71,7 @@ public class TabbedFrame extends JFrame{
     //added by Jon
     private javax.swing.JButton paymentApprove; //Button for payment approve on payment tab
     private javax.swing.JButton paymentCancel; //Button for payment cancel on payment tab
+    private JButton addMoney;
     private JLabel amountOwedLabel; //Label attached to the amount owed text box
     private JLabel amountInWalletLabel; // Label attached to the amount in wallet text box
     private JLabel amountRemainingLabel; //label attached to the amount remaining text box
@@ -124,6 +125,7 @@ public class TabbedFrame extends JFrame{
         //Payment tab variables
         paymentApprove = new javax.swing.JButton();
         paymentCancel = new javax.swing.JButton();
+        addMoney = new javax.swing.JButton();
         amountOwedLabel = new JLabel();
         amountInWalletLabel = new JLabel();
         amountRemainingLabel = new JLabel();
@@ -151,6 +153,7 @@ public class TabbedFrame extends JFrame{
         amountRemaining.setEditable(false);
         paymentApprove.setText("Approve");
         paymentCancel.setText("Cancel");
+        addMoney.setText("Add ConCoin");
         
         
 
@@ -163,6 +166,7 @@ public class TabbedFrame extends JFrame{
                 .addComponent(paymentApprove)
                 .addGap(46, 46, 46)
                 .addComponent(paymentCancel)
+                
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jpanel1Layout.createSequentialGroup()
                 .addGap(34, 34, 34)
@@ -180,6 +184,10 @@ public class TabbedFrame extends JFrame{
                         		javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(amountInWallet, javax.swing.GroupLayout.PREFERRED_SIZE, 93,
                         		javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jpanel1Layout.createSequentialGroup()
+                    		.addComponent(addMoney)
+                    		.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED,
+                        		javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jpanel1Layout.createSequentialGroup()
                         .addComponent(amountRemainingLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50,
@@ -205,7 +213,16 @@ public class TabbedFrame extends JFrame{
                     .addComponent(amountInWallet, javax.swing.GroupLayout.PREFERRED_SIZE,
                     		javax.swing.GroupLayout.DEFAULT_SIZE,
                     		javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(30, 30, 30)
+                
+                .addGroup(jpanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment
+                		.BASELINE)
+                		
+                		.addComponent(addMoney, javax.swing.GroupLayout.PREFERRED_SIZE,
+                    		javax.swing.GroupLayout.DEFAULT_SIZE,
+                    		javax.swing.GroupLayout.PREFERRED_SIZE)
+                		)
+                
+                
                 .addGroup(jpanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment
                 		.BASELINE)
                     .addComponent(amountRemainingLabel)
@@ -218,6 +235,7 @@ public class TabbedFrame extends JFrame{
                 		.BASELINE)
                     .addComponent(paymentApprove)
                     .addComponent(paymentCancel))
+                	
                 .addGap(41, 41, 41))
         );
 
