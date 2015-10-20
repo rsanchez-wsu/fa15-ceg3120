@@ -135,6 +135,9 @@ public class ServerGui extends JPanel implements ActionListener {
 		tabbedPane.setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
 	}
 
+	/**
+	 * Makes and returns a Textpanel Jcomponent.
+	 */
 	protected JComponent makeTextPanel(String text) {
 		JPanel panel = new JPanel(false);
 		JLabel filler = new JLabel(text);
@@ -143,7 +146,9 @@ public class ServerGui extends JPanel implements ActionListener {
 		panel.add(filler);
 		return panel;
 	}
-	
+	/**
+	 * Creates a control Panel Jcomponent.
+	 */
 	protected JComponent createControlPanel() {
 
 		// SchedulePanel
@@ -346,17 +351,18 @@ public class ServerGui extends JPanel implements ActionListener {
 		 */
 		private static final long serialVersionUID = 1L;
 
-		private String[] columnNames = { "Home Owner", "Contactor","Transaction #", "Date",
-		 	"Price" };
+		private String[] columnNames = {
+										"Home Owner", "Contactor",
+										"Transaction #", "Date", "Price" };
 
 		private Object[][] dummyData = {
-			{ "Kathy", "Bob's Building", Integer.valueOf(1001),
+										{ "Kathy", "Bob's Building", Integer.valueOf(1001),
 			"Aug 31, 2015", "$120.15" },
-			{ "Geroge", "Home Depot", Integer.valueOf(1002),
+										{ "Geroge", "Home Depot", Integer.valueOf(1002),
 			"Aug 29, 2015", "$1000.00" },
-			{ "Megan", "Constructors", Integer.valueOf(1003), 
+										{ "Megan", "Constructors", Integer.valueOf(1003), 
 			"Aug 30, 2015", "$120.15" },
-			{ "Mitch", "Joe's", Integer.valueOf(1004), 
+										{ "Mitch", "Joe's", Integer.valueOf(1004), 
 			"Aug 31, 2015", "$120.15"}
 		};
 

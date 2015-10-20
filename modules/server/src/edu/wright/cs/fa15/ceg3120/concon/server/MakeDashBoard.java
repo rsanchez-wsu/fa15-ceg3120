@@ -65,12 +65,17 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JToolBar;
-
+/**
+ * Creates a Dashboard Panel.
+ */
 public class MakeDashBoard {
 	private static JTextArea textArea;
 	private static final String newline = "\n";
 	static JComponent panelDashBoard = makeBoard();
-	
+	/**
+	 * Creates the dashboard panel and fills it.
+	 * @return JCOmponent, The dasboard panel
+	 */
 	protected static JComponent makeBoard() {
 		
 		textArea = new JTextArea(10, 20);
@@ -195,7 +200,9 @@ public class MakeDashBoard {
 		return mainPanel;
 		
 	}
-	
+	/**
+	 * Displays Text in a text area, Questions life and its meaning.
+	 */
 	protected static void displayInTextArea(String actionDescription) {
 		textArea.append(actionDescription + newline);
 	}
