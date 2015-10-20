@@ -28,22 +28,42 @@ import java.io.InputStreamReader;
 import java.net.Socket;
 
 //TODO have security
+/**
+ * Javadoc needed.
+ *
+ */
 public class ConConClient {
 	private String host;
 	private int port;
-
+	
+	/**
+	 * Javadoc needed.
+	 *
+	 */
 	public ConConClient(String host, int port) {
 		this.host = host;
 		this.port = port;
 	}
 
+	/**
+	 * Javadoc needed.
+	 *
+	 */
 	public void sendMessage(String message) {
 		new DispatchMessage(message).start();
 	}
 
+	/**
+	 * Javadoc needed.
+	 *
+	 */
 	private class DispatchMessage extends Thread {
 		private String message;
 
+		/**
+		 * Javadoc needed.
+		 *
+		 */
 		public DispatchMessage(String message) {
 			this.message = message;
 		}

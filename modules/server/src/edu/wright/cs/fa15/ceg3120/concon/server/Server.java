@@ -26,6 +26,10 @@ import edu.wright.cs.fa15.ceg3120.concon.common.net.NetworkManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * Javadoc needed.
+ *
+ */
 public class Server {
 	private static final Logger LOG = LoggerFactory.getLogger(Server.class);
 	
@@ -34,8 +38,8 @@ public class Server {
 	 * @param args Arguments.
 	 */
 	public static void main(String[] args) {
+		LOG.trace("Starting server...");
 		NetworkManager.startServer(9667);
 		System.out.println("Server running.");
-		LOG.trace("Starting server...");
 	}
 }

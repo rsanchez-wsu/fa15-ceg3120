@@ -1,8 +1,8 @@
 /*
  * Copyright (C) 2015
- * 
- * 
- * 
+ *
+ *
+ *
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -25,27 +25,33 @@ import org.apache.commons.mail.Email;
 import org.apache.commons.mail.EmailAttachment;
 import org.apache.commons.mail.EmailException;
 import org.apache.commons.mail.HtmlEmail;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.util.LinkedList;
 import java.util.Properties;
 import java.util.Queue;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javax.mail.Session;
 
 /**
  * Handles email sent by the server to notify users of status changes and mail
  * messages from other users.
- * 
+ *
  * @author NathanJent
  *
  */
 public class EmailManager {
+
+	private static final Logger LOG = LoggerFactory.getLogger(EmailManager.class);
 	private Queue<Email> mailQueue = new LinkedList<>();
 	private Properties props;
 
+	/**
+	 * Javadoc needed.
+	 *
+	 */
 	public EmailManager(Properties props) {
 		this.props = props;
 	}
@@ -67,7 +73,7 @@ public class EmailManager {
 
 		try {
 			mail.setMailSession(session);
-			mail.setFrom(props.getProperty("server_email_addr"), 
+			mail.setFrom(props.getProperty("server_email_addr"),
 							props.getProperty("server_title"));
 			mail.addTo(to);
 			mail.setSubject(subject);
@@ -79,12 +85,11 @@ public class EmailManager {
 				mail.attach(attachment);
 			}
 		} catch (EmailException e) {
-			Logger.getLogger(this.getClass().getName())
-				.log(Level.WARNING, "Email was not added. ", e);
+			LOG.warn("Email was not added. ", e);
 		}
 		mailQueue.add(mail);
 	}
-	
+
 	/**
 	 * Composes the message using the body inside of an HTML template with a logo image.
 	 * @param mail The outgoing email to compose.
@@ -112,12 +117,10 @@ public class EmailManager {
 		try {
 			while (!mailQueue.isEmpty()) {
 				mailQueue.remove().send();
-				Logger.getLogger(this.getClass().getName())
-					.info("Sent message successfully....");
+				LOG.info("Sent message successfully....");
 			}
 		} catch (EmailException e) {
-			Logger.getLogger(this.getClass().getName())
-				.log(Level.WARNING, "Email was not sent. ", e);
+			LOG.warn("Email was not sent. ", e);
 		}
 	}
 }

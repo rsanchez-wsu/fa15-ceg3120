@@ -35,6 +35,10 @@ public class SchedulingData implements Serializable {
 	private int day = 0;
 	private String timeRange = "";
 	
+	/**
+	 * Javadoc needed.
+	 *
+	 */
 	public SchedulingData() { }
 	
 	/**
@@ -49,26 +53,50 @@ public class SchedulingData implements Serializable {
 		this.timeRange = timeRange;
 	}
 
+	/**
+	 * Javadoc needed.
+	 *
+	 */
 	public String getMonth() {
 		return month;
 	}
 
+	/**
+	 * Javadoc needed.
+	 *
+	 */
 	public void setMonth(String month) {
 		this.month = month;
 	}
 
+	/**
+	 * Javadoc needed.
+	 *
+	 */
 	public int getDay() {
 		return day;
 	}
 
+	/**
+	 * Javadoc needed.
+	 *
+	 */
 	public void setDay(int day) {
 		this.day = day;
 	}
 
+	/**
+	 * Javadoc needed.
+	 *
+	 */
 	public String getTimeRange() {
 		return timeRange;
 	}
 
+	/**
+	 * Javadoc needed.
+	 *
+	 */
 	public void setTimeRange(String timeRange) {
 		this.timeRange = timeRange;
 	}
