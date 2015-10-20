@@ -141,12 +141,20 @@ public class ContractorClient extends JFrame implements ActionListener {
 	private static JButton btnSave;
 	private static JButton btnCancel;
 	private static JButton btnClear;
+	private static JLabel lblNumResults1 = new JLabel();
+	private static JLabel lblNumResults2 = new JLabel();
+	private static JLabel lblNumResults3 = new JLabel();
+	private static JLabel lblNumResults4 = new JLabel();
+	private static JLabel lblNumResults5 = new JLabel();
+	private static JLabel lblNumResults6 = new JLabel();
 	private static ArrayList<OpenJob> jobList = new ArrayList<OpenJob>();
 	private static Vector<Object> tempVec = new Vector<Object>();
 	private static int intSearch = 0;
 	private static String[] columnNames = {"Job Number", "Title", "Description", "City", "Cost", 
 											"Duration", "Zip Code"};
 	private static DefaultTableModel model1 = null;
+	private static JTabbedPane pageTabs = new JTabbedPane(JTabbedPane.TOP);
+	private static DecimalFormat f0 = new DecimalFormat("##.00");
 	
 	/**
 	 * Class for populating job information in the search feature.
@@ -329,6 +337,9 @@ public class ContractorClient extends JFrame implements ActionListener {
 			}
 		});
 		frame.getContentPane().setLayout(null);
+		lblNumResults1.setText("Showing results ");
+		lblNumResults3.setText(" to ");
+		lblNumResults5.setText(" of" );
 
 		JPanel banner = new JPanel();
 		banner.setLayout(null);
@@ -348,7 +359,7 @@ public class ContractorClient extends JFrame implements ActionListener {
 
 		frame.getContentPane().add(banner);
 		banner.setOpaque(false);
-		JTabbedPane pageTabs = new JTabbedPane(JTabbedPane.TOP);
+		pageTabs = new JTabbedPane(JTabbedPane.TOP);
 		pageTabs.setBounds(6, 127, 703, 309);
 		frame.getContentPane().add(pageTabs);
 
@@ -411,7 +422,7 @@ public class ContractorClient extends JFrame implements ActionListener {
 		pageTabs.addTab("Current Bids", null, curBidsTab, null);
 		GridLayout myLayout = new GridLayout(0, 2);
 		curBidsTab.setLayout(myLayout);
-		final DecimalFormat f0 = new DecimalFormat("##.00");
+		f0 = new DecimalFormat("##.00");
 		final JLabel[] lblCurrentBids = new JLabel[10];
 		final JButton[] update = new JButton[10];
 		final double[] currentBids = new double[10];
@@ -487,200 +498,10 @@ public class ContractorClient extends JFrame implements ActionListener {
 				}
 			});
 		}
+		
+		buildSearchTab();
 
-		JPanel searchTab = new JPanel();
-		pageTabs.addTab("Search", null, searchTab, null);
-		searchTab.setLayout(null);
-		
-		populateJobListArray();
-		
-		JLabel lblSearchTabMain = new JLabel("Search Options:");
-		searchTab.add(lblSearchTabMain);
-		lblSearchTabMain.setBounds(5,5,120,20);
-		
-		final JTextField txtSearchOptions = new JTextField();
-		txtSearchOptions.setBounds(275, 5, 240, 20);
-		searchTab.add(txtSearchOptions);
-		txtSearchOptions.setVisible(false);
-		
-		String[] searchOptions = {"Show All", "Distance", "Max Cost", "Max Duration"};
-		final JComboBox<String> cboSearchOptions = new JComboBox<String>(searchOptions);
-		searchTab.add(cboSearchOptions);
-		cboSearchOptions.setBounds(140, 5, 120, 20);
-		cboSearchOptions.addActionListener(new ActionListener() {
 
-			@Override
-			public void actionPerformed(ActionEvent e1) {
-				switch (cboSearchOptions.getSelectedItem().toString()) {
-				case "Show All":
-					intSearch = 0;
-					break;
-				case "Distance":
-					intSearch = 1;
-					txtSearchOptions.setVisible(true);
-					break;
-				case "Max Cost":
-					intSearch = 2;
-					txtSearchOptions.setVisible(true);
-					break;
-				case "Max Duration":
-					intSearch = 3;
-					txtSearchOptions.setVisible(true);
-					break;
-				default:
-					intSearch = 0;
-					break;
-				}
-				
-			}
-		});
-		
-		buildTable();
-		final JTable tblSearchResults = new JTable(model1) {
-			
-			private static final long serialVersionUID = 3500811875821636172L;
-
-			public Component prepareRenderer(TableCellRenderer renderer, int row, int column) {
-				Component c0 = super.prepareRenderer(renderer, row, column);
-				if (c0 instanceof JComponent) {
-					if (column > 0 && column < 3) {
-						JComponent jc = (JComponent) c0;
-						jc.setToolTipText((String) getValueAt(row, column));
-					} else {
-						JComponent jc = (JComponent) c0;
-						jc.setToolTipText("");
-					}
-				}
-				return c0;
-			}
-			
-		};
-//		tblSearchResults.setAutoCreateRowSorter(true);
-		JScrollPane jscSearchResults = new JScrollPane(tblSearchResults);
-		jscSearchResults.setBounds(45, 45, 605, 200);
-		searchTab.add(jscSearchResults);		
-		
-		JButton btnSearchGo = new JButton("Search");
-		btnSearchGo.setBounds(530, 5, 120, 20);
-		searchTab.add(btnSearchGo);
-		
-		btnSearchGo.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				buildTable();
-				populateJobListArray();
-				switch (intSearch) {
-				case 0:
-					model1.setRowCount(0);
-					columnNames[6] = "Zip Code";
-					tblSearchResults.setModel(model1);
-					for (int i = 0; i < jobList.size(); i++) {
-						tempVec = fillTempVec(jobList.get(i));
-						model1.addRow(tempVec);
-					}	
-					break;
-				case 1:
-					model1.addColumn("Distance");
-					tblSearchResults.setModel(model1);
-					int curZip = intZipCode;
-					final String tempDistance = txtSearchOptions.getText();
-					Double[][] curDistanceArray = new Double[50][2];
-					int tempDistanceInt = 0;
-					String strDistance = null;
-					if (tempDistance.length() > 0) {
-						tempDistanceInt = Integer.parseInt(tempDistance);
-					} else {
-						int issueChecker = 1;
-						while (issueChecker > 0) {
-							strDistance = JOptionPane.showInputDialog( 
-											profileTab,
-											"Please enter a distance (greater than 0)",
-											null);
-							if (strDistance.length() < 1 || Integer.parseInt(strDistance) < 1) {
-								issueChecker = 1;
-							} else {
-								int issueTracker = 0;
-								for (int j = 0; j < strDistance.length(); j++) {
-									char c1 = strDistance.charAt(j);
-									if (Character.isDigit(c1)) {
-										if (j == strDistance.length() - 1 && issueTracker == 0) {
-											txtSearchOptions.setText(strDistance);
-											issueChecker = 0;
-											break;
-										}
-									} else {
-										issueTracker++;
-									}
-								}
-							}
-						}
-						tempDistanceInt = Integer.parseInt(strDistance);
-					}
-					try {
-						curDistanceArray = distanceCalculator(curZip, tempDistanceInt);
-					} catch (IOException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					} catch (XMLStreamException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
-					
-					for (int j = 0; j < jobList.size(); j++) {
-						for (int k = 0; k < curDistanceArray.length; k++) {
-							if (jobList.get(j).getJobZipCode() 
-									== curDistanceArray[k][0].intValue()) {
-								tempVec = fillTempVec(jobList.get(j));
-								tempVec.add(7, f0.format(curDistanceArray[k][1]));
-								model1.addRow(tempVec);
-							}
-						}
-					}
-					break;
-				case 2:
-					model1.setRowCount(0);
-					columnNames[6] = "Zip Code";
-					tblSearchResults.setModel(model1);
-					final String tempCost = txtSearchOptions.getText(); 
-					int tempCostInt = 0;
-					if (tempCost.length() > 0) {
-						tempCostInt = Integer.parseInt(tempCost);
-					}
-					for (int i = 0; i < jobList.size(); i++) {
-						if (jobList.get(i).jobCost <= tempCostInt) {
-							tempVec = fillTempVec(jobList.get(i));
-							model1.addRow(tempVec);
-						}
-					}
-					break;
-				case 3:
-					model1.setRowCount(0);
-					columnNames[6] = "Zip Code";
-					tblSearchResults.setModel(model1);
-					final String tempDuration = txtSearchOptions.getText();
-					int tempDurationInt = 0;
-					if (tempDuration.length() > 0) {
-						tempDurationInt = Integer.parseInt(tempDuration);
-					}
-					for (int i = 0; i < jobList.size(); i++) {
-//						Object[] tempArray = jobList.elementData(i);
-						if (jobList.get(i).jobDuration <= tempDurationInt) {
-							tempVec = fillTempVec(jobList.get(i));
-							model1.addRow(tempVec);
-						}
-					}
-					break;
-				default:
-					model1.setRowCount(0);
-					columnNames[6] = "Zip Code";
-					tblSearchResults.setModel(model1);
-					for (int i = 0; i < jobList.size(); i++) {
-						tempVec = fillTempVec(jobList.get(i));
-						model1.addRow(tempVec);
-					}	
-					break;
-				}
-			}
-		});
 		
 		JPanel paymentsTab = new JPanel();
 		pageTabs.addTab("Payments", null, paymentsTab, null);
@@ -1178,7 +999,7 @@ public class ContractorClient extends JFrame implements ActionListener {
 		job2.setJobDesc("Would like new toilet installed");
 		job2.setJobCity("Englewood");
 		job2.setJobCost(100);
-		job2.setJobDuration(1);
+		job2.setJobDuration(2);
 		job2.setJobZipCode(45322);
 		job2.setJobDistance(-1);
 		OpenJob job3 = new OpenJob();
@@ -1337,7 +1158,6 @@ public class ContractorClient extends JFrame implements ActionListener {
 	 * @return returns tempVec.
 	 */
 	public static Vector<Object> fillTempVec(OpenJob newJob) {
-		System.out.println(newJob.getJobNumber());
 		Vector<Object> newVec = new Vector<Object>();
 		newVec.clear();
 		newVec.add(0, newJob.getJobNumber());
@@ -1375,6 +1195,274 @@ public class ContractorClient extends JFrame implements ActionListener {
 						"Couldn't Open Page", JOptionPane.ERROR_MESSAGE);
 			}
 		}
+	}
+	
+	
+	/**
+	 * This method hides the search result labels on the search tab.
+	 */
+	public static void hideResultLabels() {
+		lblNumResults1.setVisible(false);
+		lblNumResults2.setVisible(false);
+		lblNumResults3.setVisible(false);
+		lblNumResults4.setVisible(false);
+		lblNumResults5.setVisible(false);
+		lblNumResults6.setVisible(false);
+	}
+	
+	/**
+	 * This method makes the search result labels on the search tab visible.
+	 */
+	public static void showResultLabels() {
+		lblNumResults1.setVisible(true);
+		lblNumResults2.setVisible(true);
+		lblNumResults3.setVisible(true);
+		lblNumResults4.setVisible(true);
+		lblNumResults5.setVisible(true);
+		lblNumResults6.setVisible(true);
+	}
+	
+	/**
+	 * This method builds and populates the search tab, thereby shrinking the size
+	 * of the main method.
+	 */
+	public static void buildSearchTab() {
+		JPanel searchTab = new JPanel();
+		pageTabs.addTab("Search", null, searchTab, null);
+		searchTab.setLayout(null);
+		
+		populateJobListArray();
+		
+		JLabel lblSearchTabMain = new JLabel("Search Options:");
+		searchTab.add(lblSearchTabMain);
+		lblSearchTabMain.setBounds(5,5,120,20);
+		
+		final JTextField txtSearchOptions = new JTextField();
+		txtSearchOptions.setBounds(275, 5, 240, 20);
+		searchTab.add(txtSearchOptions);
+		txtSearchOptions.setVisible(false);
+		
+		String[] searchOptions = {"Show All", "Distance", "Max Cost", "Max Duration"};
+		final JComboBox<String> cboSearchOptions = new JComboBox<String>(searchOptions);
+		searchTab.add(cboSearchOptions);
+		cboSearchOptions.setBounds(140, 5, 120, 20);
+		cboSearchOptions.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e1) {
+				switch (cboSearchOptions.getSelectedItem().toString()) {
+				case "Show All":
+					intSearch = 0;
+					txtSearchOptions.setVisible(false);
+					break;
+				case "Distance":
+					intSearch = 1;
+					txtSearchOptions.setVisible(true);
+					break;
+				case "Max Cost":
+					intSearch = 2;
+					txtSearchOptions.setVisible(true);
+					break;
+				case "Max Duration":
+					intSearch = 3;
+					txtSearchOptions.setVisible(true);
+					break;
+				default:
+					intSearch = 0;
+					break;
+				}
+				
+			}
+		});
+		
+		buildTable();
+		final JTable tblSearchResults = new JTable(model1) {
+			
+			private static final long serialVersionUID = 3500811875821636172L;
+
+			public Component prepareRenderer(TableCellRenderer renderer, int row, int column) {
+				Component c0 = super.prepareRenderer(renderer, row, column);
+				if (c0 instanceof JComponent) {
+					if (column > 0 && column < 3) {
+						JComponent jc = (JComponent) c0;
+						jc.setToolTipText((String) getValueAt(row, column));
+					} else {
+						JComponent jc = (JComponent) c0;
+						jc.setToolTipText("");
+					}
+				}
+				return c0;
+			}
+			
+		};
+//		tblSearchResults.setAutoCreateRowSorter(true);
+		JScrollPane jscSearchResults = new JScrollPane(tblSearchResults);
+		jscSearchResults.setBounds(45, 45, 605, 200);
+		searchTab.add(jscSearchResults);
+		
+		hideResultLabels();
+		
+		lblNumResults1.setBounds(250, 250, 100, 20);
+		searchTab.add(lblNumResults1);
+		
+		lblNumResults2.setBounds(350, 250, 20, 20);
+		searchTab.add(lblNumResults2);
+		
+		lblNumResults3.setBounds(370, 250, 20, 20);
+		searchTab.add(lblNumResults3);
+		
+		lblNumResults4.setBounds(390, 250, 20, 20);
+		searchTab.add(lblNumResults4);
+		
+		lblNumResults5.setBounds(410, 250, 20, 20);
+		searchTab.add(lblNumResults5);
+		
+		lblNumResults6.setBounds(430, 250, 20, 20);
+		searchTab.add(lblNumResults6);
+		
+		JButton btnSearchGo = new JButton("Search");
+		btnSearchGo.setBounds(530, 5, 120, 20);
+		searchTab.add(btnSearchGo);
+		
+		btnSearchGo.addActionListener(new ActionListener() {
+			int intResultCount = 0;
+			public void actionPerformed(ActionEvent arg0) {
+				buildTable();
+				populateJobListArray();
+				switch (intSearch) {
+				case 0:
+					model1.setRowCount(0);
+					columnNames[6] = "Zip Code";
+					tblSearchResults.setModel(model1);
+					for (int i = 0; i < jobList.size(); i++) {
+						intResultCount++;
+						tempVec = fillTempVec(jobList.get(i));
+						model1.addRow(tempVec);
+					}
+					lblNumResults2.setText("1");
+					lblNumResults4.setText(String.valueOf(intResultCount));
+					lblNumResults6.setText(String.valueOf(intResultCount));
+					showResultLabels();
+					break;
+				case 1:
+					model1.addColumn("Distance");
+					tblSearchResults.setModel(model1);
+					int curZip = intZipCode;
+					final String tempDistance = txtSearchOptions.getText();
+					Double[][] curDistanceArray = new Double[50][2];
+					int tempDistanceInt = 0;
+					String strDistance = null;
+					if (tempDistance.length() > 0) {
+						tempDistanceInt = Integer.parseInt(tempDistance);
+					} else {
+						int issueChecker = 1;
+						while (issueChecker > 0) {
+							strDistance = JOptionPane.showInputDialog( 
+											profileTab,
+											"Please enter a distance (greater than 0)",
+											null);
+							if (strDistance.length() < 1 || Integer.parseInt(strDistance) < 1) {
+								issueChecker = 1;
+							} else {
+								int issueTracker = 0;
+								for (int j = 0; j < strDistance.length(); j++) {
+									char c1 = strDistance.charAt(j);
+									if (Character.isDigit(c1)) {
+										if (j == strDistance.length() - 1 && issueTracker == 0) {
+											txtSearchOptions.setText(strDistance);
+											issueChecker = 0;
+											break;
+										}
+									} else {
+										issueTracker++;
+									}
+								}
+							}
+						}
+						tempDistanceInt = Integer.parseInt(strDistance);
+					}
+					try {
+						curDistanceArray = distanceCalculator(curZip, tempDistanceInt);
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					} catch (XMLStreamException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					
+					for (int j = 0; j < jobList.size(); j++) {
+						for (int k = 0; k < curDistanceArray.length; k++) {
+							if (jobList.get(j).getJobZipCode() 
+									== curDistanceArray[k][0].intValue()) {
+								tempVec = fillTempVec(jobList.get(j));
+								tempVec.add(7, f0.format(curDistanceArray[k][1]));
+								model1.addRow(tempVec);
+							}
+						}
+					}
+					lblNumResults2.setText("1");
+					lblNumResults4.setText(String.valueOf(intResultCount));
+					lblNumResults6.setText(String.valueOf(intResultCount));
+					showResultLabels();
+					break;
+				case 2:
+					model1.setRowCount(0);
+					columnNames[6] = "Zip Code";
+					tblSearchResults.setModel(model1);
+					final String tempCost = txtSearchOptions.getText(); 
+					int tempCostInt = 0;
+					if (tempCost.length() > 0) {
+						tempCostInt = Integer.parseInt(tempCost);
+					}
+					for (int i = 0; i < jobList.size(); i++) {
+						if (jobList.get(i).jobCost <= tempCostInt) {
+							tempVec = fillTempVec(jobList.get(i));
+							model1.addRow(tempVec);
+						}
+					}
+					lblNumResults2.setText("1");
+					lblNumResults4.setText(String.valueOf(intResultCount));
+					lblNumResults6.setText(String.valueOf(intResultCount));
+					showResultLabels();
+					break;
+				case 3:
+					model1.setRowCount(0);
+					columnNames[6] = "Zip Code";
+					tblSearchResults.setModel(model1);
+					final String tempDuration = txtSearchOptions.getText();
+					int tempDurationInt = 0;
+					if (tempDuration.length() > 0) {
+						tempDurationInt = Integer.parseInt(tempDuration);
+					}
+					for (int i = 0; i < jobList.size(); i++) {
+//						Object[] tempArray = jobList.elementData(i);
+						if (jobList.get(i).jobDuration <= tempDurationInt) {
+							tempVec = fillTempVec(jobList.get(i));
+							model1.addRow(tempVec);
+						}
+					}
+					lblNumResults2.setText("1");
+					lblNumResults4.setText(String.valueOf(intResultCount));
+					lblNumResults6.setText(String.valueOf(intResultCount));
+					showResultLabels();
+					break;
+				default:
+					model1.setRowCount(0);
+					columnNames[6] = "Zip Code";
+					tblSearchResults.setModel(model1);
+					for (int i = 0; i < jobList.size(); i++) {
+						tempVec = fillTempVec(jobList.get(i));
+						model1.addRow(tempVec);
+					}
+					lblNumResults2.setText("1");
+					lblNumResults4.setText(String.valueOf(intResultCount));
+					lblNumResults6.setText(String.valueOf(intResultCount));
+					showResultLabels();
+					break;
+				}
+			}
+		});
 	}
 
 	/**
