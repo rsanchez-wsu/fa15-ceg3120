@@ -64,81 +64,84 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
-
+/**
+ * Creates a server report panel which will show the reports for the server.
+ * These include The error list for the servers and the database.
+ **/
 public class CreateServerReportPanel {
 	static JComponent createReportPanel = reportPanel();
-	/*
+	/**
 	 * Creates server reports into the report panel
 	 * initially this was supposed to be a new tab but when I saw the updates 
 	 * I think it would make the most sense to put this here.
-	 */
+	 **/
 	protected static JComponent reportPanel() {
-        	final JPanel mainPanel = new JPanel(new BorderLayout());
-        
-        	String[] dataOptions = { "System Errors", "Database Errors", 
-        				"System Resets and Backups"};
-     
-        	final JComboBox<String> dataOptionList = new JComboBox<String>(dataOptions);
-        
-        	dataOptionList.setSelectedIndex(0);
-        	JPanel systemerrorspanel = new JPanel(new BorderLayout());
-        	systemerrorspanel.add(new JTextField("Current System Errors"));
-        	JTable errorsList;
-    	
-        	errorsList = getSysErrorsFromDataBase();
-        	JScrollPane errorScroll = new JScrollPane(errorsList);
-        	systemerrorspanel.add(errorScroll, BorderLayout.CENTER);
-        	mainPanel.add(systemerrorspanel, BorderLayout.CENTER);
-        	dataOptionList.addItemListener(new ItemListener() {
-        		@Override
-				public void itemStateChanged(ItemEvent arg0) {
-        			mainPanel.removeAll();
-        			mainPanel.add(dataOptionList, BorderLayout.NORTH);
-        			
-        			if (dataOptionList.getSelectedIndex() == 0) {
-        				JPanel syserrorspanel = new JPanel(new BorderLayout());
-        				syserrorspanel.add(new JTextField("Current System Errors"));
-        				JTable errorsList;
-                	
-        				errorsList = getSysErrorsFromDataBase();
-        				JScrollPane errorScroll = new JScrollPane(errorsList);
-        				syserrorspanel.add(errorScroll, BorderLayout.CENTER);
-        				mainPanel.add(syserrorspanel, BorderLayout.CENTER);
-        			} else if (dataOptionList.getSelectedIndex() == 1) {
-        				JPanel databaseErrorPanel = new JPanel(new BorderLayout());
-        				databaseErrorPanel.add(new JTextField(
-        						  "Current Database Errors"));
-        				JTable errorsList;
-        				//TODO refine this once the database calling is worked out
-        				errorsList = getrrorsfromDatabase();
-        				JScrollPane errorScroll = new JScrollPane(errorsList);
-        				databaseErrorPanel.add(errorScroll, BorderLayout.CENTER);
-        				mainPanel.add(databaseErrorPanel, BorderLayout.CENTER);	
-        				
-        			} else if (dataOptionList.getSelectedIndex() == 2) {
-        				JPanel sysresetpanel = new JPanel(new BorderLayout());
-        				sysresetpanel.add(new JTextField("\nResets and Backups"));
-        				JList<String> resetList = new JList<>();
-        				//TODO refine this once the database calling is worked out
-        				resetList = getResetAndBackupsFromDataBase();
-        				sysresetpanel.add(resetList, BorderLayout.CENTER);
-        				mainPanel.add(sysresetpanel, BorderLayout.CENTER);
-        			}
-        			mainPanel.revalidate();
-        			mainPanel.repaint();
-        		}
-        	});
+		final JPanel mainPanel = new JPanel(new BorderLayout());
 
-        //Lay out the demo.
-        	mainPanel.add(dataOptionList, BorderLayout.NORTH);
-    
-        	return mainPanel;
-    	}
+		String[] dataOptions = { "System Errors", "Database Errors", 
+								"System Resets and Backups"};
+
+		final JComboBox<String> dataOptionList = new JComboBox<String>(dataOptions);
+
+		dataOptionList.setSelectedIndex(0);
+		JPanel systemerrorspanel = new JPanel(new BorderLayout());
+		systemerrorspanel.add(new JTextField("Current System Errors"));
+		JTable errorsList;
+		
+		errorsList = getSysErrorsFromDataBase();
+		JScrollPane errorScroll = new JScrollPane(errorsList);
+		systemerrorspanel.add(errorScroll, BorderLayout.CENTER);
+		mainPanel.add(systemerrorspanel, BorderLayout.CENTER);
+		dataOptionList.addItemListener(new ItemListener() {
+			@Override
+				public void itemStateChanged(ItemEvent arg0) {
+					mainPanel.removeAll();
+					mainPanel.add(dataOptionList, BorderLayout.NORTH);
+
+					if (dataOptionList.getSelectedIndex() == 0) {
+						JPanel syserrorspanel = new JPanel(new BorderLayout());
+						syserrorspanel.add(new JTextField("Current System Errors"));
+						JTable errorsList;
+
+						errorsList = getSysErrorsFromDataBase();
+						JScrollPane errorScroll = new JScrollPane(errorsList);
+						syserrorspanel.add(errorScroll, BorderLayout.CENTER);
+						mainPanel.add(syserrorspanel, BorderLayout.CENTER);
+					} else if (dataOptionList.getSelectedIndex() == 1) {
+						JPanel databaseErrorPanel = new JPanel(new BorderLayout());
+						databaseErrorPanel.add(new JTextField(
+								"Current Database Errors"));
+						JTable errorsList;
+						//TODO refine this once the database calling is worked out
+						errorsList = getrrorsfromDatabase();
+						JScrollPane errorScroll = new JScrollPane(errorsList);
+						databaseErrorPanel.add(errorScroll, BorderLayout.CENTER);
+						mainPanel.add(databaseErrorPanel, BorderLayout.CENTER);	
+
+					} else if (dataOptionList.getSelectedIndex() == 2) {
+						JPanel sysresetpanel = new JPanel(new BorderLayout());
+						sysresetpanel.add(new JTextField("\nResets and Backups"));
+						JList<String> resetList = new JList<>();
+						//TODO refine this once the database calling is worked out
+						resetList = getResetAndBackupsFromDataBase();
+						sysresetpanel.add(resetList, BorderLayout.CENTER);
+						mainPanel.add(sysresetpanel, BorderLayout.CENTER);
+					}
+					mainPanel.revalidate();
+					mainPanel.repaint();
+			}
+		});
+
+		//Lay out the demo.
+		mainPanel.add(dataOptionList, BorderLayout.NORTH);
+
+		return mainPanel;
+	}
 	
-	/*
-	 * is the same as system errors but might change or be combined based on 
-	 * how database calling will end up working
-	 */
+	/**
+	 * Is the same as system errors but might change or be combined based on. 
+	 * how database calling will end up working.
+	 **/
 	protected static JTable getrrorsfromDatabase() {
 		String errorCount;
 		errorCount = "10";//TODO add database call for this
@@ -156,7 +159,10 @@ public class CreateServerReportPanel {
 		JTable errorTable = new JTable( errorData, columnTitles);
 		return errorTable;
 	} 
-
+/**
+ * gets the resets and backups from the Database.
+ * Will be changed to add database calls
+ **/
 	protected static JList<String> getResetAndBackupsFromDataBase() {
 		
 		JList<String> resetAndBackupList = new JList<String>();
@@ -168,7 +174,10 @@ public class CreateServerReportPanel {
 		
 		return resetAndBackupList;
 	}
-
+	/**
+	 *Gets a JTable of System errors from the database.
+	 *Will add a database call eventually. 
+	 **/
 	protected static JTable getSysErrorsFromDataBase() {
 		String errorCount;
 		errorCount = "10";//TODO add database call for this

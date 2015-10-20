@@ -54,7 +54,10 @@
 package edu.wright.cs.fa15.ceg3120.concon.server;
 
 import javax.swing.ImageIcon;
-
+/**
+ * Creates an Image Icon.
+ *
+ */
 public class CreateImageIcon{
 	static ImageIcon iconReport = createIcon("images/Report.png");
 	static ImageIcon iconMessage = createIcon("images/Message.png");

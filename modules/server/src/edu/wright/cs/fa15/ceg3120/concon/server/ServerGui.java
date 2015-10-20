@@ -60,20 +60,25 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
-
 import javax.swing.BorderFactory;
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JComponent;
+import javax.swing.JEditorPane;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JRadioButton;
+import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
+import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
+import javax.swing.table.AbstractTableModel;
 
 /**
  * 1.
@@ -108,7 +113,7 @@ public class ServerGui extends JPanel implements ActionListener {
 						"Does twice as much nothing");
 		tabbedPane.setMnemonicAt(1, KeyEvent.VK_2);
 
-		JComponent panel3 = MessagingTab.createMessagingTab();
+		JComponent panel3 = createButtonsMessages();
 		tabbedPane.addTab("Messages", CreateImageIcon.icon, panel3, "Still does nothing");
 		tabbedPane.setMnemonicAt(2, KeyEvent.VK_3);
 
@@ -118,7 +123,7 @@ public class ServerGui extends JPanel implements ActionListener {
 						panel4, "Does nothing at all");
 		tabbedPane.setMnemonicAt(3, KeyEvent.VK_5);
 
-		JComponent panel5 = TransactionTab.makeTransactionTable();
+		JComponent panel5 = createTransactionsPanel();
 		tabbedPane.addTab("Transactions", CreateImageIcon.icon, 
 						panel5, "Still does nothing");
 		tabbedPane.setMnemonicAt(4, KeyEvent.VK_4);
@@ -131,9 +136,7 @@ public class ServerGui extends JPanel implements ActionListener {
 	}
 
 	/**
-	 * Creates a text panel.
-	 * @param text The text to put in the label.
-	 * @return a completed text field.
+	 * Makes and returns a Textpanel Jcomponent.
 	 */
 	protected JComponent makeTextPanel(String text) {
 		JPanel panel = new JPanel(false);
@@ -143,10 +146,8 @@ public class ServerGui extends JPanel implements ActionListener {
 		panel.add(filler);
 		return panel;
 	}
-	
 	/**
-	 * Creates the control panel panel.
-	 * @return The control panel.
+	 * Creates a control Panel Jcomponent.
 	 */
 	protected JComponent createControlPanel() {
 
@@ -195,6 +196,140 @@ public class ServerGui extends JPanel implements ActionListener {
 		mainPanel.add(consolePanel, BorderLayout.SOUTH);
 		return mainPanel;
 	}
+	
+	/**
+	 * Not sure this name makes sense.
+	 */
+	protected JComponent createButtonsMessages() {
+		/*
+		 * Instantiation of the north panel. This panel will hold the two list
+		 * views to select the users that will receive the message.
+		 */
+		DefaultListModel<String> usersModel = new DefaultListModel<>();
+		// Create dummy data for JList
+		usersModel.addElement("Bob");
+		usersModel.addElement("Susan");
+		usersModel.addElement("ConstructionsRUs");
+		usersModel.addElement("Bob's Building Builders");
+
+		JList<String> usersList = new JList<>();
+		usersList.setModel(usersModel);
+
+		JLabel usersLabel = new JLabel("Users:"); // TODO add label to view
+		JPanel usersPanel = new JPanel(new BorderLayout());
+		JScrollPane usersScrollPane = new JScrollPane(usersList);
+		usersPanel.add(usersLabel, BorderLayout.NORTH);
+		usersPanel.add(usersScrollPane, BorderLayout.CENTER);
+
+		JPanel northPanel = new JPanel();
+		northPanel.add(usersPanel);
+
+		// Buttons for moving selections from one pane to another.
+		JPanel buttonPanel = new JPanel(new BorderLayout());
+		JButton button = new JButton("Add all");
+		// TODO add listener
+		buttonPanel.add(button, BorderLayout.NORTH);
+		button = new JButton("-->");
+		// TODO add listener
+		buttonPanel.add(button, BorderLayout.EAST);
+		button = new JButton("<--");
+		buttonPanel.add(button, BorderLayout.SOUTH);
+		northPanel.add(buttonPanel);
+
+		JPanel selectedPanel = new JPanel(new BorderLayout());
+		JLabel selectedLabel = new JLabel("Selected:");
+		JList<String> selectedList = new JList<>();
+		DefaultListModel<String> selectedModel = new DefaultListModel<>();
+		selectedModel.addElement("Bob");
+		selectedList.setModel(selectedModel);
+		JScrollPane selectedScrollPane = new JScrollPane(selectedList);
+		selectedPanel.add(selectedLabel, BorderLayout.NORTH);
+		selectedPanel.add(selectedScrollPane, BorderLayout.CENTER);
+		northPanel.add(selectedPanel);
+
+		/*
+		 * Instantiation of the center panel. This panel will hold the editor
+		 * pane that will be used to edit the message to be sent.
+		 */
+		JPanel centerPanel = new JPanel(new BorderLayout());
+		JLabel messageLabel = new JLabel("Message:");
+		JEditorPane messageText = new JEditorPane();
+		JScrollPane messageScrollPane = new JScrollPane(messageText);
+		centerPanel.add(messageLabel, BorderLayout.NORTH);
+		centerPanel.add(messageScrollPane, BorderLayout.CENTER);
+
+		/*
+		 * Instantiation of the east panel. This panel will hold two buttons.
+		 * One to clear all data one to send message.
+		 */
+		JPanel eastPanel = new JPanel();
+		button = new JButton("Clear");
+		// TODO add listener
+		eastPanel.add(button);
+		button = new JButton("Send");
+		// TODO add listener
+		eastPanel.add(button);
+
+		JPanel panel = new JPanel(new BorderLayout());
+
+		panel.add(northPanel, BorderLayout.NORTH);
+		panel.add(centerPanel, BorderLayout.CENTER);
+		panel.add(eastPanel, BorderLayout.EAST);
+
+		return panel;
+	}
+
+	/**
+	 * Creates the panel to placed in the Transactions tab of the Server Control
+	 * GUI
+	 * 
+	 * @return the panel to be used.
+	 */
+	protected JComponent createTransactionsPanel() {
+		
+		// Users label
+		DefaultListModel<String> usersModel = new DefaultListModel<>();
+		// Create dummy data for JList
+		usersModel.addElement("Bob");
+		usersModel.addElement("Susan");
+		usersModel.addElement("ConstructionsRUs");
+		usersModel.addElement("Bob's Building Builders");
+		usersModel.addElement("Bob");
+		usersModel.addElement("Susan");
+		usersModel.addElement("ConstructionsRUs");
+		usersModel.addElement("Bob's Building Builders");
+		usersModel.addElement("Bob");
+		usersModel.addElement("Susan");
+		usersModel.addElement("ConstructionsRUs");
+		usersModel.addElement("Bob's Building Builders");
+		usersModel.addElement("Bob");
+		usersModel.addElement("Susan");
+		usersModel.addElement("ConstructionsRUs");
+		usersModel.addElement("Bob's Building Builders");
+
+		JList<String> usersList = new JList<>();
+		usersList.setModel(usersModel);
+
+		JPanel usersPanel = new JPanel(new BorderLayout());
+		JLabel usersLabel = new JLabel("Users:"); // TODO add label to view
+		usersPanel.add(usersLabel, BorderLayout.NORTH);
+		
+		JScrollPane usersScrollPane = new JScrollPane(usersList);
+		usersPanel.add(usersScrollPane, BorderLayout.CENTER);
+		
+		JButton refreshButton = new JButton("Refresh");
+		//TODO add click listener
+		usersPanel.add(refreshButton, BorderLayout.EAST);
+		
+		// Transactions Table
+		JTable transactionTable = new JTable(new TransactionTableModel());
+		transactionTable.setFillsViewportHeight(true);
+		
+		JPanel panel = new JPanel(new BorderLayout());
+		panel.add(new JScrollPane(transactionTable), BorderLayout.CENTER);
+		panel.add(usersPanel, BorderLayout.NORTH);
+		return panel;
+	}
 
 	@Override
 	public void actionPerformed(ActionEvent evt) {
@@ -207,6 +342,72 @@ public class ServerGui extends JPanel implements ActionListener {
 		textArea.setCaretPosition(textArea.getDocument().getLength());
 	}
 	
+	/**
+	 * Default class model for Transaction Table.
+	 */
+	static class TransactionTableModel extends AbstractTableModel {
+		/**
+		 * Default class model for Transaction Table.
+		 */
+		private static final long serialVersionUID = 1L;
+
+		private String[] columnNames = {
+										"Home Owner", "Contactor",
+										"Transaction #", "Date", "Price" };
+
+		private Object[][] dummyData = {
+										{ "Kathy", "Bob's Building", Integer.valueOf(1001),
+			"Aug 31, 2015", "$120.15" },
+										{ "Geroge", "Home Depot", Integer.valueOf(1002),
+			"Aug 29, 2015", "$1000.00" },
+										{ "Megan", "Constructors", Integer.valueOf(1003), 
+			"Aug 30, 2015", "$120.15" },
+										{ "Mitch", "Joe's", Integer.valueOf(1004), 
+			"Aug 31, 2015", "$120.15"}
+		};
+
+		@Override
+		public int getColumnCount() {
+			return columnNames.length;
+		}
+		
+		@Override
+		public String getColumnName(int col) {
+			return columnNames[col];
+		}
+
+		@Override
+		public int getRowCount() {
+			return dummyData.length;
+		}
+
+		@Override
+		public Object getValueAt(int row, int col) {
+			return dummyData[row][col];
+		}
+		
+		@Override
+		public Class<?> getColumnClass(int column) {
+			return getValueAt(0, column).getClass();
+		}
+		
+		/*
+		 * Possible implementation of resolving transaction issues
+		 */
+		@Override
+		public boolean isCellEditable(int row, int col) {
+			return false; // Could return true on different columns.
+		}
+		
+		@Override
+		public void setValueAt(Object value, int row, int col) {
+			// TODO validation
+			dummyData[row][col] = value;
+			fireTableCellUpdated(row, col);
+		}
+
+	}
+
 	/**
 	 * Create the GUI and show it. For thread safety, this method should be
 	 * invoked from the event dispatch thread.
