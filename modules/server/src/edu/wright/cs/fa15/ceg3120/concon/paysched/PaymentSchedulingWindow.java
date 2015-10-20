@@ -1,8 +1,8 @@
 /*
  * Copyright (C) 2015
- * 
- * 
- * 
+ *
+ *
+ *
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -41,7 +41,7 @@ public class PaymentSchedulingWindow extends JFrame{
 	public static void main(String[] args) {
 		SwingUtilities.invokeLater(new Runnable(){
 			public void run() {
-				   
+
 				TabbedFrame paymentAndScheduling = new TabbedFrame();
 				paymentAndScheduling.setDefaultCloseOperation(EXIT_ON_CLOSE);
 				paymentAndScheduling.setSize(475, 300);
@@ -53,5 +53,3 @@ public class PaymentSchedulingWindow extends JFrame{
 		});
 	}
 }
-	
-

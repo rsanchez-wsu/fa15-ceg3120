@@ -96,12 +96,12 @@
         <javac srcdir="${common.dir}" destdir="${classes.dir}" includeantruntime="false" classpathref="build.lib.path">
             <compilerarg value="-Xlint:all"/>
             <compilerarg value="-Xlint:-path"/>
-            <!-- <compilerarg value="-Werror"/> -->
+            <compilerarg value="-Werror"/>
         </javac>
         <javac srcdir="${src.dir}" destdir="${classes.dir}" includeantruntime="false" classpathref="build.lib.path">
             <compilerarg value="-Xlint:all"/>
             <compilerarg value="-Xlint:-path"/>
-            <!-- <compilerarg value="-Werror"/> -->
+            <compilerarg value="-Werror"/>
         </javac>
     </target>
 
@@ -136,13 +136,11 @@
             <contains text="&lt;error"/>
         </fileset>
 
-        <!--
         <fail message="CheckStyle violation found!">
             <condition>
                 <resourcecount when="greater" count="0" refid="cs-violationss"/>
             </condition>
         </fail>
-        -->
     </target>
 
     <target name="findbugs" depends="build"
