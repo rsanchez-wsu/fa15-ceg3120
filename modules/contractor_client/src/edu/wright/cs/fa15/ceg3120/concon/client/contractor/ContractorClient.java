@@ -150,11 +150,29 @@ public class ContractorClient extends JFrame implements ActionListener {
 	private static ArrayList<OpenJob> jobList = new ArrayList<OpenJob>();
 	private static Vector<Object> tempVec = new Vector<Object>();
 	private static int intSearch = 0;
+	private static int curNotif = 0;
 	private static String[] columnNames = {"Job Number", "Title", "Description", "City", "Cost", 
 											"Duration", "Zip Code"};
 	private static DefaultTableModel model1 = null;
 	private static JTabbedPane pageTabs = new JTabbedPane(JTabbedPane.TOP);
 	private static DecimalFormat f0 = new DecimalFormat("##.00");
+	
+	/**
+	 * This method sets the current amount of notifications for the user. Used to
+	 * set the color of the tab to notify the user.
+	 * @param curNotif New value of the current notifications.
+	 */
+	private static void setNotif(int curNotif) {
+		ContractorClient.curNotif = curNotif;
+	}
+	
+	/**
+	 * Gets and returns the current number of notifications.
+	 * @return Returns the current value.
+	 */
+	private static int getNotif() {
+		return curNotif;
+	}
 	
 	/**
 	 * Class for populating job information in the search feature.
@@ -330,7 +348,8 @@ public class ContractorClient extends JFrame implements ActionListener {
 		frame.addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent w0) { 
-				int exit = JOptionPane.showConfirmDialog(frame, "Do you want to exit?");
+				int exit = JOptionPane.showConfirmDialog(frame, "Do you want to exit?", 
+						"Exit", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 				if (exit == JOptionPane.YES_OPTION) {
 					System.exit(0);
 				}
@@ -472,6 +491,11 @@ public class ContractorClient extends JFrame implements ActionListener {
 
 		JPanel notificationsTab = new JPanel();
 		pageTabs.addTab("Notifications", null, notificationsTab, null);
+		setNotif(6);
+		if (getNotif() > 0) {
+			pageTabs.setBackgroundAt(2, Color.RED);
+		}
+		final Color defaultColor = new Color(238,238,238);
 		String clientName;
 		String jobLocation;
 		String jobDate;
@@ -493,6 +517,10 @@ public class ContractorClient extends JFrame implements ActionListener {
 					Container parent = acknowledge[list].getParent();
 					parent.remove(acknowledge[list]);
 					parent.remove(jobs[list]);
+					setNotif(getNotif() - 1);
+					if (getNotif() < 1) {
+						pageTabs.setBackgroundAt(2, defaultColor);
+					}
 					parent.validate();
 					parent.repaint();
 				}
@@ -1476,7 +1504,7 @@ public class ContractorClient extends JFrame implements ActionListener {
 					ContractorClient.initialize();
 					ContractorClient.frame.setVisible(true);
 				} catch (Exception e) {
-					e.printStackTrace();
+					JOptionPane.showMessageDialog(null, "The GUI couldn't build", "GUI Failure", JOptionPane.ERROR_MESSAGE);
 				}
 
 			}
