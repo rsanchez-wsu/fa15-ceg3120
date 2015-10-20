@@ -1504,7 +1504,8 @@ public class ContractorClient extends JFrame implements ActionListener {
 					ContractorClient.initialize();
 					ContractorClient.frame.setVisible(true);
 				} catch (Exception e) {
-					JOptionPane.showMessageDialog(null, "The GUI couldn't build", "GUI Failure", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(null, "The "
+							+ "GUI couldn't build", "GUI Failure", JOptionPane.ERROR_MESSAGE);
 				}
 
 			}
