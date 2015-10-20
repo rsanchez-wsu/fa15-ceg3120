@@ -28,6 +28,9 @@ package edu.wright.cs.fa15.ceg3120.concon.client.contractor;
  * import edu.wright.cs.fa15.ceg3120.concon.common.data.AccountType;
  * import edu.wright.cs.fa15.ceg3120.concon.common.data.ContractorAccount;
  */
+import edu.wright.cs.fa15.ceg3120.concon.common.data.AccountType;
+import edu.wright.cs.fa15.ceg3120.concon.common.data.ContractorAccount;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
@@ -93,6 +96,7 @@ public class ContractorClient extends JFrame implements ActionListener {
  * 
  * 	private static ContractorAccount account = new ContractorAccount();
 */
+	private static ContractorAccount account = new ContractorAccount();
 	private static final Logger LOG = LoggerFactory.getLogger(ContractorClient.class);
 	private static final long serialVersionUID = 1L;
 	private static JFrame frame;
@@ -310,6 +314,7 @@ public class ContractorClient extends JFrame implements ActionListener {
  * 
  * 		account.setAccountType(AccountType.CONTRACTOR);
  */
+		account.setAccountType(AccountType.CONTRACTOR);
 		frame = new JFrame();		
 		frame.setBounds(100, 100, 725, 475);
 		frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
