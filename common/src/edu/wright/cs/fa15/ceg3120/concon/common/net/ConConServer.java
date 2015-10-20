@@ -43,6 +43,10 @@ public class ConConServer implements Runnable {
 	private ServerSocket serverSocket = null;
 	private boolean listening = true;
 
+	/**
+	 * Javadoc needed.
+	 *
+	 */
 	public ConConServer(int port) {
 		this.port = port;
 	

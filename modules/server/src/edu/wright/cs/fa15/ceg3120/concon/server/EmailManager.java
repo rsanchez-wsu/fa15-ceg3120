@@ -1,8 +1,8 @@
 /*
  * Copyright (C) 2015
- * 
- * 
- * 
+ *
+ *
+ *
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -38,16 +38,20 @@ import javax.mail.Session;
 /**
  * Handles email sent by the server to notify users of status changes and mail
  * messages from other users.
- * 
+ *
  * @author NathanJent
  *
  */
 public class EmailManager {
-	
-    private static final Logger LOG = LoggerFactory.getLogger(EmailManager.class);
+
+	private static final Logger LOG = LoggerFactory.getLogger(EmailManager.class);
 	private Queue<Email> mailQueue = new LinkedList<>();
 	private Properties props;
 
+	/**
+	 * Javadoc needed.
+	 *
+	 */
 	public EmailManager(Properties props) {
 		this.props = props;
 	}
@@ -69,7 +73,7 @@ public class EmailManager {
 
 		try {
 			mail.setMailSession(session);
-			mail.setFrom(props.getProperty("server_email_addr"), 
+			mail.setFrom(props.getProperty("server_email_addr"),
 							props.getProperty("server_title"));
 			mail.addTo(to);
 			mail.setSubject(subject);
@@ -85,7 +89,7 @@ public class EmailManager {
 		}
 		mailQueue.add(mail);
 	}
-	
+
 	/**
 	 * Composes the message using the body inside of an HTML template with a logo image.
 	 * @param mail The outgoing email to compose.

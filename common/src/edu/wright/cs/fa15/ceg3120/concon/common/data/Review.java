@@ -69,30 +69,58 @@ public abstract class Review {
 		this.rating = rating;
 	}
 
+	/**
+	 * Javadoc needed.
+	 *
+	 */
 	public int getId() {
 		return id;
 	}
 
+	/**
+	 * Javadoc needed.
+	 *
+	 */
 	public int getReviewerId() {
 		return reviewerId;
 	}
 
+	/**
+	 * Javadoc needed.
+	 *
+	 */
 	public int getSubjectId() {
 		return subjectId;
 	}
 
+	/**
+	 * Javadoc needed.
+	 *
+	 */
 	public int getJobId() {
 		return jobId;
 	}
 
+	/**
+	 * Javadoc needed.
+	 *
+	 */
 	public String getDate() {
 		return date;
 	}
 
+	/**
+	 * Javadoc needed.
+	 *
+	 */
 	public String getText() {
 		return text;
 	}
 
+	/**
+	 * Javadoc needed.
+	 *
+	 */
 	public int getRating() {
 		return rating;
 	}
