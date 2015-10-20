@@ -28,14 +28,13 @@ import java.io.InputStreamReader;
 import java.net.Socket;
 
 //TODO have security
-
 /**
  * The clientside counterpart to conconserver.
  */
 public class ConConClient {
 	private String host;
 	private int port;
-
+	
 	/**
 	 * Constructs a client which will talk to the designated host:port.
 	 * @param host an IP address or similar.
@@ -46,6 +45,10 @@ public class ConConClient {
 		this.port = port;
 	}
 
+	/**
+	 * Javadoc needed.
+	 *
+	 */
 	public void sendMessage(String message) {
 		new Thread(new DispatchMessage(message)).start();
 	}
