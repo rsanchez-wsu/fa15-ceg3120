@@ -99,3 +99,10 @@ modules/*/tools/
 /modules/contractor_client/src/log4j2.xml
 /modules/customer_client/src/log4j2.xml
 /modules/server/src/log4j2.xml
+
+### Meld ###
+*.orig
+*_BACKUP_*
+*_BASE_*
+*_LOCAL_*
+*_REMOTE_*
