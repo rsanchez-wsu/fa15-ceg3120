@@ -28,6 +28,7 @@ package edu.wright.cs.fa15.ceg3120.concon.client.contractor;
  * import edu.wright.cs.fa15.ceg3120.concon.common.data.AccountType;
  * import edu.wright.cs.fa15.ceg3120.concon.common.data.ContractorAccount;
  */
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
@@ -1350,6 +1351,7 @@ public class ContractorClient extends JFrame implements ActionListener {
 				populateJobListArray();
 				switch (intSearch) {
 				case 0:
+					intResultCount = 0;
 					model1.setRowCount(0);
 					columnNames[6] = "Zip Code";
 					tblSearchResults.setModel(model1);
@@ -1364,6 +1366,7 @@ public class ContractorClient extends JFrame implements ActionListener {
 					showResultLabels();
 					break;
 				case 1:
+					intResultCount = 0;
 					model1.addColumn("Distance");
 					tblSearchResults.setModel(model1);
 					int curZip = intZipCode;
@@ -1410,12 +1413,17 @@ public class ContractorClient extends JFrame implements ActionListener {
 					
 					for (int j = 0; j < jobList.size(); j++) {
 						for (int k = 0; k < curDistanceArray.length; k++) {
-							if (jobList.get(j).getJobZipCode() 
-									== curDistanceArray[k][0].intValue()) {
-								intResultCount++;
-								tempVec = fillTempVec(jobList.get(j));
-								tempVec.add(7, f0.format(curDistanceArray[k][1]));
-								model1.addRow(tempVec);
+							if (curDistanceArray[k][0] == null 
+									|| curDistanceArray[k][1] == null) {
+								// Do nothing if the array is null at this point
+							} else {
+								if (jobList.get(j).getJobZipCode() 
+										== curDistanceArray[k][0].intValue()) {
+									intResultCount++;
+									tempVec = fillTempVec(jobList.get(j));
+									tempVec.add(7, f0.format(curDistanceArray[k][1]));
+									model1.addRow(tempVec);
+								}
 							}
 						}
 					}
@@ -1425,6 +1433,7 @@ public class ContractorClient extends JFrame implements ActionListener {
 					showResultLabels();
 					break;
 				case 2:
+					intResultCount = 0;
 					model1.setRowCount(0);
 					columnNames[6] = "Zip Code";
 					tblSearchResults.setModel(model1);
@@ -1446,6 +1455,7 @@ public class ContractorClient extends JFrame implements ActionListener {
 					showResultLabels();
 					break;
 				case 3:
+					intResultCount = 0;
 					model1.setRowCount(0);
 					columnNames[6] = "Zip Code";
 					tblSearchResults.setModel(model1);
@@ -1468,6 +1478,7 @@ public class ContractorClient extends JFrame implements ActionListener {
 					showResultLabels();
 					break;
 				default:
+					intResultCount = 0;
 					model1.setRowCount(0);
 					columnNames[6] = "Zip Code";
 					tblSearchResults.setModel(model1);
