@@ -528,8 +528,6 @@ public class ContractorClient extends JFrame implements ActionListener {
 		}
 		
 		buildSearchTab();
-
-
 		
 		JPanel paymentsTab = new JPanel();
 		pageTabs.addTab("Payments", null, paymentsTab, null);
@@ -555,14 +553,9 @@ public class ContractorClient extends JFrame implements ActionListener {
 		paymentsResults.setBounds(45, 45, 605, 100);
 		paymentsTab.add(paymentsResults);
 
-		profileTab = new JPanel();
-		pageTabs.addTab("Edit Profile", null, profileTab, null);
-		profileTab.setLayout(null);
+		buildProfileEditorTab();
 
-		populateProfileTab();
-
-		JPanel calendarTab = new JPanel();
-		pageTabs.addTab("Calendar", null, calendarTab, null);
+		buildCalendarTab();
 
 		JPanel openJobsTab = new JPanel();
 		pageTabs.addTab("Open Jobs", null, openJobsTab, null);
@@ -1106,10 +1099,8 @@ public class ContractorClient extends JFrame implements ActionListener {
 				}
 			}
 		} catch (SAXException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (ParserConfigurationException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}  finally {
 			urlConnection.disconnect();
@@ -1412,10 +1403,8 @@ public class ContractorClient extends JFrame implements ActionListener {
 					try {
 						curDistanceArray = distanceCalculator(curZip, tempDistanceInt);
 					} catch (IOException e1) {
-						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					} catch (XMLStreamException e1) {
-						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
 					
@@ -1423,6 +1412,7 @@ public class ContractorClient extends JFrame implements ActionListener {
 						for (int k = 0; k < curDistanceArray.length; k++) {
 							if (jobList.get(j).getJobZipCode() 
 									== curDistanceArray[k][0].intValue()) {
+								intResultCount++;
 								tempVec = fillTempVec(jobList.get(j));
 								tempVec.add(7, f0.format(curDistanceArray[k][1]));
 								model1.addRow(tempVec);
@@ -1445,6 +1435,7 @@ public class ContractorClient extends JFrame implements ActionListener {
 					}
 					for (int i = 0; i < jobList.size(); i++) {
 						if (jobList.get(i).jobCost <= tempCostInt) {
+							intResultCount++;
 							tempVec = fillTempVec(jobList.get(i));
 							model1.addRow(tempVec);
 						}
@@ -1466,6 +1457,7 @@ public class ContractorClient extends JFrame implements ActionListener {
 					for (int i = 0; i < jobList.size(); i++) {
 //						Object[] tempArray = jobList.elementData(i);
 						if (jobList.get(i).jobDuration <= tempDurationInt) {
+							intResultCount++;
 							tempVec = fillTempVec(jobList.get(i));
 							model1.addRow(tempVec);
 						}
@@ -1480,6 +1472,7 @@ public class ContractorClient extends JFrame implements ActionListener {
 					columnNames[6] = "Zip Code";
 					tblSearchResults.setModel(model1);
 					for (int i = 0; i < jobList.size(); i++) {
+						intResultCount++;
 						tempVec = fillTempVec(jobList.get(i));
 						model1.addRow(tempVec);
 					}
@@ -1493,6 +1486,25 @@ public class ContractorClient extends JFrame implements ActionListener {
 		});
 	}
 
+	/**
+	 * This method builds and populates the calendar tab.
+	 */
+	public static void buildCalendarTab() {
+		JPanel calendarTab = new JPanel();
+		pageTabs.addTab("Calendar", null, calendarTab, null);
+	}
+
+	/**
+	 * This method builds and populates the profile editor tab.
+	 */
+	public static void buildProfileEditorTab() {
+		profileTab = new JPanel();
+		pageTabs.addTab("Edit Profile", null, profileTab, null);
+		profileTab.setLayout(null);
+
+		populateProfileTab();
+	}
+	
 	/**
 	 * This method sets up the initial window.
 	 */
