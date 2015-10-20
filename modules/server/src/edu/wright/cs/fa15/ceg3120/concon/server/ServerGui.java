@@ -80,7 +80,9 @@ import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.table.AbstractTableModel;
 
-
+/**
+ * 1.
+ * */
 public class ServerGui extends JPanel implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
@@ -106,10 +108,10 @@ public class ServerGui extends JPanel implements ActionListener {
 		tabbedPane.setMnemonicAt(0, KeyEvent.VK_1);
 
 
-//		JComponent panel2 = new CreateButtonsSearch();
-//		tabbedPane.addTab("User's info", CreateImageIcon.icon, panel2,
-//						"Does twice as much nothing");
-//		tabbedPane.setMnemonicAt(1, KeyEvent.VK_2);
+		JComponent panel2 = new CreateButtonsSearch();
+		tabbedPane.addTab("User's info", CreateImageIcon.icon, panel2,
+						"Does twice as much nothing");
+		tabbedPane.setMnemonicAt(1, KeyEvent.VK_2);
 
 		JComponent panel3 = createButtonsMessages();
 		tabbedPane.addTab("Messages", CreateImageIcon.icon, panel3, "Still does nothing");
