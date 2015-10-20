@@ -33,22 +33,90 @@ import javax.swing.JFrame;
  *
  */
 public class AddMoneyFrame extends JFrame {
-	
-	private javax.swing.JButton jbutton1;
-    private javax.swing.JButton jbutton2;
-    private javax.swing.JLabel jlabel1;
-    private javax.swing.JLabel jlabel2;
-    private javax.swing.JTextField jtextField1;
-	 /**a sentence to shut checkstyle up.
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	/**bla bla bla.
      * Creates new form AddMoneyFrame
      */
+	private javax.swing.JButton okButton;
+    private javax.swing.JButton cancelButton;
+    private javax.swing.JLabel amountToAddLabel;
+    private javax.swing.JTextField amountToAddTextField;
+	
     public AddMoneyFrame() {
         initComponents();
     }
+ 
+    private void initComponents() {
+
+        amountToAddLabel = new javax.swing.JLabel();
+        amountToAddTextField = new javax.swing.JTextField();
+        okButton = new javax.swing.JButton();
+        cancelButton = new javax.swing.JButton();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        amountToAddLabel.setText("Amount to Add:");
+
+        amountToAddTextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jtextField1ActionPerformed(evt);
+            }
+        });
+
+        okButton.setText("OK");
+        okButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbutton1ActionPerformed(evt);
+            }
+        });
+
+        cancelButton.setText("CANCEL");
+        cancelButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbutton2ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(109, 109, 109)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(amountToAddLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 90,
+                    		javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(okButton, javax.swing.GroupLayout.PREFERRED_SIZE, 71,
+                    		javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, 
+                		false)
+                    .addComponent(cancelButton, javax.swing.GroupLayout.DEFAULT_SIZE,
+                    		javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(amountToAddTextField))
+                .addContainerGap(112, Short.MAX_VALUE))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(85, 85, 85)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(amountToAddLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 33,
+                    		javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(amountToAddTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 33,
+                    		javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(31, 31, 31)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cancelButton)
+                    .addComponent(okButton))
+                .addContainerGap(128, Short.MAX_VALUE))
+        );
+
+        pack();
+        
+        
+    }// </editor-fold>      
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -63,119 +131,6 @@ public class AddMoneyFrame extends JFrame {
 
     private void jbutton2ActionPerformed(ActionEvent evt) {                                         
     }             
-                          
-    private void initComponents() {
-
-        jlabel1 = new javax.swing.JLabel();
-        jlabel2 = new javax.swing.JLabel();
-        jtextField1 = new javax.swing.JTextField();
-        jbutton1 = new javax.swing.JButton();
-        jbutton2 = new javax.swing.JButton();
-
-        jlabel1.setText("jLabel1");
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        jlabel2.setText("Amount to Add:");
-
-        jtextField1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jtextField1ActionPerformed(evt);
-            }
-        });
-
-        jbutton1.setText("OK");
-        jbutton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbutton1ActionPerformed(evt);
-            }
-        });
-
-        jbutton2.setText("CANCEL");
-        jbutton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbutton2ActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(109, 109, 109)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jlabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 90,
-                    		javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jbutton1, javax.swing.GroupLayout.PREFERRED_SIZE, 71,
-                    		javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, 
-                		false)
-                    .addComponent(jbutton2, javax.swing.GroupLayout.DEFAULT_SIZE,
-                    		javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jtextField1))
-                .addContainerGap(112, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(85, 85, 85)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jlabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 33,
-                    		javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jtextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 33,
-                    		javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(31, 31, 31)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jbutton2)
-                    .addComponent(jbutton1))
-                .addContainerGap(128, Short.MAX_VALUE))
-        );
-
-        pack();
-    }// </editor-fold>                        
-
-                               
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and 
-         * feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager
-            		.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException 
-        		| javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(AddMoneyFrame.class.getName())
-            	.log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        
-        //</editor-fold>
-
-        /* Create and display the form */
-        //java.awt.EventQueue.invokeLater(() -> {
-           //	new AddMoneyFrame().setVisible(true);
-        	//});
-        
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new AddMoneyFrame().setVisible(true);
-            }
-        });
-    }
 
                     
 }
