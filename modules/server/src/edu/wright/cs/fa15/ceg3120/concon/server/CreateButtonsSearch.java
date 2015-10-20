@@ -200,12 +200,12 @@ public class CreateButtonsSearch extends JPanel{
 		@Override
 		public void actionPerformed(ActionEvent event) {
 			try {
-				if (searchBar.getText().isEmpty()) {
-					System.out.println("You must enter a name to search");
-				} else {
-					System.out.println("The search is not empty");
-					//TODO add search functionality, probably return a 2D array
-				}
+//				if (searchBar.getText().isEmpty()) {
+				System.out.println("You must enter a name to search");
+//				} else {
+//					System.out.println("The search is not empty");
+//					//TODO add search functionality, probably return a 2D array
+//				}
 			} catch (Exception ex) {
 				System.out.println("Error occured searching "
 						+ "for users with that name");
