@@ -196,7 +196,7 @@ public class CreateButtonsSearch extends JPanel{
 	/**
 	 * Searched the database for the name input in the search bar.
 	 * */
-	private class SearchListener implements ActionListener{
+	private static class SearchListener implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent event) {
 			try {
