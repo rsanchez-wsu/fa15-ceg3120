@@ -32,15 +32,22 @@ import org.slf4j.LoggerFactory;
  */
 @SuppressWarnings("unused")
 public class DataAccessLayer {
+	
 	private String statement = "";
 	private static final Logger LOG = LoggerFactory.getLogger(DataAccessLayer.class);
 	
 	private static volatile ServerSocket serverSocket = null;
-	
 	Socket socket = null;
 
-	/*
-	 * Initializes
+	/**
+	 * Initializes the socket listener on a set port ( Currently 4001 ).  
+	 * This function also creates a thread that runs a continuous loop that waits for input
+	 * on the opened port.
+	 * 
+	 * In addition, when the continuous loop catches data, it will be handled here.
+	 * 
+	 * @param iPort, port number to open the listener on.
+	 * @return null
 	 */
 	private static void initializeSocketListener( int iPort ){
 		
@@ -59,8 +66,10 @@ public class DataAccessLayer {
 							
 							// -- Runs a continuous loop that will grab input on the socket. -- CM
 							for(;;){
-								if( clientSocket.isConnected() 
-										&& clientSocket.getInputStream().toString().length() > 0 ) {
+								if( clientSocket.isConnected() &&
+										clientSocket.getInputStream().toString().length() > 0 ) {
+									
+									LOG.debug("--DataAccessLayer: Data Received: " + clientSocket.getInputStream() );
 									// -- If we reached here, the inputstream had some value in it. Handle it.
 									
 								}
