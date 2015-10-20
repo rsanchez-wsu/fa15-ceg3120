@@ -1,4 +1,3 @@
-
 /*
  * Copyright (C) 2015
  * 
@@ -42,7 +41,7 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 //import javax.swing.SwingUtilities;
 
-/*
+/**Class for tabbed window.
  *
  * @author Emily
  */
