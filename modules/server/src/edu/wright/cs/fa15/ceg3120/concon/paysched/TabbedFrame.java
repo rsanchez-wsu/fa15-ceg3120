@@ -467,7 +467,7 @@ public class TabbedFrame extends JFrame{
 			  
 		AddMoneyFrame addMoney = new AddMoneyFrame();
 		addMoney.setDefaultCloseOperation(EXIT_ON_CLOSE);
-		addMoney.setSize(475, 300);
+		addMoney.setSize(425, 300);
 		addMoney.setVisible(true);
 			
 	
