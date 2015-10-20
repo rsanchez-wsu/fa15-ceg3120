@@ -23,79 +23,37 @@ package edu.wright.cs.fa15.ceg3120.concon.common.data;
 
 import java.lang.reflect.Method;
 
-@SuppressWarnings("unused")
+/**
+ * This class will house any homeowner specific data fields.  It also launches
+ * the homeowner UI.
+ * 
+ * @author Quack
+ *
+ */
 public class HomeownerAccount extends UserAccount {
+	private static final long serialVersionUID = 1L;
 
-	/** Description. */
-//	private String streetAddress;
-	/** Description. */
-//	private String city;
-	/** Description. */
-//	private String state;
-	/** Description. */
-//	private int zipCode;
-	/** Description. */
-//	private String phoneNumber;
-	/** Description. */
-//	private String email;
-    //other fields here
-    
+	/**
+	 * Creates a new instance of <code>HomeownerAccount</code>.
+	 */
 	public HomeownerAccount() {
-        super(AccountType.HOMEOWNER);
-        
+		super(AccountType.HOMEOWNER);
+
 	}
 
 	@Override
-    public void launchGui() {        
-        
+	public void launchGui() {
+		//(new CustomerClient()).buildGui();
+		try {
+			Class<?> homeowner = 
+					Class.forName("edu.wright.cs.fa15.ceg3120.concon"
+							+ ".client.customer.CustomerClient");
+			Method meth = homeowner.getMethod("buildGui", this.getClass());
+			meth.invoke(homeowner.newInstance(), this);
+		} catch (RuntimeException e) { 
+			throw e;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
-
-/*	public String getStreetAddress() {
-		return streetAddress;
-	}
-
-	public void setStreetAddress(String streetAdress) {
-		this.streetAddress = streetAdress;
-	}
-
-	public String getCity() {
-		return city;
-	}
-
-	public void setCity(String city) {
-		this.city = city;
-	}
-
-	public String getState() {
-		return state;
-	}
-
-	public void setState(String state) {
-		this.state = state;
-	}
-
-	public int getZipCode() {
-		return zipCode;
-	}
-
-	public void setZipCode(int zipCode) {
-		this.zipCode = zipCode;
-	}
-
-	public String getPhoneNumber() {
-		return phoneNumber;
-	}
-
-	public void setPhoneNumber(String phoneNumber) {
-		this.phoneNumber = phoneNumber;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-*/
 }

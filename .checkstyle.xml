@@ -146,10 +146,11 @@ Based on the Google CheckStyle configuration.
       <property name="target" value="CLASS_DEF, INTERFACE_DEF, ENUM_DEF, METHOD_DEF, CTOR_DEF, VARIABLE_DEF"/>
       <property name="tagOrder" value="@param, @return, @throws, @deprecated"/>
     </module>
+    <module name="JavadocType"/>
     <module name="JavadocMethod">
-      <property name="minLineCount" value="2"/>
+      <property name="minLineCount" value="-1"/>
       <property name="allowedAnnotations" value="Override, Test"/>
-      <property name="scope" value="public"/>
+      <property name="scope" value="private"/>
       <property name="allowThrowsTagsForSubclasses" value="true"/>
       <property name="allowMissingParamTags" value="true"/>
       <property name="allowMissingThrowsTags" value="true"/>
@@ -164,6 +165,11 @@ Based on the Google CheckStyle configuration.
     </module>
     <module name="EmptyCatchBlock">
       <property name="exceptionVariableName" value="expected"/>
+    </module>
+    <module name="RegexpSinglelineJava">
+      <property name="format" value="^\t* "/>
+      <property name="message" value="Indent must use tab characters"/>
+      <property name="ignoreComments" value="true"/>
     </module>
   </module>
   <module name="FileTabCharacter">

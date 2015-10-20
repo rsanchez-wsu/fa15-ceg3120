@@ -39,9 +39,14 @@ import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * This class is used to manage network connections.
+ * @author Networking Team
+ *
+ */
 public class NetworkManager {
 	
-    private static final Logger LOG = LoggerFactory.getLogger(NetworkManager.class);
+	private static final Logger LOG = LoggerFactory.getLogger(NetworkManager.class);
 	
 
 	private static final HashMap<Method, Class<?>> NETWORK_BUS = new HashMap<Method, Class<?>>();
@@ -51,9 +56,7 @@ public class NetworkManager {
 
 	/**
 	 * Description. TODO Fill out.
-	 * 
-	 * @param cl
-	 *            Class to register.
+	 * @param cl Class to register.
 	 */
 	public static void registerNetworkClass(Class<?> cl) {
 		Method[] methods = cl.getMethods();
@@ -61,8 +64,10 @@ public class NetworkManager {
 			if (m.isAnnotationPresent((Class<? extends Annotation>) NetworkHandler.class)) {
 				Class<?>[] argClasses = m.getParameterTypes();
 				if (argClasses.length != 1 
-						|| !NetworkMessage.class.isAssignableFrom(argClasses[0])) {
-					LOG.warn("Invalid parameters on NetworkHandler method: " + m.getName());
+						|| !NetworkMessage.class.isAssignableFrom(argClasses[0])
+						|| NETWORK_BUS.values().contains(argClasses[0])) {
+					System.out.println("Invalid parameters on NetworkHandler method: " 
+							+ m.getName());
 				} else {
 					NETWORK_BUS.put(m, argClasses[0]);
 				}
@@ -72,34 +77,28 @@ public class NetworkManager {
 
 	/**
 	 * Description. TODO Fill out.
-	 * 
-	 * @param message
-	 *            Message to post.
+	 * @param message Message to post.
 	 */
-	public static void post(NetworkMessage message) {
+	public static NetworkMessage post(NetworkMessage message) {
 		for (Map.Entry<Method, Class<?>> listener : NETWORK_BUS.entrySet()) {
 			if (listener.getValue().isAssignableFrom(message.getClass())) {
 				try {
 					System.out.println("Recieved message: " + message);
-					if (message instanceof ChatMessage) {
-						listener.getKey().invoke(null, (ChatMessage) message);
-					} else if (message instanceof DataMessage) {
-						listener.getKey().invoke(null, (DataMessage) message);
-					}
-				} catch (IllegalAccessException 
-						| IllegalArgumentException 
-						| InvocationTargetException e) {
-					LOG.error("Error Posting Message: ", e);
+					//if (message instanceof NetworkMessageSomethingSomething)
+					//   listener.getKey().invoke(null, (NetworkMessageSomethingSomething)message);
+					// etc
+				} catch (Exception e) {
+					e.printStackTrace();
 				}
 			}
 		}
+		return null;
 	}
+
 
 	/**
 	 * Description. TODO Fill out.
-	 * 
-	 * @param port
-	 *            Port to use.
+	 * @param port Port to use.
 	 * @return false if failed.
 	 */
 	public static synchronized boolean startServer(int port) {
@@ -107,10 +106,13 @@ public class NetworkManager {
 			return false;
 		}
 		server = new ConConServer(port);
-		server.start();
+		new Thread(server).start();
 		return true;
 	}
 
+	/**
+	 * Method safely stops the server.
+	 */
 	public static void stopServer() {
 		server.quit();
 		server = null;
@@ -119,10 +121,8 @@ public class NetworkManager {
 	/**
 	 * Description. TODO Fill out.
 	 * 
-	 * @param host
-	 *            Host to use.
-	 * @param port
-	 *            Port to use.
+	 * @param host Host to use.
+	 * @param port Port to use.
 	 * @return false if failed.
 	 */
 	public static synchronized boolean startClient(String host, int port) {
@@ -133,6 +133,10 @@ public class NetworkManager {
 		return true;
 	}
 
+	/**
+	 * Deletes the client object.
+	 * Collects the garbage.
+	 */
 	public static void stopClient() {
 		client = null;
 	}
@@ -140,8 +144,7 @@ public class NetworkManager {
 	/**
 	 * Description. TODO Fill out.
 	 * 
-	 * @param message
-	 *            Message to send.
+	 * @param message Message to send.
 	 * @return false if failed.
 	 */
 	public static boolean sendMessage(NetworkMessage message) {
@@ -158,17 +161,12 @@ public class NetworkManager {
 
 	/**
 	 * Description. TODO Fill out.
-	 * 
-	 * @param xml
-	 *            Data to parse.
+	 * @param xml Data to parse.
 	 * @return result.
-	 * @throws UnsupportedEncodingException
-	 *             TODO Reason.
+	 * @throws UnsupportedEncodingException TODO Reason.
 	 */
-	protected static NetworkMessage decodeFromXml(String xml) 
-			throws UnsupportedEncodingException {
-		
-		// some reflection wizardry or switching or something
+	protected static NetworkMessage decodeFromXml(String xml) throws UnsupportedEncodingException {
+		//some reflection wizardry or switching or something
 		XMLDecoder xmlWizard = new XMLDecoder(new ByteArrayInputStream(xml.getBytes("UTF-8")));
 		NetworkMessage result = (NetworkMessage) xmlWizard.readObject();
 		xmlWizard.close();
@@ -177,17 +175,13 @@ public class NetworkManager {
 
 	/**
 	 * Description. TODO Fill out.
-	 * 
-	 * @param message
-	 *            Message to encode.
+	 * @param message Message to encode.
 	 * @return encoded data.
-	 * @throws UnsupportedEncodingException
-	 *             TODO Reason.
+	 * @throws UnsupportedEncodingException TODO Reason.
 	 */
 	protected static String encodeToXml(NetworkMessage message) 
 			throws UnsupportedEncodingException {
-		
-		// some reflection wizardry or switching or something
+		//some reflection wizardry or switching or something
 		ByteArrayOutputStream out = new ByteArrayOutputStream();
 		XMLEncoder xmlWizard = new XMLEncoder(out, "UTF-8", false, 0);
 		xmlWizard.writeObject(message);

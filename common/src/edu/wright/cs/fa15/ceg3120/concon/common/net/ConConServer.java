@@ -32,18 +32,21 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 //TODO have security
-public class ConConServer extends Thread {
+/**
+ * The server should only be able to instantiate 1 server or 1 client.
+ */
+public class ConConServer implements Runnable {
     private static final Logger LOG = LoggerFactory.getLogger(ConConServer.class);
 	
 
-    private int port;
-    private ServerSocket serverSocket = null;
-    private boolean listening = true;
+	private int port;
+	private ServerSocket serverSocket = null;
+	private boolean listening = true;
 
-    public ConConServer(int port) {
-        this.port = port;
-    
-    }
+	public ConConServer(int port) {
+		this.port = port;
+	
+	}
 
     @Override
     public void run() {
@@ -79,29 +82,36 @@ public class ConConServer extends Thread {
         }
     }
 
-    private static class ConnectionWorker extends Thread {
+	/**
+	 * Handles the actual client<->server communications.
+	 */
+	private static class ConnectionWorker extends Thread {
 
-        private Socket clientSocket = null;
+		private Socket clientSocket = null;
 
-        public ConnectionWorker(Socket clientSocket) {
-            this.clientSocket = clientSocket;
-        }
+		/**
+		 * This is a constructor.
+		 * @param clientSocket the socket the worker is communicating over.
+		 */
+		public ConnectionWorker(Socket clientSocket) {
+			this.clientSocket = clientSocket;
+		}
 
-        @Override
-        public void run() {
-            try {
-                DataOutputStream toClient = new DataOutputStream(clientSocket.getOutputStream());
-                BufferedReader fromClient = new BufferedReader(
-                		new InputStreamReader(clientSocket.getInputStream(), "UTF-8"));
+		@Override
+		public void run() {
+			try {
+				DataOutputStream toClient = new DataOutputStream(clientSocket.getOutputStream());
+				BufferedReader fromClient = new BufferedReader(
+						new InputStreamReader(clientSocket.getInputStream(), "UTF-8"));
 
 
-                int ch = 0;
-                StringBuilder message = new StringBuilder();
-                while ((ch = fromClient.read()) != -1) {
-                    message.append(ch);
-                }
+				int ch = 0;
+				StringBuilder message = new StringBuilder();
+				while ((ch = fromClient.read()) != -1) {
+					message.append(ch);
+				}
 
-                NetworkManager.post(NetworkManager.decodeFromXml(message.toString()));
+				NetworkManager.post(NetworkManager.decodeFromXml(message.toString()));
 
                 toClient.close();
                 fromClient.close();
