@@ -21,21 +21,21 @@
 
 package edu.wright.cs.fa15.ceg3120.concon.common.net;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.Socket;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 //TODO have security
 /**
  * The clientside counterpart to conconserver.
  */
 public class ConConClient {
-    private static final Logger LOG = LoggerFactory.getLogger(ConConClient.class);
+	private static final Logger LOG = LoggerFactory.getLogger(ConConClient.class);
 	
 	private String host;
 	private int port;
@@ -89,10 +89,10 @@ public class ConConClient {
 
 				NetworkManager.post(NetworkManager.decodeFromXml(response.toString()));
 
-                clientSocket.close();
-            } catch (IOException e) {
-                LOG.error("Dispatch Message IO: ", e);
-            }
-        }
-    }
+				clientSocket.close();
+			} catch (IOException e) {
+				LOG.error("Dispatch Message IO: ", e);
+			}
+		}
+	}
 }
