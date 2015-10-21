@@ -155,43 +155,43 @@ public class TabbedFrame extends JFrame{
         addMoneyButton.setText("Add ConCoin");
         addMoneyButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                addMoneyWindowListener(evt);
+                addMoneyButtonListener(evt);
             }
         });
         
 
-        javax.swing.GroupLayout jpanel1Layout = new javax.swing.GroupLayout(paymentTabPanel);
-        paymentTabPanel.setLayout(jpanel1Layout);
-        jpanel1Layout.setHorizontalGroup(
-            jpanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jpanel1Layout.createSequentialGroup()
+        javax.swing.GroupLayout paymentLayout = new javax.swing.GroupLayout(paymentTabPanel);
+        paymentTabPanel.setLayout(paymentLayout);
+        paymentLayout.setHorizontalGroup(
+        		paymentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(paymentLayout.createSequentialGroup()
                 .addGap(100, 100, 100)
                 .addComponent(paymentApprove)
                 .addGap(46, 46, 46)
                 .addComponent(paymentCancel)
                 
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jpanel1Layout.createSequentialGroup()
+            .addGroup(paymentLayout.createSequentialGroup()
                 .addGap(34, 34, 34)
-                .addGroup(jpanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment
+                .addGroup(paymentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment
                 		.LEADING)
-                    .addGroup(jpanel1Layout.createSequentialGroup()
+                    .addGroup(paymentLayout.createSequentialGroup()
                         .addComponent(amountOwedLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED,
                         		javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(amountOwed, javax.swing.GroupLayout.PREFERRED_SIZE,
                         		93, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jpanel1Layout.createSequentialGroup()
+                    .addGroup(paymentLayout.createSequentialGroup()
                         .addComponent(amountInWalletLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED,
                         		javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(amountInWallet, javax.swing.GroupLayout.PREFERRED_SIZE, 93,
                         		javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jpanel1Layout.createSequentialGroup()
+                    .addGroup(paymentLayout.createSequentialGroup()
                     		.addComponent(addMoneyButton)
                     		.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED,
                         		javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jpanel1Layout.createSequentialGroup()
+                    .addGroup(paymentLayout.createSequentialGroup()
                         .addComponent(amountRemainingLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50,
                         		Short.MAX_VALUE)
@@ -199,25 +199,25 @@ public class TabbedFrame extends JFrame{
                         		.PREFERRED_SIZE, 93,javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(90, 90, 90))
         );
-        jpanel1Layout.setVerticalGroup(
-            jpanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jpanel1Layout.createSequentialGroup()
+        paymentLayout.setVerticalGroup(
+            paymentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(paymentLayout.createSequentialGroup()
                 .addGap(37, 37, 37)
-                .addGroup(jpanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment
+                .addGroup(paymentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment
                 		.BASELINE)
                     .addComponent(amountOwedLabel)
                     .addComponent(amountOwed, javax.swing.GroupLayout.PREFERRED_SIZE,
                     		javax.swing.GroupLayout.DEFAULT_SIZE,
                     		javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(31, 31, 31)
-                .addGroup(jpanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment
+                .addGroup(paymentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment
                 		.BASELINE)
                     .addComponent(amountInWalletLabel)
                     .addComponent(amountInWallet, javax.swing.GroupLayout.PREFERRED_SIZE,
                     		javax.swing.GroupLayout.DEFAULT_SIZE,
                     		javax.swing.GroupLayout.PREFERRED_SIZE))
                 
-                .addGroup(jpanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment
+                .addGroup(paymentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment
                 		.BASELINE)
                 		
                 		.addComponent(addMoneyButton, javax.swing.GroupLayout.PREFERRED_SIZE,
@@ -226,7 +226,7 @@ public class TabbedFrame extends JFrame{
                 		)
                 
                 
-                .addGroup(jpanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment
+                .addGroup(paymentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment
                 		.BASELINE)
                     .addComponent(amountRemainingLabel)
                     .addComponent(amountRemaining, javax.swing.GroupLayout.PREFERRED_SIZE, 
@@ -234,7 +234,7 @@ public class TabbedFrame extends JFrame{
                     		javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50,
                 		Short.MAX_VALUE)
-                .addGroup(jpanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment
+                .addGroup(paymentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment
                 		.BASELINE)
                     .addComponent(paymentApprove)
                     .addComponent(paymentCancel))
@@ -272,18 +272,18 @@ public class TabbedFrame extends JFrame{
         submitButton.setText("Submit");
         submitButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jbutton1MouseClicked(evt);
+                submitButtonListener(evt);
             }
         });
 
-        javax.swing.GroupLayout jpanel2Layout = new javax.swing.GroupLayout(schedulingTabPanel);
-        schedulingTabPanel.setLayout(jpanel2Layout);
-        jpanel2Layout.setHorizontalGroup(
-            jpanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jpanel2Layout.createSequentialGroup()
-                .addGroup(jpanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment
+        javax.swing.GroupLayout schedulingLayout = new javax.swing.GroupLayout(schedulingTabPanel);
+        schedulingTabPanel.setLayout(schedulingLayout);
+        schedulingLayout.setHorizontalGroup(
+            schedulingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(schedulingLayout.createSequentialGroup()
+                .addGroup(schedulingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment
                 		.LEADING)
-                    .addGroup(jpanel2Layout.createSequentialGroup()
+                    .addGroup(schedulingLayout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(monthsList, javax.swing.GroupLayout.PREFERRED_SIZE, 100,
                         		javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -293,21 +293,21 @@ public class TabbedFrame extends JFrame{
                         .addGap(14, 14, 14)
                         .addComponent(timesList, javax.swing.GroupLayout.PREFERRED_SIZE,
                         		131, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jpanel2Layout.createSequentialGroup()
+                    .addGroup(schedulingLayout.createSequentialGroup()
                         .addGap(79, 79, 79)
                         .addComponent(schedulingTabHeader))
-                    .addGroup(jpanel2Layout.createSequentialGroup()
+                    .addGroup(schedulingLayout.createSequentialGroup()
                         .addGap(160, 160, 160)
                         .addComponent(submitButton)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        jpanel2Layout.setVerticalGroup(
-            jpanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jpanel2Layout.createSequentialGroup()
+        schedulingLayout.setVerticalGroup(
+            schedulingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(schedulingLayout.createSequentialGroup()
                 .addGap(53, 53, 53)
                 .addComponent(schedulingTabHeader)
                 .addGap(18, 18, 18)
-                .addGroup(jpanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment
+                .addGroup(schedulingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment
                 		.BASELINE)
                     .addComponent(monthsList, javax.swing.GroupLayout.PREFERRED_SIZE,
                     		javax.swing.GroupLayout.DEFAULT_SIZE,
@@ -340,7 +340,7 @@ public class TabbedFrame extends JFrame{
 
         finalScheduledApptLabel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jtextField2ActionPerformed(evt);
+                scheduledApptLabelListener(evt);
             }
         });
 
@@ -350,7 +350,7 @@ public class TabbedFrame extends JFrame{
         cancelButton.setText("Cancel");
         cancelButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jbutton3MouseClicked(evt);
+                cancelButtonListener(evt);
             }
         });
 
@@ -358,37 +358,37 @@ public class TabbedFrame extends JFrame{
 
         chosenContractorLabel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jtextField3ActionPerformed(evt);
+                choseCOntractorLabelListener(evt);
             }
         });
 
-        javax.swing.GroupLayout jpanel3Layout = new javax.swing.GroupLayout(overviewTabPanel);
-        overviewTabPanel.setLayout(jpanel3Layout);
-        jpanel3Layout.setHorizontalGroup(
-            jpanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jpanel3Layout.createSequentialGroup()
+        javax.swing.GroupLayout overviewLayout = new javax.swing.GroupLayout(overviewTabPanel);
+        overviewTabPanel.setLayout(overviewLayout);
+        overviewLayout.setHorizontalGroup(
+            overviewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(overviewLayout.createSequentialGroup()
                 .addGap(100, 100, 100)
                 .addComponent(confirmButton)
                 .addGap(46, 46, 46)
                 .addComponent(cancelButton)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jpanel3Layout.createSequentialGroup()
+            .addGroup(overviewLayout.createSequentialGroup()
                 .addGap(34, 34, 34)
-                .addGroup(jpanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment
+                .addGroup(overviewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment
                 		.LEADING)
-                    .addGroup(jpanel3Layout.createSequentialGroup()
+                    .addGroup(overviewLayout.createSequentialGroup()
                         .addComponent(chosenContractor)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED,
                         		javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(chosenContractorLabel, javax.swing.GroupLayout.PREFERRED_SIZE,
                         		93, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jpanel3Layout.createSequentialGroup()
+                    .addGroup(overviewLayout.createSequentialGroup()
                         .addComponent(totalPaymentOverview)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED,
                         		javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(totalPaymentLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 93,
                         		javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jpanel3Layout.createSequentialGroup()
+                    .addGroup(overviewLayout.createSequentialGroup()
                         .addComponent(finalScheduledApptTime)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50,
                         		Short.MAX_VALUE)
@@ -396,25 +396,25 @@ public class TabbedFrame extends JFrame{
                         		.PREFERRED_SIZE, 93,javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(90, 90, 90))
         );
-        jpanel3Layout.setVerticalGroup(
-            jpanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jpanel3Layout.createSequentialGroup()
+        overviewLayout.setVerticalGroup(
+            overviewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(overviewLayout.createSequentialGroup()
                 .addGap(37, 37, 37)
-                .addGroup(jpanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment
+                .addGroup(overviewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment
                 		.BASELINE)
                     .addComponent(chosenContractor)
                     .addComponent(chosenContractorLabel, javax.swing.GroupLayout.PREFERRED_SIZE,
                     		javax.swing.GroupLayout.DEFAULT_SIZE,
                     		javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(31, 31, 31)
-                .addGroup(jpanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment
+                .addGroup(overviewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment
                 		.BASELINE)
                     .addComponent(totalPaymentOverview)
                     .addComponent(totalPaymentLabel, javax.swing.GroupLayout.PREFERRED_SIZE,
                     		javax.swing.GroupLayout.DEFAULT_SIZE,
                     		javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(30, 30, 30)
-                .addGroup(jpanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment
+                .addGroup(overviewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment
                 		.BASELINE)
                     .addComponent(finalScheduledApptTime)
                     .addComponent(finalScheduledApptLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 
@@ -422,7 +422,7 @@ public class TabbedFrame extends JFrame{
                     		javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50,
                 		Short.MAX_VALUE)
-                .addGroup(jpanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment
+                .addGroup(overviewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment
                 		.BASELINE)
                     .addComponent(confirmButton)
                     .addComponent(cancelButton))
@@ -446,17 +446,17 @@ public class TabbedFrame extends JFrame{
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jbutton1MouseClicked(java.awt.event.MouseEvent evt) {
-    	//GEN-FIRST:event_jButton1MouseClicked
+    private void submitButtonListener(java.awt.event.MouseEvent evt) {
+    	//GEN-FIRST:event_submitButtonListener
         month = (String)monthsList.getSelectedItem();
         //day must be string to prevent errors
         //ask team if ok to store this way
         day = (String)daysList.getSelectedItem();
         timeRange = (String)timesList.getSelectedItem();
         //SchedulingData<?> data = new SchedulingData<>(month,day,timeRange);
-    }//GEN-LAST:event_jButton1MouseClicked
+    }//GEN-LAST:event_submitButtonListener
 
-    private void addMoneyWindowListener(java.awt.event.MouseEvent evt) {
+    private void addMoneyButtonListener(java.awt.event.MouseEvent evt) {
     	 /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -472,17 +472,17 @@ public class TabbedFrame extends JFrame{
 	
     }//GEN-LAST:event_jButton2MouseClicked
 
-    private void jbutton3MouseClicked(java.awt.event.MouseEvent evt) {
-    	//GEN-FIRST:event_jButton3MouseClicked
-    }//GEN-LAST:event_jButton3MouseClicked
+    private void cancelButtonListener(java.awt.event.MouseEvent evt) {
+    	//GEN-FIRST:event_cancelButtonListener
+    }//GEN-LAST:event_cancelButtonListener
 
-    private void jtextField2ActionPerformed(java.awt.event.ActionEvent evt) {
-    	//GEN-FIRST:event_jTextField2ActionPerformed
-    }//GEN-LAST:event_jTextField2ActionPerformed
+    private void scheduledApptLabelListener(java.awt.event.ActionEvent evt) {
+    	//GEN-FIRST:event_scheduledApptLabelListener
+    }//GEN-LAST:event_scheduledApptLabelListener
     
-    private void jtextField3ActionPerformed(java.awt.event.ActionEvent evt) {
-    	//GEN-FIRST:event_jTextField3ActionPerformed
-    }//GEN-LAST:event_jTextField3ActionPerformed
+    private void choseCOntractorLabelListener(java.awt.event.ActionEvent evt) {
+    	//GEN-FIRST:event_choseCOntractorLabelListener
+    }//GEN-LAST:event_choseCOntractorLabelListener
 
     /**This is the main method.
      * 
