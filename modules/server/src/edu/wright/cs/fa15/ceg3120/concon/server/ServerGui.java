@@ -113,7 +113,7 @@ public class ServerGui extends JPanel implements ActionListener {
 						"Does twice as much nothing");
 		tabbedPane.setMnemonicAt(1, KeyEvent.VK_2);
 
-		JComponent panel3 = createButtonsMessages();
+		JComponent panel3 = MessagingTab.createMessagingTab();
 		tabbedPane.addTab("Messages", CreateImageIcon.icon, panel3, "Still does nothing");
 		tabbedPane.setMnemonicAt(2, KeyEvent.VK_3);
 
@@ -123,7 +123,7 @@ public class ServerGui extends JPanel implements ActionListener {
 						panel4, "Does nothing at all");
 		tabbedPane.setMnemonicAt(3, KeyEvent.VK_5);
 
-		JComponent panel5 = createTransactionsPanel();
+		JComponent panel5 = TransactionTab.createTransactionTable();
 		tabbedPane.addTab("Transactions", CreateImageIcon.icon, 
 						panel5, "Still does nothing");
 		tabbedPane.setMnemonicAt(4, KeyEvent.VK_4);

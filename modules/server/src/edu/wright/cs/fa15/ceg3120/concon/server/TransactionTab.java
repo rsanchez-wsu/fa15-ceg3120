@@ -83,7 +83,7 @@ public class TransactionTab extends JComponent{
 	 * 
 	 * @return the panel to be used.
 	 */
-	public static JComponent makeTransactionTable() {
+	public static JComponent createTransactionTable() {
 		/* Model used for the list of users. This has to be a ListModel so that the information can
 		 * be pulled from the database.
 		 */
