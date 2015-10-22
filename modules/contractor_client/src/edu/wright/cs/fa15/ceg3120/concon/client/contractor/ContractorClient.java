@@ -1475,8 +1475,10 @@ public class ContractorClient extends JFrame implements ActionListener {
 		});
 	}
 	
-	public static void buildPaymentsTab()
-	{
+	/**
+	 * This method creates and populates the Payments tab.
+	 */
+	public static void buildPaymentsTab() {
 		JPanel paymentsTab = new JPanel();
 		pageTabs.addTab("Payments", null, paymentsTab, null);
 		paymentsTab.setLayout(null);
