@@ -1,22 +1,5 @@
 /*
  * Copyright (C) 2015
- * 
- * 
- * 
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
  */
 
 /*
@@ -446,44 +429,7 @@ public class TabbedFrame extends JFrame{
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void submitButtonListener(java.awt.event.MouseEvent evt) {
-    	//GEN-FIRST:event_submitButtonListener
-        month = (String)monthsList.getSelectedItem();
-        //day must be string to prevent errors
-        //ask team if ok to store this way
-        day = (String)daysList.getSelectedItem();
-        timeRange = (String)timesList.getSelectedItem();
-        //SchedulingData<?> data = new SchedulingData<>(month,day,timeRange);
-    }//GEN-LAST:event_submitButtonListener
-
-    private void addMoneyButtonListener(java.awt.event.MouseEvent evt) {
-    	 /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-    	
-			  
-		AddMoneyFrame addMoney = new AddMoneyFrame();
-		addMoney.setDefaultCloseOperation(EXIT_ON_CLOSE);
-		addMoney.setSize(425, 300);
-		addMoney.setVisible(true);
-			
-	
-    }//GEN-LAST:event_jButton2MouseClicked
-
-    private void cancelButtonListener(java.awt.event.MouseEvent evt) {
-    	//GEN-FIRST:event_cancelButtonListener
-    }//GEN-LAST:event_cancelButtonListener
-
-    private void scheduledApptLabelListener(java.awt.event.ActionEvent evt) {
-    	//GEN-FIRST:event_scheduledApptLabelListener
-    }//GEN-LAST:event_scheduledApptLabelListener
-    
-    private void choseCOntractorLabelListener(java.awt.event.ActionEvent evt) {
-    	//GEN-FIRST:event_choseCOntractorLabelListener
-    }//GEN-LAST:event_choseCOntractorLabelListener
-
+   
     /**This is the main method.
      * 
      * @param args arguments
@@ -516,7 +462,7 @@ public class TabbedFrame extends JFrame{
             	.log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-
+        
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -524,9 +470,62 @@ public class TabbedFrame extends JFrame{
             }
         });
     }
+    
+/////////////////////////////////////////////////////////////////////
+///Action Listener for Text Fields and Buttons    
+    
+    /**
+     * Action Listener for Submit Button
+     * @param evt
+     */
+    private void submitButtonListener(java.awt.event.MouseEvent evt) {
+    	//GEN-FIRST:event_submitButtonListener
+        //month = (String)monthsList.getSelectedItem();
+        //day must be string to prevent errors
+        //ask team if ok to store this way
+        //day = (String)daysList.getSelectedItem();
+        //timeRange = (String)timesList.getSelectedItem();
+        //SchedulingData<?> data = new SchedulingData<>(month,day,timeRange);
+    }//GEN-LAST:event_submitButtonListener
 
-    String month;
-    String day;
-    String timeRange;
-   
+    /**
+     * Action Listener for AddMoney Button
+     * Calls AddMoneyFrame to let user enter more money into their account
+     * if insufficient funds to pay for job.
+     * @param evt
+     */
+    private void addMoneyButtonListener(java.awt.event.MouseEvent evt) { 
+		AddMoneyFrame addMoney = new AddMoneyFrame();
+		addMoney.setDefaultCloseOperation(EXIT_ON_CLOSE);
+		addMoney.setSize(425, 300);
+		addMoney.setVisible(true);
+			
+	
+    }//GEN-LAST:event_jButton2MouseClicked
+
+    /**
+     * Action Listener for Cancel Button
+     * Cancels entire transaction and closes out of GUI
+     * @param evt
+     */
+    private void cancelButtonListener(java.awt.event.MouseEvent evt) {
+    	
+    }//GEN-LAST:event_cancelButtonListener
+
+    /**
+     * Action Listener for scheduledAppt Label
+     * @param evt
+     */
+    private void scheduledApptLabelListener(java.awt.event.ActionEvent evt) {
+    	
+    }//GEN-LAST:event_scheduledApptLabelListener
+    
+    /**
+     * Action Listener for scheduledAppt Label
+     * @param evt
+     */
+    private void choseCOntractorLabelListener(java.awt.event.ActionEvent evt) {
+    	
+    }//GEN-LAST:event_choseCOntractorLabelListener
+
 }
