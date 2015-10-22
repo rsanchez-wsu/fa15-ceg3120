@@ -438,95 +438,9 @@ public class ContractorClient extends JFrame implements ActionListener {
 		textPane.setBounds(172, 6, 526, 275);
 		main.add(textPane);
 
-		final JPanel curBidsTab = new JPanel();
-		pageTabs.addTab("Current Bids", null, curBidsTab, null);
-		GridLayout myLayout = new GridLayout(0, 2);
-		curBidsTab.setLayout(myLayout);
-		f0 = new DecimalFormat("##.00");
-		final JLabel[] lblCurrentBids = new JLabel[10];
-		final JButton[] update = new JButton[10];
-		final double[] currentBids = new double[10];
-		final double[] previousBids = new double[10];
-		for (int i = 0; i < 5; i++) {
-			final int j = i;
-			currentBids[i] = Math.random() * 115;
-			previousBids[i] = Math.random() * 115;
-			if (currentBids[i] > previousBids[i]) {
-				lblCurrentBids[i] = new JLabel("<html>You have a bid for "
-						+ f0.format(currentBids[i]) + "<br>You have been outbid by " 
-							+ f0.format(previousBids[i]) + "</html>");
-			} else {
-				lblCurrentBids[i] = new JLabel("You have a bid for " + f0.format(currentBids[i]));
-			}
-			curBidsTab.add(lblCurrentBids[i]);
-			update[i] = new JButton("Update Bid");
-			curBidsTab.add(update[i]);
-			update[i].addActionListener(new ActionListener() {
-
-				@Override
-				public void actionPerformed(ActionEvent a0) {
-					try {
-						String input = JOptionPane.showInputDialog(frame, "Enter new bid");
-						if (input != null) {
-							currentBids[j] = Double.parseDouble(input);
-							if (currentBids[j] > previousBids[j]) {
-								JOptionPane.showMessageDialog(frame, 
-										"You must enter a bid less than the previous bid",
-											"Invalid Bid", JOptionPane.ERROR_MESSAGE);
-							} else {
-								lblCurrentBids[j].setText("You have a bid for "
-										+ f0.format(currentBids[j]));
-								curBidsTab.validate();
-								curBidsTab.repaint();
-							}
-						}
-						
-					} catch (IllegalArgumentException e) {
-						JOptionPane.showMessageDialog(frame, "Invalid Input");
-					}
-
-				}
-
-			});
-		}
-
-		JPanel notificationsTab = new JPanel();
-		pageTabs.addTab("Notifications", null, notificationsTab, null);
-		setNotif(6);
-		if (getNotif() > 0) {
-			pageTabs.setBackgroundAt(2, Color.RED);
-		}
-		final Color defaultColor = new Color(238,238,238);
-		String clientName;
-		String jobLocation;
-		String jobDate;
-		final JLabel[] jobs = new JLabel[10];
-		final JButton[] acknowledge = new JButton[10];
-		for (int i = 0; i <= 5; i++) {
-			final int list = i;
-			clientName = "Get name of client from database";
-			jobLocation = "Get location from database";
-			jobDate = "Get date from database";
-			jobs[i] = new JLabel(clientName + " needs work done at " 
-					+ jobLocation + " on " + jobDate);
-			notificationsTab.add(jobs[i]);
-			acknowledge[i] = new JButton("Okay");
-			notificationsTab.add(acknowledge[i]);
-			acknowledge[i].addActionListener(new ActionListener() {
-				@Override
-				public void actionPerformed(ActionEvent e0) {
-					Container parent = acknowledge[list].getParent();
-					parent.remove(acknowledge[list]);
-					parent.remove(jobs[list]);
-					setNotif(getNotif() - 1);
-					if (getNotif() < 1) {
-						pageTabs.setBackgroundAt(2, defaultColor);
-					}
-					parent.validate();
-					parent.repaint();
-				}
-			});
-		}
+		buildCurrentBidsTab();
+		
+		buildNotificationsTab();
 		
 		buildSearchTab();
 		
@@ -1502,6 +1416,107 @@ public class ContractorClient extends JFrame implements ActionListener {
 		JScrollPane paymentsResults = new JScrollPane(tblPaymentsResults2);
 		paymentsResults.setBounds(45, 45, 605, 100);
 		paymentsTab.add(paymentsResults);
+	}
+	
+	/**
+	 * This method builds an populates the Notifications tab.
+	 */
+	public static void buildNotificationsTab() {
+		JPanel notificationsTab = new JPanel();
+		pageTabs.addTab("Notifications", null, notificationsTab, null);
+		setNotif(6);
+		if (getNotif() > 0) {
+			pageTabs.setBackgroundAt(2, Color.RED);
+		}
+		final Color defaultColor = new Color(238,238,238);
+		String clientName;
+		String jobLocation;
+		String jobDate;
+		final JLabel[] jobs = new JLabel[10];
+		final JButton[] acknowledge = new JButton[10];
+		for (int i = 0; i <= 5; i++) {
+			final int list = i;
+			clientName = "Get name of client from database";
+			jobLocation = "Get location from database";
+			jobDate = "Get date from database";
+			jobs[i] = new JLabel(clientName + " needs work done at " 
+					+ jobLocation + " on " + jobDate);
+			notificationsTab.add(jobs[i]);
+			acknowledge[i] = new JButton("Okay");
+			notificationsTab.add(acknowledge[i]);
+			acknowledge[i].addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e0) {
+					Container parent = acknowledge[list].getParent();
+					parent.remove(acknowledge[list]);
+					parent.remove(jobs[list]);
+					setNotif(getNotif() - 1);
+					if (getNotif() < 1) {
+						pageTabs.setBackgroundAt(2, defaultColor);
+					}
+					parent.validate();
+					parent.repaint();
+				}
+			});
+		}
+	}
+	
+	/**
+	 * This method builds and populates the Current Bids tab.
+	 */
+	public static void buildCurrentBidsTab() {
+		final JPanel curBidsTab = new JPanel();
+		pageTabs.addTab("Current Bids", null, curBidsTab, null);
+		GridLayout myLayout = new GridLayout(0, 2);
+		curBidsTab.setLayout(myLayout);
+		f0 = new DecimalFormat("##.00");
+		final JLabel[] lblCurrentBids = new JLabel[10];
+		final JButton[] update = new JButton[10];
+		final double[] currentBids = new double[10];
+		final double[] previousBids = new double[10];
+		for (int i = 0; i < 5; i++) {
+			final int j = i;
+			currentBids[i] = Math.random() * 115;
+			previousBids[i] = Math.random() * 115;
+			if (currentBids[i] > previousBids[i]) {
+				lblCurrentBids[i] = new JLabel("<html>You have a bid for "
+						+ f0.format(currentBids[i]) + "<br>You have been outbid by " 
+							+ f0.format(previousBids[i]) + "</html>");
+			} else {
+				lblCurrentBids[i] = new JLabel("You have a bid for " + f0.format(currentBids[i]));
+			}
+			curBidsTab.add(lblCurrentBids[i]);
+			update[i] = new JButton("Update Bid");
+			curBidsTab.add(update[i]);
+			update[i].addActionListener(new ActionListener() {
+
+				@Override
+				public void actionPerformed(ActionEvent a0) {
+					try {
+						String input = JOptionPane.showInputDialog(frame, "Enter new bid");
+						if (input != null) {
+							currentBids[j] = Double.parseDouble(input);
+							if (currentBids[j] > previousBids[j]) {
+								JOptionPane.showMessageDialog(frame, 
+										"You must enter a bid less than the previous bid",
+											"Invalid Bid", JOptionPane.ERROR_MESSAGE);
+							} else {
+								lblCurrentBids[j].setText("You have a bid for "
+										+ f0.format(currentBids[j]));
+								curBidsTab.validate();
+								curBidsTab.repaint();
+							}
+						}
+						
+					} catch (IllegalArgumentException e) {
+						JOptionPane.showMessageDialog(frame, "Invalid Input");
+					}
+
+				}
+
+			});
+		}
+
 	}
 
 	/**
