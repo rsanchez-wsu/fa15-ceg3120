@@ -475,8 +475,8 @@ public class TabbedFrame extends JFrame{
 ///Action Listener for Text Fields and Buttons    
     
     /**
-     * Action Listener for Submit Button
-     * @param evt
+     * Action Listener for Submit Button.
+     * @param evt temp.
      */
     private void submitButtonListener(java.awt.event.MouseEvent evt) {
     	//GEN-FIRST:event_submitButtonListener
@@ -492,11 +492,11 @@ public class TabbedFrame extends JFrame{
      * Action Listener for AddMoney Button
      * Calls AddMoneyFrame to let user enter more money into their account
      * if insufficient funds to pay for job.
-     * @param evt
+     * @param evt temp.
      */
     private void addMoneyButtonListener(java.awt.event.MouseEvent evt) { 
 		AddMoneyFrame addMoney = new AddMoneyFrame();
-		addMoney.setDefaultCloseOperation(EXIT_ON_CLOSE);
+		addMoney.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		addMoney.setSize(425, 300);
 		addMoney.setVisible(true);
 			
@@ -504,25 +504,25 @@ public class TabbedFrame extends JFrame{
     }//GEN-LAST:event_jButton2MouseClicked
 
     /**
-     * Action Listener for Cancel Button
+     * Action Listener for Cancel Button.
      * Cancels entire transaction and closes out of GUI
-     * @param evt
+     * @param evt temp.
      */
     private void cancelButtonListener(java.awt.event.MouseEvent evt) {
     	
     }//GEN-LAST:event_cancelButtonListener
 
     /**
-     * Action Listener for scheduledAppt Label
-     * @param evt
+     * Action Listener for scheduledAppt Label.
+     * @param evt temp.
      */
     private void scheduledApptLabelListener(java.awt.event.ActionEvent evt) {
     	
     }//GEN-LAST:event_scheduledApptLabelListener
     
     /**
-     * Action Listener for scheduledAppt Label
-     * @param evt
+     * Action Listener for scheduledAppt Label.
+     * @param evt temp.
      */
     private void choseCOntractorLabelListener(java.awt.event.ActionEvent evt) {
     	

@@ -25,6 +25,11 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.JFrame;
 
+/**
+ * 
+ * @author temp.
+ *
+ */
 @SuppressWarnings("serial") //used for versioning when class is serialized
 public class AddMoneyFrame extends JFrame {
 	
@@ -34,13 +39,15 @@ public class AddMoneyFrame extends JFrame {
     private javax.swing.JLabel amountToAddLabel;
     private javax.swing.JTextField amountToAddTextField;
 	
-    //Call components of GUI in constructor
+    /**
+     * Call components of GUI in constructor.
+     */
     public AddMoneyFrame() {
         initComponents();
     }
  
     /**
-     * Sets up every component in the window
+     * Sets up every component in the window.
      */
     private void initComponents() {
     	//Initialize variables
@@ -126,24 +133,24 @@ public class AddMoneyFrame extends JFrame {
 ///Action Performers for Text Fields and Buttons
     
     /**
-     * Action Performer for amountToAdd text field 
-     * @param evt
+     * Action Performer for amountToAdd text field.
+     * @param evt temp.
      */
     private void amountToAddActionPerformed(ActionEvent evt) { 
     	
     }//end of amountToAddACtionPerformed                                           
 
     /**
-     * Action Performer for OK Button
-     * @param evt
+     * Action Performer for OK Button.
+     * @param evt temp.
      */
     private void okButtonActionPerformed(ActionEvent evt) { 
     	
     }//end of okButtonActionPerformed                                         
 
     /**
-     * Action Performer for Cancel Button
-     * @param evt
+     * Action Performer for Cancel Button.
+     * @param evt temp.
      */
     private void cancelButtonActionPerformed(ActionEvent evt) { 
     	

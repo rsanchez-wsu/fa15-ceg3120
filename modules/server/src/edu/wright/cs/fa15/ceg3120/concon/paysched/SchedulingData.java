@@ -24,6 +24,7 @@ package edu.wright.cs.fa15.ceg3120.concon.paysched;
 /**this class for the data to send to others.
  *
  * @author Emily
+ * @param <T> temp.
  */
 public class SchedulingData<T> {
  
