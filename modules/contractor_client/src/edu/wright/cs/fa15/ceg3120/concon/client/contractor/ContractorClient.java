@@ -41,6 +41,7 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Desktop;
+import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.GridLayout;
 import java.awt.Image;
@@ -63,6 +64,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -148,22 +150,25 @@ public class ContractorClient extends JFrame implements ActionListener {
 	private static JLabel lblNumResults4 = new JLabel();
 	private static JLabel lblNumResults5 = new JLabel();
 	private static JLabel lblNumResults6 = new JLabel();
+	private static JButton btnJobDetails = new JButton();
 	private static ArrayList<OpenJob> jobList = new ArrayList<OpenJob>();
+	private static ArrayList<OpenJob> myJobList = new ArrayList<OpenJob>();
 	private static Vector<Object> tempVec = new Vector<Object>();
 	private static int intSearch = 0;
 	private static int curNotif = 0;
-	private static String[] columnNames = {"Job Number", "Title", "Description", "City", "Cost", 
-											"Duration", "Zip Code"};
+	private static String[] columnNames = {"Job Number", "Title", "Description", 
+											"City", "Cost", "Duration", "Zip Code"};
 	private static DefaultTableModel model1 = null;
 	private static JTabbedPane pageTabs = new JTabbedPane(JTabbedPane.TOP);
 	private static DecimalFormat f0 = new DecimalFormat("##.00");
+	private static DecimalFormat f1 = new DecimalFormat("$##.00");
 	
 	/**
 	 * This method sets the current amount of notifications for the user. Used to
 	 * set the color of the tab to notify the user.
 	 * @param curNotif New value of the current notifications.
 	 */
-	private static void setNotif(int curNotif) {
+	public static void setNotif(int curNotif) {
 		ContractorClient.curNotif = curNotif;
 	}
 	
@@ -171,7 +176,7 @@ public class ContractorClient extends JFrame implements ActionListener {
 	 * Gets and returns the current number of notifications.
 	 * @return Returns the current value.
 	 */
-	private static int getNotif() {
+	public static int getNotif() {
 		return curNotif;
 	}
 	
@@ -330,7 +335,7 @@ public class ContractorClient extends JFrame implements ActionListener {
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	private static void initialize() {
+	public static void initialize() {
 /*
  * The following line to be implemented when AccountType and ContractorAccount
  * imports are implemented
@@ -934,11 +939,24 @@ public class ContractorClient extends JFrame implements ActionListener {
 		job4.setJobDuration(14);
 		job4.setJobZipCode(45429);
 		job4.setJobDistance(-1);
+		OpenJob job5 = new OpenJob();
+		job5.setJobNumber(125);
+		job5.setJobTitle("Lorem Ipsum");
+		job5.setJobDesc("Is simply dummy text of the printing and typesetting industry."
+				+ " Lorem Ipsum has been the industry's standard dummy text ever since"
+				+ " the 1500s, when an unknown printer took a galley of type and scrambled"
+				+ " it to make a type specimen book.");
+		job5.setJobCity("Vandalia");
+		job5.setJobCost(1000);
+		job5.setJobDuration(10);
+		job5.setJobZipCode(45377);
+		job5.setJobDistance(-1);
 		jobList.clear();
 		jobList.add(job1);
 		jobList.add(job2);
 		jobList.add(job3);
 		jobList.add(job4);
+		jobList.add(job5);
 	}
 	
 /* CHANGE TO BE MADE TO distanceCalculator() ONCE DATABASE IS IMPLEMENTED:
@@ -1061,8 +1079,19 @@ public class ContractorClient extends JFrame implements ActionListener {
 	 * This method sets the table model.
 	 */
 	public static void buildTable() {
-		model1 = new DefaultTableModel(columnNames, 0);
+		model1 = new DefaultTableModel(columnNames, 0) {
+
+			private static final long serialVersionUID = 1L;
+			
+			public boolean isCellEditable(int row, int column) {
+				return false;
+			}
+		};
+		
 	}
+	
+
+
 	
 	/**
 	 * Populates tempVec with values from OpenJob class.
@@ -1076,8 +1105,13 @@ public class ContractorClient extends JFrame implements ActionListener {
 		newVec.add(1, newJob.getJobTitle());
 		newVec.add(2, newJob.getJobDesc());
 		newVec.add(3, newJob.getJobCity());
-		newVec.add(4, newJob.getJobCost());
-		newVec.add(5, newJob.getJobDuration());
+		newVec.add(4, f1.format(newJob.getJobCost()));
+		int testNum = newJob.getJobDuration();
+		if (testNum > 1) {
+			newVec.add(5, newJob.getJobDuration() + " days");
+		} else {
+			newVec.add(5, newJob.getJobDuration() + " day");
+		}
 		newVec.add(6, newJob.getJobZipCode());
 		if (newJob.getJobDistance() > -1) {
 			newVec.add(7, newJob.getJobDistance());
@@ -1120,6 +1154,7 @@ public class ContractorClient extends JFrame implements ActionListener {
 		lblNumResults4.setVisible(false);
 		lblNumResults5.setVisible(false);
 		lblNumResults6.setVisible(false);
+		btnJobDetails.setVisible(false);
 	}
 	
 	/**
@@ -1132,6 +1167,7 @@ public class ContractorClient extends JFrame implements ActionListener {
 		lblNumResults4.setVisible(true);
 		lblNumResults5.setVisible(true);
 		lblNumResults6.setVisible(true);
+		btnJobDetails.setVisible(true);
 	}
 	
 	/**
@@ -1195,9 +1231,21 @@ public class ContractorClient extends JFrame implements ActionListener {
 			public Component prepareRenderer(TableCellRenderer renderer, int row, int column) {
 				Component c0 = super.prepareRenderer(renderer, row, column);
 				if (c0 instanceof JComponent) {
-					if (column > 0 && column < 3) {
+					if (column > 0 && column < 2) {
 						JComponent jc = (JComponent) c0;
 						jc.setToolTipText((String) getValueAt(row, column));
+					} else if (column > 1 && column < 3) {
+						JComponent jc = (JComponent) c0;
+						jc.setToolTipText((String) getValueAt(row, column));
+						Dimension d0 = jc.getPreferredSize();
+						if (d0.getWidth() > 200) {
+							final String html1 = "<html><body style='width:";
+							final String html2 = "px'>";
+							final String html3 = "</body></html>";
+							jc.setToolTipText(html1 + 200 + html2
+									+ (String) getValueAt(row, column)
+									+ html3);							
+						}
 					} else {
 						JComponent jc = (JComponent) c0;
 						jc.setToolTipText("");
@@ -1209,31 +1257,56 @@ public class ContractorClient extends JFrame implements ActionListener {
 		};
 //		tblSearchResults.setAutoCreateRowSorter(true);
 		JScrollPane jscSearchResults = new JScrollPane(tblSearchResults);
-		jscSearchResults.setBounds(45, 45, 605, 200);
+		jscSearchResults.setBounds(45, 45, 610, 200);
 		searchTab.add(jscSearchResults);
 		
 		hideResultLabels();
 		
-		lblNumResults1.setBounds(250, 250, 100, 20);
+		lblNumResults1.setBounds(45, 250, 100, 20);
 		searchTab.add(lblNumResults1);
 		
-		lblNumResults2.setBounds(350, 250, 20, 20);
+		lblNumResults2.setBounds(145, 250, 20, 20);
 		searchTab.add(lblNumResults2);
 		
-		lblNumResults3.setBounds(370, 250, 20, 20);
+		lblNumResults3.setBounds(165, 250, 20, 20);
 		searchTab.add(lblNumResults3);
 		
-		lblNumResults4.setBounds(390, 250, 20, 20);
+		lblNumResults4.setBounds(185, 250, 20, 20);
 		searchTab.add(lblNumResults4);
 		
-		lblNumResults5.setBounds(410, 250, 20, 20);
+		lblNumResults5.setBounds(205, 250, 20, 20);
 		searchTab.add(lblNumResults5);
 		
-		lblNumResults6.setBounds(430, 250, 20, 20);
+		lblNumResults6.setBounds(225, 250, 20, 20);
 		searchTab.add(lblNumResults6);
 		
+		btnJobDetails.setBounds(535, 250, 120, 20);
+		btnJobDetails.setText("Details");
+		searchTab.add(btnJobDetails);
+		
+		btnJobDetails.addActionListener(new ActionListener() {
+			int intTableLength = -1;
+			int intSelectedRow = -1;
+			public void actionPerformed(ActionEvent arg0) {
+				intTableLength = tblSearchResults.getRowCount();
+				if (intTableLength > 0) {
+					if (tblSearchResults.getSelectedRowCount() > 0 
+							&& tblSearchResults.getSelectedRowCount() < 2) {
+						intSelectedRow = tblSearchResults.getSelectedRow();
+						showJobDetailsFrame(jobList.get(intSelectedRow));
+					} else if (tblSearchResults.getSelectedRowCount() > 1) {
+						JOptionPane.showMessageDialog(frame, "Please only "
+								+ "select one row to display details.");
+					} else {
+						JOptionPane.showMessageDialog(frame, "You must "
+								+ "select a row to view the details.");
+					}
+				}
+			}
+		});
+		
 		JButton btnSearchGo = new JButton("Search");
-		btnSearchGo.setBounds(530, 5, 120, 20);
+		btnSearchGo.setBounds(535, 5, 120, 20);
 		searchTab.add(btnSearchGo);
 		
 		btnSearchGo.addActionListener(new ActionListener() {
@@ -1419,46 +1492,108 @@ public class ContractorClient extends JFrame implements ActionListener {
 	}
 	
 	/**
+	 * Javadoc needed.
+	 */
+	public static void showJobDetailsFrame(OpenJob curJob) {
+		JDialog dlgJobDetails = new JDialog();
+		dlgJobDetails.setBounds(250, 150, 400, 300);
+		dlgJobDetails.setVisible(true);
+		Container c0 = dlgJobDetails.getContentPane();
+		c0.setBackground(Color.orange);
+		ImageIcon imgIcon = new ImageIcon("images/c2-icon.png");
+		dlgJobDetails.setIconImage(imgIcon.getImage());
+		dlgJobDetails.setTitle("Job Details");
+		dlgJobDetails.setLayout(null);
+		
+		JTextField txtTitleLabel = new JTextField("Title:");
+		dlgJobDetails.add(txtTitleLabel);
+		txtTitleLabel.setBounds(15, 15, 80, 20);
+		txtTitleLabel.setEditable(false);
+		
+		JTextField txtDescLabel = new JTextField("Description:");
+		txtDescLabel.setBounds(15, 45, 80, 20);
+		dlgJobDetails.add(txtDescLabel);
+		txtDescLabel.setEditable(false);
+		
+		JTextField txtCityLabel = new JTextField("City:");
+		txtCityLabel.setBounds(15, 115, 80, 20);
+		dlgJobDetails.add(txtCityLabel);
+		txtCityLabel.setEditable(false);
+		
+		JTextField txtCostLabel = new JTextField("Cost:");
+		txtCostLabel.setBounds(15, 145, 80, 20);
+		dlgJobDetails.add(txtCostLabel);
+		txtCostLabel.setEditable(false);
+		
+		JTextField txtDurLabel = new JTextField("Duration:");
+		txtDurLabel.setBounds(15, 175, 80, 20);
+		dlgJobDetails.add(txtDurLabel);
+		txtDurLabel.setEditable(false);		
+		
+		JTextField txtTitleText = new JTextField(curJob.getJobTitle());
+		txtTitleText.setBounds(145, 15, 200, 20);
+		dlgJobDetails.add(txtTitleText);
+		txtTitleText.setEditable(false);
+		
+		final String html1 = "<html><body style='width: ";
+		final String html2 = " px'>";
+		JLabel lblDescText = new JLabel(html1 + 150 + html2 + curJob.getJobDesc());
+		JScrollPane scrDesc = new JScrollPane(lblDescText, 
+				JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, 
+				JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+		scrDesc.setBounds(145, 45, 200, 60);
+		dlgJobDetails.add(scrDesc);
+		
+		JTextField txtCityText = new JTextField(curJob.getJobCity());
+		txtCityText.setBounds(145, 115, 120, 20);
+		dlgJobDetails.add(txtCityText);
+		txtCityText.setEditable(false);
+		
+		JTextField txtCostText = new JTextField(f1.format(curJob.getJobCost()));
+		txtCostText.setBounds(145, 145, 120, 20);
+		dlgJobDetails.add(txtCostText);
+		txtCostText.setEditable(false);
+		
+		JTextField txtDurText = new JTextField();
+		int testNum = curJob.getJobDuration();
+		if (testNum > 1) {
+			txtDurText.setText(String.valueOf(curJob.getJobDuration()) + " days");
+		} else {
+			txtDurText.setText(String.valueOf(curJob.getJobDuration()) + " day");
+		}
+		txtDurText.setBounds(145, 175, 120, 20);
+		dlgJobDetails.add(txtDurText);
+		txtDurText.setEditable(false);
+		
+		JTextField txtBidLabel = new JTextField("Enter a bid:");
+		txtBidLabel.setBounds(15, 205, 80, 20);
+		dlgJobDetails.add(txtBidLabel);
+		txtBidLabel.setEditable(false);
+		
+		JTextField txtBidText = new JTextField();
+		txtBidText.setBounds(145, 205, 80, 20);
+		dlgJobDetails.add(txtBidText);
+		
+		JButton btnSubmitBid = new JButton("Submit Bid");
+		btnSubmitBid.setBounds(245, 205, 100, 20);
+		dlgJobDetails.add(btnSubmitBid);
+		
+		btnSubmitBid.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				myJobList.add(curJob);
+				dlgJobDetails.dispose();
+			}
+			
+		});
+	}
+	
+	/**
 	 * This method builds an populates the Notifications tab.
 	 */
 	public static void buildNotificationsTab() {
-		JPanel notificationsTab = new JPanel();
-		pageTabs.addTab("Notifications", null, notificationsTab, null);
-		setNotif(6);
-		if (getNotif() > 0) {
-			pageTabs.setBackgroundAt(2, Color.RED);
-		}
-		final Color defaultColor = new Color(238,238,238);
-		String clientName;
-		String jobLocation;
-		String jobDate;
-		final JLabel[] jobs = new JLabel[10];
-		final JButton[] acknowledge = new JButton[10];
-		for (int i = 0; i <= 5; i++) {
-			final int list = i;
-			clientName = "Get name of client from database";
-			jobLocation = "Get location from database";
-			jobDate = "Get date from database";
-			jobs[i] = new JLabel(clientName + " needs work done at " 
-					+ jobLocation + " on " + jobDate);
-			notificationsTab.add(jobs[i]);
-			acknowledge[i] = new JButton("Okay");
-			notificationsTab.add(acknowledge[i]);
-			acknowledge[i].addActionListener(new ActionListener() {
-				@Override
-				public void actionPerformed(ActionEvent e0) {
-					Container parent = acknowledge[list].getParent();
-					parent.remove(acknowledge[list]);
-					parent.remove(jobs[list]);
-					setNotif(getNotif() - 1);
-					if (getNotif() < 1) {
-						pageTabs.setBackgroundAt(2, defaultColor);
-					}
-					parent.validate();
-					parent.repaint();
-				}
-			});
-		}
+		
 	}
 	
 	/**
