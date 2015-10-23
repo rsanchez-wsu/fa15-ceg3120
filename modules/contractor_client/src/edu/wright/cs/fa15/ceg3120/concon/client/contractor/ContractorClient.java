@@ -1495,7 +1495,8 @@ public class ContractorClient extends JFrame implements ActionListener {
 	 * Javadoc needed.
 	 */
 	public static void showJobDetailsFrame(OpenJob curJob) {
-		JDialog dlgJobDetails = new JDialog();
+		final OpenJob currentJob = curJob;
+		final JDialog dlgJobDetails = new JDialog();
 		dlgJobDetails.setBounds(250, 150, 400, 300);
 		dlgJobDetails.setVisible(true);
 		Container c0 = dlgJobDetails.getContentPane();
@@ -1582,7 +1583,7 @@ public class ContractorClient extends JFrame implements ActionListener {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				myJobList.add(curJob);
+				myJobList.add(currentJob);
 				dlgJobDetails.dispose();
 			}
 			
