@@ -68,15 +68,20 @@ public class DataAccessLayer {
 				inputData.getClass().toString() + "; " + 
 				"Req: " + reqType.toString() );
 		
+		// -- Make sure that we have data to process. If not, move on and don't do anything.
 		if( inputData != null && reqType != null ){
+			
+			// -- Using a switch statement here to sort out what type of request that we have.
 			switch(reqType){
 			case CREATE:
-			
+				// -- Create a new thread with the create request message type.
 				Thread newCreateThread = new Thread() {
 				    public void run() {
 				        try {
+				        	// -- More work to be done here.
 				        	processCreateRequest(inputData);
 				        } catch( Exception e ) {
+				        	// -- Thread failed, log it.
 				        	logFailedThreadRequest( e, reqType);
 				        }
 				    }
@@ -85,11 +90,14 @@ public class DataAccessLayer {
 				break;
 				
 			case DELETE:
+				// -- Create a new thread with the delete request type.
 				Thread newDeleteThread = new Thread() {
 				    public void run() {
 				        try {
+				        	// -- More work to be done here.
 				        	processDeleteRequest(inputData);
 				        } catch( Exception e ) {
+				        	// -- Thread failed, log it.
 				        	logFailedThreadRequest( e, reqType);
 				        }
 				    }
@@ -98,12 +106,14 @@ public class DataAccessLayer {
 				break;
 				
 			case READ:
-				
+				// -- Creates a thread that will handle the Read request message type.
 				Thread newReadThread = new Thread() {
 				    public void run() {
 				        try {
+				        	// -- More work to be done here.
 				        	processReadRequest(inputData);
 				        } catch( Exception e ) {
+				        	// -- Thread failed, log it.
 				        	logFailedThreadRequest( e, reqType);
 				        }
 				    }
@@ -112,12 +122,14 @@ public class DataAccessLayer {
 				break;
 				
 			case UPDATE:
-				
+				// -- Create a thread for the Update request message type.
 				Thread newUpdateThread = new Thread() {
 				    public void run() {
 				        try {
+				        	// -- More work to be done here.
 				        	processUpdateRequest(inputData);
 				        } catch( Exception e ) {
+				        	// -- Thread failed, log it.
 				        	logFailedThreadRequest( e, reqType);
 				        }
 				    }
@@ -125,12 +137,19 @@ public class DataAccessLayer {
 				newUpdateThread.start();
 				break;
 			default:
+				// -- The request was not an enum of RequestType.java, log it and ignore it.
+				LOG.trace("-- DataAccessLayer.sendDatabaseRequest. Invalid request" + 
+						inputData.getClass().toString() + "; " + 
+						"Req: " + reqType.toString() );
 				break;
 			}
 		}
 	}
 	
 	/**
+	 * This function will process the inputData of a message with a request type of Create.
+	 * Once the inputData format is completed, we will then use this function to 
+	 * push data into a table in the database.
 	 * 
 	 * @param inputData
 	 * @return
@@ -140,7 +159,7 @@ public class DataAccessLayer {
 	}
 	
 	/**
-	 * 
+	 * Take the input data and return the information that was initially requested.
 	 * @param inputData
 	 * @return
 	 */
@@ -149,7 +168,7 @@ public class DataAccessLayer {
 	}
 	
 	/**
-	 * 
+	 * Take the input data and process an update to the database.
 	 * @param inputData
 	 * @return
 	 */
@@ -157,7 +176,7 @@ public class DataAccessLayer {
 		return false;
 	}
 	/**
-	 * 
+	 * Take the input data and process a delete on an object in the database.
 	 * @param inputData
 	 * @return
 	 */
@@ -168,7 +187,7 @@ public class DataAccessLayer {
 	
 	
 	/**
-	 * 
+	 * Once designed out, this function will commit an object to the database.
 	 * @param inputData
 	 * @return
 	 */
@@ -209,11 +228,21 @@ public class DataAccessLayer {
 		return false;
 	}*/
 	
+	/**
+	 * Generic function that will log the errors if a thread fails.
+	 * The Exception will be printed as well as the request type.
+	 * @param e
+	 * @param reqType
+	 */
 	private static void logFailedThreadRequest( Exception e, RequestType reqType ){
 		LOG.trace("FAILED: -- DataAccessLayer. Failed to start thread for " + 
 				reqType.toString() + " request.\n" + " -- Error: " + e.toString() );
 	}
 	
+	/**
+	 * Main class.  Needed at least one in the package. Log a simple line of text.
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		LOG.trace("Starting Data Access Layer...");
 	}
