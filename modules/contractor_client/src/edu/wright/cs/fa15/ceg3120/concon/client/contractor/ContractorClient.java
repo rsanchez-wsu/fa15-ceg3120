@@ -1610,7 +1610,7 @@ public class ContractorClient extends JFrame implements ActionListener {
 		dlgJobDetails.add(txtBidLabel);
 		txtBidLabel.setEditable(false);
 		
-		JTextField txtBidText = new JTextField();
+		final JTextField txtBidText = new JTextField();
 		txtBidText.setBounds(145, 205, 80, 20);
 		dlgJobDetails.add(txtBidText);
 		
