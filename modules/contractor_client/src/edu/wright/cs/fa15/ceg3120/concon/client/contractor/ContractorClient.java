@@ -1534,6 +1534,7 @@ public class ContractorClient extends JFrame implements ActionListener {
 	 * Javadoc needed.
 	 */
 	public static void showJobDetailsDialog(OpenJob curJob) {
+		final OpenJob currentJob = curJob;
 		final JDialog dlgJobDetails = new JDialog();
 		dlgJobDetails.setBounds(250, 150, 400, 300);
 		dlgJobDetails.setVisible(true);
@@ -1569,36 +1570,36 @@ public class ContractorClient extends JFrame implements ActionListener {
 		dlgJobDetails.add(txtDurLabel);
 		txtDurLabel.setEditable(false);		
 		
-		JTextField txtTitleText = new JTextField(curJob.getJobTitle());
+		JTextField txtTitleText = new JTextField(currentJob.getJobTitle());
 		txtTitleText.setBounds(145, 15, 200, 20);
 		dlgJobDetails.add(txtTitleText);
 		txtTitleText.setEditable(false);
 		
 		final String html1 = "<html><body style='width: ";
 		final String html2 = " px'>";
-		JLabel lblDescText = new JLabel(html1 + 150 + html2 + curJob.getJobDesc());
+		JLabel lblDescText = new JLabel(html1 + 150 + html2 + currentJob.getJobDesc());
 		JScrollPane scrDesc = new JScrollPane(lblDescText, 
 				JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, 
 				JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 		scrDesc.setBounds(145, 45, 200, 60);
 		dlgJobDetails.add(scrDesc);
 		
-		JTextField txtCityText = new JTextField(curJob.getJobCity());
+		JTextField txtCityText = new JTextField(currentJob.getJobCity());
 		txtCityText.setBounds(145, 115, 120, 20);
 		dlgJobDetails.add(txtCityText);
 		txtCityText.setEditable(false);
 		
-		JTextField txtCostText = new JTextField(f1.format(curJob.getJobCost()));
+		JTextField txtCostText = new JTextField(f1.format(currentJob.getJobCost()));
 		txtCostText.setBounds(145, 145, 120, 20);
 		dlgJobDetails.add(txtCostText);
 		txtCostText.setEditable(false);
 		
 		JTextField txtDurText = new JTextField();
-		int testNum = curJob.getJobDuration();
+		int testNum = currentJob.getJobDuration();
 		if (testNum > 1) {
-			txtDurText.setText(String.valueOf(curJob.getJobDuration()) + " days");
+			txtDurText.setText(String.valueOf(currentJob.getJobDuration()) + " days");
 		} else {
-			txtDurText.setText(String.valueOf(curJob.getJobDuration()) + " day");
+			txtDurText.setText(String.valueOf(currentJob.getJobDuration()) + " day");
 		}
 		txtDurText.setBounds(145, 175, 120, 20);
 		dlgJobDetails.add(txtDurText);
@@ -1622,15 +1623,15 @@ public class ContractorClient extends JFrame implements ActionListener {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				int intChecker = 0;
-				curJob.setJobCurBid(Double.parseDouble(txtBidText.getText()));
+				currentJob.setJobCurBid(Double.parseDouble(txtBidText.getText()));
 				if (myJobList.size() < 1) {
-					myJobList.add(curJob);
-					System.out.println("*** " + myJobList.indexOf(curJob));
+					myJobList.add(currentJob);
+					System.out.println("*** " + myJobList.indexOf(currentJob));
 					updateCurrentBidsTab();
 					dlgJobDetails.dispose();
 				} else {
 					for (int i = 0; i < myJobList.size(); i++) {
-						if (myJobList.get(i).getJobNumber() == curJob.getJobNumber()) {
+						if (myJobList.get(i).getJobNumber() == currentJob.getJobNumber()) {
 							intChecker++;
 							JOptionPane.showMessageDialog(frame, "You have already bid "
 									+ "on this job. Please check your current bids.");
@@ -1638,7 +1639,7 @@ public class ContractorClient extends JFrame implements ActionListener {
 						}
 					}
 					if (intChecker < 1) {
-						myJobList.add(curJob);
+						myJobList.add(currentJob);
 						updateCurrentBidsTab();
 						dlgJobDetails.dispose();
 					}
