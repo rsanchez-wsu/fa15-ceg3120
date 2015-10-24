@@ -23,6 +23,7 @@ package edu.wright.cs.fa15.ceg3120.concon.common.data;
 
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.ArrayList;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,7 +32,7 @@ import org.slf4j.LoggerFactory;
  * Class for accessing database. Will be communicating with db through network stack.
  */
 @SuppressWarnings("unused")
-public class DataAccessLayer {
+public class DataAccessLayer extends Thread{
 	
 	private String statement = "";
 	private static final Logger LOG = LoggerFactory.getLogger( DataAccessLayer.class );
@@ -50,111 +51,42 @@ public class DataAccessLayer {
 	private final static String sTag			   = "Tag";
 	private final static String sUserAccount       = "UserAccount";
 	
+	private static ArrayList<RequestObject> requestQueue = new ArrayList<>();
+	
 	/**
-	 * Take in a generic object and a request type.  This function will act as the distributor
-	 * of work for the data access layer.  The work will be passed out based on the request type.
+	 * This function takes in a generic object with a request type.  
+	 * Then, the data is combined into a single object, RequestObject, and added to
+	 * a list to be processed later.
 	 * 
-	 * Each new request will create it's own thread which will allows multiple requests to be handled.
-	 * 
-	 * Inputs are set to final as they are not to be modified on their way to the DB.
+	 * This list allows us to keep in line which request we need to handle first.  This will
+	 * help avoid DataBase issues that would otherwise arise.
 	 * 
 	 * @param final inputData
 	 * @param final reqType
 	 * @return
 	 */
-	public static void sendDatabaseRequest(final Object inputData, final RequestType reqType){
-		
+	public void sendDatabaseRequest(final Object inputData, final RequestType reqType){
+		// -- Throw in a log to keep track of our data and type.
 		LOG.trace("-- DataAccessLayer.sendDatabaseRequest. " + 
 				inputData.getClass().toString() + "; " + 
 				"Req: " + reqType.toString() );
 		
-		// -- Make sure that we have data to process. If not, move on and don't do anything.
-		if( inputData != null && reqType != null ){
-			
-			// -- Using a switch statement here to sort out what type of request that we have.
-			switch(reqType){
-			case CREATE:
-				// -- Create a new thread with the create request message type.
-				Thread newCreateThread = new Thread() {
-				    public void run() {
-				        try {
-				        	// -- More work to be done here.
-				        	processCreateRequest(inputData);
-				        } catch( Exception e ) {
-				        	// -- Thread failed, log it.
-				        	logFailedThreadRequest( e, reqType);
-				        }
-				    }
-				};
-				newCreateThread.start();
-				break;
-				
-			case DELETE:
-				// -- Create a new thread with the delete request type.
-				Thread newDeleteThread = new Thread() {
-				    public void run() {
-				        try {
-				        	// -- More work to be done here.
-				        	processDeleteRequest(inputData);
-				        } catch( Exception e ) {
-				        	// -- Thread failed, log it.
-				        	logFailedThreadRequest( e, reqType);
-				        }
-				    }
-				};
-				newDeleteThread.start();
-				break;
-				
-			case READ:
-				// -- Creates a thread that will handle the Read request message type.
-				Thread newReadThread = new Thread() {
-				    public void run() {
-				        try {
-				        	// -- More work to be done here.
-				        	processReadRequest(inputData);
-				        } catch( Exception e ) {
-				        	// -- Thread failed, log it.
-				        	logFailedThreadRequest( e, reqType);
-				        }
-				    }
-				};
-				newReadThread.start();
-				break;
-				
-			case UPDATE:
-				// -- Create a thread for the Update request message type.
-				Thread newUpdateThread = new Thread() {
-				    public void run() {
-				        try {
-				        	// -- More work to be done here.
-				        	processUpdateRequest(inputData);
-				        } catch( Exception e ) {
-				        	// -- Thread failed, log it.
-				        	logFailedThreadRequest( e, reqType);
-				        }
-				    }
-				};
-				newUpdateThread.start();
-				break;
-			default:
-				// -- The request was not an enum of RequestType.java, log it and ignore it.
-				LOG.trace("-- DataAccessLayer.sendDatabaseRequest. Invalid request" + 
-						inputData.getClass().toString() + "; " + 
-						"Req: " + reqType.toString() );
-				break;
-			}
+		// -- Make sure that we have the data that we need.
+		if( inputData != null && reqType != null){
+			RequestObject reqObject = new RequestObject( inputData, reqType );
+			requestQueue.add(reqObject);
 		}
-	}
+	}		
 	
 	/**
 	 * This function will process the inputData of a message with a request type of Create.
 	 * Once the inputData format is completed, we will then use this function to 
 	 * push data into a table in the database.
 	 * 
-	 * @param inputData
+	 * @param inputObject
 	 * @return
 	 */
-	private static boolean processCreateRequest(Object inputData){
+	private static boolean processCreateRequest(RequestObject inputObject){
 		return false;
 	}
 	
@@ -163,7 +95,7 @@ public class DataAccessLayer {
 	 * @param inputData
 	 * @return
 	 */
-	private static boolean processReadRequest(Object inputData){
+	private static boolean processReadRequest(RequestObject inputObject){
 		return false;
 	}
 	
@@ -172,7 +104,7 @@ public class DataAccessLayer {
 	 * @param inputData
 	 * @return
 	 */
-	private static boolean processUpdateRequest(Object inputData){
+	private static boolean processUpdateRequest(RequestObject inputObject){
 		return false;
 	}
 	/**
@@ -180,7 +112,7 @@ public class DataAccessLayer {
 	 * @param inputData
 	 * @return
 	 */
-	private static boolean processDeleteRequest(Object inputData){
+	private static boolean processDeleteRequest(RequestObject inputObject){
 		return false;
 	}
 	
@@ -229,21 +161,43 @@ public class DataAccessLayer {
 	}*/
 	
 	/**
-	 * Generic function that will log the errors if a thread fails.
-	 * The Exception will be printed as well as the request type.
-	 * @param e
-	 * @param reqType
-	 */
-	private static void logFailedThreadRequest( Exception e, RequestType reqType ){
-		LOG.trace("FAILED: -- DataAccessLayer. Failed to start thread for " + 
-				reqType.toString() + " request.\n" + " -- Error: " + e.toString() );
-	}
-	
-	/**
 	 * Main class.  Needed at least one in the package. Log a simple line of text.
 	 * @param args
 	 */
 	public static void main(String[] args) {
 		LOG.trace("Starting Data Access Layer...");
+		DataAccessLayer dal = new DataAccessLayer();
+		dal.start();
+	}
+
+	@Override
+	public void run() {
+		// -- Create a continuous loop to be searching for requests in the request queue.
+		for(;;){
+			// -- Check to see if we have something, otherwise move on.
+			if( requestQueue.size() > 0 ){
+				// -- Grab the last object in the queue to give it priority.
+				RequestObject currentRequest = requestQueue.get( requestQueue.size() - 1 );
+				
+				// -- Check to see what type of request we are working with.
+				switch( currentRequest.getRequestType() ){
+				case CREATE:
+					processCreateRequest(currentRequest);
+					break;
+				case READ:
+					processReadRequest(currentRequest);
+					break;
+				case UPDATE:
+					processUpdateRequest(currentRequest);
+					break;
+				case DELETE:
+					processDeleteRequest(currentRequest);
+					break;
+				default: break;
+				}
+				// -- Finally, after handling the request, we must remove it from the queue.
+				requestQueue.remove(currentRequest);
+			}
+		}
 	}
 }
