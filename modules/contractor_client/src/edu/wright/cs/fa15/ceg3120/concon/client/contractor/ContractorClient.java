@@ -130,6 +130,7 @@ public class ContractorClient extends JFrame implements ActionListener {
 	private static String strPhoneNumber = "937-555-1212";
 	private static String strEmailAddress = "thomas.611@wright.edu";
 	private static JPanel profileTab;
+	private static JPanel curBidsTab;
 	private static JLabel lblNewProfile;
 	private static JLabel lblLastNameUpdate;
 	private static JLabel lblFirstNameUpdate;
@@ -153,6 +154,7 @@ public class ContractorClient extends JFrame implements ActionListener {
 	private static JButton btnJobDetails = new JButton();
 	private static ArrayList<OpenJob> jobList = new ArrayList<OpenJob>();
 	private static ArrayList<OpenJob> myJobList = new ArrayList<OpenJob>();
+	private static ArrayList<OpenJob> myCurJobList = new ArrayList<OpenJob>();
 	private static Vector<Object> tempVec = new Vector<Object>();
 	private static int intSearch = 0;
 	private static int curNotif = 0;
@@ -162,6 +164,10 @@ public class ContractorClient extends JFrame implements ActionListener {
 	private static JTabbedPane pageTabs = new JTabbedPane(JTabbedPane.TOP);
 	private static DecimalFormat f0 = new DecimalFormat("##.00");
 	private static DecimalFormat f1 = new DecimalFormat("$##.00");
+	private static JLabel[] lblCurrentBids = new JLabel[10];
+	private static JButton[] update = new JButton[10];
+	private static double[] currentBids = new double[10];
+	private static double[] previousBids = new double[10];
 	
 	/**
 	 * This method sets the current amount of notifications for the user. Used to
@@ -194,10 +200,12 @@ public class ContractorClient extends JFrame implements ActionListener {
 		private int jobDuration;
 		private int jobZipCode;
 		private double jobDistance;
+		private double jobCurBid;
+		private double jobPrevBid;
 		
 		/**
 		 * Sets job number for OpenJob object.
-		 * @param num is int job number from method.
+		 * @param num is INT job number from method.
 		 */
 		public void setJobNumber(int num) {
 			jobNumber = num;
@@ -229,7 +237,7 @@ public class ContractorClient extends JFrame implements ActionListener {
 		
 		/**
 		 * Sets job cost for OpenJob object.
-		 * @param cost is int job cost from method.
+		 * @param cost is INT job cost from method.
 		 */
 		public void setJobCost(int cost) {
 			jobCost = cost;
@@ -237,15 +245,15 @@ public class ContractorClient extends JFrame implements ActionListener {
 		
 		/**
 		 * Sets job duration for OpenJob object.
-		 * @param dur is int job duration from method.
+		 * @param dur is INT job duration from method.
 		 */
 		public void setJobDuration(int dur) {
 			jobDuration = dur;
 		}
 		
 		/**
-		 * Sets job zip code for OpenJob object.
-		 * @param zip is int job zip code from method.
+		 * Sets job ZIP code for OpenJob object.
+		 * @param zip is INT job ZIP code from method.
 		 */
 		public void setJobZipCode(int zip) {
 			jobZipCode = zip;
@@ -260,8 +268,24 @@ public class ContractorClient extends JFrame implements ActionListener {
 		}
 		
 		/**
+		 * Sets job current bid for OpenJob object.
+		 * @param curBid is double current bid.
+		 */
+		public void setJobCurBid(double curBid) {
+			jobCurBid = curBid;
+		}
+		
+		/**
+		 * Sets job previous bid for OpenJob object.
+		 * @param prevBid is double previous bid.
+		 */
+		public void setJobPrevBid(double prevBid) {
+			jobPrevBid = prevBid;
+		}
+		
+		/**
 		 * Gets job number from OpenJob object.
-		 * @return int job number to method.
+		 * @return INT job number to method.
 		 */
 		public int getJobNumber() {
 			return jobNumber;
@@ -293,7 +317,7 @@ public class ContractorClient extends JFrame implements ActionListener {
 		
 		/**
 		 * Gets job cost from OpenJob object.
-		 * @return int job cost to method.
+		 * @return INT job cost to method.
 		 */
 		public int getJobCost() {
 			return jobCost;
@@ -301,26 +325,42 @@ public class ContractorClient extends JFrame implements ActionListener {
 		
 		/**
 		 * Gets job duration from OpenJob object.
-		 * @return int job duration to method.
+		 * @return INT job duration to method.
 		 */
 		public int getJobDuration() {
 			return jobDuration;
 		}
 		
 		/**
-		 * Gets job zip code from OpenJob object.
-		 * @return int job zip code to method.
+		 * Gets job ZIP code from OpenJob object.
+		 * @return INT job ZIP code to method.
 		 */
 		public int getJobZipCode() {
 			return jobZipCode;
 		}
 		
 		/**
-		 * Gets job distane from OpenJob object.
+		 * Gets job distance from OpenJob object.
 		 * @return double job distance to method.
 		 */
 		public double getJobDistance() {
 			return jobDistance;
+		}
+		
+		/**
+		 * Gets job current bid from OpenJob object.
+		 * @return double job current bid to method.
+		 */
+		public double getJobCurBid() {
+			return jobCurBid;
+		}
+		
+		/**
+		 * Gets job previous bid from OpenJob object.
+		 * @return double job previous bid to method.
+		 */
+		public double getJobPrevBid() {
+			return jobPrevBid;
 		}
 	}
 	
@@ -1293,7 +1333,7 @@ public class ContractorClient extends JFrame implements ActionListener {
 					if (tblSearchResults.getSelectedRowCount() > 0 
 							&& tblSearchResults.getSelectedRowCount() < 2) {
 						intSelectedRow = tblSearchResults.getSelectedRow();
-						showJobDetailsFrame(jobList.get(intSelectedRow));
+						showJobDetailsDialog(jobList.get(intSelectedRow));
 					} else if (tblSearchResults.getSelectedRowCount() > 1) {
 						JOptionPane.showMessageDialog(frame, "Please only "
 								+ "select one row to display details.");
@@ -1430,7 +1470,6 @@ public class ContractorClient extends JFrame implements ActionListener {
 						tempDurationInt = Integer.parseInt(tempDuration);
 					}
 					for (int i = 0; i < jobList.size(); i++) {
-//						Object[] tempArray = jobList.elementData(i);
 						if (jobList.get(i).jobDuration <= tempDurationInt) {
 							intResultCount++;
 							tempVec = fillTempVec(jobList.get(i));
@@ -1494,8 +1533,7 @@ public class ContractorClient extends JFrame implements ActionListener {
 	/**
 	 * Javadoc needed.
 	 */
-	public static void showJobDetailsFrame(OpenJob curJob) {
-		final OpenJob currentJob = curJob;
+	public static void showJobDetailsDialog(OpenJob curJob) {
 		final JDialog dlgJobDetails = new JDialog();
 		dlgJobDetails.setBounds(250, 150, 400, 300);
 		dlgJobDetails.setVisible(true);
@@ -1583,10 +1621,29 @@ public class ContractorClient extends JFrame implements ActionListener {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				myJobList.add(currentJob);
-				dlgJobDetails.dispose();
+				int intChecker = 0;
+				curJob.setJobCurBid(Double.parseDouble(txtBidText.getText()));
+				if (myJobList.size() < 1) {
+					myJobList.add(curJob);
+					System.out.println("*** " + myJobList.indexOf(curJob));
+					updateCurrentBidsTab();
+					dlgJobDetails.dispose();
+				} else {
+					for (int i = 0; i < myJobList.size(); i++) {
+						if (myJobList.get(i).getJobNumber() == curJob.getJobNumber()) {
+							intChecker++;
+							JOptionPane.showMessageDialog(frame, "You have already bid "
+									+ "on this job. Please check your current bids.");
+							dlgJobDetails.dispose();
+						}
+					}
+					if (intChecker < 1) {
+						myJobList.add(curJob);
+						updateCurrentBidsTab();
+						dlgJobDetails.dispose();
+					}
+				}
 			}
-			
 		});
 	}
 	
@@ -1598,19 +1655,109 @@ public class ContractorClient extends JFrame implements ActionListener {
 	}
 	
 	/**
+	 * This method updates the Current Bids tab when a bid is submitted from the Search tab.
+	 */
+	public static void updateCurrentBidsTab() {
+		Vector<Integer> vecTest = new Vector<Integer>();
+		if (myCurJobList.isEmpty()) {
+			for (int i = 0; i < myJobList.size(); i++) {
+				myCurJobList.add(myJobList.get(i));
+			}
+			currentBids[0] = myCurJobList.get(0).getJobCurBid();
+			previousBids[0] = myCurJobList.get(0).getJobPrevBid();
+			update[0] = new JButton("Update Bid");
+			if (previousBids[0] < 1) {
+				lblCurrentBids[0] = new JLabel("You have a bid for " + f1.format(currentBids[0]));
+				curBidsTab.add(lblCurrentBids[0]);
+				curBidsTab.add(update[0]);
+			} else if (currentBids[0] > previousBids[0]) {
+				lblCurrentBids[0] = new JLabel("<html>You have a bid for "
+						+ f1.format(currentBids[0]) + "<br>You have been outbid by " 
+							+ f1.format(previousBids[0]) + "</html>");
+				curBidsTab.add(lblCurrentBids[0]);
+				curBidsTab.add(update[0]);
+			} else {
+				JOptionPane.showMessageDialog(frame, 
+						"You must enter a bid less than the previous bid",
+							"Invalid Bid", JOptionPane.ERROR_MESSAGE);
+			}
+		} else if (myCurJobList.size() != myJobList.size()) {
+			for (int i = 0; i < myCurJobList.size(); i++) {
+				vecTest.add(myCurJobList.get(i).getJobNumber());
+			}
+			for (int j = 0; j < myJobList.size(); j++) {
+				if (vecTest.contains(myJobList.get(j).getJobNumber()) == false) {
+					myCurJobList.add(myJobList.get(j));
+				}
+			}
+			for (int k = 0; k < myCurJobList.size(); k++) {
+				if (currentBids[k] == 0) {
+					currentBids[k] = myCurJobList.get(k).getJobCurBid();
+					previousBids[k] = myCurJobList.get(k).getJobPrevBid();
+					update[k] = new JButton("Update Bid");
+					if (previousBids[k] < 1) {
+						lblCurrentBids[k] = new JLabel("You have a bid for " 
+								+ f1.format(currentBids[k]));
+						if (lblCurrentBids[k].getParent() == curBidsTab) {
+							// Do nothing as label exists
+						} else {
+							curBidsTab.add(lblCurrentBids[k]);
+							curBidsTab.add(update[k]);
+						}
+					} else if (currentBids[k] > previousBids[k]) {
+						lblCurrentBids[k] = new JLabel("<html>You have a bid for "
+								+ f1.format(currentBids[k]) + "<br>You have been outbid by " 
+									+ f1.format(previousBids[k]) + "</html>");
+						if (lblCurrentBids[k].getParent() == curBidsTab) {
+							// Do nothing as label exists
+						} else {
+							curBidsTab.add(lblCurrentBids[k]);
+							curBidsTab.add(update[k]);
+						}
+					} else {
+						JOptionPane.showMessageDialog(frame, 
+								"You must enter a bid less than the previous bid",
+									"Invalid Bid", JOptionPane.ERROR_MESSAGE);
+					}
+				}
+			}			
+		}
+		curBidsTab.validate();
+		curBidsTab.repaint();
+	}
+	
+	/**
 	 * This method builds and populates the Current Bids tab.
 	 */
 	public static void buildCurrentBidsTab() {
-		final JPanel curBidsTab = new JPanel();
+		curBidsTab = new JPanel();
 		pageTabs.addTab("Current Bids", null, curBidsTab, null);
 		GridLayout myLayout = new GridLayout(0, 2);
 		curBidsTab.setLayout(myLayout);
-		f0 = new DecimalFormat("##.00");
-		final JLabel[] lblCurrentBids = new JLabel[10];
-		final JButton[] update = new JButton[10];
-		final double[] currentBids = new double[10];
-		final double[] previousBids = new double[10];
-		for (int i = 0; i < 5; i++) {
+		f0 = new DecimalFormat("$##.00");
+		lblCurrentBids = new JLabel[10];
+		update = new JButton[10];
+		currentBids = new double[10];
+		previousBids = new double[10];
+		for (int i = 0; i < myJobList.size(); i++) {
+			if (myJobList.get(i).getJobCurBid() > 0) {
+				myJobList.get(i).setJobPrevBid(myJobList.get(i).getJobCurBid());
+				currentBids[i] = myJobList.get(i).getJobCurBid();
+				myCurJobList.set(i, myJobList.get(i));
+			} else {
+				currentBids[i] = myJobList.get(i).getJobCurBid();
+				myCurJobList.set(i, myJobList.get(i));
+			}
+			curBidsTab.add(lblCurrentBids[i]);
+			update[i] = new JButton("Update Bid");
+			curBidsTab.add(update[i]);
+		}
+		
+		/**
+		 * The code below can be removed after ensuring all fuctionality of the new 
+		 * current bids tab is working properly.
+		 */
+/*		for (int i = 0; i < 5; i++) {
 			final int j = i;
 			currentBids[i] = Math.random() * 115;
 			previousBids[i] = Math.random() * 115;
@@ -1647,12 +1794,9 @@ public class ContractorClient extends JFrame implements ActionListener {
 					} catch (IllegalArgumentException e) {
 						JOptionPane.showMessageDialog(frame, "Invalid Input");
 					}
-
 				}
-
 			});
-		}
-
+		}*/
 	}
 
 	/**
