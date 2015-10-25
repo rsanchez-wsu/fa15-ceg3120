@@ -65,7 +65,7 @@ public class DataAccessLayer extends Thread{
 	 * @param final reqType
 	 * @return
 	 */
-	public void sendDatabaseRequest(final Object inputData, final RequestType reqType){
+	public boolean sendDatabaseRequest(final Object inputData, final RequestType reqType){
 		// -- Throw in a log to keep track of our data and type.
 		LOG.trace("-- DataAccessLayer.sendDatabaseRequest. " + 
 				inputData.getClass().toString() + "; " + 
@@ -73,10 +73,48 @@ public class DataAccessLayer extends Thread{
 		
 		// -- Make sure that we have the data that we need.
 		if( inputData != null && reqType != null){
-			RequestObject reqObject = new RequestObject( inputData, reqType );
-			requestQueue.add(reqObject);
+			
+			// -- Make sure that we are not READ request, this must be handled another way.
+			if( reqType != RequestType.READ ){
+				
+				// -- Otherwise, create the request object and add it to the queue.
+				RequestObject reqObject = new RequestObject( inputData, reqType );
+				requestQueue.add(reqObject);
+				
+				// -- Return success.
+				return true;
+			}
 		}
-	}		
+		// -- The request was not added to the list.
+		return false;
+	}	
+	
+	/**
+	 * Since we must return data on a read, this must be handled differently than a post
+	 * to the DB.  
+	 * 
+	 * Take the input data and request type and process it.
+	 * 
+	 * @param inputData
+	 * @param reqType
+	 * @return
+	 */
+	public String getDatabaseData(Object inputData, RequestType reqType) {
+		// -- Throw in a log to keep track of where we are at in the log.
+				LOG.trace("-- DataAccessLayer.getDatabaseData" + 
+						inputData.getClass().toString() + "; " + 
+						"Req: " + reqType.toString() );
+		
+		String returnData = "";
+		
+		// -- We will only work for READ requests.
+		if( reqType == RequestType.READ && inputData != null ){
+			returnData = processReadRequest( inputData );
+		}
+		
+		// -- Return what we found.
+		return returnData;
+	}
 	
 	/**
 	 * This function will process the inputData of a message with a request type of Create.
@@ -91,12 +129,12 @@ public class DataAccessLayer extends Thread{
 	}
 	
 	/**
-	 * Take the input data and return the information that was initially requested.
+	 * Take the input data and return the information that was requested.
 	 * @param inputData
 	 * @return
 	 */
-	private static boolean processReadRequest(RequestObject inputObject){
-		return false;
+	private static String processReadRequest(Object inputData){
+		return "";
 	}
 	
 	/**
@@ -115,8 +153,6 @@ public class DataAccessLayer extends Thread{
 	private static boolean processDeleteRequest(RequestObject inputObject){
 		return false;
 	}
-	
-	
 	
 	/**
 	 * Once designed out, this function will commit an object to the database.
@@ -170,33 +206,38 @@ public class DataAccessLayer extends Thread{
 		dal.start();
 	}
 
+	/**
+	 * Run the loop that will check for request objects in the request list.
+	 * 
+	 * NOTE:  This will not check for requests for Read requests.  Since Reading will need
+	 * to be synchronous to return a string of data.  Otherwise, take the request off of the
+	 * list, perform it in the background and move on.
+	 */
 	@Override
 	public void run() {
 		// -- Create a continuous loop to be searching for requests in the request queue.
 		for(;;){
 			// -- Check to see if we have something, otherwise move on.
 			if( requestQueue.size() > 0 ){
-				// -- Grab the last object in the queue to give it priority.
-				RequestObject currentRequest = requestQueue.get( requestQueue.size() - 1 );
+				// -- Grab the object that was added first.
+				RequestObject currentRequest = requestQueue.get( 0 );
 				
 				// -- Check to see what type of request we are working with.
 				switch( currentRequest.getRequestType() ){
 				case CREATE:
-					processCreateRequest(currentRequest);
-					break;
-				case READ:
-					processReadRequest(currentRequest);
+					processCreateRequest( currentRequest );
 					break;
 				case UPDATE:
-					processUpdateRequest(currentRequest);
+					processUpdateRequest( currentRequest );
 					break;
 				case DELETE:
-					processDeleteRequest(currentRequest);
+					processDeleteRequest( currentRequest );
 					break;
-				default: break;
+				default:
+					break;
 				}
 				// -- Finally, after handling the request, we must remove it from the queue.
-				requestQueue.remove(currentRequest);
+				requestQueue.remove( currentRequest );
 			}
 		}
 	}
