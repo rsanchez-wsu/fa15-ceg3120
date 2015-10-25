@@ -22,7 +22,7 @@
 package edu.wright.cs.fa15.ceg3120.concon.common.net;
 
 import edu.wright.cs.fa15.ceg3120.concon.common.net.message.ChatMessage;
-import edu.wright.cs.fa15.ceg3120.concon.common.net.message.DataMessage;
+import edu.wright.cs.fa15.ceg3120.concon.common.net.message.LoginMessage;
 import edu.wright.cs.fa15.ceg3120.concon.common.net.message.NetworkMessage;
 
 import org.slf4j.Logger;
@@ -66,8 +66,7 @@ public class NetworkManager {
 				if (argClasses.length != 1 
 						|| !NetworkMessage.class.isAssignableFrom(argClasses[0])
 						|| NETWORK_BUS.values().contains(argClasses[0])) {
-					System.out.println("Invalid parameters on NetworkHandler method: " 
-							+ m.getName());
+					LOG.error("Invalid parameters on NetworkHandler method: " + m.getName());
 				} else {
 					NETWORK_BUS.put(m, argClasses[0]);
 				}
@@ -82,13 +81,19 @@ public class NetworkManager {
 	public static NetworkMessage post(NetworkMessage message) {
 		for (Map.Entry<Method, Class<?>> listener : NETWORK_BUS.entrySet()) {
 			if (listener.getValue().isAssignableFrom(message.getClass())) {
+				LOG.debug("Recieved message: " + message);
 				try {
-					System.out.println("Recieved message: " + message);
-					//if (message instanceof NetworkMessageSomethingSomething)
-					//   listener.getKey().invoke(null, (NetworkMessageSomethingSomething)message);
-					// etc
-				} catch (Exception e) {
-					e.printStackTrace();
+					if (message instanceof LoginMessage) {
+						listener.getKey().invoke("login", (LoginMessage)message);
+					} else if (message instanceof ChatMessage) {
+						listener.getKey().invoke(null, (ChatMessage)message);
+					}
+				} catch (IllegalAccessException e) {
+					LOG.error("Could not access: ", e);
+				} catch (IllegalArgumentException e) {
+					LOG.error("Wrong Argument: ", e);
+				} catch (InvocationTargetException e) {
+					LOG.error("Could not invoke: ", e);
 				}
 			}
 		}
@@ -97,7 +102,7 @@ public class NetworkManager {
 
 
 	/**
-	 * Description. TODO Fill out.
+	 * Start the server.
 	 * @param port Port to use.
 	 * @return false if failed.
 	 */
@@ -119,7 +124,7 @@ public class NetworkManager {
 	}
 
 	/**
-	 * Description. TODO Fill out.
+	 * Start the client.
 	 * 
 	 * @param host Host to use.
 	 * @param port Port to use.
@@ -142,7 +147,7 @@ public class NetworkManager {
 	}
 
 	/**
-	 * Description. TODO Fill out.
+	 * Send a network message.
 	 * 
 	 * @param message Message to send.
 	 * @return false if failed.
@@ -160,10 +165,10 @@ public class NetworkManager {
 	}
 
 	/**
-	 * Description. TODO Fill out.
+	 * Decodes Java Bean objects from XML received over network.
 	 * @param xml Data to parse.
 	 * @return result.
-	 * @throws UnsupportedEncodingException TODO Reason.
+	 * @throws UnsupportedEncodingException The Character Encoding is not supported.
 	 */
 	protected static NetworkMessage decodeFromXml(String xml) throws UnsupportedEncodingException {
 		//some reflection wizardry or switching or something
@@ -174,10 +179,10 @@ public class NetworkManager {
 	}
 
 	/**
-	 * Description. TODO Fill out.
+	 * Encodes Java Bean objects to XML sent over network.
 	 * @param message Message to encode.
 	 * @return encoded data.
-	 * @throws UnsupportedEncodingException TODO Reason.
+	 * @throws UnsupportedEncodingException The Character Encoding is not supported.
 	 */
 	protected static String encodeToXml(NetworkMessage message) 
 			throws UnsupportedEncodingException {

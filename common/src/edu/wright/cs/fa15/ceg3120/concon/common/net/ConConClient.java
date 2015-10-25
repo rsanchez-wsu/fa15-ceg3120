@@ -51,7 +51,7 @@ public class ConConClient {
 	}
 
 	/**
-	 * Sends a message to the currently connected server
+	 * Sends a message to the currently connected server.
 	 * @param message Message to be sent
 	 */
 	public void sendMessage(String message) {

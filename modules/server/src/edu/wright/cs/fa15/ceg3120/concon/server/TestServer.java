@@ -27,19 +27,18 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Javadoc needed.
+ * Test server for testing network stuff.
  *
  */
-public class Server {
-	private static final Logger LOG = LoggerFactory.getLogger(Server.class);
+public class TestServer {
+	private static final Logger LOG = LoggerFactory.getLogger(TestServer.class);
 	
 	/**
-	 * Main entry point. TODO Expand.
+	 * Load the server with very simple initialization.
 	 * @param args Arguments.
 	 */
 	public static void main(String[] args) {
 		LOG.trace("Starting server...");
 		NetworkManager.startServer(9667);
-		System.out.println("Server running.");
 	}
 }

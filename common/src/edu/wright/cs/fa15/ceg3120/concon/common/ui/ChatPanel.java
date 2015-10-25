@@ -109,6 +109,7 @@ public class ChatPanel extends JPanel {
 						formattedTextField.getText(),
 						userList.getSelectedValue()
 				);
+				formattedTextField.setText("");
 			}
 			
 		});

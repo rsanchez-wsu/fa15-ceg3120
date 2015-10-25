@@ -24,87 +24,55 @@ package edu.wright.cs.fa15.ceg3120.concon.common.net.message;
 import edu.wright.cs.fa15.ceg3120.concon.common.net.data.UserData;
 
 /**
- * ChatMessage is used to send messages to and from other users through the server.
- * This may not be around for long.
+ * LogonMessage is used to send the login info to the server.
  * @author Networking team
  * @version 1
  * 
  */
-public class ChatMessage extends NetworkMessage {
+public class LoginMessage extends NetworkMessage {
 
 	private static final long serialVersionUID = -2279299798905393963L;
-	private String message;
-	private UserData from;
-	private UserData to;
+	private UserData user;
 
 	/**
-	 * Add a message and send it to another user.
+	 * Create login message.
 	 * Default constructor required for java beans.
 	 */
-	public ChatMessage() {} // 
+	public LoginMessage() {} // 
 
 	/**
-	 * Send a message to another user.
-	 * @param message Message text.
-	 * @param from Sender.
-	 * @param to Recipient.
+	 * Create login message.
+	 * @param user The user logging in.
 	 */
-	public ChatMessage(String message, UserData from, UserData to) {
-		this.message = message;
-		this.from = from;
-		this.to = to;
-	}
-
-	/**
-	 * Getter for String message.
-	 * @return String message.
-	 */
-	public String getMessage() {
-		return message;
-	}
-
-	/**
-	 * Setter for String message.
-	 * @param message.
-	 */
-	public void setMessage(String message) {
-		this.message = message;
+	public LoginMessage(UserData user) {
+		this.user = user;
 	}
 
 	/**
 	 * Getter for UserData from.
 	 * @return UserData from.
 	 */
-	public UserData getFrom() {
-		return from;
+	public UserData getUser() {
+		return user;
 	}
 
 	/**
 	 * Setter for UserData from.
 	 * @param from.
 	 */
-	public void setFrom(UserData from) {
-		this.from = from;
+	public void setUser(UserData user) {
+		this.user = user;
 	}
-
+	
 	/**
-	 * Getter for UserData to.
-	 * @return UserData to.
+	 * This method is called when logging on to the server.
 	 */
-	public UserData getTo() {
-		return to;
-	}
-
-	/**
-	 * Setter for UserDat to.
-	 * @param to.
-	 */
-	public void setTo(UserData to) {
-		this.to = to;
+	public void login() {
+		System.out.println("Logging in...");
 	}
 
 	@Override
 	public String toString() {
-		return "ChatMessage [message=" + message + ", from=" + from + ", to=" + to + "]";
+		return "LogonMessage [user=" + user + "]";
 	}
 }
