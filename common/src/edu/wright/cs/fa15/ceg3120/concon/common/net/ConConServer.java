@@ -106,9 +106,10 @@ public class ConConServer implements Runnable {
 		@Override
 		public void run() {
 			try {
+				// Construct the reader and writer for the connection
 				DataOutputStream toClient = new DataOutputStream(clientSocket.getOutputStream());
 				BufferedReader fromClient = new BufferedReader(
-						new InputStreamReader(clientSocket.getInputStream(), "UTF-8")); // Construct the reader and writer for the connection
+						new InputStreamReader(clientSocket.getInputStream(), "UTF-8"));
 
 				int ch = 0;
 				StringBuilder message = new StringBuilder();
