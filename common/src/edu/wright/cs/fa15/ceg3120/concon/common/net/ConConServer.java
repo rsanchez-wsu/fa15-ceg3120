@@ -74,7 +74,8 @@ public class ConConServer implements Runnable {
 	}
 
 	/**
-	 * Description. TODO Fill out.
+	 * Single method to stop server.
+	 * TODO: add method to make sure all clients have ceased connections to server.
 	 */
 	public void quit() {
 		this.listening = false;
