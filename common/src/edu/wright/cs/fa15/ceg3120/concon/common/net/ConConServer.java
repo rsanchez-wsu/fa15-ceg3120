@@ -108,13 +108,13 @@ public class ConConServer implements Runnable {
 			try {
 				DataOutputStream toClient = new DataOutputStream(clientSocket.getOutputStream());
 				BufferedReader fromClient = new BufferedReader(
-						new InputStreamReader(clientSocket.getInputStream(), "UTF-8"));
+						new InputStreamReader(clientSocket.getInputStream(), "UTF-8")); // Construct the reader and writer for the connection
 
 				int ch = 0;
 				StringBuilder message = new StringBuilder();
 				while ((ch = fromClient.read()) != -1) {
 					message.append(ch);
-				}
+				}//Reads message from client into integer buffer
 
 				NetworkManager.post(NetworkManager.decodeFromXml(message.toString()));
 
