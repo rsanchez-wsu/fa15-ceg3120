@@ -43,8 +43,8 @@ public class ConConServer implements Runnable {
 	private boolean listening = true;
 
 	/**
-	 * Javadoc needed.
-	 *
+	 * The single argument constructor for the server API.
+	 * @param port The port on which the server will listen.
 	 */
 	public ConConServer(int port) {
 		this.port = port;
