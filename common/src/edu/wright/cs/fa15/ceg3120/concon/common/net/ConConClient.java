@@ -51,8 +51,8 @@ public class ConConClient {
 	}
 
 	/**
-	 * Javadoc needed.
-	 *
+	 * Sends a message to the currently connected server
+	 * @param message Message to be sent
 	 */
 	public void sendMessage(String message) {
 		new Thread(new DispatchMessage(message)).start();
