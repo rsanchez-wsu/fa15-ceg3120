@@ -25,7 +25,6 @@ import edu.wright.cs.fa15.ceg3120.concon.common.data.HomeownerAccount;
 
 import java.awt.Color;
 
-import javax.swing.JFrame;
 import javax.swing.JLayeredPane;
 import javax.swing.JTabbedPane;
 
