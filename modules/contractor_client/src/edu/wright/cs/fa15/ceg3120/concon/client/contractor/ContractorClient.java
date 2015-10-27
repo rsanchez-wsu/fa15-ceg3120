@@ -29,6 +29,7 @@ package edu.wright.cs.fa15.ceg3120.concon.client.contractor;
  * import edu.wright.cs.fa15.ceg3120.concon.common.data.ContractorAccount;
  */
 
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
@@ -36,6 +37,7 @@ import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
+
 
 import java.awt.Color;
 import java.awt.Component;
@@ -75,10 +77,13 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import javax.swing.JTree;
+import javax.swing.event.TreeSelectionEvent;
+import javax.swing.event.TreeSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.TreeSelectionModel;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -168,6 +173,9 @@ public class ContractorClient extends JFrame implements ActionListener {
 	private static JButton[] update = new JButton[10];
 	private static double[] currentBids = new double[10];
 	private static double[] previousBids = new double[10];
+	
+	private static JTree mainTree;
+	private static JTextPane textPane;
 	
 	/**
 	 * This method sets the current amount of notifications for the user. Used to
@@ -364,7 +372,6 @@ public class ContractorClient extends JFrame implements ActionListener {
 		}
 	}
 	
-	
 	/**
 	 * Create the application.
 	 */
@@ -428,18 +435,42 @@ public class ContractorClient extends JFrame implements ActionListener {
 		pageTabs.setBounds(6, 127, 703, 309);
 		frame.getContentPane().add(pageTabs);
 
+		buildMainTab();
+
+		buildCurrentBidsTab();
+		
+		buildNotificationsTab();
+		
+		buildSearchTab();
+		
+		buildPaymentsTab();
+
+		buildProfileEditorTab();
+
+		buildCalendarTab();
+
+		JPanel openJobsTab = new JPanel();
+		pageTabs.addTab("Open Jobs", null, openJobsTab, null);
+	}
+	/**
+	 * This method creates the main tab.  It generates a tree for navigating previous job
+	 * information and reviews which are displayed in the text area.
+	 * @author Bret Tagliaferri
+	 */
+	public static void buildMainTab() {
 		JPanel main = new JPanel();
 		pageTabs.addTab("Main", null, main, "Return to main page");
 		main.setLayout(null);
 
-		JTree mainTree = new JTree();
+		mainTree = new JTree();
+		mainTree.getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
+		mainTree.addTreeSelectionListener((TreeSelectionListener) new SelectionListener());
 		mainTree.setModel(new DefaultTreeModel(
 						new DefaultMutableTreeNode("Main") {
 							/**
-							 * Create the tree.
+							 * Creates the tree.
 							 */
 							private static final long serialVersionUID = 1L;
-
 							{
 								DefaultMutableTreeNode node1;
 								DefaultMutableTreeNode node2;
@@ -479,26 +510,65 @@ public class ContractorClient extends JFrame implements ActionListener {
 		main.add(mainTree);
 		mainTree.setBounds(6, 6, 160, 275);
 
-		JTextPane textPane = new JTextPane();
+		textPane = new JTextPane();
 		textPane.setBounds(172, 6, 526, 275);
 		main.add(textPane);
-
-		buildCurrentBidsTab();
-		
-		buildNotificationsTab();
-		
-		buildSearchTab();
-		
-		buildPaymentsTab();
-
-		buildProfileEditorTab();
-
-		buildCalendarTab();
-
-		JPanel openJobsTab = new JPanel();
-		pageTabs.addTab("Open Jobs", null, openJobsTab, null);
 	}
-
+	/**
+	 * Changes the text pane when Main node is selected.
+	 * @return String containing the text for Main node.
+	 */
+	public static String getMain() {
+		String main = "";
+		main = "This is the main page!";
+		return main;
+	}
+	/**
+     * Changes the text pane when a Description node is selected.
+     * @return String containing text for Description node.
+     */
+	public static String getDescription() {
+		String description = "";
+		description = "This is a description of the previous job!";
+		return description;
+	}
+	/**
+	 * Changes the text pane when a Photo node is selected.
+	 * @return String containing text for the Photo node.
+	 */
+	public static String getPhoto() {
+		String photo = "";
+		photo = "Insert picture here!";
+		return photo;
+	}
+	/**
+	 * This class listens for selection made by the user on the Jtree and changes
+	 * the text in the text pane accordingly.
+	 * @author Bret Tagliaferri
+	 */
+	public static class SelectionListener implements TreeSelectionListener {
+		String treeText;
+		/**
+		 * Method that changes text based on tree selection.
+		 */
+		public void valueChanged(TreeSelectionEvent se) {
+			JTree tree = (JTree) se.getSource();
+			DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode) tree
+					.getLastSelectedPathComponent();			    
+			String selectedNodeName = selectedNode.toString();	    
+			if (selectedNodeName.equals("Main")) {
+				treeText = getMain();
+				textPane.setText(treeText);
+			} else if (selectedNodeName.equals("Description")) {
+				treeText = getDescription();
+				textPane.setText(treeText);				
+			} else if (selectedNodeName.equals("Photos")) {
+				treeText = getPhoto();
+				textPane.setText(treeText);		    
+			}	  
+		}
+	}
+	
 	/**
 	 * This method populates the Profile Editor tab.
 	 * @author Joshua Thomas
