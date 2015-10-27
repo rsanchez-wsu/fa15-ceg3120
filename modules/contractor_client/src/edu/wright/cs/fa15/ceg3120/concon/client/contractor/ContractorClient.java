@@ -1722,7 +1722,43 @@ public class ContractorClient extends JFrame implements ActionListener {
 	 * This method builds an populates the Notifications tab.
 	 */
 	public static void buildNotificationsTab() {
-		
+		JPanel notificationsTab = new JPanel();  
+		pageTabs.addTab("Notifications", null, notificationsTab, null);  
+		setNotif(6);  
+		if (getNotif() > 0) {  
+			pageTabs.setBackgroundAt(2, Color.RED);  
+		}  
+		final Color defaultColor = new Color(238,238,238);  
+		String clientName;  
+		String jobLocation;  
+		String jobDate;  
+		final JLabel[] jobs = new JLabel[10];  
+		final JButton[] acknowledge = new JButton[10];  
+		for (int i = 0; i <= 5; i++) {  
+			final int list = i;  
+			clientName = "Get name of client from database";  
+			jobLocation = "Get location from database";  
+			jobDate = "Get date from database";  
+			jobs[i] = new JLabel(clientName + " needs work done at "   
+			+ jobLocation + " on " + jobDate);  
+			notificationsTab.add(jobs[i]);  
+			acknowledge[i] = new JButton("Okay");  
+			notificationsTab.add(acknowledge[i]);  
+			acknowledge[i].addActionListener(new ActionListener() {  
+				@Override  
+				public void actionPerformed(ActionEvent e0) {  
+					Container parent = acknowledge[list].getParent();  
+					parent.remove(acknowledge[list]);  
+					parent.remove(jobs[list]);  
+					setNotif(getNotif() - 1);  
+					if (getNotif() < 1) {  
+						pageTabs.setBackgroundAt(2, defaultColor);  
+						}  
+					parent.validate();  
+					parent.repaint();  
+					}  
+				});  
+		}  
 	}
 	
 	/**
