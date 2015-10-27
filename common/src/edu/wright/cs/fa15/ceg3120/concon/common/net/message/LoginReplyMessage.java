@@ -21,58 +21,59 @@
 
 package edu.wright.cs.fa15.ceg3120.concon.common.net.message;
 
+import edu.wright.cs.fa15.ceg3120.concon.common.net.ConConClient;
 import edu.wright.cs.fa15.ceg3120.concon.common.net.data.UserData;
 
 /**
- * LogonMessage is used to send the login info to the server.
+ * LoginReplyMessage is used to return user data to the logged in client.
  * @author Networking team
  * @version 1
  * 
  */
-public class LoginMessage extends NetworkMessage {
+public class LoginReplyMessage extends NetworkMessage {
 
-	private static final long serialVersionUID = -2279299798905393963L;
+	private static final long serialVersionUID = 1L;
 	private UserData user;
 
 	/**
-	 * Create login message.
+	 * Create login reply message.
 	 * Default constructor required for java beans.
 	 */
-	public LoginMessage() {} // 
+	public LoginReplyMessage() {} // 
 
 	/**
-	 * Create login message.
-	 * @param user The user logging in.
+	 * Create login verification message.
+	 * @param user the user logging in.
 	 */
-	public LoginMessage(UserData user) {
+	public LoginReplyMessage(UserData user) {
 		this.user = user;
 	}
 
 	/**
-	 * Getter for UserData from.
-	 * @return UserData from.
+	 * Get user data.
+	 * @return user
 	 */
 	public UserData getUser() {
 		return user;
 	}
 
 	/**
-	 * Setter for UserData from.
-	 * @param from.
+	 * Set user.
+	 * @param user the user
 	 */
-	public void setUser(UserData user) {
+	public void setUsername(UserData user) {
 		this.user = user;
 	}
 	
 	/**
-	 * This method is called when logging on to the server.
+	 * Sets the current user for the client.
 	 */
-	public void login() {
-		System.out.println("Logging in...");
+	public void setCurrentUser() {
+		ConConClient.setCurrentUser(user);
 	}
 
 	@Override
 	public String toString() {
-		return "LogonMessage [user=" + user + "]";
+		return "LoginReplyMessage [user=" + user + "]";
 	}
 }

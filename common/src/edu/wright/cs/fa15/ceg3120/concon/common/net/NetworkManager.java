@@ -22,7 +22,8 @@
 package edu.wright.cs.fa15.ceg3120.concon.common.net;
 
 import edu.wright.cs.fa15.ceg3120.concon.common.net.message.ChatMessage;
-import edu.wright.cs.fa15.ceg3120.concon.common.net.message.LoginMessage;
+import edu.wright.cs.fa15.ceg3120.concon.common.net.message.LoginReplyMessage;
+import edu.wright.cs.fa15.ceg3120.concon.common.net.message.LoginRequestMessage;
 import edu.wright.cs.fa15.ceg3120.concon.common.net.message.NetworkMessage;
 
 import org.slf4j.Logger;
@@ -83,8 +84,10 @@ public class NetworkManager {
 			if (listener.getValue().isAssignableFrom(message.getClass())) {
 				LOG.debug("Recieved message: " + message);
 				try {
-					if (message instanceof LoginMessage) {
-						listener.getKey().invoke("login", (LoginMessage)message);
+					if (message instanceof LoginRequestMessage) {
+						listener.getKey().invoke("login", (LoginRequestMessage)message);
+					} else if (message instanceof LoginReplyMessage) {
+						listener.getKey().invoke("setCurrentUser", (LoginReplyMessage)message);
 					} else if (message instanceof ChatMessage) {
 						listener.getKey().invoke(null, (ChatMessage)message);
 					}

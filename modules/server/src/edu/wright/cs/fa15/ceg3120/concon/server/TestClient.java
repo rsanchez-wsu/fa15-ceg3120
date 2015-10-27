@@ -24,7 +24,7 @@ package edu.wright.cs.fa15.ceg3120.concon.server;
 import edu.wright.cs.fa15.ceg3120.concon.common.net.NetworkManager;
 import edu.wright.cs.fa15.ceg3120.concon.common.net.data.UserData;
 import edu.wright.cs.fa15.ceg3120.concon.common.net.message.ChatMessage;
-import edu.wright.cs.fa15.ceg3120.concon.common.net.message.LoginMessage;
+import edu.wright.cs.fa15.ceg3120.concon.common.net.message.LoginRequestMessage;
 import edu.wright.cs.fa15.ceg3120.concon.common.ui.ChatPanel;
 
 import org.slf4j.Logger;
@@ -48,7 +48,7 @@ public class TestClient {
 	public static void main(String[] args) {
 		LOG.trace("Starting client...");
 		NetworkManager.startClient("127.0.0.1", 9667);
-		NetworkManager.registerNetworkClass(LoginMessage.class);
+		NetworkManager.registerNetworkClass(LoginRequestMessage.class);
 		NetworkManager.registerNetworkClass(ChatMessage.class);
 		
 		SwingUtilities.invokeLater(new Runnable() {
@@ -56,13 +56,12 @@ public class TestClient {
 			@Override
 			public void run() {
 				JFrame clientFrame = new JFrame();
-				String[] name = JOptionPane.showInputDialog(clientFrame, "Enter Full Name:")
-						.split(" ", 2);
-				UserData user = new UserData(name[0], name[1]);
-				NetworkManager.sendMessage(new LoginMessage(user));
+				String name = JOptionPane.showInputDialog(clientFrame, "Enter username:");
+				String pass = JOptionPane.showInputDialog(clientFrame, "Enter password:");
+				NetworkManager.sendMessage(new LoginRequestMessage(name, pass));
 				
 				clientFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-				clientFrame.getContentPane().add(new ChatPanel(user));
+				clientFrame.getContentPane().add(new ChatPanel());
 				clientFrame.setSize(400, 400);
 				clientFrame.setVisible(true);
 			}
