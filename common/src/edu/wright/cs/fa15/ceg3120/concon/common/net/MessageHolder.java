@@ -1,8 +1,8 @@
 /*
  * Copyright (C) 2015
- * 
- * 
- * 
+ *
+ *
+ *
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,17 +19,17 @@
  *
  */
 
-package edu.wright.cs.fa15.ceg3120.concon.common.net.data;
-
-import java.io.Serializable;
+package edu.wright.cs.fa15.ceg3120.concon.common.net;
 
 /**
- * Implement this class for data objects that need to be
- * sent over the network in DataMessage.
- * 
- * @author NathanJent
- *
+ * A basic tuple class for holding any object and a channel identifier.
  */
-public interface NetworkData extends Serializable {
-	
+public class MessageHolder {
+	public String channel;
+	public Object message;
+
+	public MessageHolder(String channel, Object message) {
+		this.channel = channel;
+		this.message = message;
+	}
 }

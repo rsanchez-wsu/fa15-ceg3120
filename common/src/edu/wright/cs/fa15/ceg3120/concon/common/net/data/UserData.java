@@ -22,7 +22,8 @@
 package edu.wright.cs.fa15.ceg3120.concon.common.net.data;
 
 
-import javax.swing.ImageIcon;
+import javax.swing.*;
+import java.io.Serializable;
 
 /**
  * Holds basic user data.
@@ -30,14 +31,14 @@ import javax.swing.ImageIcon;
  * @author NathanJent
  *
  */
-public class UserData implements NetworkData {
+public class UserData implements Serializable {
 
 	private static final long serialVersionUID = -1804728648292102844L;
 	
 	private String firstName;
 	private String lastName;
 	private String uuid;
-	private ImageIcon  avatar;
+	private ImageIcon avatar;
 
 	/**
 	 * Javadoc needed.

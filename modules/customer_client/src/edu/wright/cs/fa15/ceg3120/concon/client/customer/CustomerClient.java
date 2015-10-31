@@ -23,19 +23,13 @@ package edu.wright.cs.fa15.ceg3120.concon.client.customer;
 
 import edu.wright.cs.fa15.ceg3120.concon.common.data.HomeownerAccount;
 import edu.wright.cs.fa15.ceg3120.concon.common.net.NetworkManager;
-import edu.wright.cs.fa15.ceg3120.concon.common.net.message.ChatMessage;
-import edu.wright.cs.fa15.ceg3120.concon.common.net.message.NetworkMessage;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.awt.Toolkit;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-import javax.swing.WindowConstants;
 
 /**
  * This class contains the launch point for the Homeowner UI.
@@ -94,8 +88,8 @@ public class CustomerClient {
 	 */
 	public static void main(String[] args) {
 		NetworkManager.startClient("localhost", 9667);
-		NetworkMessage message = new ChatMessage("Hello World", null, null);
-		NetworkManager.sendMessage(message);
+		//NetworkMessage message = new ChatMessage("Hello World", null, null);
+		//NetworkManager.sendMessage(message);
 		HomeownerAccount user = new HomeownerAccount();
 		user.setUuid("Debug");
 		char[] ps = {'a','b', 'c'};

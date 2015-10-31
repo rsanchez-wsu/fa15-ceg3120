@@ -21,23 +21,12 @@
 
 package edu.wright.cs.fa15.ceg3120.concon.common.ui;
 
-import edu.wright.cs.fa15.ceg3120.concon.common.net.NetworkManager;
 import edu.wright.cs.fa15.ceg3120.concon.common.net.data.UserData;
-import edu.wright.cs.fa15.ceg3120.concon.common.net.message.ChatMessage;
 
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
-import javax.swing.JButton;
-import javax.swing.JFormattedTextField;
-import javax.swing.JList;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
-import javax.swing.ListSelectionModel;
 
 
 /**
@@ -120,8 +109,8 @@ public class ChatPanel extends JPanel {
 	 * @param text the message text
 	 */
 	private void sendMessage(String text, UserData to) {
-		ChatMessage message = new ChatMessage(text, currentUser ,to);
-		NetworkManager.sendMessage(message);
+		//ChatMessage message = new ChatMessage(text, currentUser ,to);
+		//NetworkManager.sendMessage(message);
 	}
 
 }

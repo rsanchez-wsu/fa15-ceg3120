@@ -33,7 +33,7 @@ import java.net.Socket;
 
 //TODO have security
 /**
- * The server should only be able to instantiate 1 server or 1 client.
+ * Class which handles non-blocking communication with clients.
  */
 public class ConConServer implements Runnable {
 	private static final Logger LOG = LoggerFactory.getLogger(ConConServer.class);
@@ -42,13 +42,8 @@ public class ConConServer implements Runnable {
 	private ServerSocket serverSocket = null;
 	private boolean listening = true;
 
-	/**
-	 * The single argument constructor for the server API.
-	 * @param port The port on which the server will listen.
-	 */
 	public ConConServer(int port) {
 		this.port = port;
-
 	}
 
 	@Override
@@ -69,13 +64,12 @@ public class ConConServer implements Runnable {
 				}
 				LOG.error("Client Socket: ", e);
 			}
-			new ConnectionWorker(clientSocket).start();
+			new Thread(new ConnectionWorker(clientSocket)).start();
 		}
 	}
 
 	/**
-	 * Single method to stop server.
-	 * TODO: add method to make sure all clients have ceased connections to server.
+	 * Stop the server.
 	 */
 	public void quit() {
 		this.listening = false;
@@ -87,17 +81,15 @@ public class ConConServer implements Runnable {
 	}
 
 	/**
-	 * Handles the actual client<->server communications.
+	 * The threaded class which will handle the actual communication.
 	 */
-	private static class ConnectionWorker extends Thread {
+	private static class ConnectionWorker implements Runnable {
 
 		private Socket clientSocket = null;
 
 		/**
-		 * This is a constructor.
-		 * 
-		 * @param clientSocket
-		 *            the socket the worker is communicating over.
+		 * constructor.
+		 * @param clientSocket the client socket.
 		 */
 		public ConnectionWorker(Socket clientSocket) {
 			this.clientSocket = clientSocket;
@@ -117,7 +109,19 @@ public class ConConServer implements Runnable {
 					message.append(ch);
 				}//Reads message from client into integer buffer
 
-				NetworkManager.post(NetworkManager.decodeFromXml(message.toString()));
+				while (message.toString().length() > 0) {
+					MessageHolder mh =
+							(MessageHolder)NetworkManager.decodeFromXml(message.toString());
+					MessageHolder response = NetworkManager.post(mh.channel, mh.message);
+					if (response != null) {
+						toClient.writeBytes(NetworkManager.encodeToXml(response));
+						ch = 0;
+						message = new StringBuilder();
+						while ((ch = fromClient.read()) != -1) {
+							message.append(ch);
+						}//Reads message from client into integer buffer
+					}
+				}
 
 				toClient.close();
 				fromClient.close();
