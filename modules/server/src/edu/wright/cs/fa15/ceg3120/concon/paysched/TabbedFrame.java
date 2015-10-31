@@ -237,17 +237,19 @@ public class TabbedFrame extends JFrame{
         
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         
+        //Combo box that lists available months that have appointments. 
         monthsList.setModel(new DefaultComboBoxModel(new String[] { "January", "Feburary", "March",
           "April", "June", "July", "August", "September",
           "October", "November", "December" }));
 
+        //Combo box that lists available dates during selected months
         daysList.setModel(new DefaultComboBoxModel(new String[] { "1", "2", "3", "4", "5",
           "6", "7", "8", "9", "10", "11", "12", "13",
           "14", "15", "16", "17", "18", "19", "20",
           "21", "22", "23", "24", "25",
           "26", "27", "28", "29", "30", "31" }));
-
-        timesList.setBackground(new java.awt.Color(255, 102, 51));
+        
+        //Combo box that lists available dates during selected months
         timesList.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "2:30 - 4:30" }));
 
         schedulingTabHeader.setText("Select The Month, Day, and Perferred time frame");
@@ -261,6 +263,7 @@ public class TabbedFrame extends JFrame{
 
         javax.swing.GroupLayout schedulingLayout = new javax.swing.GroupLayout(schedulingTabPanel);
         schedulingTabPanel.setLayout(schedulingLayout);
+        //Set horizontal layout for elements in tab
         schedulingLayout.setHorizontalGroup(
             schedulingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(schedulingLayout.createSequentialGroup()
@@ -284,6 +287,7 @@ public class TabbedFrame extends JFrame{
                         .addComponent(submitButton)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+        //Set vertical layout for elements in tab
         schedulingLayout.setVerticalGroup(
             schedulingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(schedulingLayout.createSequentialGroup()
@@ -307,6 +311,7 @@ public class TabbedFrame extends JFrame{
                 .addGap(59, 59, 59))
         );
 
+        //Add Payment tab to GUI
         jtabbedPane.addTab("Scheduling", schedulingTabPanel);
 
         
@@ -479,13 +484,7 @@ public class TabbedFrame extends JFrame{
      * @param evt temp.
      */
     private void submitButtonListener(java.awt.event.MouseEvent evt) {
-    	//GEN-FIRST:event_submitButtonListener
-        //month = (String)monthsList.getSelectedItem();
-        //day must be string to prevent errors
-        //ask team if ok to store this way
-        //day = (String)daysList.getSelectedItem();
-        //timeRange = (String)timesList.getSelectedItem();
-        //SchedulingData<?> data = new SchedulingData<>(month,day,timeRange);
+    	
     }//GEN-LAST:event_submitButtonListener
 
     /**
@@ -509,7 +508,7 @@ public class TabbedFrame extends JFrame{
      * @param evt temp.
      */
     private void cancelButtonListener(java.awt.event.MouseEvent evt) {
-    	
+    	System.exit(0);
     }//GEN-LAST:event_cancelButtonListener
 
     /**
