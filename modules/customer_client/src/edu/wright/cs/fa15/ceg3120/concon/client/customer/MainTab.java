@@ -28,6 +28,8 @@ import java.awt.Font;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollBar;
+import javax.swing.JSeparator;
 import javax.swing.JTextPane;
 
 /**
@@ -49,21 +51,44 @@ public class MainTab extends JLayeredPane {
 		
 		JPanel panel = new JPanel();
 		panel.setBackground(Color.ORANGE);
-		add(panel, BorderLayout.CENTER);
+		add(panel, BorderLayout.SOUTH);
 		panel.setLayout(new BorderLayout(0, 0));
 		
-		JLabel newsLabel = new JLabel("News");
-		newsLabel.setFont(new Font("Tahoma", Font.BOLD, 22));
-		newsLabel.setForeground(Color.BLUE);
-		panel.add(newsLabel, BorderLayout.NORTH);
+		JLayeredPane layeredPane = new JLayeredPane();
+		panel.add(layeredPane, BorderLayout.CENTER);
+		layeredPane.setLayout(new BorderLayout(0, 0));
 		
-		JTextPane newsTextArea = new JTextPane();
-		newsTextArea.setEditable(false);
-		newsTextArea.setFont(new Font("Times New Roman", Font.PLAIN, 18));
-		newsTextArea.setBackground(Color.ORANGE);
-		newsTextArea.setForeground(Color.BLUE);
-		newsTextArea.setText("Version 1.0.12 is now available!\r\n\r\nNews!\r\n\r\nMore Stuff!");
-		panel.add(newsTextArea, BorderLayout.WEST);
+		JLayeredPane layeredPane_1 = new JLayeredPane();
+		add(layeredPane_1, BorderLayout.NORTH);
+		layeredPane_1.setBackground(Color.WHITE);
+		layeredPane_1.setLayout(new BorderLayout(0, 0));
+		
+		JTextPane txtpnNews = new JTextPane();
+		txtpnNews.setForeground(Color.BLUE);
+		txtpnNews.setEditable(false);
+		txtpnNews.setFont(new Font("Tahoma", Font.BOLD, 24));
+		txtpnNews.setText("News\r\n");
+		txtpnNews.setBackground(Color.ORANGE);
+		layeredPane_1.add(txtpnNews, BorderLayout.CENTER);
+		
+		JSeparator separator = new JSeparator();
+		layeredPane_1.add(separator, BorderLayout.SOUTH);
+		separator.setBackground(Color.BLUE);
+		separator.setToolTipText("");
+		
+		JTextPane textPane = new JTextPane();
+		add(textPane, BorderLayout.CENTER);
+		textPane.setBackground(Color.ORANGE);
+		
+		JTextPane newsTextPane = new JTextPane();
+		add(newsTextPane, BorderLayout.CENTER);
+		newsTextPane.setFont(new Font("Times New Roman", Font.PLAIN, 18));
+		newsTextPane.setBackground(Color.ORANGE);
+		newsTextPane.setForeground(Color.BLUE);
+		newsTextPane.setText("Version 1.0.12 is now available!\r\n\r\nNews!\r\n\r\nMore Stuff!");
+		
+		JScrollBar newsTextScrollBar = new JScrollBar();
+		add(newsTextScrollBar, BorderLayout.EAST);
 
 	}
 
