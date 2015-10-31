@@ -508,7 +508,7 @@ public class TabbedFrame extends JFrame{
      * @param evt temp.
      */
     private void cancelButtonListener(java.awt.event.MouseEvent evt) {
-    	System.exit(0);
+    	//System.exit(0);
     }//GEN-LAST:event_cancelButtonListener
 
     /**
