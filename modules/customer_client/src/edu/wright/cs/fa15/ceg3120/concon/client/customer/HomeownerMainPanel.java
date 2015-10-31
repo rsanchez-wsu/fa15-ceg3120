@@ -42,6 +42,9 @@ public class HomeownerMainPanel extends JTabbedPane {
 	 */
 	public HomeownerMainPanel(HomeownerAccount user) {
 		setBackground(Color.ORANGE);
+		
+		MainTab mainTab = new MainTab();
+		addTab("Main", null, mainTab, null);
 
 		ProfileTab profileTab = new ProfileTab(user);
 		profileTab.buildPane();
@@ -60,6 +63,7 @@ public class HomeownerMainPanel extends JTabbedPane {
 
 		JLayeredPane messagingTab = new JLayeredPane();
 		addTab("Messaging", null, messagingTab, null);
+		
 
 		setupPanel();
 	}
