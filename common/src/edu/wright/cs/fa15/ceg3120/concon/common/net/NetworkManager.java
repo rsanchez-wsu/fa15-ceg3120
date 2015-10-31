@@ -21,8 +21,8 @@
 
 package edu.wright.cs.fa15.ceg3120.concon.common.net;
 
-//import edu.wright.cs.fa15.ceg3120.concon.common.net.message.ChatMessage;
-//import edu.wright.cs.fa15.ceg3120.concon.common.net.message.DataMessage;
+import edu.wright.cs.fa15.ceg3120.concon.common.net.message.ChatMessage;
+import edu.wright.cs.fa15.ceg3120.concon.common.net.message.DataMessage;
 import edu.wright.cs.fa15.ceg3120.concon.common.net.message.NetworkMessage;
 
 import org.slf4j.Logger;
@@ -34,13 +34,14 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.UnsupportedEncodingException;
 import java.lang.annotation.Annotation;
-//import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Javadoc needed.
+ * This class is used to manage network connections.
+ * @author Networking Team
  *
  */
 public class NetworkManager {
@@ -63,7 +64,8 @@ public class NetworkManager {
 			if (m.isAnnotationPresent((Class<? extends Annotation>) NetworkHandler.class)) {
 				Class<?>[] argClasses = m.getParameterTypes();
 				if (argClasses.length != 1 
-						|| !NetworkMessage.class.isAssignableFrom(argClasses[0])) {
+						|| !NetworkMessage.class.isAssignableFrom(argClasses[0])
+						|| NETWORK_BUS.values().contains(argClasses[0])) {
 					System.out.println("Invalid parameters on NetworkHandler method: " 
 							+ m.getName());
 				} else {
@@ -77,7 +79,7 @@ public class NetworkManager {
 	 * Description. TODO Fill out.
 	 * @param message Message to post.
 	 */
-	public static void post(NetworkMessage message) {
+	public static NetworkMessage post(NetworkMessage message) {
 		for (Map.Entry<Method, Class<?>> listener : NETWORK_BUS.entrySet()) {
 			if (listener.getValue().isAssignableFrom(message.getClass())) {
 				try {
@@ -90,7 +92,9 @@ public class NetworkManager {
 				}
 			}
 		}
+		return null;
 	}
+
 
 	/**
 	 * Description. TODO Fill out.
@@ -102,13 +106,12 @@ public class NetworkManager {
 			return false;
 		}
 		server = new ConConServer(port);
-		server.start();
+		new Thread(server).start();
 		return true;
 	}
-	
+
 	/**
-	 * Javadoc needed.
-	 *
+	 * Method safely stops the server.
 	 */
 	public static void stopServer() {
 		server.quit();
@@ -117,6 +120,7 @@ public class NetworkManager {
 
 	/**
 	 * Description. TODO Fill out.
+	 * 
 	 * @param host Host to use.
 	 * @param port Port to use.
 	 * @return false if failed.
@@ -130,8 +134,8 @@ public class NetworkManager {
 	}
 
 	/**
-	 * Javadoc needed.
-	 *
+	 * Deletes the client object.
+	 * Collects the garbage.
 	 */
 	public static void stopClient() {
 		client = null;
@@ -139,6 +143,7 @@ public class NetworkManager {
 
 	/**
 	 * Description. TODO Fill out.
+	 * 
 	 * @param message Message to send.
 	 * @return false if failed.
 	 */

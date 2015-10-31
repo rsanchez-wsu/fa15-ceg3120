@@ -24,8 +24,11 @@ package edu.wright.cs.fa15.ceg3120.concon.common.net.message;
 import edu.wright.cs.fa15.ceg3120.concon.common.net.data.UserData;
 
 /**
- * Javadoc needed.
- *
+ * ChatMessage is used to send messages to and from other users through the server.
+ * This may not be around for long.
+ * @author Networking team
+ * @version 1
+ * 
  */
 public class ChatMessage extends NetworkMessage {
 

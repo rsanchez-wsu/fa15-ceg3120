@@ -24,8 +24,7 @@ package edu.wright.cs.fa15.ceg3120.concon.common.net.message;
 import java.io.Serializable;
 
 /**
- * Javadoc needed.
- *
+ * A wrapper abstract class into which data can be put into.
  */
 public abstract class NetworkMessage implements Serializable {
 	

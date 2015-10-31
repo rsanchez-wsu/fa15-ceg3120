@@ -21,6 +21,9 @@
 
 package edu.wright.cs.fa15.ceg3120.concon.common.net;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -29,16 +32,18 @@ import java.net.Socket;
 
 //TODO have security
 /**
- * Javadoc needed.
- *
+ * The clientside counterpart to conconserver.
  */
 public class ConConClient {
+	private static final Logger LOG = LoggerFactory.getLogger(ConConClient.class);
+	
 	private String host;
 	private int port;
 	
 	/**
-	 * Javadoc needed.
-	 *
+	 * Constructs a client which will talk to the designated host:port.
+	 * @param host an IP address or similar.
+	 * @param port will fail if in use.
 	 */
 	public ConConClient(String host, int port) {
 		this.host = host;
@@ -46,23 +51,22 @@ public class ConConClient {
 	}
 
 	/**
-	 * Javadoc needed.
-	 *
+	 * Sends a message to the currently connected server.
+	 * @param message Message to be sent
 	 */
 	public void sendMessage(String message) {
-		new DispatchMessage(message).start();
+		new Thread(new DispatchMessage(message)).start();
 	}
 
 	/**
-	 * Javadoc needed.
-	 *
+	 * The threaded class which will handle the actual sending of messages.
 	 */
-	private class DispatchMessage extends Thread {
+	private class DispatchMessage implements Runnable {
 		private String message;
 
 		/**
-		 * Javadoc needed.
-		 *
+		 * Constructor.
+		 * @param message the raw text of a message.
 		 */
 		public DispatchMessage(String message) {
 			this.message = message;
@@ -87,7 +91,7 @@ public class ConConClient {
 
 				clientSocket.close();
 			} catch (IOException e) {
-				e.printStackTrace();
+				LOG.error("Dispatch Message IO: ", e);
 			}
 		}
 	}
