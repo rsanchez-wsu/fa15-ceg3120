@@ -23,10 +23,18 @@ package edu.wright.cs.fa15.ceg3120.concon.common.ui;
 
 import edu.wright.cs.fa15.ceg3120.concon.common.net.data.UserData;
 
-import javax.swing.*;
-import java.awt.*;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.JButton;
+import javax.swing.JFormattedTextField;
+import javax.swing.JList;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.ListSelectionModel;
 
 
 /**
@@ -71,7 +79,7 @@ public class ChatPanel extends JPanel {
 		gbcUserListScrollPane.gridy = 0;
 		add(userListScrollPane, gbcUserListScrollPane);
 		
-		final JList<UserData> userList = new JList<UserData>();
+		final JList<UserData> userList = new JList<>();
 		userList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		userListScrollPane.setViewportView(userList);
 		

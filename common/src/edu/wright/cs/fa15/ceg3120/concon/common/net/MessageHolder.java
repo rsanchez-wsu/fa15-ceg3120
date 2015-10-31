@@ -28,6 +28,11 @@ public class MessageHolder {
 	public String channel;
 	public Object message;
 
+	/**
+	 * Constructor.
+	 * @param channel the channel.
+	 * @param message the message.
+	 */
 	public MessageHolder(String channel, Object message) {
 		this.channel = channel;
 		this.message = message;

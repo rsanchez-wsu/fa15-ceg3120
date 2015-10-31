@@ -21,9 +21,8 @@
 
 package edu.wright.cs.fa15.ceg3120.concon.common.net.data;
 
-
-import javax.swing.*;
 import java.io.Serializable;
+import javax.swing.ImageIcon;
 
 /**
  * Holds basic user data.

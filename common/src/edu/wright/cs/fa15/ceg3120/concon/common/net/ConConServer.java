@@ -42,6 +42,10 @@ public class ConConServer implements Runnable {
 	private ServerSocket serverSocket = null;
 	private boolean listening = true;
 
+	/**
+	 * Constructor
+	 * @param port the port.
+	 */
 	public ConConServer(int port) {
 		this.port = port;
 	}

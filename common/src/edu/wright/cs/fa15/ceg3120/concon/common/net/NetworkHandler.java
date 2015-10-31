@@ -33,5 +33,8 @@ import java.lang.annotation.Target;
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface NetworkHandler {
+	/**
+	 * This is an annotation argument.
+	 */
 	String channel();
 }

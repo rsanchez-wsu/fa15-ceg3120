@@ -64,6 +64,10 @@ public class ConConClient {
 	private class DispatchMessage implements Runnable {
 		private String message;
 
+		/**
+		 * Constructor.
+		 * @param message the message.
+		 */
 		public DispatchMessage(String message) {
 			this.message = message;
 		}

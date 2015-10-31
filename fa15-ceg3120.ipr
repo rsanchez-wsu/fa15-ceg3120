@@ -214,6 +214,11 @@
             <option name="USE_RELATIVE_INDENTS" value="false" />
           </value>
         </option>
+        <option name="CLASS_COUNT_TO_USE_IMPORT_ON_DEMAND" value="500" />
+        <option name="NAMES_COUNT_TO_USE_IMPORT_ON_DEMAND" value="300" />
+        <option name="PACKAGES_TO_USE_IMPORT_ON_DEMAND">
+          <value />
+        </option>
         <XML>
           <option name="XML_LEGACY_SETTINGS_IMPORTED" value="true" />
         </XML>
