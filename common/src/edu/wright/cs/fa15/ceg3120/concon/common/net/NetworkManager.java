@@ -22,8 +22,8 @@
 package edu.wright.cs.fa15.ceg3120.concon.common.net;
 
 import edu.wright.cs.fa15.ceg3120.concon.common.net.message.ChatMessage;
-import edu.wright.cs.fa15.ceg3120.concon.common.net.message.LoginReplyMessage;
 import edu.wright.cs.fa15.ceg3120.concon.common.net.message.LoginRequestMessage;
+import edu.wright.cs.fa15.ceg3120.concon.common.net.message.LoginResponseMessage;
 import edu.wright.cs.fa15.ceg3120.concon.common.net.message.NetworkMessage;
 
 import org.slf4j.Logger;
@@ -85,9 +85,9 @@ public class NetworkManager {
 				LOG.debug("Recieved message: " + message);
 				try {
 					if (message instanceof LoginRequestMessage) {
-						listener.getKey().invoke("login", (LoginRequestMessage)message);
-					} else if (message instanceof LoginReplyMessage) {
-						listener.getKey().invoke("setCurrentUser", (LoginReplyMessage)message);
+						listener.getKey().invoke(null, (LoginRequestMessage)message);
+					} else if (message instanceof LoginResponseMessage) {
+						listener.getKey().invoke(null, (LoginResponseMessage)message);
 					} else if (message instanceof ChatMessage) {
 						listener.getKey().invoke(null, (ChatMessage)message);
 					}
@@ -163,6 +163,7 @@ public class NetworkManager {
 			client.sendMessage(encodeToXml(message));
 		} catch (UnsupportedEncodingException e) {
 			LOG.warn("Improper message encoding: ", e);
+			return false;
 		}
 		return true;
 	}
@@ -195,5 +196,21 @@ public class NetworkManager {
 		xmlWizard.writeObject(message);
 		xmlWizard.close();
 		return out.toString("UTF-8");
+	}
+
+	/**
+	 * Get client.
+	 * @return the client
+	 */
+	public static ConConClient getClient() {
+		return client;
+	}
+
+	/**
+	 * Get server.
+	 * @return the server
+	 */
+	public static ConConServer getServer() {
+		return server;
 	}
 }

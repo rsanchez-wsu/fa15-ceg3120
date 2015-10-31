@@ -48,11 +48,14 @@ import javax.swing.ListSelectionModel;
 public class ChatPanel extends JPanel {
 
 	private static final long serialVersionUID = 9195112434638392386L;
+	private static JTextArea textArea;
+	private ConConClient client;
 
 	/**
 	 * Create the panel.
 	 */
-	public ChatPanel() {
+	public ChatPanel(ConConClient client) {
+		this.client = client;
 		final GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{292, 140, 0};
 		gridBagLayout.rowHeights = new int[]{135, 37, 0};
@@ -67,8 +70,8 @@ public class ChatPanel extends JPanel {
 		gbcScrollPane.gridx = 0;
 		gbcScrollPane.gridy = 0;
 		add(scrollPane, gbcScrollPane);
-		
-		final JTextArea textArea = new JTextArea();
+
+		textArea = new JTextArea();
 		textArea.setEditable(false);
 		scrollPane.setViewportView(textArea);
 		
@@ -119,8 +122,15 @@ public class ChatPanel extends JPanel {
 	 * @param text the message text
 	 */
 	private void sendMessage(String text, UserData to) {
-		ChatMessage message = new ChatMessage(text, ConConClient.getCurrentUser(), to);
+		ChatMessage message = new ChatMessage(text, client.getCurrentUser(), to);
 		NetworkManager.sendMessage(message);
 	}
-
+	
+	/**
+	 * Append a string to the chat log.
+	 * @param str string to append
+	 */
+	public void appendToChatLog(String str) {
+		textArea.append(str);
+	}
 }

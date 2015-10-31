@@ -21,6 +21,8 @@
 
 package edu.wright.cs.fa15.ceg3120.concon.common.net.message;
 
+import edu.wright.cs.fa15.ceg3120.concon.common.net.NetworkHandler;
+import edu.wright.cs.fa15.ceg3120.concon.common.net.NetworkManager;
 import edu.wright.cs.fa15.ceg3120.concon.common.net.data.UserData;
 
 /**
@@ -101,6 +103,15 @@ public class ChatMessage extends NetworkMessage {
 	 */
 	public void setTo(UserData to) {
 		this.to = to;
+	}
+	
+	/**
+	 * Handle chat message sending.
+	 * @param message the chat message
+	 */
+	@NetworkHandler
+	public static void sendChatMessage(ChatMessage message) {
+		//TODO send message to recipient
 	}
 
 	@Override

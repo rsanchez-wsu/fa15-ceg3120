@@ -21,6 +21,7 @@
 
 package edu.wright.cs.fa15.ceg3120.concon.common.net.message;
 
+import edu.wright.cs.fa15.ceg3120.concon.common.net.NetworkHandler;
 import edu.wright.cs.fa15.ceg3120.concon.common.net.NetworkManager;
 import edu.wright.cs.fa15.ceg3120.concon.common.net.data.UserData;
 
@@ -59,12 +60,13 @@ public class LoginRequestMessage extends NetworkMessage {
 	/**
 	 * This method is called when logging on to the server.
 	 */
-	public void login() {
+	@NetworkHandler
+	public static void login(LoginRequestMessage login) {
 		LOG.trace("Logging in...");
 		//TODO verify user and password with database and fetch user data
 		// for now just return generic user data
-		UserData user = new UserData("Something", "Imaidup");
-		NetworkManager.sendMessage(new LoginReplyMessage(user));
+		UserData user = new UserData(login.getUsername(), login.getPassword());
+		NetworkManager.sendMessage(new LoginResponseMessage(user));
 	}
 
 	/**

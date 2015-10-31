@@ -22,30 +22,33 @@
 package edu.wright.cs.fa15.ceg3120.concon.common.net.message;
 
 import edu.wright.cs.fa15.ceg3120.concon.common.net.ConConClient;
+import edu.wright.cs.fa15.ceg3120.concon.common.net.NetworkHandler;
+import edu.wright.cs.fa15.ceg3120.concon.common.net.NetworkManager;
 import edu.wright.cs.fa15.ceg3120.concon.common.net.data.UserData;
+import edu.wright.cs.fa15.ceg3120.concon.common.ui.ChatPanel;
 
 /**
- * LoginReplyMessage is used to return user data to the logged in client.
+ * LoginResponseMessage is used to return user data to the logged in client.
  * @author Networking team
  * @version 1
  * 
  */
-public class LoginReplyMessage extends NetworkMessage {
+public class LoginResponseMessage extends NetworkMessage {
 
 	private static final long serialVersionUID = 1L;
 	private UserData user;
 
 	/**
-	 * Create login reply message.
+	 * Create login response message.
 	 * Default constructor required for java beans.
 	 */
-	public LoginReplyMessage() {} // 
+	public LoginResponseMessage() {} // 
 
 	/**
 	 * Create login verification message.
 	 * @param user the user logging in.
 	 */
-	public LoginReplyMessage(UserData user) {
+	public LoginResponseMessage(UserData user) {
 		this.user = user;
 	}
 
@@ -68,12 +71,15 @@ public class LoginReplyMessage extends NetworkMessage {
 	/**
 	 * Sets the current user for the client.
 	 */
-	public void setCurrentUser() {
-		ConConClient.setCurrentUser(user);
+	@NetworkHandler
+	public void setCurrentUser(LoginResponseMessage message) {
+		ConConClient client = NetworkManager.getClient();
+		client.setCurrentUser(message.getUser());
+		client.appendChat(message.getUser().getFirstName() + " connected.");
 	}
 
 	@Override
 	public String toString() {
-		return "LoginReplyMessage [user=" + user + "]";
+		return "LoginResponseMessage [user=" + user + "]";
 	}
 }

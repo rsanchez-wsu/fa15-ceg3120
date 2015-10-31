@@ -21,6 +21,8 @@
 
 package edu.wright.cs.fa15.ceg3120.concon.common.net;
 
+import edu.wright.cs.fa15.ceg3120.concon.common.net.message.NetworkMessage;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -111,16 +113,19 @@ public class ConConServer implements Runnable {
 				BufferedReader fromClient = new BufferedReader(
 						new InputStreamReader(clientSocket.getInputStream(), "UTF-8"));
 
-				int ch = 0;
+				int ch;
 				StringBuilder message = new StringBuilder();
 				while ((ch = fromClient.read()) != -1) {
-					message.append(ch);
+					message.append((char) ch);
 				}//Reads message from client into integer buffer
 
-				NetworkManager.post(NetworkManager.decodeFromXml(message.toString()));
-
-				toClient.close();
 				fromClient.close();
+				
+				NetworkMessage response = NetworkManager.post(
+						NetworkManager.decodeFromXml(message.toString())
+						);
+				toClient.writeBytes(NetworkManager.encodeToXml(response));
+				toClient.close();
 			} catch (IOException e) {
 				LOG.error("Connection Worker IO: ", e);
 			}
