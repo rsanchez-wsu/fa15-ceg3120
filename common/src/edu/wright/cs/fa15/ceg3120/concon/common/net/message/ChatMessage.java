@@ -38,12 +38,13 @@ public class ChatMessage extends NetworkMessage {
 	private UserData to;
 
 	/**
-	 * Javadoc needed.
+	 * Add a message and send it to another user.
+	 * Default constructor required for java beans.
 	 */
-	public ChatMessage() {} // Default constructor required for java beans.
+	public ChatMessage() {} // 
 
 	/**
-	 * Description. TODO Fill out.
+	 * Send a message to another user.
 	 * @param message Message text.
 	 * @param from Sender.
 	 * @param to Recipient.
@@ -104,6 +105,6 @@ public class ChatMessage extends NetworkMessage {
 
 	@Override
 	public String toString() {
-		return "BeanMessage [message=" + message + "]";
+		return "ChatMessage [message=" + message + ", from=" + from + ", to=" + to + "]";
 	}
 }

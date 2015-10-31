@@ -27,24 +27,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * A data message contains a list of JavaBean type NetworkData objects.
- * 
+ * A data response message contains a list of JavaBean type 
+ * NetworkData objects returned as a result of a data request.
  * @author NathanJent
  *
  */
-public class DataMessage extends NetworkMessage {
+public class DataResponseMessage extends NetworkMessage {
 	
-	private static final long serialVersionUID = -5735416327662546203L;
+	private static final long serialVersionUID = 5810385430906109196L;
 	private List<NetworkData> dataList = new ArrayList<>();
-
+	
 	/**
-	 * Javadoc needed.
-	 *
+	 * Response message from a database request.
+	 * Default constructor required for java beans.
 	 */
-	public DataMessage() {} // Default constructor required for java beans.
+	public DataResponseMessage() {}
 
 	/**
-	 * Javadoc needed.
+	 * Add data objects to the message.
 	 *
 	 */
 	public void add(NetworkData data) {
@@ -52,7 +52,7 @@ public class DataMessage extends NetworkMessage {
 	}
 
 	/**
-	 * Javadoc needed.
+	 * Get data objects from the message.
 	 *
 	 */
 	public List<NetworkData> getDataList() {
@@ -60,8 +60,7 @@ public class DataMessage extends NetworkMessage {
 	}
 
 	/**
-	 * Javadoc needed.
-	 *
+	 * Set the list of data objects for the message.
 	 */
 	public void setDataList(List<NetworkData> dataList) {
 		this.dataList = dataList;

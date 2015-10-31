@@ -21,7 +21,6 @@
 
 package edu.wright.cs.fa15.ceg3120.concon.common.net.data;
 
-
 import javax.swing.ImageIcon;
 
 /**
@@ -37,11 +36,11 @@ public class UserData implements NetworkData {
 	private String firstName;
 	private String lastName;
 	private String uuid;
-	private ImageIcon  avatar;
+	private ImageIcon avatar;
 
 	/**
-	 * Javadoc needed.
-	 *
+	 * UserData for passing user account information over network.
+	 * Default Constructor for JavaBeans.
 	 */
 	public UserData() { }	
 	
@@ -55,66 +54,66 @@ public class UserData implements NetworkData {
 		this.lastName = lastName;
 		this.uuid = "A49F"; //TODO need methods to generate new UUID
 	}
-
+	
 	/**
-	 * Javadoc needed.
-	 *
+	 * Get firstName.
+	 * @return the firstName
 	 */
 	public String getFirstName() {
 		return firstName;
 	}
 
 	/**
-	 * Javadoc needed.
-	 *
+	 * Set firstName.
+	 * @param firstName the firstName to set
 	 */
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
 	}
 
 	/**
-	 * Javadoc needed.
-	 *
+	 * Get lastName.
+	 * @return the lastName
 	 */
 	public String getLastName() {
 		return lastName;
 	}
 
 	/**
-	 * Javadoc needed.
-	 *
+	 * Set lastName.
+	 * @param lastName the lastName to set
 	 */
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
 
 	/**
-	 * Javadoc needed.
-	 *
+	 * Get uuid.
+	 * @return the uuid
 	 */
 	public String getUuid() {
 		return uuid;
 	}
 
 	/**
-	 * Javadoc needed.
-	 *
+	 * Set uuid.
+	 * @param uuid the uuid to set
 	 */
 	public void setUuid(String uuid) {
 		this.uuid = uuid;
 	}
 
 	/**
-	 * Javadoc needed.
-	 *
+	 * Get avatar.
+	 * @return the avatar
 	 */
 	public ImageIcon getAvatar() {
 		return avatar;
 	}
 
 	/**
-	 * Javadoc needed.
-	 *
+	 * Set avatar.
+	 * @param avatar the avatar to set
 	 */
 	public void setAvatar(ImageIcon avatar) {
 		this.avatar = avatar;

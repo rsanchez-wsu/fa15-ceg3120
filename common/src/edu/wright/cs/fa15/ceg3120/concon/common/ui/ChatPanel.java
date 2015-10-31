@@ -21,6 +21,7 @@
 
 package edu.wright.cs.fa15.ceg3120.concon.common.ui;
 
+import edu.wright.cs.fa15.ceg3120.concon.common.net.ConConClient;
 import edu.wright.cs.fa15.ceg3120.concon.common.net.NetworkManager;
 import edu.wright.cs.fa15.ceg3120.concon.common.net.data.UserData;
 import edu.wright.cs.fa15.ceg3120.concon.common.net.message.ChatMessage;
@@ -39,7 +40,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.ListSelectionModel;
 
-
 /**
  * User interface for chat messages.
  * @author NathanJent
@@ -48,13 +48,11 @@ import javax.swing.ListSelectionModel;
 public class ChatPanel extends JPanel {
 
 	private static final long serialVersionUID = 9195112434638392386L;
-	private UserData currentUser;
 
 	/**
 	 * Create the panel.
 	 */
-	public ChatPanel(UserData currentUser) {
-		this.currentUser = currentUser;
+	public ChatPanel() {
 		final GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{292, 140, 0};
 		gridBagLayout.rowHeights = new int[]{135, 37, 0};
@@ -109,6 +107,7 @@ public class ChatPanel extends JPanel {
 						formattedTextField.getText(),
 						userList.getSelectedValue()
 				);
+				formattedTextField.setText("");
 			}
 			
 		});
@@ -120,7 +119,7 @@ public class ChatPanel extends JPanel {
 	 * @param text the message text
 	 */
 	private void sendMessage(String text, UserData to) {
-		ChatMessage message = new ChatMessage(text, currentUser ,to);
+		ChatMessage message = new ChatMessage(text, ConConClient.getCurrentUser(), to);
 		NetworkManager.sendMessage(message);
 	}
 
