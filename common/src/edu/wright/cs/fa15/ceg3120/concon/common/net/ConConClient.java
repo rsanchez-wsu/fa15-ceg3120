@@ -29,6 +29,7 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.Socket;
+import java.nio.charset.StandardCharsets;
 
 //TODO have security
 /**
@@ -78,7 +79,8 @@ public class ConConClient {
 				Socket clientSocket = new Socket(host, port);
 				DataOutputStream toServer = new DataOutputStream(clientSocket.getOutputStream());
 				BufferedReader fromServer = new BufferedReader(
-						new InputStreamReader(clientSocket.getInputStream(), "UTF-8"));
+						new InputStreamReader(clientSocket.getInputStream(),
+								StandardCharsets.UTF_8));
 
 				while (message != null) {
 					toServer.writeBytes(message);

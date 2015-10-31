@@ -69,7 +69,7 @@ public class NetworkManager {
 						|| NETWORK_BUS.keySet().contains(channel)) {
 					LOG.error("Invalid parameters on NetworkHandler method: "
 							+ m.getName());
-					System.exit(1);
+					throw new RuntimeException();
 				} else {
 					NETWORK_BUS.put(channel, m);
 					registered.add(channel);
