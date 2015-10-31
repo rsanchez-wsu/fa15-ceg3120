@@ -22,7 +22,7 @@
 package edu.wright.cs.fa15.ceg3120.concon.server;
 
 import edu.wright.cs.fa15.ceg3120.concon.common.net.NetworkManager;
-import edu.wright.cs.fa15.ceg3120.concon.common.net.data.UserData;
+//import edu.wright.cs.fa15.ceg3120.concon.common.net.data.UserData;
 import edu.wright.cs.fa15.ceg3120.concon.common.net.message.ChatMessage;
 import edu.wright.cs.fa15.ceg3120.concon.common.net.message.LoginRequestMessage;
 import edu.wright.cs.fa15.ceg3120.concon.common.ui.ChatPanel;

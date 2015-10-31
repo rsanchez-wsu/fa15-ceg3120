@@ -32,16 +32,29 @@ public class RequestObject {
 	private Object data;
 	private RequestType requestType;
 	
-	public RequestObject( Object inputData, RequestType reqType ){
+	/**
+	 * Javadoc needed.
+	 * @param inputData Object.
+	 * @param reqType RequestType.
+	 */
+	public RequestObject( Object inputData, RequestType reqType ) {
 		this.data = inputData;
 		this.requestType = reqType;
 	}
 	
-	public Object getData(){
+	/**
+	 * Javadoc needed.
+	 * @return Object data.
+	 */
+	public Object getData() {
 		return this.data;
 	}
 	
-	public RequestType getRequestType(){
+	/**
+	 * Javadoc needed.
+	 * @return RequestType requestType;
+	 */
+	public RequestType getRequestType() {
 		return this.requestType;
 	}
 }
