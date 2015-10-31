@@ -1,8 +1,8 @@
 /*
  * Copyright (C) 2015
- *
- *
- *
+ * 
+ * 
+ * 
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,28 +19,29 @@
  *
  */
 
+
 package edu.wright.cs.fa15.ceg3120.concon.common.data;
 
 /**
- * ServerAdminAccount holds user data for an admin-type user.
- *
- * @author Quack
+ * Class that will be used to hold the request data and request type together in a queue.
+ * @author Moorman
  *
  */
-public class ServerAdminAccount extends UserAccount {
+public class RequestObject {
 
-	private static final long serialVersionUID = 1L;
-
-	/**
-	 * Construct a new server admin account.
-	 */
-	public ServerAdminAccount() {
-		super(AccountType.SERVER_ADMIN);
+	private Object data;
+	private RequestType requestType;
+	
+	public RequestObject( Object inputData, RequestType reqType ){
+		this.data = inputData;
+		this.requestType = reqType;
 	}
-
-	@Override
-	public void launchGui() {
-
+	
+	public Object getData(){
+		return this.data;
 	}
-
+	
+	public RequestType getRequestType(){
+		return this.requestType;
+	}
 }

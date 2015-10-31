@@ -1,8 +1,8 @@
 /*
  * Copyright (C) 2015
- * 
- * 
- * 
+ *
+ *
+ *
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,7 +22,10 @@
 package edu.wright.cs.fa15.ceg3120.concon.common.data;
 
 /**
- * Javadoc needed.
+ * ContractorAccount holds user data for a contractor-type user. In addition to the normal fields in
+ * a UserAccount, a ContractorAccount also holds the name of the contractor's employer.
+ *
+ * @author Quack
  *
  */
 public class ContractorAccount extends UserAccount {
@@ -32,24 +35,26 @@ public class ContractorAccount extends UserAccount {
 	private String strCompanyName;
 
 	/**
-	 * Javadoc needed.
-	 *
+	 * Construct a new contractor account.
 	 */
 	public ContractorAccount() {
 		super(AccountType.CONTRACTOR);
 	}
-	
+
 	/**
-	 * Javadoc needed.
+	 * Set the name of the contractor's employer.
 	 *
+	 * @param strCn
+	 *			String containing name.
 	 */
 	public void setCompanyName(String strCn) {
 		strCompanyName = strCn;
 	}
 
 	/**
-	 * Javadoc needed.
+	 * Get the name of the contractor's employer.
 	 *
+	 * @return String object containing name.
 	 */
 	public String getCompanyName() {
 		return strCompanyName;
@@ -59,5 +64,4 @@ public class ContractorAccount extends UserAccount {
 	public void launchGui() {
 
 	}
-
 }

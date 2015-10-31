@@ -1,8 +1,8 @@
 /*
  * Copyright (C) 2015
- * 
- * 
- * 
+ *
+ *
+ *
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -26,7 +26,7 @@ import java.lang.reflect.Method;
 /**
  * This class will house any homeowner specific data fields.  It also launches
  * the homeowner UI.
- * 
+ *
  * @author Quack
  *
  */
@@ -45,12 +45,12 @@ public class HomeownerAccount extends UserAccount {
 	public void launchGui() {
 		//(new CustomerClient()).buildGui();
 		try {
-			Class<?> homeowner = 
+			Class<?> homeowner =
 					Class.forName("edu.wright.cs.fa15.ceg3120.concon"
 							+ ".client.customer.CustomerClient");
 			Method meth = homeowner.getMethod("buildGui", this.getClass());
 			meth.invoke(homeowner.newInstance(), this);
-		} catch (RuntimeException e) { 
+		} catch (RuntimeException e) {
 			throw e;
 		} catch (Exception e) {
 			e.printStackTrace();
