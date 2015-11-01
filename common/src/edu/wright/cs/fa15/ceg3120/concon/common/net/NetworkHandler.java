@@ -19,7 +19,6 @@
  *
  */
 
-
 package edu.wright.cs.fa15.ceg3120.concon.common.net;
 
 import java.lang.annotation.ElementType;
@@ -28,9 +27,14 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Javadoc needed.
- *
+ * Annotation to denote methods which will receive objects over the network.
+ * Return a response MessageHolder or void.
  */
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface NetworkHandler {}
+public @interface NetworkHandler {
+	/**
+	 * This is an annotation argument.
+	 */
+	String channel();
+}
