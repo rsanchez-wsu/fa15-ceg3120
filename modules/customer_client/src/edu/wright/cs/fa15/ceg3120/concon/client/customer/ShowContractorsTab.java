@@ -52,6 +52,7 @@ import javax.swing.tree.TreePath;
 public class ShowContractorsTab extends JLayeredPane {
 	
 	private static final long serialVersionUID = 1L;
+	private JTextField searchField;
 	private JTree tree;
 	
 	/**
@@ -81,7 +82,7 @@ public class ShowContractorsTab extends JLayeredPane {
 		JLabel searchLabel = new JLabel("Search");
 		searchPanel.add(searchLabel);
 
-		JTextField searchField = new JTextField();
+		searchField = new JTextField();
 		searchField.setColumns(15);
 		
 		// Add listener to search bar
