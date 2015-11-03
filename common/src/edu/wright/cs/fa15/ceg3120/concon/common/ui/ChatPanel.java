@@ -42,8 +42,13 @@ import javax.swing.ListSelectionModel;
 
 /**
  * User interface for chat messages.
- * @author NathanJent
- *
+ * @author NetworkingTeam
+    TODO Get Client username from ? 
+    TODO: propogate users to chat with in the right side of the panel.
+    TODO: send files.
+    TODO: Implement chat functionality.
+    TODO: Do lots of fun stuff.
+    also wtf checkstyle
  */
 public class ChatPanel extends JPanel {
 
