@@ -31,10 +31,11 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.Socket;
+import java.nio.charset.StandardCharsets;
 
 //TODO have security
 /**
- * The clientside counterpart to conconserver.
+ * Class which handles non-blocking communication with a server.
  */
 public class ConConClient {
 	private static final Logger LOG = LoggerFactory.getLogger(ConConClient.class);
@@ -55,7 +56,7 @@ public class ConConClient {
 	}
 
 	/**
-	 * Sends a message to the currently connected server.
+	 * Sends an XML-encoded message to the server.
 	 * @param message Message to be sent
 	 */
 	public void sendMessage(String message) {
@@ -70,7 +71,7 @@ public class ConConClient {
 
 		/**
 		 * Constructor.
-		 * @param message the raw text of a message.
+		 * @param message the message.
 		 */
 		public DispatchMessage(String message) {
 			this.message = message;
@@ -82,16 +83,25 @@ public class ConConClient {
 				Socket clientSocket = new Socket(host, port);
 				DataOutputStream toServer = new DataOutputStream(clientSocket.getOutputStream());
 				BufferedReader fromServer = new BufferedReader(
-						new InputStreamReader(clientSocket.getInputStream(), "UTF-8"));
+						new InputStreamReader(clientSocket.getInputStream(),
+								StandardCharsets.UTF_8));
 
-				toServer.writeBytes(message);
-				StringBuilder response = new StringBuilder();
-				int ch = 0;
-				while ((ch = fromServer.read()) != -1) {
-					response.append(ch);
+				while (message != null) {
+					toServer.writeBytes(message);
+					StringBuilder response = new StringBuilder();
+					int ch = 0;
+					while ((ch = fromServer.read()) != -1) {
+						response.append(ch);
+					}
+					MessageHolder result =
+							(MessageHolder)NetworkManager.decodeFromXml(response.toString());
+					if (result != null) {
+						message = NetworkManager.encodeToXml(
+								NetworkManager.post(result.channel, result.message));
+					} else {
+						message = null;
+					}
 				}
-
-				NetworkManager.post(NetworkManager.decodeFromXml(response.toString()));
 
 				clientSocket.close();
 			} catch (IOException e) {

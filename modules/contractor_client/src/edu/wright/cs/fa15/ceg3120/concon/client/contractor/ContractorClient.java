@@ -74,8 +74,8 @@ public class ContractorClient extends JFrame implements ActionListener {
 			}
 		}
 	}
-
-	/* The following variable to be implemented when AccountType and ContractorAccount
+	
+/* The following variable to be implemented when AccountType and ContractorAccount
  * imports are implemented
  * 
  * 	private static ContractorAccount account = new ContractorAccount();

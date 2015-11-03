@@ -21,6 +21,7 @@
 
 package edu.wright.cs.fa15.ceg3120.concon.common.net.data;
 
+import java.io.Serializable;
 import javax.swing.ImageIcon;
 
 /**
@@ -29,7 +30,7 @@ import javax.swing.ImageIcon;
  * @author NathanJent
  *
  */
-public class UserData implements NetworkData {
+public class UserData implements Serializable {
 
 	private static final long serialVersionUID = -1804728648292102844L;
 	

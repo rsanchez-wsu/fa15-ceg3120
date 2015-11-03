@@ -21,6 +21,7 @@
 
 package edu.wright.cs.fa15.ceg3120.concon.common.net.message;
 
+import edu.wright.cs.fa15.ceg3120.concon.common.net.NetworkManager;
 import edu.wright.cs.fa15.ceg3120.concon.common.net.data.UserData;
 
 /**
@@ -30,9 +31,9 @@ import edu.wright.cs.fa15.ceg3120.concon.common.net.data.UserData;
  * @version 1
  * 
  */
-public class ChatMessage extends NetworkMessage {
+public class ChatMessage extends NetworkManager {
 
-	private static final long serialVersionUID = -2279299798905393963L;
+//	private static final long serialVersionUID = -2279299798905393963L;
 	private String message;
 	private UserData from;
 	private UserData to;
@@ -103,7 +104,9 @@ public class ChatMessage extends NetworkMessage {
 		this.to = to;
 	}
 
-	@Override
+	/**
+	 * Javadoc needed.
+	 */
 	public String toString() {
 		return "ChatMessage [message=" + message + ", from=" + from + ", to=" + to + "]";
 	}

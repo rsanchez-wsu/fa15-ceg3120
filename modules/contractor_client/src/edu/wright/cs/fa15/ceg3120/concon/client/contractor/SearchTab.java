@@ -30,11 +30,11 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
@@ -71,12 +71,16 @@ import javax.xml.stream.XMLStreamException;
  *
  */
 public class SearchTab extends JLayeredPane {
+
+	private static final long serialVersionUID = 1L;
+
 	/**
 	 * Javaoc needed.
 	 *
 	 */
 	public static final class RenderPrepare extends JTable {
-		private static final long serialVersionUID = 1L;
+
+		static final long serialVersionUID = 1L;
 
 		/**
 		 * Javadoc needed.
@@ -373,7 +377,6 @@ public class SearchTab extends JLayeredPane {
 		}
 	}
 
-	private static final long serialVersionUID = 1L;
 	private static Vector<Object> tempVec = new Vector<Object>();
 	private static int intSearch = 0;
 	private static DefaultTableModel model1 = null;
@@ -390,14 +393,40 @@ public class SearchTab extends JLayeredPane {
 	private static JButton btnJobDetails = new JButton();
 	private static ArrayList<OpenJob> myJobList = new ArrayList<OpenJob>();
 	
+	private static final int WINDOW_WIDTH = Toolkit.getDefaultToolkit().getScreenSize().width
+			- 150;
+	private static final int WINDOW_HEIGHT = Toolkit.getDefaultToolkit().getScreenSize().height
+			- 150;
+	private static final int WINDOW_HEIGHT_QUARTER = (Toolkit.getDefaultToolkit()
+			.getScreenSize().height - 150) / 4;
+	
 	/**
 	 * Build the tab.
 	 */
 	public SearchTab() {
-		JPanel searchTab = new JPanel();
-		add(searchTab, BorderLayout.CENTER);
-		searchTab.setVisible(true);
-		searchTab.setLayout(null);
+		JPanel search = new JPanel();
+		add(search);
+		search.setLayout(null);
+		addContainer();
+	}
+	
+	/**
+	 * Adds search tab fields container.
+	 */
+	private void addContainer() {
+		add(addFields());
+	}
+	
+	/**
+	 * Constructs the Container holding all the search tab fields.
+	 * 
+	 * @return a Container holding all the user input fields
+	 */
+	private Container addFields() {
+		Container cont = new Container();
+		cont.setBounds(6, 6, WINDOW_WIDTH, 
+				(WINDOW_HEIGHT - WINDOW_HEIGHT_QUARTER));
+		cont.setLayout(null);
 		
 		populateJobListArray();
 		
@@ -406,17 +435,17 @@ public class SearchTab extends JLayeredPane {
 		lblNumResults5.setText(" of" );
 		
 		JLabel lblSearchTabMain = new JLabel("Search Options:");
-		searchTab.add(lblSearchTabMain);
+		cont.add(lblSearchTabMain);
 		lblSearchTabMain.setBounds(5,5,120,20);
 		
 		final JTextField txtSearchOptions = new JTextField();
 		txtSearchOptions.setBounds(275, 5, 240, 20);
-		searchTab.add(txtSearchOptions);
+		cont.add(txtSearchOptions);
 		txtSearchOptions.setVisible(false);
 		
 		String[] searchOptions = {"Show All", "Distance", "Max Cost", "Max Duration"};
 		final JComboBox<String> cboSearchOptions = new JComboBox<String>(searchOptions);
-		searchTab.add(cboSearchOptions);
+		cont.add(cboSearchOptions);
 		cboSearchOptions.setBounds(140, 5, 120, 20);
 		cboSearchOptions.addActionListener(
 				new ComboBoxSelectionMade(cboSearchOptions, txtSearchOptions));
@@ -425,40 +454,42 @@ public class SearchTab extends JLayeredPane {
 		final JTable tblSearchResults = new RenderPrepare(model1);
 		JScrollPane jscSearchResults = new JScrollPane(tblSearchResults);
 		jscSearchResults.setBounds(45, 45, 610, 200);
-		searchTab.add(jscSearchResults);
+		cont.add(jscSearchResults);
 		
 		hideResultLabels();
 		
 		lblNumResults1.setBounds(45, 250, 100, 20);
-		searchTab.add(lblNumResults1);
+		cont.add(lblNumResults1);
 		
 		lblNumResults2.setBounds(145, 250, 20, 20);
-		searchTab.add(lblNumResults2);
+		cont.add(lblNumResults2);
 		
 		lblNumResults3.setBounds(165, 250, 20, 20);
-		searchTab.add(lblNumResults3);
+		cont.add(lblNumResults3);
 		
 		lblNumResults4.setBounds(185, 250, 20, 20);
-		searchTab.add(lblNumResults4);
+		cont.add(lblNumResults4);
 		
 		lblNumResults5.setBounds(205, 250, 20, 20);
-		searchTab.add(lblNumResults5);
+		cont.add(lblNumResults5);
 		
 		lblNumResults6.setBounds(225, 250, 20, 20);
-		searchTab.add(lblNumResults6);
+		cont.add(lblNumResults6);
 		
 		btnJobDetails.setBounds(535, 250, 120, 20);
 		btnJobDetails.setText("Details");
-		searchTab.add(btnJobDetails);
+		cont.add(btnJobDetails);
 		
 		btnJobDetails.addActionListener(new ActionBtnJobDetailsClick(tblSearchResults));
 		
 		JButton btnSearchGo = new JButton("Search");
 		btnSearchGo.setBounds(535, 5, 120, 20);
-		searchTab.add(btnSearchGo);
+		cont.add(btnSearchGo);
 		
 		btnSearchGo.addActionListener(new ActionBtnSearchGoClick(
 				txtSearchOptions, tblSearchResults));
+		
+		return cont;
 	}
 	
 	/**

@@ -112,7 +112,6 @@ public class NewContractorPane extends JPanel {
 	public NewContractorPane(ContractorAccount user) {
 		super(new BorderLayout());
 		this.user = user;
-		states[0] = "NONE";
 		addContainers();
 	}
 	
