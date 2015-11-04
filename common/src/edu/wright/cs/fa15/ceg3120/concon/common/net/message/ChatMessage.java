@@ -28,8 +28,7 @@ import edu.wright.cs.fa15.ceg3120.concon.common.net.data.UserData;
  * ChatMessage is used to send messages to and from other users through the server.
  * This may not be around for long.
  * @author Networking team
- * @version 1
- * 
+ * @version 1.0.
  */
 public class ChatMessage extends NetworkManager {
 

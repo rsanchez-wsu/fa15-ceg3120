@@ -38,37 +38,50 @@ import javax.swing.ListSelectionModel;
 
 /**
  * User interface for chat messages.
- * @author NathanJent
- *
+ * @author NetworkingTeam
+    TODO Get Client username from ? 
+    TODO: propogate users to chat with in the right side of the panel.
+    TODO: send files.
+    TODO: Implement chat functionality.
+    TODO: Do lots of fun stuff.
+    also wtf checkstyle
  */
 public class ChatPanel extends JPanel {
 
 	private static final long serialVersionUID = 9195112434638392386L;
-
+	private final GridBagLayout gridBagLayout;
+	private final JScrollPane scrollPane;
+	private final GridBagConstraints gbcScrollPane;
+	private final JTextArea textArea;
+	private final JScrollPane userListScrollPane;
+	private final JList<UserData> userList;
+	private final JFormattedTextField formattedTextField;
+	private final JButton btnSend;
+	
 	/**
 	 * Create the panel.
 	 */
 	public ChatPanel() {
-		final GridBagLayout gridBagLayout = new GridBagLayout();
+		gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{292, 140, 0};
 		gridBagLayout.rowHeights = new int[]{135, 37, 0};
 		gridBagLayout.columnWeights = new double[]{1.0, 1.0, Double.MIN_VALUE};
 		gridBagLayout.rowWeights = new double[]{1.0, 0.0, Double.MIN_VALUE};
 		setLayout(gridBagLayout);
 		
-		final JScrollPane scrollPane = new JScrollPane();
-		GridBagConstraints gbcScrollPane = new GridBagConstraints();
+		scrollPane = new JScrollPane();
+		gbcScrollPane = new GridBagConstraints();
 		gbcScrollPane.insets = new Insets(0, 0, 5, 5);
 		gbcScrollPane.fill = GridBagConstraints.BOTH;
 		gbcScrollPane.gridx = 0;
 		gbcScrollPane.gridy = 0;
 		add(scrollPane, gbcScrollPane);
 		
-		final JTextArea textArea = new JTextArea();
+		textArea = new JTextArea();
 		textArea.setEditable(false);
 		scrollPane.setViewportView(textArea);
 		
-		final JScrollPane userListScrollPane = new JScrollPane();
+		userListScrollPane = new JScrollPane();
 		GridBagConstraints gbcUserListScrollPane = new GridBagConstraints();
 		gbcUserListScrollPane.insets = new Insets(0, 0, 5, 0);
 		gbcUserListScrollPane.fill = GridBagConstraints.BOTH;
@@ -76,11 +89,12 @@ public class ChatPanel extends JPanel {
 		gbcUserListScrollPane.gridy = 0;
 		add(userListScrollPane, gbcUserListScrollPane);
 		
-		final JList<UserData> userList = new JList<>();
+		userList = new JList<UserData>();
+
 		userList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		userListScrollPane.setViewportView(userList);
 		
-		final JFormattedTextField formattedTextField = new JFormattedTextField();
+		formattedTextField = new JFormattedTextField();
 		GridBagConstraints gbcFormattedTextField = new GridBagConstraints();
 		gbcFormattedTextField.fill = GridBagConstraints.BOTH;
 		gbcFormattedTextField.insets = new Insets(0, 0, 0, 5);
@@ -88,7 +102,7 @@ public class ChatPanel extends JPanel {
 		gbcFormattedTextField.gridy = 1;
 		add(formattedTextField, gbcFormattedTextField);
 		
-		final JButton btnSend = new JButton("Send");
+		btnSend = new JButton("Send");
 		GridBagConstraints gbcBtnSend = new GridBagConstraints();
 		gbcBtnSend.fill = GridBagConstraints.HORIZONTAL;
 		gbcBtnSend.gridx = 1;
