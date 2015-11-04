@@ -21,8 +21,11 @@
 
 package edu.wright.cs.fa15.ceg3120.concon.client.contractor;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
+import java.awt.GridLayout;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -36,11 +39,19 @@ import javax.swing.JPanel;
  *
  */
 public class NotifTab extends JLayeredPane {
-	public static final JPanel notifications = new JPanel();
+	private static final JPanel notifications = new JPanel();
+	private static Container cont = new Container();
 	private static Color defaultColor = null;
 	private static int list = 0;
 	private static JButton[] acknowledge = null;
 	private static JLabel[] jobs = null;
+	
+	private static final int WINDOW_WIDTH = Toolkit.getDefaultToolkit().getScreenSize().width
+			- 150;
+	private static final int WINDOW_HEIGHT = Toolkit.getDefaultToolkit().getScreenSize().height
+			- 150;
+	private static final int WINDOW_HEIGHT_QUARTER = (Toolkit.getDefaultToolkit()
+			.getScreenSize().height - 150) / 4;
 	
 	/**
 	 * Action for when all notifications have been cleared.
@@ -66,16 +77,16 @@ public class NotifTab extends JLayeredPane {
 		}
 
 		@Override  
-		public void actionPerformed(ActionEvent e0) {  
-			Container parent = acknowledge[list].getParent();  
-			parent.remove(acknowledge[list]);  
-			parent.remove(jobs[list]);  
+		public void actionPerformed(ActionEvent e0) {
+			cont.remove(acknowledge[list]);
+			cont.remove(jobs[list]);
+			list--;
 			setNotif(getNotif() - 1);  
 			if (getNotif() < 1) {  
 				notifications.setBackground(defaultColor);  
-			}  
-			parent.validate();  
-			parent.repaint();  
+			}
+			cont.validate();
+			cont.repaint(); 
 		}
 	}
 
@@ -86,8 +97,27 @@ public class NotifTab extends JLayeredPane {
 	 * Build the tab.
 	 */
 	public NotifTab() {
-		add(notifications);
+		add(notifications, BorderLayout.CENTER);
 		notifications.setLayout(null);
+		
+		addContainer();
+	}
+	
+	/**
+	 * Adds container to pane.
+	 */
+	private void addContainer() {
+		add(addFields());
+	}
+	
+	/**
+	 * Adds fields to container.
+	 */
+	private static Container addFields() {
+//		Container cont = new Container();
+		cont.setBounds(6, 6, WINDOW_WIDTH, 
+				(WINDOW_HEIGHT - WINDOW_HEIGHT_QUARTER));
+		cont.setLayout(new GridLayout(0,2));
 		
 		setNotif(6);  
 		if (getNotif() > 0) {  
@@ -106,14 +136,17 @@ public class NotifTab extends JLayeredPane {
 			jobDate = "Get date from database";  
 			jobs[i] = new JLabel(clientName + " needs work done at "   
 			+ jobLocation + " on " + jobDate);  
-			notifications.add(jobs[i]);  
+			cont.add(jobs[i]);  
 			acknowledge[i] = new JButton("Okay");  
-			notifications.add(acknowledge[i]);  
+			cont.add(acknowledge[i]);  
 			acknowledge[i].addActionListener(
 					new ActionAllNotificationsCleared(defaultColor, list, acknowledge,
 					jobs));  
-		}  
+		} 
+		
+		return cont;
 	}
+	
 	/**
 	 * This method sets the current amount of notifications for the user. Used to
 	 * set the color of the tab to notify the user.

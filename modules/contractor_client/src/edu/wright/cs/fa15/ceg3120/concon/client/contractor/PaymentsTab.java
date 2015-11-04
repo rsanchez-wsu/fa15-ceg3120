@@ -22,6 +22,8 @@
 package edu.wright.cs.fa15.ceg3120.concon.client.contractor;
 
 import java.awt.BorderLayout;
+import java.awt.Container;
+import java.awt.Toolkit;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -38,6 +40,12 @@ import javax.swing.table.DefaultTableModel;
  */
 public class PaymentsTab extends JLayeredPane {
 	private static final long serialVersionUID = 1L;
+	private static final int WINDOW_WIDTH = Toolkit.getDefaultToolkit().getScreenSize().width
+			- 150;
+	private static final int WINDOW_HEIGHT = Toolkit.getDefaultToolkit().getScreenSize().height
+			- 150;
+	private static final int WINDOW_HEIGHT_QUARTER = (Toolkit.getDefaultToolkit()
+			.getScreenSize().height - 150) / 4;
 	
 	/**
 	 * This method creates and populates the Payments tab.
@@ -46,18 +54,37 @@ public class PaymentsTab extends JLayeredPane {
 		JPanel payments = new JPanel();
 		add(payments, BorderLayout.CENTER);
 		payments.setLayout(null);
+		addContainer();
+	}
+	
+	/**
+	 * Adds container to pane.
+	 */
+	private void addContainer() {
+		add(addFields());
+	}
+	
+	/**
+	 * Adds fields to container.
+	 */
+	private static Container addFields() {
+		Container cont = new Container();
+		cont.setBounds(6, 6, WINDOW_WIDTH, 
+				(WINDOW_HEIGHT - WINDOW_HEIGHT_QUARTER));
+		cont.setLayout(null);
+		
 		
 		JLabel paymentsSearchLabel = new JLabel("Search job number:");
-		payments.add(paymentsSearchLabel);
+		cont.add(paymentsSearchLabel);
 		paymentsSearchLabel.setBounds(5,5,120,20);
 		
 		JButton paymentsSearchButton = new JButton("Search");
 		paymentsSearchButton.setBounds(530, 5, 120, 20);
-		payments.add(paymentsSearchButton);
+		cont.add(paymentsSearchButton);
 		
 		final JTextField paymentsSearchOptions = new JTextField();
 		paymentsSearchOptions.setBounds(275, 5, 240, 20);
-		payments.add(paymentsSearchOptions);
+		cont.add(paymentsSearchOptions);
 		
 		String[] columnName = {"Job Number", "Cost", "Payments", "Balance"};
 		final DefaultTableModel paymentsModel = new DefaultTableModel(columnName, 0);
@@ -65,6 +92,8 @@ public class PaymentsTab extends JLayeredPane {
 		tblPaymentsResults2.setModel(paymentsModel);
 		JScrollPane paymentsResults = new JScrollPane(tblPaymentsResults2);
 		paymentsResults.setBounds(45, 45, 605, 100);
-		payments.add(paymentsResults);
+		cont.add(paymentsResults);
+		
+		return cont;
 	}
 }
