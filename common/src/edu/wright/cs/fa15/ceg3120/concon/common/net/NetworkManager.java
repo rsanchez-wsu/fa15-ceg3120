@@ -29,6 +29,7 @@ import java.beans.XMLEncoder;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -155,7 +156,7 @@ public class NetworkManager {
 	 * @param message Message to send.
 	 * @return false if failed.
 	 */
-	public static boolean sendMessage(String targetChannel, Object message) {
+	public static boolean sendMessage(String targetChannel, Serializable message) {
 		if (client == null) {
 			return false;
 		}
@@ -197,7 +198,7 @@ public class NetworkManager {
 	 * @param message Message to encode.
 	 * @throws UnsupportedEncodingException //
 	 */
-	protected static String encodeToXml(Object message)
+	protected static String encodeToXml(Serializable message)
 			throws UnsupportedEncodingException {
 		if (message == null) {
 			return null;
