@@ -67,7 +67,7 @@ import javax.xml.stream.XMLStreamException;
 
 
 /**
- * Calendar Tab.
+ * This is the class for the Search tab.
  *
  */
 public class SearchTab extends JLayeredPane {
@@ -75,7 +75,7 @@ public class SearchTab extends JLayeredPane {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * Javaoc needed.
+	 * This method sets up the custom renderer for the table, allowing for ToolTip text.
 	 *
 	 */
 	public static final class RenderPrepare extends JTable {
@@ -83,15 +83,15 @@ public class SearchTab extends JLayeredPane {
 		static final long serialVersionUID = 1L;
 
 		/**
-		 * Javadoc needed.
-		 * @param dm.
+		 * This method is called and sets up the custom renderer.
+		 * @param dm is a TableModel.
 		 */
 		public RenderPrepare(TableModel dm) {
 			super(dm);
 		}
 
 		/**
-		 * Javaoc needed.
+		 * This method creates the custom renderer for the JTable.
 		 */
 		public Component prepareRenderer(TableCellRenderer renderer, int row, int column) {
 			Component c0 = super.prepareRenderer(renderer, row, column);
@@ -131,15 +131,16 @@ public class SearchTab extends JLayeredPane {
 		int intSelectedRow = -1;
 
 		/**
-		 * Javadoc needed.
-		 * @param tblSearchResults.
+		 * This method creates an instance of tblSearchResuts.
+		 * @param tblSearchResults is a JTable.
 		 */
 		public ActionBtnJobDetailsClick(JTable tblSearchResults) {
 			this.tblSearchResults = tblSearchResults;
 		}
 
 		/**
-		 * Javadoc needed.
+		 * This method determines which row of the table is selected and calls 
+		 * the showJobDetailsDialog method.
 		 */
 		public void actionPerformed(ActionEvent arg0) {
 			intTableLength = tblSearchResults.getRowCount();
@@ -168,9 +169,9 @@ public class SearchTab extends JLayeredPane {
 		private final JTextField txtSearchOptions;
 
 		/**
-		 * Javadoc needed.
-		 * @param cboSearchOptions.
-		 * @param txtSearchOptions.
+		 * This method creates instances of the Search Options JComboBox and JTextField.
+		 * @param cboSearchOptions is a JComboBox.
+		 * @param txtSearchOptions is a JTextField.
 		 */
 		public ComboBoxSelectionMade(JComboBox<String> cboSearchOptions,
 				JTextField txtSearchOptions) {
@@ -215,9 +216,10 @@ public class SearchTab extends JLayeredPane {
 		int intResultCount = 0;
 
 		/**
-		 * Javadoc needed.
-		 * @param txtSearchOptions.
-		 * @param tblSearchResults.
+		 * This method creates instances of the Search Options JTextField 
+		 * and Search Results JTable.
+		 * @param txtSearchOptions is a JTextField.
+		 * @param tblSearchResults is a JTable.
 		 */
 		public ActionBtnSearchGoClick(JTextField txtSearchOptions,
 				JTable tblSearchResults) {
@@ -226,7 +228,8 @@ public class SearchTab extends JLayeredPane {
 		}
 
 		/**
-		 * Javadoc needed.
+		 * This method calls the buildTable and populateJobListArray methods to 
+		 * create the table and populate the rows.
 		 */
 		public void actionPerformed(ActionEvent arg0) {
 			buildTable();
@@ -401,7 +404,7 @@ public class SearchTab extends JLayeredPane {
 			.getScreenSize().height - 150) / 4;
 	
 	/**
-	 * Build the tab.
+	 * This method builds the tab and adds it to the main panel.
 	 */
 	public SearchTab() {
 		JPanel search = new JPanel();
@@ -594,7 +597,7 @@ public class SearchTab extends JLayeredPane {
 	}
 	
 	/**
-	 * Javadoc needed.
+	 * This method creates and displays a dialog containing details of the passed job.
 	 */
 	public static void showJobDetailsDialog(OpenJobClass curJob) {
 		final OpenJobClass currentJob = curJob;

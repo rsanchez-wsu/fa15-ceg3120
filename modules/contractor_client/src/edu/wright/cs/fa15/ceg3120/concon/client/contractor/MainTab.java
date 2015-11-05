@@ -21,8 +21,6 @@
 
 package edu.wright.cs.fa15.ceg3120.concon.client.contractor;
 
-//import edu.wright.cs.fa15.ceg3120.concon.client.contractor.MainTab.SelectionListener;
-
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Toolkit;

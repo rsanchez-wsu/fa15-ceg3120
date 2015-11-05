@@ -34,8 +34,6 @@ import java.awt.Desktop;
 import java.awt.EventQueue;
 import java.awt.Image;
 import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.net.URI;
@@ -54,11 +52,11 @@ import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
 /**
- * Javadoc needed.
+ * This class creates the main frame and calls methods and classes to populate it.
  * 
  *
  */
-public class ContractorClient extends JFrame implements ActionListener {
+public class ContractorClient extends JFrame {
 
 	/**
 	 * Action for trying to close window by hitting X in corner.
@@ -75,15 +73,9 @@ public class ContractorClient extends JFrame implements ActionListener {
 		}
 	}
 	
-/* The following variable to be implemented when AccountType and ContractorAccount
- * imports are implemented
- * 
- * 	private static ContractorAccount account = new ContractorAccount();
-*/
 	private static ContractorAccount account = new ContractorAccount();
 	private static final Logger LOG = LoggerFactory.getLogger(ContractorClient.class);
 	private static final long serialVersionUID = 1L;
-//	private static JPanel profileTab;
 	private static JPanel curBidsTab;
 	private static ArrayList<OpenJobClass> myJobList = new ArrayList<OpenJobClass>();
 	private static ArrayList<OpenJobClass> myCurJobList = new ArrayList<OpenJobClass>();
@@ -93,16 +85,13 @@ public class ContractorClient extends JFrame implements ActionListener {
 	private static JButton[] update = new JButton[10];
 	private static double[] currentBids = new double[10];
 	private static double[] previousBids = new double[10];
-	
 	public static final JFrame myFrame = new JFrame();
-	
 	private static final int WINDOW_WIDTH = Toolkit.getDefaultToolkit().getScreenSize().width
 			- 150;
 	private static final int WINDOW_HEIGHT = Toolkit.getDefaultToolkit().getScreenSize().height
 			- 150;
 	private static final int WINDOW_HEIGHT_QUARTER = Toolkit.getDefaultToolkit()
 			.getScreenSize().height	/ 4;
-	
 	private ContractorAccount user;
 	
 	/**
@@ -161,18 +150,10 @@ public class ContractorClient extends JFrame implements ActionListener {
 	public static void initialize() {
 		account.setAccountType(AccountType.CONTRACTOR);
 	}
-
-	/**
-	 * Javadoc needed.
-	 */
-	public void actionPerformed(ActionEvent e0) {
-
-	}
 	
 	/**
-	 * Needs Javadoc.
+	 * This method opens a web browser.
 	 */
-	
 	public static void openWebpage(URL url) {
 		URI uri = null;
 		try {
@@ -191,8 +172,6 @@ public class ContractorClient extends JFrame implements ActionListener {
 			}
 		}
 	}
-	
-
 	
 	/**
 	 * This method updates the Current Bids tab when a bid is submitted from the Search tab.
@@ -273,21 +252,7 @@ public class ContractorClient extends JFrame implements ActionListener {
 		LOG.trace("Starting Contractor client...");
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
-				ContractorAccount user = new ContractorAccount();
-				user.setUuid("Debug");
-				char[] ps = {'a','b', 'c'};
-				user.setPswd(ps);
-				user.setFirstName("Random");
-				user.setLastName("Person");
-				user.setAddress1("123 Main Street");
-				user.setAddress2("Suite 500");
-				user.setState("OH");
-				user.setZipCode("45402");
-				user.setPhoneNumber("123-456-7890");
-				user.setCity("Dayton");
-				user.setEmailAddress("test123@temp.com");
-				new ContractorClient().buildGui(user);
-/*				try {
+				try {
 					ContractorAccount user = new ContractorAccount();
 					user.setUuid("Debug");
 					char[] ps = {'a','b', 'c'};
@@ -305,8 +270,7 @@ public class ContractorClient extends JFrame implements ActionListener {
 				} catch (Exception e) {
 					JOptionPane.showMessageDialog(myFrame, "The "
 							+ "GUI couldn't build", "GUI Failure", JOptionPane.ERROR_MESSAGE);
-				}*/
-
+				}
 			}
 		});
 	}

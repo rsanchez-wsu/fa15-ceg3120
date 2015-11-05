@@ -37,9 +37,8 @@ import javax.swing.JLayeredPane;
 import javax.swing.JOptionPane;
 
 /**
- * This JPanel will be used to construct the Profile tab in the Customer Client.
+ * This JPanel constructs the Profile tab in the Contractor Client.
  * 
- * @author Quack
  *
  */
 public class ProfileTab extends JLayeredPane {
