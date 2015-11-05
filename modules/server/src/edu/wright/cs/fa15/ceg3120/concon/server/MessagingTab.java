@@ -54,13 +54,13 @@ package edu.wright.cs.fa15.ceg3120.concon.server;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JEditorPane;
 import javax.swing.JLabel;
-import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
@@ -97,7 +97,14 @@ public class MessagingTab {
 		 */
 		JPanel eastPanel = new JPanel();
 		JButton button = new JButton("Clear");
-		// TODO add listener
+		button.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				messageText.setText("");
+			}
+			
+		});
 		eastPanel.add(button);
 		button = new JButton("Send");
 		// TODO add listener
@@ -112,4 +119,6 @@ public class MessagingTab {
 
 		return panel;
 	}
+	
+	
 }
