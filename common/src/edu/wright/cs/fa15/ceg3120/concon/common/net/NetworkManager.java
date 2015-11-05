@@ -51,7 +51,7 @@ public class NetworkManager {
 	private static ConConClient client;
 
 	//@NetworkHandler("echoChannel")
-	//public MessageHolder echo(MessageHolder msg) {
+	//public MessageHolder echo(Serializable msg) {
 	//	System.out.println(msg.message);
 	//	return new MessageHolder("responseChannel", "Echo: " + msg.message.toString());
 	//}
@@ -59,7 +59,7 @@ public class NetworkManager {
 	/**
 	 * Searches a class for methods annotated with NetworkHandler and registers them to the bus.
 	 * Every NetworkHandler method in a module MUST have a unique channel.
-     * Additionally, methods must take only one MessageHolder parameter
+     * Additionally, methods must take only one Serializable parameter
      * and must return either void or a MessageHolder containing a response.
 	 * @param cl Class to search.
 	 * @return List containing registered NetworkHandler method channels.
@@ -74,7 +74,7 @@ public class NetworkManager {
 				if (argClasses.length != 1
 						|| (!m.getReturnType().equals(Void.TYPE)
 							&& !m.getReturnType().equals(MessageHolder.class))
-						|| !argClasses[0].equals(MessageHolder.class)
+						|| !argClasses[0].equals(Serializable.class)
 						|| NETWORK_BUS.keySet().contains(channel)) {
 					LOG.error("Invalid parameters on NetworkHandler method: "
 							+ m.getName());
