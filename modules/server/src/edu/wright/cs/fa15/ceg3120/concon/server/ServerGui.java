@@ -77,7 +77,9 @@ import javax.swing.UIManager;
 import javax.swing.table.AbstractTableModel;
 
 /**
- * 1.
+ * ServerGui is the main JPanel class that contains a tabbedPane of
+ * other classes need for administration of the Con^2 project server.
+ * 
  * */
 public class ServerGui extends JPanel implements ActionListener {
 
@@ -96,13 +98,13 @@ public class ServerGui extends JPanel implements ActionListener {
 	public ServerGui() { 
 		
 		super(new GridLayout(1, 1));
-
+		
+		// Create tabbedPane and add all need tabs to it
 		JTabbedPane tabbedPane = new JTabbedPane();
 		
 		tabbedPane.addTab("Dash board", CreateImageIcon.iconDashBoard, 
 						MakeDashBoard.panelDashBoard, "Does nothing");
 		tabbedPane.setMnemonicAt(0, KeyEvent.VK_1);
-
 
 		JComponent panel2 = new CreateButtonsSearch();
 		tabbedPane.addTab("User's info", CreateImageIcon.icon, panel2,
@@ -223,11 +225,11 @@ public class ServerGui extends JPanel implements ActionListener {
 		frame.setVisible(true);
 	}	
 	
-		/**
-    	 * Main class.
-    	 * @param GUICreateandShow
-    	 * 
-    	 */
+	/**
+     * Main class.
+     * @param GUICreateandShow
+     * 
+     */
 	public static void main(String[] args) {
 		// Schedule a job for the event dispatch thread:
 		// creating and showing this application's GUI.
