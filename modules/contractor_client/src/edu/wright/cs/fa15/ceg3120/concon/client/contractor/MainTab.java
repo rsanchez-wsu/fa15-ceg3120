@@ -115,7 +115,7 @@ public class MainTab extends JLayeredPane {
 
 		mainTree = new JTree();
 		mainTree.getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
-//		mainTree.addTreeSelectionListener((TreeSelectionListener) new SelectionListener());
+		mainTree.addTreeSelectionListener((TreeSelectionListener) new SelectionListener());
 		mainTree.setModel(new DefaultTreeModel(
 						new NewDefaultMutableTreeNode("Main")
 		));
@@ -125,8 +125,9 @@ public class MainTab extends JLayeredPane {
 		thisTextPane.setBounds((WINDOW_WIDTH / 4) + 6, 6, ((WINDOW_WIDTH 
 				- (WINDOW_WIDTH / 4)) - 30), 
 				(((WINDOW_HEIGHT - (WINDOW_HEIGHT / 4)) - 48)));
+		thisTextPane.setText(getMaintext());
 		add(mainTree);
-		main.add(thisTextPane);
+		add(thisTextPane);
 
 	}
 	
@@ -146,7 +147,7 @@ public class MainTab extends JLayeredPane {
 					.getLastSelectedPathComponent();			    
 			String selectedNodeName = selectedNode.toString();	    
 			if (selectedNodeName.equals("Main")) {
-//				treeText = getMain();
+				treeText = getMaintext();
 				thisTextPane.setText(treeText);
 			} else if (selectedNodeName.equals("Description")) {
 				treeText = getDescription();
@@ -158,6 +159,15 @@ public class MainTab extends JLayeredPane {
 		}
 	}
 	
+	/**
+     * Changes the text pane when the main node is selected.
+     * @return String containing text for main node.
+     */
+	public static String getMaintext() {
+		String mainText = "";
+		mainText = "This is the main page!";
+		return mainText;
+	}
 	/**
      * Changes the text pane when a Description node is selected.
      * @return String containing text for Description node.
