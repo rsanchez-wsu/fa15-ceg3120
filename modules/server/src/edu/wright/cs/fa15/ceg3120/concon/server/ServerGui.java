@@ -61,20 +61,15 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 
-import javax.swing.BorderFactory;
-import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JPasswordField;
 import javax.swing.JRadioButton;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
-import javax.swing.table.AbstractTableModel;
 
 /**
  * ServerGui is the main JPanel class that contains a tabbedPane of
@@ -115,7 +110,7 @@ public class ServerGui extends JPanel implements ActionListener {
 		tabbedPane.addTab("Messages", CreateImageIcon.icon, panel3, "Still does nothing");
 		tabbedPane.setMnemonicAt(2, KeyEvent.VK_3);
 
-		JComponent panel4 = createControlPanel();
+		JComponent panel4 = DatabaseControlTab.createDBControlTab();
 		panel4.setPreferredSize(new Dimension(410, 50));
 		tabbedPane.addTab("Remote Control", CreateImageIcon.icon, 
 						panel4, "Does nothing at all");
@@ -132,69 +127,6 @@ public class ServerGui extends JPanel implements ActionListener {
 		// The following line enables to use scrolling tabs.
 		tabbedPane.setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
 	}
-
-	/**
-	 * Makes and returns a Textpanel Jcomponent.
-	 */
-	protected JComponent makeTextPanel(String text) {
-		JPanel panel = new JPanel(false);
-		JLabel filler = new JLabel(text);
-		filler.setHorizontalAlignment(JLabel.CENTER);
-		panel.setLayout(new GridLayout(1, 1));
-		panel.add(filler);
-		return panel;
-	}
-	/**
-	 * Creates a control Panel Jcomponent.
-	 */
-	protected JComponent createControlPanel() {
-
-		// SchedulePanel
-		/*
-		 * CLicking this button will evoke a JDatePicker and JSpinner to allow a
-		 * user to set a date and time for the server to restart
-		 */
-		JPanel schedulePanel = new JPanel(new GridLayout(4, 1));
-		JButton btnScheduleReboot = new JButton("Schedule Reboot");
-		btnScheduleReboot.addActionListener(this);
-		schedulePanel.add(btnScheduleReboot);
-		/*
-		 * CLicking this button will evoke a JDatePicker and JSpinner to allow a
-		 * user to set a date and time for the server to complete an arbitrary
-		 * command
-		 */
-		JButton btnScheduleTask = new JButton("Schedule Task");
-		btnScheduleTask.addActionListener(this);
-		schedulePanel.add(btnScheduleTask);
-
-		JTextArea txaTask = new JTextArea();
-		schedulePanel.add(txaTask);
-
-		// LoginPanel
-		JPanel loginPanel = new JPanel(new GridLayout(2, 2));
-		JLabel lblUsername = new JLabel("Username");
-		JTextField txtUsername = new JTextField();
-		JLabel lblPassword = new JLabel("Password");
-		JPasswordField txtPassword = new JPasswordField();
-		loginPanel.add(lblUsername);
-		loginPanel.add(txtUsername);
-		loginPanel.add(lblPassword);
-		loginPanel.add(txtPassword);
-
-		// ConsolePanel
-		JComponent standInConsole = makeTextPanel("Server console");
-		JPanel consolePanel = new JPanel(new BorderLayout());
-		consolePanel.add(loginPanel, BorderLayout.WEST);
-		consolePanel.add(standInConsole, BorderLayout.CENTER);
-
-		// MainPanel
-		JPanel mainPanel = new JPanel(new BorderLayout());
-		mainPanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
-		mainPanel.add(schedulePanel);
-		mainPanel.add(consolePanel, BorderLayout.SOUTH);
-		return mainPanel;
-	}
-	
 
 	@Override
 	public void actionPerformed(ActionEvent evt) {
