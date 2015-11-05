@@ -75,6 +75,55 @@ public class SearchTab extends JLayeredPane {
 	private static final long serialVersionUID = 1L;
 
 	/**
+	 * Action for when Submit Bid <code>JButton</code> is clicked.
+	 *
+	 */
+	public static final class ActionBtnSubmitBidClick implements ActionListener {
+		private final JDialog dlgJobDetails;
+		private final OpenJobClass currentJob;
+		private final JTextField txtBidText;
+
+		/**
+		 * This method creates the job details dialog.
+		 * @param dlgJobDetails.
+		 * @param currentJob.
+		 * @param txtBidText.
+		 */
+		public ActionBtnSubmitBidClick(JDialog dlgJobDetails,
+				OpenJobClass currentJob, JTextField txtBidText) {
+			this.dlgJobDetails = dlgJobDetails;
+			this.currentJob = currentJob;
+			this.txtBidText = txtBidText;
+		}
+
+		@Override
+		public void actionPerformed(ActionEvent e0) {
+			int intChecker = 0;
+			currentJob.setJobCurBid(Double.parseDouble(txtBidText.getText()));
+			if (myJobList.size() < 1) {
+				myJobList.add(currentJob);
+				System.out.println("*** " + myJobList.indexOf(currentJob));
+				CurBidsTab.updateCurrentBidsTab();
+				dlgJobDetails.dispose();
+			} else {
+				for (int i = 0; i < myJobList.size(); i++) {
+					if (myJobList.get(i).getJobNumber() == currentJob.getJobNumber()) {
+						intChecker++;
+						JOptionPane.showMessageDialog(null, "You have already bid "
+								+ "on this job. Please check your current bids.");
+						dlgJobDetails.dispose();
+					}
+				}
+				if (intChecker < 1) {
+					myJobList.add(currentJob);
+					CurBidsTab.updateCurrentBidsTab();
+					dlgJobDetails.dispose();
+				}
+			}
+		}
+	}
+
+	/**
 	 * This method sets up the custom renderer for the table, allowing for ToolTip text.
 	 *
 	 */
@@ -684,34 +733,8 @@ public class SearchTab extends JLayeredPane {
 		btnSubmitBid.setBounds(245, 205, 100, 20);
 		dlgJobDetails.add(btnSubmitBid);
 		
-		btnSubmitBid.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				int intChecker = 0;
-				currentJob.setJobCurBid(Double.parseDouble(txtBidText.getText()));
-				if (myJobList.size() < 1) {
-					myJobList.add(currentJob);
-					System.out.println("*** " + myJobList.indexOf(currentJob));
-					CurBidsTab.updateCurrentBidsTab();
-					dlgJobDetails.dispose();
-				} else {
-					for (int i = 0; i < myJobList.size(); i++) {
-						if (myJobList.get(i).getJobNumber() == currentJob.getJobNumber()) {
-							intChecker++;
-							JOptionPane.showMessageDialog(null, "You have already bid "
-									+ "on this job. Please check your current bids.");
-							dlgJobDetails.dispose();
-						}
-					}
-					if (intChecker < 1) {
-						myJobList.add(currentJob);
-						CurBidsTab.updateCurrentBidsTab();
-						dlgJobDetails.dispose();
-					}
-				}
-			}
-		});
+		btnSubmitBid.addActionListener(new ActionBtnSubmitBidClick(
+				dlgJobDetails, currentJob, txtBidText));
 	}
 	
 	/**

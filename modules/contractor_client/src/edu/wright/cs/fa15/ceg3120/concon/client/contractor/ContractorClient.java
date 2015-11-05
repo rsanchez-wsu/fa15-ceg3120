@@ -34,6 +34,8 @@ import java.awt.Desktop;
 import java.awt.EventQueue;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.net.URI;
@@ -56,7 +58,7 @@ import javax.swing.JTabbedPane;
  * 
  *
  */
-public class ContractorClient extends JFrame {
+public class ContractorClient extends JFrame implements ActionListener {
 
 	/**
 	 * Action for trying to close window by hitting X in corner.
@@ -252,7 +254,7 @@ public class ContractorClient extends JFrame {
 		LOG.trace("Starting Contractor client...");
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
-				try {
+//				try {
 					ContractorAccount user = new ContractorAccount();
 					user.setUuid("Debug");
 					char[] ps = {'a','b', 'c'};
@@ -267,11 +269,17 @@ public class ContractorClient extends JFrame {
 					user.setCity("Dayton");
 					user.setEmailAddress("test123@temp.com");
 					new ContractorClient().buildGui(user);
-				} catch (Exception e) {
-					JOptionPane.showMessageDialog(myFrame, "The "
-							+ "GUI couldn't build", "GUI Failure", JOptionPane.ERROR_MESSAGE);
-				}
+//				} catch (Exception e) {
+	//				JOptionPane.showMessageDialog(myFrame, "The "
+		//					+ "GUI couldn't build", "GUI Failure", JOptionPane.ERROR_MESSAGE);
+		//		}
 			}
 		});
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e0) {
+		// TODO Auto-generated method stub
+		
 	}
 }
