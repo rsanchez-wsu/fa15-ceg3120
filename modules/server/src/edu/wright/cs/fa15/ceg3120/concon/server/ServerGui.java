@@ -110,7 +110,7 @@ public class ServerGui extends JPanel implements ActionListener {
 		tabbedPane.addTab("Messages", CreateImageIcon.icon, panel3, "Still does nothing");
 		tabbedPane.setMnemonicAt(2, KeyEvent.VK_3);
 
-		JComponent panel4 = DatabaseControlTab.createDBControlTab();
+		JComponent panel4 = DatabaseControlTab.createDbControlTab();
 		panel4.setPreferredSize(new Dimension(410, 50));
 		tabbedPane.addTab("Remote Control", CreateImageIcon.icon, 
 						panel4, "Does nothing at all");
