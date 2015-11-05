@@ -600,8 +600,6 @@ public class NewContractorPane extends JPanel {
 		Boolean testBool = null;
 		int tester = 0;
 		if (pass1.length == pass2.length) {
-			System.out.println(pass1);
-			System.out.println(pass2);
 			for (int i = 0; i < pass1.length; i++) {
 				if (pass1[i] != pass2[i]) {
 					tester = 0;

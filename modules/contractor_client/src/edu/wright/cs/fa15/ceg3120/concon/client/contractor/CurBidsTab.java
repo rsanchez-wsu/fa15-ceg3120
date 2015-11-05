@@ -21,7 +21,7 @@
 
 package edu.wright.cs.fa15.ceg3120.concon.client.contractor;
 
-import edu.wright.cs.fa15.ceg3120.concon.client.contractor.OpenJob;
+import edu.wright.cs.fa15.ceg3120.concon.client.contractor.OpenJobClass;
 
 import java.awt.GridLayout;
 //import java.text.DecimalFormat;
@@ -44,8 +44,8 @@ public class CurBidsTab extends JLayeredPane {
 	private JButton[] update = new JButton[10];
 	private double[] currentBids = new double[10];
 //	private double[] previousBids = new double[10];
-	private static ArrayList<OpenJob> myJobList = new ArrayList<OpenJob>();
-	private static ArrayList<OpenJob> myCurJobList = new ArrayList<OpenJob>();
+	private static ArrayList<OpenJobClass> myJobList = new ArrayList<OpenJobClass>();
+	private static ArrayList<OpenJobClass> myCurJobList = new ArrayList<OpenJobClass>();
 	
 	/**
 	 * Create the panel.

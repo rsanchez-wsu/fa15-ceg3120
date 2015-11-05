@@ -26,7 +26,7 @@ package edu.wright.cs.fa15.ceg3120.concon.client.contractor;
  * This class includes the setters and getters.
  *
  */
-public class OpenJob {
+public class OpenJobClass {
 	private int jobNumber;
 	private String jobTitle;
 	private String jobDescription;
