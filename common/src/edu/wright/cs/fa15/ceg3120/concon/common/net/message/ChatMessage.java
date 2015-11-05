@@ -21,18 +21,18 @@
 
 package edu.wright.cs.fa15.ceg3120.concon.common.net.message;
 
+import edu.wright.cs.fa15.ceg3120.concon.common.net.NetworkManager;
 import edu.wright.cs.fa15.ceg3120.concon.common.net.data.UserData;
 
 /**
  * ChatMessage is used to send messages to and from other users through the server.
  * This may not be around for long.
  * @author Networking team
- * @version 1
- * 
+ * @version 1.0.
  */
-public class ChatMessage extends NetworkMessage {
+public class ChatMessage extends NetworkManager {
 
-	private static final long serialVersionUID = -2279299798905393963L;
+//	private static final long serialVersionUID = -2279299798905393963L;
 	private String message;
 	private UserData from;
 	private UserData to;
@@ -103,7 +103,9 @@ public class ChatMessage extends NetworkMessage {
 		this.to = to;
 	}
 
-	@Override
+	/**
+	 * Javadoc needed.
+	 */
 	public String toString() {
 		return "ChatMessage [message=" + message + ", from=" + from + ", to=" + to + "]";
 	}

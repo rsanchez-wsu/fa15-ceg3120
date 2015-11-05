@@ -24,19 +24,18 @@ package edu.wright.cs.fa15.ceg3120.concon.server;
 import edu.wright.cs.fa15.ceg3120.concon.common.net.NetworkManager;
 //import edu.wright.cs.fa15.ceg3120.concon.common.net.data.UserData;
 import edu.wright.cs.fa15.ceg3120.concon.common.net.message.ChatMessage;
-import edu.wright.cs.fa15.ceg3120.concon.common.net.message.LoginRequestMessage;
+//import edu.wright.cs.fa15.ceg3120.concon.common.net.message.LoginRequestMessage;
 import edu.wright.cs.fa15.ceg3120.concon.common.ui.ChatPanel;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
+//import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
 /**
  * Test client for testing network message sending.
- *
  */
 public class TestClient {
 	private static final Logger LOG = LoggerFactory.getLogger(TestClient.class);
@@ -48,17 +47,17 @@ public class TestClient {
 	public static void main(String[] args) {
 		LOG.trace("Starting client...");
 		NetworkManager.startClient("127.0.0.1", 9667);
-		NetworkManager.registerNetworkClass(LoginRequestMessage.class);
-		NetworkManager.registerNetworkClass(ChatMessage.class);
+//		NetworkManager.registerNetworkHandlerClass(LoginRequestMessage.class);
+		NetworkManager.registerNetworkHandlerClass(ChatMessage.class);
 		
 		SwingUtilities.invokeLater(new Runnable() {
 
 			@Override
 			public void run() {
 				JFrame clientFrame = new JFrame();
-				String name = JOptionPane.showInputDialog(clientFrame, "Enter username:");
-				String pass = JOptionPane.showInputDialog(clientFrame, "Enter password:");
-				NetworkManager.sendMessage(new LoginRequestMessage(name, pass));
+//				String name = JOptionPane.showInputDialog(clientFrame, "Enter username:");
+//				String pass = JOptionPane.showInputDialog(clientFrame, "Enter password:");
+//				NetworkManager.sendMessage(null, new LoginRequestMessage(name, pass));
 				
 				clientFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 				clientFrame.getContentPane().add(new ChatPanel());

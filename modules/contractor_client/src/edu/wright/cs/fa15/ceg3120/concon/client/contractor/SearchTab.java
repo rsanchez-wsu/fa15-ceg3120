@@ -22,7 +22,7 @@
 package edu.wright.cs.fa15.ceg3120.concon.client.contractor;
 
 import edu.wright.cs.fa15.ceg3120.concon.client.contractor.CurBidsTab;
-import edu.wright.cs.fa15.ceg3120.concon.client.contractor.OpenJob;
+import edu.wright.cs.fa15.ceg3120.concon.client.contractor.OpenJobClass;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.NamedNodeMap;
@@ -30,11 +30,11 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
@@ -71,12 +71,16 @@ import javax.xml.stream.XMLStreamException;
  *
  */
 public class SearchTab extends JLayeredPane {
+
+	private static final long serialVersionUID = 1L;
+
 	/**
 	 * Javaoc needed.
 	 *
 	 */
 	public static final class RenderPrepare extends JTable {
-		private static final long serialVersionUID = 1L;
+
+		static final long serialVersionUID = 1L;
 
 		/**
 		 * Javadoc needed.
@@ -373,14 +377,13 @@ public class SearchTab extends JLayeredPane {
 		}
 	}
 
-	private static final long serialVersionUID = 1L;
 	private static Vector<Object> tempVec = new Vector<Object>();
 	private static int intSearch = 0;
 	private static DefaultTableModel model1 = null;
 	private static DecimalFormat f0 = new DecimalFormat("##.00");
 	private static String[] columnNames 
 	= {"Job Number", "Title", "Description", "City", "Cost", "Duration", "Zip Code"};
-	private static ArrayList<OpenJob> jobList = new ArrayList<OpenJob>();
+	private static ArrayList<OpenJobClass> jobList = new ArrayList<OpenJobClass>();
 	private static JLabel lblNumResults1 = new JLabel();
 	private static JLabel lblNumResults2 = new JLabel();
 	private static JLabel lblNumResults3 = new JLabel();
@@ -388,16 +391,42 @@ public class SearchTab extends JLayeredPane {
 	private static JLabel lblNumResults5 = new JLabel();
 	private static JLabel lblNumResults6 = new JLabel();
 	private static JButton btnJobDetails = new JButton();
-	private static ArrayList<OpenJob> myJobList = new ArrayList<OpenJob>();
+	private static ArrayList<OpenJobClass> myJobList = new ArrayList<OpenJobClass>();
+	
+	private static final int WINDOW_WIDTH = Toolkit.getDefaultToolkit().getScreenSize().width
+			- 150;
+	private static final int WINDOW_HEIGHT = Toolkit.getDefaultToolkit().getScreenSize().height
+			- 150;
+	private static final int WINDOW_HEIGHT_QUARTER = (Toolkit.getDefaultToolkit()
+			.getScreenSize().height - 150) / 4;
 	
 	/**
 	 * Build the tab.
 	 */
 	public SearchTab() {
-		JPanel searchTab = new JPanel();
-		add(searchTab, BorderLayout.CENTER);
-		searchTab.setVisible(true);
-		searchTab.setLayout(null);
+		JPanel search = new JPanel();
+		add(search);
+		search.setLayout(null);
+		addContainer();
+	}
+	
+	/**
+	 * Adds search tab fields container.
+	 */
+	private void addContainer() {
+		add(addFields());
+	}
+	
+	/**
+	 * Constructs the Container holding all the search tab fields.
+	 * 
+	 * @return a Container holding all the user input fields
+	 */
+	private Container addFields() {
+		Container cont = new Container();
+		cont.setBounds(6, 6, WINDOW_WIDTH, 
+				(WINDOW_HEIGHT - WINDOW_HEIGHT_QUARTER));
+		cont.setLayout(null);
 		
 		populateJobListArray();
 		
@@ -406,17 +435,17 @@ public class SearchTab extends JLayeredPane {
 		lblNumResults5.setText(" of" );
 		
 		JLabel lblSearchTabMain = new JLabel("Search Options:");
-		searchTab.add(lblSearchTabMain);
+		cont.add(lblSearchTabMain);
 		lblSearchTabMain.setBounds(5,5,120,20);
 		
 		final JTextField txtSearchOptions = new JTextField();
 		txtSearchOptions.setBounds(275, 5, 240, 20);
-		searchTab.add(txtSearchOptions);
+		cont.add(txtSearchOptions);
 		txtSearchOptions.setVisible(false);
 		
 		String[] searchOptions = {"Show All", "Distance", "Max Cost", "Max Duration"};
 		final JComboBox<String> cboSearchOptions = new JComboBox<String>(searchOptions);
-		searchTab.add(cboSearchOptions);
+		cont.add(cboSearchOptions);
 		cboSearchOptions.setBounds(140, 5, 120, 20);
 		cboSearchOptions.addActionListener(
 				new ComboBoxSelectionMade(cboSearchOptions, txtSearchOptions));
@@ -425,40 +454,42 @@ public class SearchTab extends JLayeredPane {
 		final JTable tblSearchResults = new RenderPrepare(model1);
 		JScrollPane jscSearchResults = new JScrollPane(tblSearchResults);
 		jscSearchResults.setBounds(45, 45, 610, 200);
-		searchTab.add(jscSearchResults);
+		cont.add(jscSearchResults);
 		
 		hideResultLabels();
 		
 		lblNumResults1.setBounds(45, 250, 100, 20);
-		searchTab.add(lblNumResults1);
+		cont.add(lblNumResults1);
 		
 		lblNumResults2.setBounds(145, 250, 20, 20);
-		searchTab.add(lblNumResults2);
+		cont.add(lblNumResults2);
 		
 		lblNumResults3.setBounds(165, 250, 20, 20);
-		searchTab.add(lblNumResults3);
+		cont.add(lblNumResults3);
 		
 		lblNumResults4.setBounds(185, 250, 20, 20);
-		searchTab.add(lblNumResults4);
+		cont.add(lblNumResults4);
 		
 		lblNumResults5.setBounds(205, 250, 20, 20);
-		searchTab.add(lblNumResults5);
+		cont.add(lblNumResults5);
 		
 		lblNumResults6.setBounds(225, 250, 20, 20);
-		searchTab.add(lblNumResults6);
+		cont.add(lblNumResults6);
 		
 		btnJobDetails.setBounds(535, 250, 120, 20);
 		btnJobDetails.setText("Details");
-		searchTab.add(btnJobDetails);
+		cont.add(btnJobDetails);
 		
 		btnJobDetails.addActionListener(new ActionBtnJobDetailsClick(tblSearchResults));
 		
 		JButton btnSearchGo = new JButton("Search");
 		btnSearchGo.setBounds(535, 5, 120, 20);
-		searchTab.add(btnSearchGo);
+		cont.add(btnSearchGo);
 		
 		btnSearchGo.addActionListener(new ActionBtnSearchGoClick(
 				txtSearchOptions, tblSearchResults));
+		
+		return cont;
 	}
 	
 	/**
@@ -480,7 +511,7 @@ public class SearchTab extends JLayeredPane {
 	 * Method will be modified when database access is implemented.
 	 */
 	public static void populateJobListArray() {
-		OpenJob job1 = new OpenJob();
+		OpenJobClass job1 = new OpenJobClass();
 		job1.setJobNumber(1);
 		job1.setJobTitle("Hole in Wall");
 		job1.setJobDesc("Kid smashed head through drywall");
@@ -489,7 +520,7 @@ public class SearchTab extends JLayeredPane {
 		job1.setJobDuration(1);
 		job1.setJobZipCode(45402);
 		job1.setJobDistance(-1);
-		OpenJob job2 = new OpenJob();
+		OpenJobClass job2 = new OpenJobClass();
 		job2.setJobNumber(2);
 		job2.setJobTitle("New Toilet");
 		job2.setJobDesc("Would like new toilet installed");
@@ -498,7 +529,7 @@ public class SearchTab extends JLayeredPane {
 		job2.setJobDuration(2);
 		job2.setJobZipCode(45322);
 		job2.setJobDistance(-1);
-		OpenJob job3 = new OpenJob();
+		OpenJobClass job3 = new OpenJobClass();
 		job3.setJobNumber(17);
 		job3.setJobTitle("Replace Wall Outlet");
 		job3.setJobDesc("New new electrical outlet installed");
@@ -507,7 +538,7 @@ public class SearchTab extends JLayeredPane {
 		job3.setJobDuration(1);
 		job3.setJobZipCode(45458);
 		job3.setJobDistance(-1);
-		OpenJob job4 = new OpenJob();
+		OpenJobClass job4 = new OpenJobClass();
 		job4.setJobNumber(42);
 		job4.setJobTitle("New Porch");
 		job4.setJobDesc("I want a large enclosed porch built on the back of my house");
@@ -516,7 +547,7 @@ public class SearchTab extends JLayeredPane {
 		job4.setJobDuration(14);
 		job4.setJobZipCode(45429);
 		job4.setJobDistance(-1);
-		OpenJob job5 = new OpenJob();
+		OpenJobClass job5 = new OpenJobClass();
 		job5.setJobNumber(125);
 		job5.setJobTitle("Lorem Ipsum");
 		job5.setJobDesc("Is simply dummy text of the printing and typesetting industry."
@@ -565,8 +596,8 @@ public class SearchTab extends JLayeredPane {
 	/**
 	 * Javadoc needed.
 	 */
-	public static void showJobDetailsDialog(OpenJob curJob) {
-		final OpenJob currentJob = curJob;
+	public static void showJobDetailsDialog(OpenJobClass curJob) {
+		final OpenJobClass currentJob = curJob;
 		final JDialog dlgJobDetails = new JDialog();
 		dlgJobDetails.setBounds(250, 150, 400, 300);
 		dlgJobDetails.setVisible(true);
@@ -685,7 +716,7 @@ public class SearchTab extends JLayeredPane {
 	 * @param newJob is of type OpenJob.
 	 * @return returns tempVec.
 	 */
-	public static Vector<Object> fillTempVec(OpenJob newJob) {
+	public static Vector<Object> fillTempVec(OpenJobClass newJob) {
 		Vector<Object> newVec = new Vector<Object>();
 		newVec.clear();
 		newVec.add(0, newJob.getJobNumber());

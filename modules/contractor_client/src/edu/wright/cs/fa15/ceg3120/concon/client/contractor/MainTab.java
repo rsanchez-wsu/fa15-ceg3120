@@ -23,6 +23,8 @@ package edu.wright.cs.fa15.ceg3120.concon.client.contractor;
 
 //import edu.wright.cs.fa15.ceg3120.concon.client.contractor.MainTab.SelectionListener;
 
+import java.awt.Container;
+import java.awt.Dimension;
 import java.awt.Toolkit;
 
 import javax.swing.JLayeredPane;
@@ -104,6 +106,8 @@ public class MainTab extends JLayeredPane {
 			- 150;
 	private static final int WINDOW_HEIGHT = Toolkit.getDefaultToolkit().getScreenSize().height
 			- 150;
+	private static final int WINDOW_HEIGHT_QUARTER = (Toolkit.getDefaultToolkit()
+			.getScreenSize().height - 150) / 4;
 	
 	/**
 	 * Create the panel.
@@ -113,12 +117,31 @@ public class MainTab extends JLayeredPane {
 		add(main);
 		main.setLayout(null);
 
+		addContainer();
+
+	}
+	
+	/**
+	 * Add container to main tab.
+	 */
+	private void addContainer() {
+		add(addFields());
+	}
+	
+	/**
+	 * Add elements to the container.
+	 */
+	private Container addFields() {
+		Container cont = new Container();
+		cont.setLayout(null);
+		cont.setBounds(0, 0, WINDOW_WIDTH - 12, (WINDOW_HEIGHT - WINDOW_HEIGHT_QUARTER) - 12);
 		mainTree = new JTree();
 		mainTree.getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
 		mainTree.addTreeSelectionListener((TreeSelectionListener) new SelectionListener());
 		mainTree.setModel(new DefaultTreeModel(
 						new NewDefaultMutableTreeNode("Main")
 		));
+
 		mainTree.setBounds(6, 6, (WINDOW_WIDTH / 4), (((WINDOW_HEIGHT 
 				- (WINDOW_HEIGHT / 4)) - 48)));
 
@@ -128,6 +151,22 @@ public class MainTab extends JLayeredPane {
 		thisTextPane.setText(getMaintext());
 		add(mainTree);
 		add(thisTextPane);
+
+
+		Dimension mainTreeMaxSize = new Dimension((WINDOW_WIDTH / 4),
+				(WINDOW_HEIGHT - WINDOW_HEIGHT_QUARTER));
+		mainTree.setMaximumSize(mainTreeMaxSize);
+		mainTree.setBounds(0, 0,mainTreeMaxSize.width, mainTreeMaxSize.height);
+		Dimension thisTextPaneMaxSize = new Dimension(((WINDOW_WIDTH - (WINDOW_WIDTH / 4))),
+				(WINDOW_HEIGHT - WINDOW_HEIGHT_QUARTER));
+		thisTextPane.setMaximumSize(thisTextPaneMaxSize);
+		thisTextPane.setBounds((mainTreeMaxSize.width + 6), 0,
+				thisTextPaneMaxSize.width, thisTextPaneMaxSize.height);
+		
+		cont.add(mainTree);
+		cont.add(thisTextPane);
+		
+		return cont;
 
 	}
 	

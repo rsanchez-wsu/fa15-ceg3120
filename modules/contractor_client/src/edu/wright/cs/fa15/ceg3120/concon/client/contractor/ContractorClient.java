@@ -74,8 +74,8 @@ public class ContractorClient extends JFrame implements ActionListener {
 			}
 		}
 	}
-
-	/* The following variable to be implemented when AccountType and ContractorAccount
+	
+/* The following variable to be implemented when AccountType and ContractorAccount
  * imports are implemented
  * 
  * 	private static ContractorAccount account = new ContractorAccount();
@@ -85,8 +85,8 @@ public class ContractorClient extends JFrame implements ActionListener {
 	private static final long serialVersionUID = 1L;
 //	private static JPanel profileTab;
 	private static JPanel curBidsTab;
-	private static ArrayList<OpenJob> myJobList = new ArrayList<OpenJob>();
-	private static ArrayList<OpenJob> myCurJobList = new ArrayList<OpenJob>();
+	private static ArrayList<OpenJobClass> myJobList = new ArrayList<OpenJobClass>();
+	private static ArrayList<OpenJobClass> myCurJobList = new ArrayList<OpenJobClass>();
 	public static final JTabbedPane pageTabs = new JTabbedPane(JTabbedPane.TOP);
 	private static DecimalFormat f1 = new DecimalFormat("$##.00");
 	private static JLabel[] lblCurrentBids = new JLabel[10];
