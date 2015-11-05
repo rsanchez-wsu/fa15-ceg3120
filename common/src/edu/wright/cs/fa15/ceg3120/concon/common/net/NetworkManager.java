@@ -94,7 +94,7 @@ public class NetworkManager {
 	 * @param message message to post.
 	 * @return A response, or null.
 	 */
-	public static MessageHolder post(String targetChannel, Object message) {
+	public static MessageHolder post(String targetChannel, Serializable message) {
 		for (Map.Entry<String, Method> listener : NETWORK_BUS.entrySet()) {
 			if (listener.getKey().equals(targetChannel)) {
 				try {
