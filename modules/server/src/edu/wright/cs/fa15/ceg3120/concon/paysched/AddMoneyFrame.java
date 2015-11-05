@@ -153,7 +153,7 @@ public class AddMoneyFrame extends JFrame {
      * @param evt temp.
      */
     private void cancelButtonActionPerformed(ActionEvent evt) { 
-    	//this.dispose();//Only exits out of AddMoneyFrame GUI
+    	this.dispose();//Only exits out of AddMoneyFrame GUI
     }//end of cencelButtonActionPerformed              
 
                     
