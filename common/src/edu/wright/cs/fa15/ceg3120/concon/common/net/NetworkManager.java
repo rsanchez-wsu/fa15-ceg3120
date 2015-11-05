@@ -52,8 +52,8 @@ public class NetworkManager {
 
 	//@NetworkHandler("echoChannel")
 	//public MessageHolder echo(Serializable msg) {
-	//	System.out.println(msg.message);
-	//	return new MessageHolder("responseChannel", "Echo: " + msg.message.toString());
+	//	System.out.println(msg.toString);
+	//	return new MessageHolder("responseChannel", "Echo: " + msg.toString());
 	//}
 
 	/**
