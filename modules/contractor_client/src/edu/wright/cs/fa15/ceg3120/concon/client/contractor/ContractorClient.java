@@ -28,14 +28,21 @@ package edu.wright.cs.fa15.ceg3120.concon.client.contractor;
  * import edu.wright.cs.fa15.ceg3120.concon.common.data.AccountType;
  * import edu.wright.cs.fa15.ceg3120.concon.common.data.ContractorAccount;
  */
+import edu.wright.cs.fa15.ceg3120.concon.common.data.AccountType;
+import edu.wright.cs.fa15.ceg3120.concon.common.data.ContractorAccount;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
+import org.w3c.dom.NamedNodeMap;
+import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Container;
+import java.awt.Desktop;
 import java.awt.EventQueue;
 import java.awt.GridLayout;
 import java.awt.Image;
@@ -46,13 +53,18 @@ import java.awt.event.WindowEvent;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
+//import java.util.Scanner;
 import java.util.Vector;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -64,11 +76,13 @@ import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import javax.swing.JTree;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.stream.XMLStreamException;
 
 /**
  * Javadoc needed.
@@ -82,6 +96,7 @@ public class ContractorClient extends JFrame implements ActionListener {
  * 
  * 	private static ContractorAccount account = new ContractorAccount();
 */
+	private static ContractorAccount account = new ContractorAccount();
 	private static final Logger LOG = LoggerFactory.getLogger(ContractorClient.class);
 	private static final long serialVersionUID = 1L;
 	private static JFrame frame;
@@ -130,15 +145,157 @@ public class ContractorClient extends JFrame implements ActionListener {
 	private static JButton btnSave;
 	private static JButton btnCancel;
 	private static JButton btnClear;
-	private static String[] job1;
-	private static String[] job2;
-	private static String[] job3;
-	private static String[] job4;
-	private static Vector<String[]> jobList = new Vector<String[]>();
+	private static ArrayList<OpenJob> jobList = new ArrayList<OpenJob>();
+	private static Vector<Object> tempVec = new Vector<Object>();
 	private static int intSearch = 0;
 	private static String[] columnNames = {"Job Number", "Title", "Description", "City", "Cost", 
 											"Duration", "Zip Code"};
 	private static DefaultTableModel model1 = null;
+	
+	/**
+	 * Class for populating job information in the search feature.
+	 * This class includes the setters and getters.
+	 *
+	 */
+	public static class OpenJob {
+		private int jobNumber;
+		private String jobTitle;
+		private String jobDescription;
+		private String jobCity;
+		private int jobCost;
+		private int jobDuration;
+		private int jobZipCode;
+		private double jobDistance;
+		
+		/**
+		 * Sets job number for OpenJob object.
+		 * @param num is int job number from method.
+		 */
+		public void setJobNumber(int num) {
+			jobNumber = num;
+		}
+		
+		/**
+		 * Sets job title for OpenJob object.
+		 * @param title is string job title from method.
+		 */
+		public void setJobTitle(String title) {
+			jobTitle = title;
+		}
+		
+		/**
+		 * Sets job description for OpenJob object.
+		 * @param desc is string job description from method.
+		 */
+		public void setJobDesc(String desc) {
+			jobDescription = desc;
+		}
+		
+		/**
+		 * Sets job city for OpenJob object.
+		 * @param city is string job city from method.
+		 */
+		public void setJobCity(String city) {
+			jobCity = city;
+		}
+		
+		/**
+		 * Sets job cost for OpenJob object.
+		 * @param cost is int job cost from method.
+		 */
+		public void setJobCost(int cost) {
+			jobCost = cost;
+		}
+		
+		/**
+		 * Sets job duration for OpenJob object.
+		 * @param dur is int job duration from method.
+		 */
+		public void setJobDuration(int dur) {
+			jobDuration = dur;
+		}
+		
+		/**
+		 * Sets job zip code for OpenJob object.
+		 * @param zip is int job zip code from method.
+		 */
+		public void setJobZipCode(int zip) {
+			jobZipCode = zip;
+		}
+		
+		/**
+		 * Sets job distance for OpenJob object.
+		 * @param distance is double distance from method.
+		 */
+		public void setJobDistance(double distance) {
+			jobDistance = distance;
+		}
+		
+		/**
+		 * Gets job number from OpenJob object.
+		 * @return int job number to method.
+		 */
+		public int getJobNumber() {
+			return jobNumber;
+		}
+		
+		/**
+		 * Gets job title from OpenJob object.
+		 * @return string job title to method.
+		 */
+		public String getJobTitle() {
+			return jobTitle;
+		}
+		
+		/**
+		 * Gets job description from OpenJob object.
+		 * @return string job description to method.
+		 */
+		public String getJobDesc() {
+			return jobDescription;
+		}
+		
+		/**
+		 * Gets job city from OpenJob object.
+		 * @return string job city to method.
+		 */
+		public String getJobCity() {
+			return jobCity;
+		}
+		
+		/**
+		 * Gets job cost from OpenJob object.
+		 * @return int job cost to method.
+		 */
+		public int getJobCost() {
+			return jobCost;
+		}
+		
+		/**
+		 * Gets job duration from OpenJob object.
+		 * @return int job duration to method.
+		 */
+		public int getJobDuration() {
+			return jobDuration;
+		}
+		
+		/**
+		 * Gets job zip code from OpenJob object.
+		 * @return int job zip code to method.
+		 */
+		public int getJobZipCode() {
+			return jobZipCode;
+		}
+		
+		/**
+		 * Gets job distane from OpenJob object.
+		 * @return double job distance to method.
+		 */
+		public double getJobDistance() {
+			return jobDistance;
+		}
+	}
+	
 	
 	/**
 	 * Create the application.
@@ -157,6 +314,7 @@ public class ContractorClient extends JFrame implements ActionListener {
  * 
  * 		account.setAccountType(AccountType.CONTRACTOR);
  */
+		account.setAccountType(AccountType.CONTRACTOR);
 		frame = new JFrame();		
 		frame.setBounds(100, 100, 725, 475);
 		frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
@@ -344,6 +502,12 @@ public class ContractorClient extends JFrame implements ActionListener {
 		JLabel lblSearchTabMain = new JLabel("Search Options:");
 		searchTab.add(lblSearchTabMain);
 		lblSearchTabMain.setBounds(5,5,120,20);
+		
+		final JTextField txtSearchOptions = new JTextField();
+		txtSearchOptions.setBounds(275, 5, 240, 20);
+		searchTab.add(txtSearchOptions);
+		txtSearchOptions.setVisible(false);
+		
 		String[] searchOptions = {"Show All", "Distance", "Max Cost", "Max Duration"};
 		final JComboBox<String> cboSearchOptions = new JComboBox<String>(searchOptions);
 		searchTab.add(cboSearchOptions);
@@ -358,12 +522,15 @@ public class ContractorClient extends JFrame implements ActionListener {
 					break;
 				case "Distance":
 					intSearch = 1;
+					txtSearchOptions.setVisible(true);
 					break;
 				case "Max Cost":
 					intSearch = 2;
+					txtSearchOptions.setVisible(true);
 					break;
 				case "Max Duration":
 					intSearch = 3;
+					txtSearchOptions.setVisible(true);
 					break;
 				default:
 					intSearch = 0;
@@ -374,15 +541,29 @@ public class ContractorClient extends JFrame implements ActionListener {
 		});
 		
 		buildTable();
-		final JTable tblSearchResults = new JTable(model1);
-		tblSearchResults.setModel(model1);
+		final JTable tblSearchResults = new JTable(model1) {
+			
+			private static final long serialVersionUID = 3500811875821636172L;
+
+			public Component prepareRenderer(TableCellRenderer renderer, int row, int column) {
+				Component c0 = super.prepareRenderer(renderer, row, column);
+				if (c0 instanceof JComponent) {
+					if (column > 0 && column < 3) {
+						JComponent jc = (JComponent) c0;
+						jc.setToolTipText((String) getValueAt(row, column));
+					} else {
+						JComponent jc = (JComponent) c0;
+						jc.setToolTipText("");
+					}
+				}
+				return c0;
+			}
+			
+		};
+//		tblSearchResults.setAutoCreateRowSorter(true);
 		JScrollPane jscSearchResults = new JScrollPane(tblSearchResults);
 		jscSearchResults.setBounds(45, 45, 605, 200);
 		searchTab.add(jscSearchResults);		
-		
-		final JTextField txtSearchOptions = new JTextField();
-		txtSearchOptions.setBounds(275, 5, 240, 20);
-		searchTab.add(txtSearchOptions);
 		
 		JButton btnSearchGo = new JButton("Search");
 		btnSearchGo.setBounds(530, 5, 120, 20);
@@ -390,90 +571,116 @@ public class ContractorClient extends JFrame implements ActionListener {
 		
 		btnSearchGo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				columnNames[6] = "Zip Code";
 				buildTable();
-				tblSearchResults.setModel(model1);
-				tblSearchResults.validate();
-				tblSearchResults.repaint();
 				populateJobListArray();
-				model1.setRowCount(0);
 				switch (intSearch) {
 				case 0:
+					model1.setRowCount(0);
 					columnNames[6] = "Zip Code";
+					tblSearchResults.setModel(model1);
 					for (int i = 0; i < jobList.size(); i++) {
-						String[] tempArray = jobList.elementAt(i);
-						model1.addRow(tempArray);
+						tempVec = fillTempVec(jobList.get(i));
+						model1.addRow(tempVec);
 					}	
 					break;
 				case 1:
-					columnNames[6] = "Distance";
-					buildTable();
+					model1.addColumn("Distance");
 					tblSearchResults.setModel(model1);
-					tblSearchResults.validate();
-					tblSearchResults.repaint();
-					populateJobListArray();
+					int curZip = intZipCode;
 					final String tempDistance = txtSearchOptions.getText();
-					double curDistance = 0;
+					Double[][] curDistanceArray = new Double[50][2];
 					int tempDistanceInt = 0;
+					String strDistance = null;
 					if (tempDistance.length() > 0) {
 						tempDistanceInt = Integer.parseInt(tempDistance);
-					}
-					for (int i = 0; i < jobList.size(); i++) {
-						String[] tempArray = null;
-						tempArray = jobList.elementAt(i);
-						try {
-							curDistance = distanceCalculator(intZipCode, 
-									Integer.parseInt(tempArray[6]));
-							
-/*
- * The following lines of code to be implemented when AccountType and 
- * ContractorAccount imports are implemented
- * 							curDistance = distanceCalculator(account.getZipCode(), 
- *									Integer.parseInt(tempArray[6]));
- */
-						} catch (NumberFormatException e) {
-							e.printStackTrace();
-						} catch (IOException e) {
-							e.printStackTrace();
+					} else {
+						int issueChecker = 1;
+						while (issueChecker > 0) {
+							strDistance = JOptionPane.showInputDialog( 
+											profileTab,
+											"Please enter a distance (greater than 0)",
+											null);
+							if (strDistance.length() < 1 || Integer.parseInt(strDistance) < 1) {
+								issueChecker = 1;
+							} else {
+								int issueTracker = 0;
+								for (int j = 0; j < strDistance.length(); j++) {
+									char c1 = strDistance.charAt(j);
+									if (Character.isDigit(c1)) {
+										if (j == strDistance.length() - 1 && issueTracker == 0) {
+											txtSearchOptions.setText(strDistance);
+											issueChecker = 0;
+											break;
+										}
+									} else {
+										issueTracker++;
+									}
+								}
+							}
 						}
-						if (curDistance <= tempDistanceInt) {
-							String[] newArray = tempArray;
-							newArray[6] = (f0.format(curDistance));
-							model1.addRow(newArray);
+						tempDistanceInt = Integer.parseInt(strDistance);
+					}
+					try {
+						curDistanceArray = distanceCalculator(curZip, tempDistanceInt);
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					} catch (XMLStreamException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					
+					for (int j = 0; j < jobList.size(); j++) {
+						for (int k = 0; k < curDistanceArray.length; k++) {
+							if (jobList.get(j).getJobZipCode() 
+									== curDistanceArray[k][0].intValue()) {
+								tempVec = fillTempVec(jobList.get(j));
+								tempVec.add(7, f0.format(curDistanceArray[k][1]));
+								model1.addRow(tempVec);
+							}
 						}
 					}
 					break;
 				case 2:
+					model1.setRowCount(0);
+					columnNames[6] = "Zip Code";
+					tblSearchResults.setModel(model1);
 					final String tempCost = txtSearchOptions.getText(); 
 					int tempCostInt = 0;
 					if (tempCost.length() > 0) {
 						tempCostInt = Integer.parseInt(tempCost);
 					}
 					for (int i = 0; i < jobList.size(); i++) {
-						String[] tempArray = jobList.elementAt(i);
-						if (Integer.parseInt(tempArray[4]) <= tempCostInt) {
-							model1.addRow(tempArray);
+						if (jobList.get(i).jobCost <= tempCostInt) {
+							tempVec = fillTempVec(jobList.get(i));
+							model1.addRow(tempVec);
 						}
 					}
 					break;
 				case 3:
+					model1.setRowCount(0);
+					columnNames[6] = "Zip Code";
+					tblSearchResults.setModel(model1);
 					final String tempDuration = txtSearchOptions.getText();
 					int tempDurationInt = 0;
 					if (tempDuration.length() > 0) {
 						tempDurationInt = Integer.parseInt(tempDuration);
 					}
 					for (int i = 0; i < jobList.size(); i++) {
-						String[] tempArray = jobList.elementAt(i);
-						if (Integer.parseInt(tempArray[5]) <= tempDurationInt) {
-							model1.addRow(tempArray);
+//						Object[] tempArray = jobList.elementData(i);
+						if (jobList.get(i).jobDuration <= tempDurationInt) {
+							tempVec = fillTempVec(jobList.get(i));
+							model1.addRow(tempVec);
 						}
 					}
 					break;
 				default:
 					model1.setRowCount(0);
+					columnNames[6] = "Zip Code";
+					tblSearchResults.setModel(model1);
 					for (int i = 0; i < jobList.size(); i++) {
-						String[] tempArray = jobList.elementAt(i);
-						model1.addRow(tempArray);
+						tempVec = fillTempVec(jobList.get(i));
+						model1.addRow(tempVec);
 					}	
 					break;
 				}
@@ -787,7 +994,7 @@ public class ContractorClient extends JFrame implements ActionListener {
 	}
 
 	/**
-	 * This method makes the "updated information" portion of the edit profile tab visible.
+	 * This method makes the "updated information" elements of the edit profile tab visible.
 	 * @author Joshua Thomas
 	 */
 	public static void editProfile() {
@@ -829,7 +1036,7 @@ public class ContractorClient extends JFrame implements ActionListener {
 			strLastName = txtLastNameUpdate.getText();
 /*
  * The following line to be implemented when the AccountType and ContractorAccount
- * imports are implemented.
+ * imports are implemented. The above line will be removed.
  * 
  * 			account.setLastName(txtLastNameUpdate.getText());
  */
@@ -838,7 +1045,7 @@ public class ContractorClient extends JFrame implements ActionListener {
 			strFirstName = txtFirstNameUpdate.getText();
 /*
  * The following line to be implemented when the AccountType and ContractorAccount
- * imports are implemented.
+ * imports are implemented. The above line will be removed.
  * 
  * 			account.setFirstName(txtFirstNameUpdate.getText());
  */
@@ -847,7 +1054,7 @@ public class ContractorClient extends JFrame implements ActionListener {
 			strCompanyName = txtCompanyNameUpdate.getText();
 /*
  * The following line to be implemented when the AccountType and ContractorAccount
- * imports are implemented.
+ * imports are implemented. The above line will be removed.
  * 
  * 			account.setCompanyName(txtCompanyNameUpdate.getText()); 
  */		
@@ -856,7 +1063,7 @@ public class ContractorClient extends JFrame implements ActionListener {
 			strAddress1 = txtAddress1Update.getText();
 /*
  * The following line to be implemented when the AccountType and ContractorAccount
- * imports are implemented.
+ * imports are implemented. The above line will be removed.
  * 
  * 			account.setAddress1(txtAddress1Update.getText());
  */
@@ -865,7 +1072,7 @@ public class ContractorClient extends JFrame implements ActionListener {
 			strAddress2 = txtAddress2Update.getText();
 /*
  * The following line to be implemented when the AccountType and ContractorAccount
- * imports are implemented.
+ * imports are implemented. The above line will be removed.
  * 
  * 			account.setAddress2(txtAddress2Update.getText());
  */
@@ -874,7 +1081,7 @@ public class ContractorClient extends JFrame implements ActionListener {
 			strCity = txtCityUpdate.getText();
 /*
  * The following line to be implemented when the AccountType and ContractorAccount
- * imports are implemented.
+ * imports are implemented. The above line will be removed.
  * 
  * 			account.setCity(txtCityUpdate.getText());
  */
@@ -883,7 +1090,7 @@ public class ContractorClient extends JFrame implements ActionListener {
 			strState = txtStateUpdate.getText();
 /*
  * The following line to be implemented when the AccountType and ContractorAccount
- * imports are implemented.
+ * imports are implemented. The above line will be removed.
  * 
  * 			account.setState(txtStateUpdate.getText());
  */
@@ -918,7 +1125,7 @@ public class ContractorClient extends JFrame implements ActionListener {
 								txtZipCodeUpdate.setText(strTzc);
 /*
  * The following line to be implemented when the AccountType and ContractorAccount
- * imports are implemented.
+ * imports are implemented. The above line will be removed.
  * 
  * 								account.setZipCode(Integer.parseInt(txtZipCodeUpdate.getText()));
  */
@@ -937,7 +1144,7 @@ public class ContractorClient extends JFrame implements ActionListener {
 			strPhoneNumber = txtPhoneNumberUpdate.getText();
 /*
  * The following line to be implemented when the AccountType and ContractorAccount
- * imports are implemented.
+ * imports are implemented. The above line will be removed.
  * 
  * 			account.setPhoneNumber(txtPhoneNumberUpdate.getText());
  */		
@@ -946,7 +1153,7 @@ public class ContractorClient extends JFrame implements ActionListener {
 			strEmailAddress = txtEmailAddressUpdate.getText();
 /*
  * The following line to be implemented when the AccountType and ContractorAccount
- * imports are implemented.
+ * imports are implemented. The above line will be removed.
  * 
  * 			account.setEmailAddress(txtEmailAddressUpdate.getText());
  */
@@ -958,21 +1165,50 @@ public class ContractorClient extends JFrame implements ActionListener {
 	
 	/**
 	 * This method populates a job list array for building and testing the Search functions.
+	 * Method will be modified when database access is implemented.
 	 */
 	public static void populateJobListArray() {
-		job1 = new String[] {"001", "Hole in Wall", "Kid smashed head through "
-				+ "drywall", "Dayton", "500", "7", "45402"};
-		job2 = new String[] {"002", "New Toilet", "Would like new toilet "
-				+ "installed", "Englewood", "100", "1", "45322"};
-		job3 = new String[] {"017", "Replace Wall Outlet", "Need new outlet "
-				+ "installed", "Centerville", "100", "1", "45458"};
-		job4 = new String[] {"042", "New Porch", "I want a large enclosed porch built "
-				+ "on the back of my house", "Kettering", "3500", "14", "45429"};
-		jobList.removeAllElements();
-		jobList.add(0,job1);
-		jobList.add(1,job2);
-		jobList.add(2,job3);
-		jobList.add(3,job4);
+		OpenJob job1 = new OpenJob();
+		job1.setJobNumber(1);
+		job1.setJobTitle("Hole in Wall");
+		job1.setJobDesc("Kid smashed head through drywall");
+		job1.setJobCity("Dayton");
+		job1.setJobCost(500);
+		job1.setJobDuration(1);
+		job1.setJobZipCode(45402);
+		job1.setJobDistance(-1);
+		OpenJob job2 = new OpenJob();
+		job2.setJobNumber(2);
+		job2.setJobTitle("New Toilet");
+		job2.setJobDesc("Would like new toilet installed");
+		job2.setJobCity("Englewood");
+		job2.setJobCost(100);
+		job2.setJobDuration(1);
+		job2.setJobZipCode(45322);
+		job2.setJobDistance(-1);
+		OpenJob job3 = new OpenJob();
+		job3.setJobNumber(17);
+		job3.setJobTitle("Replace Wall Outlet");
+		job3.setJobDesc("New new electrical outlet installed");
+		job3.setJobCity("Centerville");
+		job3.setJobCost(100);
+		job3.setJobDuration(1);
+		job3.setJobZipCode(45458);
+		job3.setJobDistance(-1);
+		OpenJob job4 = new OpenJob();
+		job4.setJobNumber(42);
+		job4.setJobTitle("New Porch");
+		job4.setJobDesc("I want a large enclosed porch built on the back of my house");
+		job4.setJobCity("Kettering");
+		job4.setJobCost(3500);
+		job4.setJobDuration(14);
+		job4.setJobZipCode(45429);
+		job4.setJobDistance(-1);
+		jobList.clear();
+		jobList.add(job1);
+		jobList.add(job2);
+		jobList.add(job3);
+		jobList.add(job4);
 	}
 	
 /* CHANGE TO BE MADE TO distanceCalculator() ONCE DATABASE IS IMPLEMENTED:
@@ -986,33 +1222,56 @@ public class ContractorClient extends JFrame implements ActionListener {
  * Contractor Connection registered with ZipCodeAPI.com on the free plan to get static API code.
  * Registered under Joshua Thomas' email address (thomas.611@wright.edu).
  * Units used: miles
+ * @throws XMLStreamException 
  * 
  */
-	public static double distanceCalculator(int zip1, int zip2) throws IOException {
+	public static Double[][] distanceCalculator(int zip, int distance) throws IOException, 
+	XMLStreamException {
 		String strApiKey = "DyJlPe7F6MgACobvKEUcqeOMf5TCJ1VmAEIpSQ5YDlyfKKLuoFGOTuA9AuMkvHH6";
 		String url1 = "https://www.zipcodeapi.com/rest/";
-		String query = url1 + strApiKey + "/distance.xml/" + zip1 + "/" + zip2 + "/mile";
-
+		String query = url1 + strApiKey + "/radius.xml/" + zip + "/" + distance + "/mile";		
+		
 		HttpURLConnection urlConnection = (HttpURLConnection) new URL(query).openConnection();	
 		InputStream result = urlConnection.getInputStream();
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 		DocumentBuilder builder;
-		double distance = 0;	
+		Double[][] strDistanceArray = new Double[50][2];
 		try {
 			builder = factory.newDocumentBuilder();
 			Document doc = builder.parse(result);
-			NodeList list = doc.getElementsByTagName("distance");
-			distance = Double.parseDouble(list.item(0).getTextContent());
-		} catch (ParserConfigurationException e) {
-			e.printStackTrace();
+			NodeList list = doc.getElementsByTagName("zip_code");
+			if (list.getLength() <= 50) {
+				for (int j = 0; j < list.getLength(); j++) {
+					Node prop = list.item(j);
+					NamedNodeMap attr = prop.getAttributes();
+					if (null != attr) {
+						Node p0 = attr.getNamedItem("distance");
+						strDistanceArray[j][0] = Double.parseDouble(list.item(j).getTextContent());
+						strDistanceArray[j][1] = Double.parseDouble(p0.getNodeValue());
+					}
+				}
+			} else {
+				for (int j = 0; j < 50; j++) {
+					Node prop = list.item(j);
+					NamedNodeMap attr = prop.getAttributes();
+					if (null != attr) {
+						Node p0 = attr.getNamedItem("distance");
+						strDistanceArray[j][0] = Double.parseDouble(list.item(j).getTextContent());
+						strDistanceArray[j][1] = Double.parseDouble(p0.getNodeValue());
+					}
+				}
+			}
 		} catch (SAXException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} finally {
+		} catch (ParserConfigurationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}  finally {
 			urlConnection.disconnect();
 			result.close();
-			
 		}
-		return distance;
+		return strDistanceArray;		
 	}
 
 	@Override
@@ -1075,6 +1334,52 @@ public class ContractorClient extends JFrame implements ActionListener {
 	 */
 	public static void buildTable() {
 		model1 = new DefaultTableModel(columnNames, 0);
+	}
+	
+	/**
+	 * Populates tempVec with values from OpenJob class.
+	 * @param newJob is of type OpenJob.
+	 * @return returns tempVec.
+	 */
+	public static Vector<Object> fillTempVec(OpenJob newJob) {
+		System.out.println(newJob.getJobNumber());
+		Vector<Object> newVec = new Vector<Object>();
+		newVec.clear();
+		newVec.add(0, newJob.getJobNumber());
+		newVec.add(1, newJob.getJobTitle());
+		newVec.add(2, newJob.getJobDesc());
+		newVec.add(3, newJob.getJobCity());
+		newVec.add(4, newJob.getJobCost());
+		newVec.add(5, newJob.getJobDuration());
+		newVec.add(6, newJob.getJobZipCode());
+		if (newJob.getJobDistance() > -1) {
+			newVec.add(7, newJob.getJobDistance());
+		}
+		
+		return newVec;
+	}
+	
+	/**
+	 * Needs Javadoc.
+	 */
+	
+	public static void openWebpage(URL url) {
+		URI uri = null;
+		try {
+			uri = url.toURI();
+		} catch (URISyntaxException e1) {
+			JOptionPane.showMessageDialog(frame, "The given URL is invalid", 
+					"Invalid URL", JOptionPane.ERROR_MESSAGE);
+		}
+		Desktop desktop = Desktop.isDesktopSupported() ? Desktop.getDesktop() : null;
+		if (desktop != null && desktop.isSupported(Desktop.Action.BROWSE)) {
+			try {
+				desktop.browse(uri);
+			} catch (Exception e) {
+				JOptionPane.showMessageDialog(frame, "The webpage couldn't open",
+						"Couldn't Open Page", JOptionPane.ERROR_MESSAGE);
+			}
+		}
 	}
 
 	/**
