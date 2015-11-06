@@ -21,21 +21,20 @@
 
 package edu.wright.cs.fa15.ceg3120.concon.common.net.message;
 
-import edu.wright.cs.fa15.ceg3120.concon.common.net.data.NetworkData;
-
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * A data response message contains a list of JavaBean type 
- * NetworkData objects returned as a result of a data request.
+ * JavaBean objects returned as a result of a data request.
  * @author NathanJent
  *
  */
-public class DataResponseMessage extends NetworkMessage {
+public class DataResponseMessage implements Serializable {
 	
 	private static final long serialVersionUID = 5810385430906109196L;
-	private List<NetworkData> dataList = new ArrayList<>();
+	private List<Serializable> dataList = new ArrayList<>();
 	
 	/**
 	 * Response message from a database request.
@@ -47,7 +46,7 @@ public class DataResponseMessage extends NetworkMessage {
 	 * Add data objects to the message.
 	 *
 	 */
-	public void add(NetworkData data) {
+	public void add(Serializable data) {
 		dataList.add(data);
 	}
 
@@ -55,14 +54,14 @@ public class DataResponseMessage extends NetworkMessage {
 	 * Get data objects from the message.
 	 *
 	 */
-	public List<NetworkData> getDataList() {
+	public List<Serializable> getDataList() {
 		return dataList;
 	}
 
 	/**
 	 * Set the list of data objects for the message.
 	 */
-	public void setDataList(List<NetworkData> dataList) {
+	public void setDataList(List<Serializable> dataList) {
 		this.dataList = dataList;
 	}
 }

@@ -29,6 +29,7 @@ import java.beans.XMLEncoder;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -65,7 +66,7 @@ public class NetworkManager {
 				if (argClasses.length != 1
 						|| (!m.getReturnType().equals(Void.TYPE)
 							&& !m.getReturnType().equals(MessageHolder.class))
-						|| !argClasses[0].equals(Object.class)
+						|| !Serializable.class.isAssignableFrom(argClasses[0])
 						|| NETWORK_BUS.keySet().contains(channel)) {
 					LOG.error("Invalid parameters on NetworkHandler method: "
 							+ m.getName());
@@ -85,12 +86,13 @@ public class NetworkManager {
 	 * @param message message to post.
 	 * @return A response, or null.
 	 */
-	public static MessageHolder post(String targetChannel, Object message) {
+	public static MessageHolder post(String targetChannel, Serializable message) {
 		for (Map.Entry<String, Method> listener : NETWORK_BUS.entrySet()) {
 			if (listener.getKey().equals(targetChannel)) {
 				LOG.debug("Recieved message: " + message);
 				try {
-					Object response = listener.getValue().invoke(null, message);
+					Serializable response 
+							= (Serializable) listener.getValue().invoke(null, message);
 					if (response instanceof MessageHolder) {
 						return (MessageHolder)response;
 					}
@@ -152,7 +154,7 @@ public class NetworkManager {
 	 * @param message Message to send.
 	 * @return false if failed.
 	 */
-	public static boolean sendMessage(String targetChannel, Object message) {
+	public static boolean sendMessage(String targetChannel, Serializable message) {
 		if (client == null) {
 			return false;
 		}
@@ -160,7 +162,6 @@ public class NetworkManager {
 			client.sendMessage(encodeToXml(new MessageHolder(targetChannel, message)));
 		} catch (IOException e) {
 			LOG.error("Error while sending to " + targetChannel, e);
-			return false;
 			return false;
 		}
 		return true;
@@ -172,12 +173,12 @@ public class NetworkManager {
 	 * @return result.
 	 * @throws UnsupportedEncodingException The Character Encoding is not supported.
 	 */
-	protected static Object decodeFromXml(String xml) throws UnsupportedEncodingException {
+	protected static Serializable decodeFromXml(String xml) throws UnsupportedEncodingException {
 		if (xml == null || xml.equals("")) {
 			return null;
 		}
 		XMLDecoder xmlWizard = new XMLDecoder(new ByteArrayInputStream(xml.getBytes("UTF-8")));
-		Object result = xmlWizard.readObject();
+		Serializable result = (Serializable) xmlWizard.readObject();
 		xmlWizard.close();
 		return result;
 	}
@@ -188,13 +189,13 @@ public class NetworkManager {
 	 * @return encoded data.
 	 * @throws UnsupportedEncodingException The Character Encoding is not supported.
 	 */
-	protected static String encodeToXml(Object message)
+	protected static String encodeToXml(Serializable message)
 			throws UnsupportedEncodingException {
 		if (message == null) {
 			return null;
 		}
 		ByteArrayOutputStream out = new ByteArrayOutputStream();
-		XMLEncoder xmlWizard = new XMLEncoder(out, "UTF-8", false, 0);
+		XMLEncoder xmlWizard = new XMLEncoder(out, "UTF-8", true, 0);
 		xmlWizard.writeObject(message);
 		xmlWizard.close();
 		return out.toString("UTF-8");

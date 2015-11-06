@@ -44,8 +44,6 @@ public class ConConClient {
 	private int port;
 
 	private UserData currentUser;
-
-	private StringBuilder chatLog;
 	
 	/**
 	 * Constructs a client which will talk to the designated host:port.
@@ -83,13 +81,19 @@ public class ConConClient {
 		public void run() {
 			try {
 				Socket clientSocket = new Socket(host, port);
-				DataOutputStream toServer = new DataOutputStream(clientSocket.getOutputStream());
-				BufferedReader fromServer = new BufferedReader(
-						new InputStreamReader(clientSocket.getInputStream(),
-								StandardCharsets.UTF_8));
 
 				while (message != null) {
+					DataOutputStream toServer =
+							new DataOutputStream(clientSocket.getOutputStream());
+					BufferedReader fromServer =
+							new BufferedReader(
+									new InputStreamReader(
+											clientSocket.getInputStream(),
+											StandardCharsets.UTF_8
+											)
+									);
 					toServer.writeBytes(message);
+					toServer.close(); // ends the message
 					StringBuilder response = new StringBuilder();
 					int ch = 0;
 					while ((ch = fromServer.read()) != -1) {
@@ -99,13 +103,12 @@ public class ConConClient {
 							(MessageHolder)NetworkManager.decodeFromXml(response.toString());
 					if (result != null) {
 						message = NetworkManager.encodeToXml(
-								NetworkManager.post(result.channel, result.message));
+								NetworkManager.post(result.getChannel(), result.getMessage()));
 					} else {
 						message = null;
 					}
+					fromServer.close();
 				}
-				fromServer.close();
-
 				clientSocket.close();
 			} catch (IOException e) {
 				LOG.error("Dispatch Message IO: ", e);
@@ -127,13 +130,5 @@ public class ConConClient {
 	 */
 	public UserData getCurrentUser() {
 		return currentUser;
-	}
-
-	/**
-	 * Appends string to chat log.
-	 * @param str given string to append
-	 */
-	public void appendChat(String str) {
-		chatLog.append(str);
 	}
 }

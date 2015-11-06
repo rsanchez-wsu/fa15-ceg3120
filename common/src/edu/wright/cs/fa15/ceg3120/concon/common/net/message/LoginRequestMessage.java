@@ -21,12 +21,14 @@
 
 package edu.wright.cs.fa15.ceg3120.concon.common.net.message;
 
+import edu.wright.cs.fa15.ceg3120.concon.common.net.MessageHolder;
 import edu.wright.cs.fa15.ceg3120.concon.common.net.NetworkHandler;
-import edu.wright.cs.fa15.ceg3120.concon.common.net.NetworkManager;
 import edu.wright.cs.fa15.ceg3120.concon.common.net.data.UserData;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.io.Serializable;
 
 /**
  * LogonMessage is used to send the login info to the server.
@@ -34,7 +36,7 @@ import org.slf4j.LoggerFactory;
  * @version 1
  * 
  */
-public class LoginRequestMessage extends NetworkMessage {
+public class LoginRequestMessage implements Serializable {
 	private static final Logger LOG = LoggerFactory.getLogger(LoginRequestMessage.class);
 
 	private static final long serialVersionUID = -2279299798905393963L;
@@ -60,13 +62,13 @@ public class LoginRequestMessage extends NetworkMessage {
 	/**
 	 * This method is called when logging on to the server.
 	 */
-	@NetworkHandler
-	public static void login(LoginRequestMessage login) {
+	@NetworkHandler(channel = "loginRequest")
+	public static MessageHolder login(LoginRequestMessage login) {
 		LOG.trace("Logging in...");
 		//TODO verify user and password with database and fetch user data
 		// for now just return generic user data
 		UserData user = new UserData(login.getUsername(), login.getPassword());
-		NetworkManager.sendMessage(new LoginResponseMessage(user));
+		return new MessageHolder("loginResponse", new LoginResponseMessage(user));
 	}
 
 	/**

@@ -21,8 +21,6 @@
 
 package edu.wright.cs.fa15.ceg3120.concon.common.net;
 
-import edu.wright.cs.fa15.ceg3120.concon.common.net.message.NetworkMessage;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -104,32 +102,35 @@ public class ConConServer implements Runnable {
 		@Override
 		public void run() {
 			try {
-				// Construct the reader and writer for the connection
-				DataOutputStream toClient = new DataOutputStream(clientSocket.getOutputStream());
-				BufferedReader fromClient = new BufferedReader(
-						new InputStreamReader(clientSocket.getInputStream(), "UTF-8"));
-
-				int ch;
-				StringBuilder message = new StringBuilder();
-				while ((ch = fromClient.read()) != -1) {
-					message.append((char) ch);
-				}//Reads message from client into integer buffer
-
-				while (message.toString().length() > 0) {
-					MessageHolder mh =
-							(MessageHolder)NetworkManager.decodeFromXml(message.toString());
-					MessageHolder response = NetworkManager.post(mh.channel, mh.message);
-					if (response != null) {
-						toClient.writeBytes(NetworkManager.encodeToXml(response));
-						ch = 0;
-						message = new StringBuilder();
-						while ((ch = fromClient.read()) != -1) {
-							message.append((char)ch);
-						}//Reads message from client into integer buffer
+				while (!clientSocket.isClosed()) {
+					// Construct the reader and writer for the connection
+					DataOutputStream toClient = 
+							new DataOutputStream(clientSocket.getOutputStream());
+					BufferedReader fromClient = new BufferedReader(
+							new InputStreamReader(clientSocket.getInputStream(), "UTF-8"));
+	
+					int ch;
+					StringBuilder message = new StringBuilder();
+					while ((ch = fromClient.read()) != -1) {
+						message.append((char) ch);
+					}//Reads message from client into integer buffer
+					while (message.toString().length() > 0) {
+						MessageHolder mh = 
+								(MessageHolder)NetworkManager.decodeFromXml(message.toString());
+						MessageHolder response = 
+								NetworkManager.post(mh.getChannel(), mh.getMessage());
+						if (response != null) {
+							toClient.writeBytes(NetworkManager.encodeToXml(response));
+							ch = 0;
+							message = new StringBuilder();
+							while ((ch = fromClient.read()) != -1) {
+								message.append((char)ch);
+							}//Reads message from client into integer buffer
+						}
 					}
+					toClient.close();
+					fromClient.close();
 				}
-
-				toClient.close();
 			} catch (IOException e) {
 				LOG.error("Connection Worker IO: ", e);
 			}

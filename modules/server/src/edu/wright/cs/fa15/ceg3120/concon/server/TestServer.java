@@ -42,9 +42,9 @@ public class TestServer {
 	 */
 	public static void main(String[] args) {
 		LOG.trace("Starting server...");
-		NetworkManager.registerNetworkClass(LoginRequestMessage.class);
-		NetworkManager.registerNetworkClass(LoginResponseMessage.class);
-		NetworkManager.registerNetworkClass(ChatMessage.class);
+		NetworkManager.registerNetworkHandlerClass(LoginRequestMessage.class);
+		NetworkManager.registerNetworkHandlerClass(LoginResponseMessage.class);
+		NetworkManager.registerNetworkHandlerClass(ChatMessage.class);
 		NetworkManager.startServer(9667);
 	}
 }

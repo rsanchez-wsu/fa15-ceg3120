@@ -21,20 +21,69 @@
 
 package edu.wright.cs.fa15.ceg3120.concon.common.net;
 
+import java.io.Serializable;
+
 /**
  * A basic tuple class for holding any object and a channel identifier.
  */
-public class MessageHolder {
-	public String channel;
-	public Object message;
+public class MessageHolder implements Serializable {
+
+	private static final long serialVersionUID = 7203906416485915160L;
+	private String channel;
+	private Serializable message;
+
+	/**
+	 * Defaault Constructor for Javabeans.
+	 */
+	public MessageHolder() { }
 
 	/**
 	 * Constructor.
 	 * @param channel the channel.
 	 * @param message the message.
 	 */
-	public MessageHolder(String channel, Object message) {
+	public MessageHolder(String channel, Serializable message) {
 		this.channel = channel;
 		this.message = message;
+	}
+
+	/**
+	 * Get channel.
+	 * @return the channel
+	 */
+	public String getChannel() {
+		return channel;
+	}
+
+	/**
+	 * Set channel.
+	 * @param channel the channel to set
+	 */
+	public void setChannel(String channel) {
+		this.channel = channel;
+	}
+
+	/**
+	 * Get message.
+	 * @return the message
+	 */
+	public Serializable getMessage() {
+		return message;
+	}
+
+	/**
+	 * Set message.
+	 * @param message the message to set
+	 */
+	public void setMessage(Serializable message) {
+		this.message = message;
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "MessageHolder [channel=" + channel + ", message=" + message + "]";
 	}
 }

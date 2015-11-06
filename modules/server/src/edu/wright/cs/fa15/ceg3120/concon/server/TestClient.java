@@ -22,6 +22,7 @@
 package edu.wright.cs.fa15.ceg3120.concon.server;
 
 import edu.wright.cs.fa15.ceg3120.concon.common.net.ConConClient;
+import edu.wright.cs.fa15.ceg3120.concon.common.net.MessageHolder;
 import edu.wright.cs.fa15.ceg3120.concon.common.net.NetworkManager;
 import edu.wright.cs.fa15.ceg3120.concon.common.net.message.ChatMessage;
 import edu.wright.cs.fa15.ceg3120.concon.common.net.message.LoginRequestMessage;
@@ -42,6 +43,7 @@ import javax.swing.SwingUtilities;
 public class TestClient {
 	private static final Logger LOG = LoggerFactory.getLogger(TestClient.class);
 	private static ConConClient client;
+	private static ChatPanel chatPanel;
 	
 	/**
 	 * Main entry point. TODO Expand.
@@ -51,9 +53,10 @@ public class TestClient {
 		LOG.trace("Starting client...");
 		NetworkManager.startClient("127.0.0.1", 9667);
 		client = NetworkManager.getClient();
-		NetworkManager.registerNetworkClass(LoginRequestMessage.class);
-		NetworkManager.registerNetworkClass(LoginResponseMessage.class);
-		NetworkManager.registerNetworkClass(ChatMessage.class);
+		chatPanel = new ChatPanel(client);
+		NetworkManager.registerNetworkHandlerClass(LoginRequestMessage.class);
+		NetworkManager.registerNetworkHandlerClass(LoginResponseMessage.class);
+		NetworkManager.registerNetworkHandlerClass(ChatMessage.class);
 		
 		SwingUtilities.invokeLater(new Runnable() {
 
@@ -62,14 +65,24 @@ public class TestClient {
 				JFrame clientFrame = new JFrame();
 				String name = JOptionPane.showInputDialog(clientFrame, "Enter username:");
 				String pass = JOptionPane.showInputDialog(clientFrame, "Enter password:");
-				NetworkManager.sendMessage(new LoginRequestMessage(name, pass));
+				MessageHolder message 
+						= new MessageHolder("login", new LoginRequestMessage(name, pass));
+				NetworkManager.sendMessage(message.getChannel(), message);
 				
 				clientFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-				clientFrame.getContentPane().add(new ChatPanel(client));
+				clientFrame.getContentPane().add(chatPanel);
 				clientFrame.setSize(400, 400);
 				clientFrame.setVisible(true);
 			}
 			
 		});
+	}
+
+	/**
+	 * Get chatPanel.
+	 * @return the chatPanel
+	 */
+	public static ChatPanel getChatPanel() {
+		return chatPanel;
 	}
 }
