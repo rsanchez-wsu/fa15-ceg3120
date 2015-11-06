@@ -14,20 +14,23 @@
 package edu.wright.cs.fa15.ceg3120.concon.paysched;
 
 import java.awt.Color;
-//import java.awt.Component;
-//import java.awt.Font;
+
+
+import java.awt.Component;
+import java.awt.Font;
 import java.text.DecimalFormat;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-//import javax.swing.JComponent;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
-//import javax.swing.event.ChangeEvent;
-//import javax.swing.event.ChangeListener;
+
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 //import javax.swing.SwingUtilities;
 
@@ -320,7 +323,7 @@ public class TabbedFrame extends JFrame{
 
         //Add Payment tab to GUI
         schedulingTabPanel.setBackground(Color.orange);
-        jtabbedPane.addTab("Scheduling", schedulingTabPanel);
+        jtabbedPane.addTab("Scheduling *", schedulingTabPanel);
 
         
         
@@ -426,19 +429,35 @@ public class TabbedFrame extends JFrame{
         );
 
         overviewTabPanel.setBackground(Color.orange);
-        jtabbedPane.addTab("Overview", overviewTabPanel);
+        jtabbedPane.addTab("Overview *", overviewTabPanel);
         
         
-       /* jtabbedPane.addChangeListener(new ChangeListener(){
+        jtabbedPane.addChangeListener(new ChangeListener(){
 
         	 @Override
         	 public void stateChanged(ChangeEvent e) {
-        	     Component selectedComp = jtabbedPane.getTabComponentAt(jtabbedPane.getSelectedIndex());
+        	    // Component selectedComp = jtabbedPane.getTabComponentAt(jtabbedPane.getSelectedIndex());
         	     // Set selected component to BOLD
-        	     selectedComp.setFont(selectedComp.getFont().deriveFont(Font.BOLD));
-        	     }
+        	     //selectedComp.setFont(selectedComp.getFont().deriveFont(Font.BOLD));
+        		 
+        		JTabbedPane sourceTabbedPane = (JTabbedPane) e.getSource();
+        	        int index = sourceTabbedPane.getSelectedIndex();
+        	        //System.out.println("Tab changed to: " + sourceTabbedPane.getTitleAt(index));
+        	        if (sourceTabbedPane.getTitleAt(index).equals("Scheduling *")) {
+        	        sourceTabbedPane.setTitleAt(index, "Scheduling");
+        	        }
+        	        if (sourceTabbedPane.getTitleAt(index).equals("Overview *")) {
+        	        	
+        	        sourceTabbedPane.setTitleAt(index, "Overview");     
+        	        	
+        	        }
+        	        
+        	}
+
+			
         	});
-        */
+        	
+        
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
