@@ -13,15 +13,22 @@
 
 package edu.wright.cs.fa15.ceg3120.concon.paysched;
 
+import java.awt.Color;
+//import java.awt.Component;
+//import java.awt.Font;
 import java.text.DecimalFormat;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+//import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
+//import javax.swing.event.ChangeEvent;
+//import javax.swing.event.ChangeListener;
+
 //import javax.swing.SwingUtilities;
 
 /**Class for tabbed window.
@@ -115,7 +122,7 @@ public class TabbedFrame extends JFrame{
         amountInWallet = new JTextField();
         amountRemaining = new JTextField();
         
-        
+        jtabbedPane.setBackground(Color.orange);   
 //////////////////////////////////////////////////////////
 //Payment Tab. Set label text, text field values and 
 //text for JButtons.
@@ -225,8 +232,7 @@ public class TabbedFrame extends JFrame{
                 .addGap(41, 41, 41))
         );
 
-        
-           
+        paymentTabPanel.setBackground(Color.orange);
        
         jtabbedPane.addTab("Payment", paymentTabPanel);
         
@@ -255,6 +261,7 @@ public class TabbedFrame extends JFrame{
         schedulingTabHeader.setText("Select The Month, Day, and Perferred time frame");
 
         submitButton.setText("Submit");
+      
         submitButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 submitButtonListener(evt);
@@ -312,6 +319,7 @@ public class TabbedFrame extends JFrame{
         );
 
         //Add Payment tab to GUI
+        schedulingTabPanel.setBackground(Color.orange);
         jtabbedPane.addTab("Scheduling", schedulingTabPanel);
 
         
@@ -417,8 +425,20 @@ public class TabbedFrame extends JFrame{
                 .addGap(41, 41, 41))
         );
 
+        overviewTabPanel.setBackground(Color.orange);
         jtabbedPane.addTab("Overview", overviewTabPanel);
+        
+        
+       /* jtabbedPane.addChangeListener(new ChangeListener(){
 
+        	 @Override
+        	 public void stateChanged(ChangeEvent e) {
+        	     Component selectedComp = jtabbedPane.getTabComponentAt(jtabbedPane.getSelectedIndex());
+        	     // Set selected component to BOLD
+        	     selectedComp.setFont(selectedComp.getFont().deriveFont(Font.BOLD));
+        	     }
+        	});
+        */
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -440,34 +460,7 @@ public class TabbedFrame extends JFrame{
      * @param args arguments
      */
     public static void main(String[] args) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : 
-            		javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TabbedFrame.class.getName())
-            	.log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TabbedFrame.class.getName())
-            	.log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TabbedFrame.class.getName())
-            	.log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TabbedFrame.class.getName())
-            	.log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        
+    	
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -496,7 +489,7 @@ public class TabbedFrame extends JFrame{
     private void addMoneyButtonListener(java.awt.event.MouseEvent evt) { 
 		AddMoneyFrame addMoney = new AddMoneyFrame();
 		addMoney.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-		addMoney.setSize(425, 300);
+		addMoney.setSize(400, 300);
 		addMoney.setVisible(true);
 			
 	
