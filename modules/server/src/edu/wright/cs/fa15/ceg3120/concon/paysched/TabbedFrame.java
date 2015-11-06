@@ -16,13 +16,13 @@ package edu.wright.cs.fa15.ceg3120.concon.paysched;
 import java.awt.Color;
 
 
-import java.awt.Component;
-import java.awt.Font;
+//import java.awt.Component;
+//import java.awt.Font;
 import java.text.DecimalFormat;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JComponent;
+//import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -431,31 +431,17 @@ public class TabbedFrame extends JFrame{
         overviewTabPanel.setBackground(Color.orange);
         jtabbedPane.addTab("Overview *", overviewTabPanel);
         
+        ChangeListener changeListener = new ChangeListener(){
+        	
+        	public void stateChanged(ChangeEvent e) {
+        		
+        		tabbedChangedListener(e);
+        		
+        		
+        }
+        };
         
-        jtabbedPane.addChangeListener(new ChangeListener(){
-
-        	 @Override
-        	 public void stateChanged(ChangeEvent e) {
-        	    // Component selectedComp = jtabbedPane.getTabComponentAt(jtabbedPane.getSelectedIndex());
-        	     // Set selected component to BOLD
-        	     //selectedComp.setFont(selectedComp.getFont().deriveFont(Font.BOLD));
-        		 
-        		JTabbedPane sourceTabbedPane = (JTabbedPane) e.getSource();
-        	        int index = sourceTabbedPane.getSelectedIndex();
-        	        //System.out.println("Tab changed to: " + sourceTabbedPane.getTitleAt(index));
-        	        if (sourceTabbedPane.getTitleAt(index).equals("Scheduling *")) {
-        	        sourceTabbedPane.setTitleAt(index, "Scheduling");
-        	        }
-        	        if (sourceTabbedPane.getTitleAt(index).equals("Overview *")) {
-        	        	
-        	        sourceTabbedPane.setTitleAt(index, "Overview");     
-        	        	
-        	        }
-        	        
-        	}
-
-			
-        	});
+        jtabbedPane.addChangeListener(changeListener);
         	
         
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -538,5 +524,23 @@ public class TabbedFrame extends JFrame{
     private void choseCOntractorLabelListener(java.awt.event.ActionEvent evt) {
     	
     }//GEN-LAST:event_choseCOntractorLabelListener
+    
+    public void tabbedChangedListener(ChangeEvent e){
+    	JTabbedPane sourceTabbedPane = (JTabbedPane) e.getSource();
+        int index = sourceTabbedPane.getSelectedIndex();
+        //System.out.println("Tab changed to: " + sourceTabbedPane.getTitleAt(index));
+        if (sourceTabbedPane.getTitleAt(index).equals("Scheduling *")) {
+        sourceTabbedPane.setTitleAt(index, "Scheduling");
+        }
+        if (sourceTabbedPane.getTitleAt(index).equals("Overview *")) {
+        	
+        sourceTabbedPane.setTitleAt(index, "Overview");     
+        	
+        }
+        
+}
+    	
+    
 
 }
+
