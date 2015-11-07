@@ -32,16 +32,29 @@ public class RequestObject {
 	private Object data;
 	private RequestType requestType;
 	
-	public RequestObject( Object inputData, RequestType reqType ){
+	/**
+	 * Construct a RequestObject.
+	 * @param inputData Data being requested.
+	 * @param reqType Type of request.
+	 */
+	public RequestObject( Object inputData, RequestType reqType ) {
 		this.data = inputData;
 		this.requestType = reqType;
 	}
 	
-	public Object getData(){
+	/**
+	 * Get the data being requested.
+	 * @return data Object.
+	 */
+	public Object getData() {
 		return this.data;
 	}
 	
-	public RequestType getRequestType(){
+	/**
+	 * Get the type of request.
+	 * @return RequestType.
+	 */
+	public RequestType getRequestType() {
 		return this.requestType;
 	}
 }
