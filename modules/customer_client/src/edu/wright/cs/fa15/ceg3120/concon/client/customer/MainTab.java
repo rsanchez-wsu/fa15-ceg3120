@@ -58,10 +58,10 @@ public class MainTab extends JLayeredPane {
 		panel.add(layeredPane, BorderLayout.CENTER);
 		layeredPane.setLayout(new BorderLayout(0, 0));
 		
-		JLayeredPane layeredPane_1 = new JLayeredPane();
-		add(layeredPane_1, BorderLayout.NORTH);
-		layeredPane_1.setBackground(Color.WHITE);
-		layeredPane_1.setLayout(new BorderLayout(0, 0));
+		JLayeredPane layeredPane1 = new JLayeredPane();
+		add(layeredPane1, BorderLayout.NORTH);
+		layeredPane1.setBackground(Color.WHITE);
+		layeredPane1.setLayout(new BorderLayout(0, 0));
 		
 		JTextPane txtpnNews = new JTextPane();
 		txtpnNews.setForeground(Color.BLUE);
@@ -69,10 +69,10 @@ public class MainTab extends JLayeredPane {
 		txtpnNews.setFont(new Font("Tahoma", Font.BOLD, 24));
 		txtpnNews.setText("News\r\n");
 		txtpnNews.setBackground(Color.ORANGE);
-		layeredPane_1.add(txtpnNews, BorderLayout.CENTER);
+		layeredPane1.add(txtpnNews, BorderLayout.CENTER);
 		
 		JSeparator separator = new JSeparator();
-		layeredPane_1.add(separator, BorderLayout.SOUTH);
+		layeredPane1.add(separator, BorderLayout.SOUTH);
 		separator.setBackground(Color.BLUE);
 		separator.setToolTipText("");
 		
