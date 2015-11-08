@@ -130,13 +130,16 @@ public class TabbedFrame extends JFrame{
 //Payment Tab. Set label text, text field values and 
 //text for JButtons.
 //////////////////////////////////////////////////////////
-        DecimalFormat df = new DecimalFormat("##.00");
+        // decimal format for 2 decimal places for currency
+        DecimalFormat currency = new DecimalFormat("##.00");
+        //double values for owed and amount in wallet
         Double owed = 9.75;
         Double wallet = 15.25;
         Double remaining = wallet - owed;
-        amountOwed.setText("$" + df.format(owed));
-        amountInWallet.setText("$" + df.format(wallet));
-        amountRemaining.setText("$" + df.format(remaining));
+        
+        amountOwed.setText("$" + currency.format(owed));
+        amountInWallet.setText("$" + currency.format(wallet));
+        amountRemaining.setText("$" + currency.format(remaining));
         amountOwedLabel.setText("Amount Owed:");
         amountInWalletLabel.setText("Amount in Wallet:");
         amountRemainingLabel.setText("Amount Remaining");
