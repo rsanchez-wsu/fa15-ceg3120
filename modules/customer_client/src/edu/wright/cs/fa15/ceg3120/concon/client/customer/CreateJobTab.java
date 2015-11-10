@@ -139,7 +139,7 @@ public class CreateJobTab extends JPanel {
 	 *
 	 */
 	private static class MyListener implements ActionListener {
-
+//remove
 		@Override
 		public void actionPerformed(ActionEvent ex) {
 			// TODO Auto-generated method stub
