@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <project xmlns:ivy="antlib:org.apache.ivy.ant">
     <basename property="jarname"  file="${basedir}"/>
     <property name="src.dir"      value="src"/>
@@ -187,3 +188,192 @@
 	
     <!-- more targets -->
 </project>
+=======
+<project xmlns:ivy="antlib:org.apache.ivy.ant">
+    <basename property="jarname"  file="${basedir}"/>
+    <property name="src.dir"      value="src"/>
+    <property name="common.dir"   value="../../common/src"/>
+    <property name="build.dir"    value="build"/>
+    <property name="lib.dir"      value="lib"/>
+    <property name="tools.dir"    value="tools"/>
+    <property name="classes.dir"  value="${build.dir}/classes"/>
+	<property name="db.url"		  value="jdbc:derby:C:\Users\NathanJent\conconDB"/>
+
+    <path id="build.lib.path">
+        <fileset dir="${lib.dir}" includes="*.jar"/>
+    </path>
+    <path id="tools.lib.path">
+        <fileset dir="${tools.dir}" includes="*.jar"/>
+    </path>
+
+    <!-- Ivy Start -->
+
+    <property name="ivy.master"   value="../../ivy.xml"/>
+    <property name="ivy.install.version" value="2.4.0" />
+    <condition property="ivy.home" value="${env.IVY_HOME}">
+      <isset property="env.IVY_HOME" />
+    </condition>
+    <property name="ivy.home" value="${user.home}/.ant" />
+    <property name="ivy.jar.dir" value="${ivy.home}/lib" />
+    <property name="ivy.jar.file" value="${ivy.jar.dir}/ivy.jar" />
+
+    <target name="download-ivy" unless="ivy.exists">
+        <mkdir dir="${ivy.jar.dir}"/>
+        <get src="https://repo1.maven.org/maven2/org/apache/ivy/ivy/${ivy.install.version}/ivy-${ivy.install.version}.jar"
+             dest="${ivy.jar.file}" usetimestamp="true"/>
+    </target>
+
+    <target name="check-ivy">
+        <condition property="ivy.exists">
+            <available file="${ivy.jar.file}"/>
+        </condition>
+    </target>
+
+    <target name="init-ivy" depends="check-ivy, download-ivy">
+        <path id="ivy.lib.path">
+            <fileset dir="${ivy.jar.dir}" includes="*.jar"/>
+        </path>
+        <taskdef resource="org/apache/ivy/ant/antlib.xml" uri="antlib:org.apache.ivy.ant" classpathref="ivy.lib.path"/>
+    </target>
+
+    <target name="clean-ivy">
+        <delete file="ivy.xml"/>
+    </target>
+
+    <target name="copy-ivy" depends="clean-ivy">
+        <copy file="${ivy.master}" tofile="ivy.xml"/>
+    </target>
+
+    <target name="resolve" depends="init-ivy, copy-ivy">
+        <ivy:configure/>
+        <ivy:resolve/>
+        <ivy:retrieve pattern="[conf]/[artifact]-[revision].[ext]" type="jar,bundle"/>
+    </target>
+
+    <!-- Ivy End -->
+
+    <!-- JUnit Start -->
+
+    <target name="init-junit" depends="check-junit, install-junit"/>
+
+    <target name="check-junit">
+        <condition property="junit.installed">
+            <and>
+                <available file="${user.home}/.ant/lib/ant-junit.jar"/>
+                <available file="${user.home}/.ant/lib/junit.jar"/>
+            </and>
+        </condition>
+    </target>
+
+    <target name="install-junit" unless="junit.installed">
+        <mkdir dir="${user.home}/.ant/lib"/>
+        <get src="https://repo1.maven.org/maven2/org/apache/ant/ant-junit/1.9.4/ant-junit-1.9.4.jar" dest="${user.home}/.ant/lib/ant-junit.jar"/>
+        <get src="https://repo1.maven.org/maven2/junit/junit/4.11/junit-4.11.jar" dest="${user.home}/.ant/lib/junit.jar"/>
+    </target>
+
+    <!-- JUnit End -->
+
+    <target name="init" depends="resolve, init-junit, log4jconfig">
+        <taskdef name="checkstyle"
+            classname="com.puppycrawl.tools.checkstyle.ant.CheckstyleAntTask"
+            classpathref="tools.lib.path"/>
+        <taskdef name="findbugs"
+            classname="edu.umd.cs.findbugs.anttask.FindBugsTask"
+            classpathref="tools.lib.path"/>
+    </target>
+
+    <target name="compile" depends="init">
+        <mkdir dir="${classes.dir}"/>
+        <javac srcdir="${common.dir}" destdir="${classes.dir}" includeantruntime="false" classpathref="build.lib.path">
+            <compilerarg value="-Xlint:all"/>
+            <compilerarg value="-Xlint:-path"/>
+            <compilerarg value="-Werror"/>
+        </javac>
+        <javac srcdir="${src.dir}" destdir="${classes.dir}" includeantruntime="false" classpathref="build.lib.path">
+            <compilerarg value="-Xlint:all"/>
+            <compilerarg value="-Xlint:-path"/>
+            <compilerarg value="-Werror"/>
+        </javac>
+    </target>
+
+    <target name="build" depends="compile">
+        <jar jarfile="${build.dir}/${jarname}.jar" basedir="${classes.dir}"/>
+    </target>
+
+    <target name="clean" depends="clean-log4jconfig">
+        <delete dir="${build.dir}"/>
+        <delete dir="${lib.dir}"/>
+        <delete dir="${tools.dir}"/>
+        <delete file="ivy.xml"/>
+    </target>
+
+    <target name="test" depends="build, checkstyle, findbugs"/>
+
+    <target name="checkstyle" depends="init"
+            description="Runs CheckStyle over the code; fails if violations are found">
+        <mkdir dir="${build.dir}/checkstyle"/>
+
+        <checkstyle config="${basedir}/../../.checkstyle.xml">
+            <fileset dir="${src.dir}" includes="**/*.java"/>
+            <fileset dir="${common.dir}" includes="**/*.java"/>
+            <formatter type="plain"/>
+            <formatter type="xml" toFile="${build.dir}/checkstyle/${ant.project.name}.xml"/>
+        </checkstyle>
+
+        <fileset id="cs-violationss" dir="${build.dir}/checkstyle">
+            <patternset>
+                <include name="*.xml"/>
+            </patternset>
+            <contains text="&lt;error"/>
+        </fileset>
+
+        <fail message="CheckStyle violation found!">
+            <condition>
+                <resourcecount when="greater" count="0" refid="cs-violationss"/>
+            </condition>
+        </fail>
+    </target>
+
+    <target name="findbugs" depends="build"
+            description="Runs FindBugs over the code; fails if bugs are found">
+        <mkdir dir="${build.dir}/findbugs"/>
+
+        <pathconvert property="tools.lib.prop" refid="tools.lib.path"/>
+
+        <findbugs classpath="${tools.lib.prop}"
+            reportLevel="low"
+            effort="max"
+            failOnError="true"
+            warningsProperty="findbugs-warning"
+            output="html"
+            outputFile="${build.dir}/findbugs/${ant.project.name}.html">
+            <sourcePath>
+                <fileSet dir="${src.dir}">
+                    <include name="**/*.java"/>
+                </fileSet>
+                <fileSet dir="${common.dir}">
+                    <include name="**/*.java"/>
+                </fileSet>
+            </sourcePath>
+            <auxClasspath>
+                <fileSet dir="${lib.dir}">
+                    <include name="**/*.jar"/>
+                </fileSet>
+            </auxClasspath>
+            <class location="${classes.dir}"/>
+        </findbugs>
+
+        <fail if="findbugs-warning" message="FindBugs has found bugs!"/>
+    </target>
+
+	<!-- Copy log4j2.xml to each module -->
+	<target name="log4jconfig">
+		<copy file="${common.dir}/log4j2.xml" todir="${src.dir}"/>
+	</target>
+	<target name="clean-log4jconfig">
+		<delete file="${src.dir}/log4j2.xml"/>
+	</target>
+	
+    <!-- more targets -->
+</project>
+>>>>>>> master

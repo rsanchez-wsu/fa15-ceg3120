@@ -1,0 +1,1 @@
+java -cp .\modules\contractor_client\build\contractor_client.jar;.\modules\customer_client\build\customer_client.jar;.\modules\server\build\server.jar;.\wrapper\wrapper.jar edu.wright.cs.fa15.ceg3120.concon.common.LoginPopUp

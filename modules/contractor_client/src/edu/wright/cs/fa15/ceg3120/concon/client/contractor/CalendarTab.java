@@ -19,6 +19,7 @@
  *
  */
 
+<<<<<<< HEAD:common/src/edu/wright/cs/fa15/ceg3120/concon/common/net/data/NetworkData.java
 package edu.wright.cs.fa15.ceg3120.concon.common.net.data;
 
 import java.io.Serializable;
@@ -32,4 +33,26 @@ import java.io.Serializable;
  */
 public interface NetworkData extends Serializable {
 	
+=======
+package edu.wright.cs.fa15.ceg3120.concon.client.contractor;
+
+import javax.swing.JLayeredPane;
+import javax.swing.JPanel;
+
+/**
+ * Calendar Tab.
+ *
+ */
+public class CalendarTab extends JLayeredPane {
+	private static final long serialVersionUID = 1L;
+	
+	/**
+	 * Buil the tab.
+	 */
+	public CalendarTab() {
+		JPanel calendar = new JPanel();
+		add(calendar);
+		calendar.setLayout(null);
+	}
+>>>>>>> master:modules/contractor_client/src/edu/wright/cs/fa15/ceg3120/concon/client/contractor/CalendarTab.java
 }

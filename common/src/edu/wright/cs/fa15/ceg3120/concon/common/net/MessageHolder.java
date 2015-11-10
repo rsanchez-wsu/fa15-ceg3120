@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+<<<<<<< HEAD:common/src/edu/wright/cs/fa15/ceg3120/concon/common/net/message/NetworkMessage.java
 /*
  * Copyright (C) 2015
  * 
@@ -20,15 +20,16 @@
  *
  */
 
-package edu.wright.cs.fa15.ceg3120.concon.common.data;
+package edu.wright.cs.fa15.ceg3120.concon.common.net.message;
 
-public class ContractorReview extends Review {
+import java.io.Serializable;
 
-	public ContractorReview(int id, int reviewerId, int subjectId, int jobId, String date,
-			String text, int rating) {
-		super(id, reviewerId, subjectId, jobId, date, text, rating);
-	}
+public abstract class NetworkMessage implements Serializable {
+	
+	private static final long serialVersionUID = -8618792710721202266L;
 
+	public NetworkMessage() {}
+	
 }
 =======
 /*
@@ -52,29 +53,27 @@ public class ContractorReview extends Review {
  *
  */
 
-package edu.wright.cs.fa15.ceg3120.concon.common.data;
+package edu.wright.cs.fa15.ceg3120.concon.common.net;
+
+import java.io.Serializable;
 
 /**
- * A reviewe posting of a contractor.
- *
- * @author Jonathan Thomas
- *
+ * A basic tuple class for holding any object and a channel identifier.
  */
-public class ContractorReview extends Review {
+public class MessageHolder implements Serializable {
+	private static final long serialVersionUID = 31628748572L;
+
+	public String channel;
+	public Serializable message;
 
 	/**
-	 * Construct a contractor review with the given data.
-	 * @param id uid of the review.
-	 * @param reviewerId uuid of the homeowner doing the reivew.
-	 * @param subjectId uuid of the contractor being reviewed.
-	 * @param jobId uid of the job the contractor performed.
-	 * @param date String representation of the date.
-	 * @param text String with the body text of the review.
-	 * @param rating overall rating of the contractor.
+	 * Constructor.
+	 * @param channel the channel.
+	 * @param message the message.
 	 */
-	public ContractorReview(int id, int reviewerId, int subjectId, int jobId, String date,
-			String text, int rating) {
-		super(id, reviewerId, subjectId, jobId, date, text, rating);
+	public MessageHolder(String channel, Serializable message) {
+		this.channel = channel;
+		this.message = message;
 	}
 }
->>>>>>> master
+>>>>>>> master:common/src/edu/wright/cs/fa15/ceg3120/concon/common/net/MessageHolder.java

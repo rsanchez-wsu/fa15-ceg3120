@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+<<<<<<< HEAD:modules/server/src/edu/wright/cs/fa15/ceg3120/concon/server/Server.java
 /*
  * Copyright (C) 2015
  * 
@@ -20,22 +20,32 @@
  *
  */
 
-package edu.wright.cs.fa15.ceg3120.concon.common.data;
+package edu.wright.cs.fa15.ceg3120.concon.server;
 
-public class ContractorReview extends Review {
+import edu.wright.cs.fa15.ceg3120.concon.common.net.NetworkManager;
 
-	public ContractorReview(int id, int reviewerId, int subjectId, int jobId, String date,
-			String text, int rating) {
-		super(id, reviewerId, subjectId, jobId, date, text, rating);
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+public class Server {
+	private static final Logger LOG = LoggerFactory.getLogger(Server.class);
+	
+	/**
+	 * Main entry point. TODO Expand.
+	 * @param args Arguments.
+	 */
+	public static void main(String[] args) {
+		NetworkManager.startServer(9667);
+		System.out.println("Server running.");
+		LOG.trace("Starting server...");
 	}
-
 }
 =======
 /*
  * Copyright (C) 2015
- *
- *
- *
+ * 
+ * 
+ * 
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -52,29 +62,27 @@ public class ContractorReview extends Review {
  *
  */
 
-package edu.wright.cs.fa15.ceg3120.concon.common.data;
+package edu.wright.cs.fa15.ceg3120.concon.server;
+
+import edu.wright.cs.fa15.ceg3120.concon.common.net.NetworkManager;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
- * A reviewe posting of a contractor.
- *
- * @author Jonathan Thomas
+ * Test server for testing network stuff.
  *
  */
-public class ContractorReview extends Review {
-
+public class TestServer {
+	private static final Logger LOG = LoggerFactory.getLogger(TestServer.class);
+	
 	/**
-	 * Construct a contractor review with the given data.
-	 * @param id uid of the review.
-	 * @param reviewerId uuid of the homeowner doing the reivew.
-	 * @param subjectId uuid of the contractor being reviewed.
-	 * @param jobId uid of the job the contractor performed.
-	 * @param date String representation of the date.
-	 * @param text String with the body text of the review.
-	 * @param rating overall rating of the contractor.
+	 * Load the server with very simple initialization.
+	 * @param args Arguments.
 	 */
-	public ContractorReview(int id, int reviewerId, int subjectId, int jobId, String date,
-			String text, int rating) {
-		super(id, reviewerId, subjectId, jobId, date, text, rating);
+	public static void main(String[] args) {
+		LOG.trace("Starting server...");
+		NetworkManager.startServer(9667);
 	}
 }
->>>>>>> master
+>>>>>>> master:modules/server/src/edu/wright/cs/fa15/ceg3120/concon/server/TestServer.java
