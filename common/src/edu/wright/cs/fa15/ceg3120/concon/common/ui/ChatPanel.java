@@ -25,7 +25,7 @@ import edu.wright.cs.fa15.ceg3120.concon.common.net.ConConClient;
 import edu.wright.cs.fa15.ceg3120.concon.common.net.MessageHolder;
 import edu.wright.cs.fa15.ceg3120.concon.common.net.NetworkManager;
 import edu.wright.cs.fa15.ceg3120.concon.common.net.data.UserData;
-import edu.wright.cs.fa15.ceg3120.concon.common.net.message.ChatMessage;
+import edu.wright.cs.fa15.ceg3120.concon.common.net.message.ChatData;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -50,14 +50,16 @@ public class ChatPanel extends JPanel {
 	private static final long serialVersionUID = 9195112434638392386L;
 	private static JTextArea textArea;
 	private ConConClient client;
+	private UserData recipient;
 
 	/**
 	 * Create the panel.
 	 */
-	public ChatPanel(ConConClient client) {
+	public ChatPanel(ConConClient client, UserData recipient) {
 		this.client = client;
+		this.recipient = recipient;
 		final GridBagLayout gridBagLayout = new GridBagLayout();
-		gridBagLayout.columnWidths = new int[]{292, 140, 0};
+		gridBagLayout.columnWidths = new int[]{306, 77, 0};
 		gridBagLayout.rowHeights = new int[]{135, 37, 0};
 		gridBagLayout.columnWeights = new double[]{1.0, 1.0, Double.MIN_VALUE};
 		gridBagLayout.rowWeights = new double[]{1.0, 0.0, Double.MIN_VALUE};
@@ -65,6 +67,7 @@ public class ChatPanel extends JPanel {
 		
 		final JScrollPane scrollPane = new JScrollPane();
 		GridBagConstraints gbcScrollPane = new GridBagConstraints();
+		gbcScrollPane.gridwidth = 2;
 		gbcScrollPane.insets = new Insets(0, 0, 5, 5);
 		gbcScrollPane.fill = GridBagConstraints.BOTH;
 		gbcScrollPane.gridx = 0;
@@ -74,18 +77,6 @@ public class ChatPanel extends JPanel {
 		textArea = new JTextArea();
 		textArea.setEditable(false);
 		scrollPane.setViewportView(textArea);
-		
-		final JScrollPane userListScrollPane = new JScrollPane();
-		GridBagConstraints gbcUserListScrollPane = new GridBagConstraints();
-		gbcUserListScrollPane.insets = new Insets(0, 0, 5, 0);
-		gbcUserListScrollPane.fill = GridBagConstraints.BOTH;
-		gbcUserListScrollPane.gridx = 1;
-		gbcUserListScrollPane.gridy = 0;
-		add(userListScrollPane, gbcUserListScrollPane);
-		
-		final JList<UserData> userList = new JList<>();
-		userList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		userListScrollPane.setViewportView(userList);
 		
 		final JFormattedTextField formattedTextField = new JFormattedTextField();
 		GridBagConstraints gbcFormattedTextField = new GridBagConstraints();
@@ -107,8 +98,7 @@ public class ChatPanel extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent ev) {
 				sendMessage(
-						formattedTextField.getText(),
-						userList.getSelectedValue()
+						formattedTextField.getText()
 				);
 				formattedTextField.setText("");
 			}
@@ -121,9 +111,11 @@ public class ChatPanel extends JPanel {
 	 * Sends a message over the network.
 	 * @param text the message text
 	 */
-	private void sendMessage(String text, UserData to) {
-		MessageHolder message = new ChatMessage(text, client.getCurrentUser(), to);
-		NetworkManager.sendMessage(message.getChannel(), message);
+	private void sendMessage(String text) {
+		NetworkManager.sendMessage(
+				"chat", 
+				new ChatData(text, client.getCurrentUser().getAccountName(),
+						recipient.getAccountName()));
 	}
 	
 	/**
@@ -132,5 +124,29 @@ public class ChatPanel extends JPanel {
 	 */
 	public void appendToChatLog(String str) {
 		textArea.append(str);
+	}
+
+	/**
+	 * Get recipient.
+	 * @return the recipient
+	 */
+	public UserData getRecipient() {
+		return recipient;
+	}
+
+	/**
+	 * Set recipient.
+	 * @param recipient the recipient to set
+	 */
+	public void setRecipient(UserData recipient) {
+		this.recipient = recipient;
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "ChatPanel [recipient=" + recipient + "]";
 	}
 }

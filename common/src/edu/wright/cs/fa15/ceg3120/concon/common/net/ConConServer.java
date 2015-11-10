@@ -102,35 +102,32 @@ public class ConConServer implements Runnable {
 		@Override
 		public void run() {
 			try {
-				while (!clientSocket.isClosed()) {
-					// Construct the reader and writer for the connection
-					DataOutputStream toClient = 
-							new DataOutputStream(clientSocket.getOutputStream());
-					BufferedReader fromClient = new BufferedReader(
-							new InputStreamReader(clientSocket.getInputStream(), "UTF-8"));
-	
-					int ch;
-					StringBuilder message = new StringBuilder();
-					while ((ch = fromClient.read()) != -1) {
-						message.append((char) ch);
-					}//Reads message from client into integer buffer
-					while (message.toString().length() > 0) {
-						MessageHolder mh = 
-								(MessageHolder)NetworkManager.decodeFromXml(message.toString());
-						MessageHolder response = 
-								NetworkManager.post(mh.getChannel(), mh.getMessage());
-						if (response != null) {
-							toClient.writeBytes(NetworkManager.encodeToXml(response));
-							ch = 0;
-							message = new StringBuilder();
-							while ((ch = fromClient.read()) != -1) {
-								message.append((char)ch);
-							}//Reads message from client into integer buffer
+				// Construct the reader and writer for the connection
+				DataOutputStream toClient = 
+						new DataOutputStream(clientSocket.getOutputStream());
+				BufferedReader fromClient = new BufferedReader(
+						new InputStreamReader(clientSocket.getInputStream(), "UTF-8"));
+				StringBuilder message = new StringBuilder();					
+				String line;
+				while (clientSocket.isConnected()) {
+					while ((line = fromClient.readLine()) != null) {
+						message.append(line);
+						if (line.compareTo("</java>") == 0) {
+							break;
 						}
 					}
-					toClient.close();
-					fromClient.close();
-				}
+					
+					MessageHolder mh = 
+							(MessageHolder)NetworkManager.decodeFromXml(message.toString());
+					MessageHolder response = 
+							NetworkManager.post(mh.getChannel(), mh.getMessage());
+					if (response != null) {
+						String responseXml = NetworkManager.encodeToXml(response);
+						toClient.writeBytes(responseXml);
+					}
+				} 
+				toClient.close();
+				fromClient.close();
 			} catch (IOException e) {
 				LOG.error("Connection Worker IO: ", e);
 			}

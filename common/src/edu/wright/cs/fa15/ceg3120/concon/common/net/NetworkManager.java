@@ -32,6 +32,7 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Method;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -91,11 +92,7 @@ public class NetworkManager {
 			if (listener.getKey().equals(targetChannel)) {
 				LOG.debug("Recieved message: " + message);
 				try {
-					Serializable response 
-							= (Serializable) listener.getValue().invoke(null, message);
-					if (response instanceof MessageHolder) {
-						return (MessageHolder)response;
-					}
+					return (MessageHolder) listener.getValue().invoke(null, message);
 				} catch (ReflectiveOperationException e) {
 					LOG.error("Error while posting to " + targetChannel, e);
 				}
@@ -177,7 +174,9 @@ public class NetworkManager {
 		if (xml == null || xml.equals("")) {
 			return null;
 		}
-		XMLDecoder xmlWizard = new XMLDecoder(new ByteArrayInputStream(xml.getBytes("UTF-8")));
+		XMLDecoder xmlWizard = new XMLDecoder(
+				new ByteArrayInputStream(xml.getBytes(StandardCharsets.UTF_8))
+			);
 		Serializable result = (Serializable) xmlWizard.readObject();
 		xmlWizard.close();
 		return result;
@@ -195,10 +194,10 @@ public class NetworkManager {
 			return null;
 		}
 		ByteArrayOutputStream out = new ByteArrayOutputStream();
-		XMLEncoder xmlWizard = new XMLEncoder(out, "UTF-8", true, 0);
+		XMLEncoder xmlWizard = new XMLEncoder(out, StandardCharsets.UTF_8.name(), true, 0);
 		xmlWizard.writeObject(message);
 		xmlWizard.close();
-		return out.toString("UTF-8");
+		return out.toString(StandardCharsets.UTF_8.name());
 	}
 
 	/**

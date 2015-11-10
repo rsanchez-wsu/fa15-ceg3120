@@ -81,24 +81,28 @@ public class ConConClient {
 		public void run() {
 			try {
 				Socket clientSocket = new Socket(host, port);
-
+				DataOutputStream toServer =
+						new DataOutputStream(clientSocket.getOutputStream());
+				BufferedReader fromServer =	new BufferedReader(
+						new InputStreamReader(
+								clientSocket.getInputStream(), 
+								StandardCharsets.UTF_8));
+				
 				while (message != null) {
-					DataOutputStream toServer =
-							new DataOutputStream(clientSocket.getOutputStream());
-					BufferedReader fromServer =
-							new BufferedReader(
-									new InputStreamReader(
-											clientSocket.getInputStream(),
-											StandardCharsets.UTF_8
-											)
-									);
+					// Send message
 					toServer.writeBytes(message);
-					toServer.close(); // ends the message
+					
+					// Receive reply
 					StringBuilder response = new StringBuilder();
-					int ch = 0;
-					while ((ch = fromServer.read()) != -1) {
-						response.append((char)ch);
+					String line;
+					while ((line = fromServer.readLine()) != null) {
+						response.append(line);
+						if (line.compareTo("</java>") == 0) {
+							break;
+						}
 					}
+					
+					// Process reply
 					MessageHolder result =
 							(MessageHolder)NetworkManager.decodeFromXml(response.toString());
 					if (result != null) {
@@ -107,8 +111,10 @@ public class ConConClient {
 					} else {
 						message = null;
 					}
-					fromServer.close();
 				}
+				toServer.close();
+				fromServer.close();
+				clientSocket.shutdownOutput();
 				clientSocket.close();
 			} catch (IOException e) {
 				LOG.error("Dispatch Message IO: ", e);

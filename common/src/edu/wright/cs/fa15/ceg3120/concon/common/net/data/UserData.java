@@ -21,8 +21,13 @@
 
 package edu.wright.cs.fa15.ceg3120.concon.common.net.data;
 
+import edu.wright.cs.fa15.ceg3120.concon.common.net.ConConClient;
+import edu.wright.cs.fa15.ceg3120.concon.common.net.MessageHolder;
+import edu.wright.cs.fa15.ceg3120.concon.common.net.NetworkHandler;
+import edu.wright.cs.fa15.ceg3120.concon.common.net.NetworkManager;
+import edu.wright.cs.fa15.ceg3120.concon.server.TestClient;
+
 import java.io.Serializable;
-import javax.swing.ImageIcon;
 
 /**
  * Holds basic user data.
@@ -34,10 +39,8 @@ public class UserData implements Serializable {
 
 	private static final long serialVersionUID = -1804728648292102844L;
 	
-	private String firstName;
-	private String lastName;
+	private String accountName;
 	private String uuid;
-	private ImageIcon avatar;
 
 	/**
 	 * UserData for passing user account information over network.
@@ -47,45 +50,47 @@ public class UserData implements Serializable {
 	
 	/**
 	 * Description. TODO Fill out.
-	 * @param firstName User's first name.
-	 * @param lastName User's last name.
+	 * @param accountName User's account name.
 	 */
-	public UserData(String firstName, String lastName) {
-		this.firstName = firstName;
-		this.lastName = lastName;
+	public UserData(String accountName) {
+		this.accountName = accountName;
 		this.uuid = "A49F"; //TODO need methods to generate new UUID
 	}
 	
 	/**
-	 * Get firstName.
-	 * @return the firstName
+	 * Description. TODO Fill out.
+	 * @param accountName User's account name.
 	 */
-	public String getFirstName() {
-		return firstName;
+	public UserData(String accountName, String uuid) {
+		this.accountName = accountName;
+		this.uuid = uuid; //TODO need methods to generate new UUID
 	}
 
 	/**
-	 * Set firstName.
-	 * @param firstName the firstName to set
+	 * Sets the current user for the client.
 	 */
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
+	@NetworkHandler(channel = "userData")
+	public static MessageHolder setCurrentUser(UserData user) {
+		ConConClient client = NetworkManager.getClient();
+		client.setCurrentUser(user);
+		TestClient.getChatPanel().appendToChatLog("You are connected.");;
+		return new MessageHolder("end", null);
+	}	
+	
+	/**
+	 * Get accountName.
+	 * @return the accountName
+	 */
+	public String getAccountName() {
+		return accountName;
 	}
 
 	/**
-	 * Get lastName.
-	 * @return the lastName
+	 * Set accountName.
+	 * @param accountName the accountName to set
 	 */
-	public String getLastName() {
-		return lastName;
-	}
-
-	/**
-	 * Set lastName.
-	 * @param lastName the lastName to set
-	 */
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
+	public void setAccountName(String accountName) {
+		this.accountName = accountName;
 	}
 
 	/**
@@ -104,25 +109,12 @@ public class UserData implements Serializable {
 		this.uuid = uuid;
 	}
 
-	/**
-	 * Get avatar.
-	 * @return the avatar
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
 	 */
-	public ImageIcon getAvatar() {
-		return avatar;
-	}
-
-	/**
-	 * Set avatar.
-	 * @param avatar the avatar to set
-	 */
-	public void setAvatar(ImageIcon avatar) {
-		this.avatar = avatar;
-	}
-
 	@Override
 	public String toString() {
-		return "User [firstName=" + firstName + ", lastName=" + lastName + ", uuid=" + uuid + "]";
+		return "UserData [accountName=" + accountName + ", uuid=" + uuid + "]";
 	}
 	
 }

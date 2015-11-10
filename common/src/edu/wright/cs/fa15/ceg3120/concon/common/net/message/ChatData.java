@@ -32,25 +32,35 @@ import java.io.Serializable;
  * @author NathanJent
  *
  */
-public class ChatMessage extends MessageHolder {
+public class ChatData implements Serializable {
 
 	private static final long serialVersionUID = -5939310825171066784L;
 	private String text;
-	private UserData from;
-	private UserData to;
+	private String from;
+	private String to;
 
 	/**
 	 * Default Constructor required for Java bean.
 	 */
-	public ChatMessage() { }
+	public ChatData() { }
 
 	/**
 	 * Holds data needed to send a chat message to another user.
 	 */
-	public ChatMessage(String messageText, UserData from, UserData to) {
+	public ChatData(String messageText, String from, String to) {
 		this.text = messageText;
 		this.from = from;
 		this.to = to;
+	}
+	
+	/**
+	 * Posts a chat message to the user's chat panel.
+	 * @return The message
+	 */
+	@NetworkHandler(channel = "chat")
+	public static MessageHolder postChat(ChatData message) {
+		// TODO log chat messages to database
+		return new MessageHolder("end", null);
 	}
 
 	/**
@@ -73,7 +83,7 @@ public class ChatMessage extends MessageHolder {
 	 * Get from.
 	 * @return the from
 	 */
-	public UserData getFrom() {
+	public String getFrom() {
 		return from;
 	}
 
@@ -81,7 +91,7 @@ public class ChatMessage extends MessageHolder {
 	 * Set from.
 	 * @param from the from to set
 	 */
-	public void setFrom(UserData from) {
+	public void setFrom(String from) {
 		this.from = from;
 	}
 
@@ -89,7 +99,7 @@ public class ChatMessage extends MessageHolder {
 	 * Get to.
 	 * @return the to
 	 */
-	public UserData getTo() {
+	public String getTo() {
 		return to;
 	}
 
@@ -97,17 +107,8 @@ public class ChatMessage extends MessageHolder {
 	 * Set to.
 	 * @param to the to to set
 	 */
-	public void setTo(UserData to) {
+	public void setTo(String to) {
 		this.to = to;
-	}
-	
-	/**
-	 * Posts a chat message to the user's chat panel.
-	 * @return The message
-	 */
-	@NetworkHandler(channel = "chat")
-	public static MessageHolder postChat(ChatMessage message) {
-		return new MessageHolder("chat", new ChatMessage(message.text, message.from, message.to));
 	}
 
 	/* (non-Javadoc)

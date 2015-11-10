@@ -68,7 +68,7 @@ public class LoginRequestMessage implements Serializable {
 		//TODO verify user and password with database and fetch user data
 		// for now just return generic user data
 		UserData user = new UserData(login.getUsername(), login.getPassword());
-		return new MessageHolder("loginResponse", new LoginResponseMessage(user));
+		return new MessageHolder("loginResponse", user);
 	}
 
 	/**
@@ -105,6 +105,6 @@ public class LoginRequestMessage implements Serializable {
 
 	@Override
 	public String toString() {
-		return "LoginMessage [username=" + username + "]";
+		return "LoginRequest [username=" + username + "]";
 	}
 }
