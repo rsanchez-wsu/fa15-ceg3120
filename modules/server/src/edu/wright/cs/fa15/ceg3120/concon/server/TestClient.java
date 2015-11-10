@@ -37,7 +37,6 @@ import javax.swing.SwingUtilities;
 
 /**
  * Test client for testing network message sending.
- *
  */
 public class TestClient {
 	private static final Logger LOG = LoggerFactory.getLogger(TestClient.class);

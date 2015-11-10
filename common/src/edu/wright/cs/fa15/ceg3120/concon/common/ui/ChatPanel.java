@@ -22,7 +22,6 @@
 package edu.wright.cs.fa15.ceg3120.concon.common.ui;
 
 import edu.wright.cs.fa15.ceg3120.concon.common.net.ConConClient;
-import edu.wright.cs.fa15.ceg3120.concon.common.net.MessageHolder;
 import edu.wright.cs.fa15.ceg3120.concon.common.net.NetworkManager;
 import edu.wright.cs.fa15.ceg3120.concon.common.net.data.UserData;
 import edu.wright.cs.fa15.ceg3120.concon.common.net.message.ChatData;
@@ -34,11 +33,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFormattedTextField;
-import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
-import javax.swing.ListSelectionModel;
 
 /**
  * User interface for chat messages.
@@ -48,7 +45,7 @@ import javax.swing.ListSelectionModel;
 public class ChatPanel extends JPanel {
 
 	private static final long serialVersionUID = 9195112434638392386L;
-	private static JTextArea textArea;
+	private static JTextArea textArea = new JTextArea();
 	private ConConClient client;
 	private UserData recipient;
 
@@ -74,7 +71,6 @@ public class ChatPanel extends JPanel {
 		gbcScrollPane.gridy = 0;
 		add(scrollPane, gbcScrollPane);
 
-		textArea = new JTextArea();
 		textArea.setEditable(false);
 		scrollPane.setViewportView(textArea);
 		
