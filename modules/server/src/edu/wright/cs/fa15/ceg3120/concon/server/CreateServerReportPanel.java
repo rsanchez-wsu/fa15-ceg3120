@@ -184,7 +184,9 @@ public class CreateServerReportPanel {
 		return databaseErrorPanel; 
 		
 	}//end method
-	
+	/**
+	 *creates a resetPanel. 
+	 */
 	protected static JPanel getResetsPanel() {
 		
 		JPanel sysresetpanel = new JPanel(new BorderLayout());
