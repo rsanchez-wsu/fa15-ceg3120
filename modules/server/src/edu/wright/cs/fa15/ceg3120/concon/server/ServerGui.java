@@ -98,27 +98,27 @@ public class ServerGui extends JPanel implements ActionListener {
 		JTabbedPane tabbedPane = new JTabbedPane();
 		
 		tabbedPane.addTab("Dash board", CreateImageIcon.iconDashBoard, 
-						MakeDashBoard.panelDashBoard, "Does nothing");
+						MakeDashBoard.panelDashBoard, "Main Dashboard");
 		tabbedPane.setMnemonicAt(0, KeyEvent.VK_1);
 
 		JComponent panel2 = new CreateButtonsSearch();
 		tabbedPane.addTab("User's info", CreateImageIcon.icon, panel2,
-						"Does twice as much nothing");
+						"User Infor and Messaging");
 		tabbedPane.setMnemonicAt(1, KeyEvent.VK_2);
 
 		JComponent panel3 = MessagingTab.createMessagingTab();
-		tabbedPane.addTab("Messages", CreateImageIcon.icon, panel3, "Still does nothing");
+		tabbedPane.addTab("Messages", CreateImageIcon.icon, panel3, "Message Users");
 		tabbedPane.setMnemonicAt(2, KeyEvent.VK_3);
 
 		JComponent panel4 = DatabaseControlTab.createDbControlTab();
 		panel4.setPreferredSize(new Dimension(410, 50));
 		tabbedPane.addTab("Remote Control", CreateImageIcon.icon, 
-						panel4, "Does nothing at all");
+						panel4, "Schedule Tasks");
 		tabbedPane.setMnemonicAt(3, KeyEvent.VK_5);
 
 		JComponent panel5 = TransactionTab.createTransactionTable();
 		tabbedPane.addTab("Transactions", CreateImageIcon.icon, 
-						panel5, "Still does nothing");
+						panel5, "User Transactions");
 		tabbedPane.setMnemonicAt(4, KeyEvent.VK_4);
 
 		// Add the tab pane to this panel.

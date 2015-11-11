@@ -53,6 +53,7 @@
 package edu.wright.cs.fa15.ceg3120.concon.server;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 
@@ -76,7 +77,7 @@ public class CreateServerReportPanel {
 	 * I think it would make the most sense to put this here.
 	 **/
 	protected static JComponent reportPanel() {
-		final JPanel mainPanel = new JPanel(new BorderLayout());
+		JPanel mainPanel = new JPanel(new BorderLayout());
 
 		String[] dataOptions = { "System Errors", "Database Errors", 
 								"System Resets and Backups"};
@@ -84,14 +85,8 @@ public class CreateServerReportPanel {
 		final JComboBox<String> dataOptionList = new JComboBox<String>(dataOptions);
 
 		dataOptionList.setSelectedIndex(0);
-		JPanel systemerrorspanel = new JPanel(new BorderLayout());
-		systemerrorspanel.add(new JTextField("Current System Errors"));
-		JTable errorsList;
+		mainPanel.add(getSysErrorPanel(), BorderLayout.CENTER);
 		
-		errorsList = getSysErrorsFromDataBase();
-		JScrollPane errorScroll = new JScrollPane(errorsList);
-		systemerrorspanel.add(errorScroll, BorderLayout.CENTER);
-		mainPanel.add(systemerrorspanel, BorderLayout.CENTER);
 		dataOptionList.addItemListener(new ItemListener() {
 			@Override
 				public void itemStateChanged(ItemEvent arg0) {
@@ -99,34 +94,17 @@ public class CreateServerReportPanel {
 					mainPanel.add(dataOptionList, BorderLayout.NORTH);
 
 					if (dataOptionList.getSelectedIndex() == 0) {
-						JPanel syserrorspanel = new JPanel(new BorderLayout());
-						syserrorspanel.add(new JTextField("Current System Errors"));
-						JTable errorsList;
-
-						errorsList = getSysErrorsFromDataBase();
-						JScrollPane errorScroll = new JScrollPane(errorsList);
-						syserrorspanel.add(errorScroll, BorderLayout.CENTER);
-						mainPanel.add(syserrorspanel, BorderLayout.CENTER);
+						
+						mainPanel.add(getSysErrorPanel(), BorderLayout.CENTER);
+						
 					} else if (dataOptionList.getSelectedIndex() == 1) {
-						JPanel databaseErrorPanel = new JPanel(new BorderLayout());
-						databaseErrorPanel.add(new JTextField(
-								"Current Database Errors"));
-						JTable errorsList;
-						//TODO refine this once the database calling is worked out
-						errorsList = getrrorsfromDatabase();
-						JScrollPane errorScroll = new JScrollPane(errorsList);
-						databaseErrorPanel.add(errorScroll, BorderLayout.CENTER);
-						mainPanel.add(databaseErrorPanel, BorderLayout.CENTER);	
+						
+						mainPanel.add(getDataBErrorPanel(), BorderLayout.CENTER);
 
 					} else if (dataOptionList.getSelectedIndex() == 2) {
-						JPanel sysresetpanel = new JPanel(new BorderLayout());
-						sysresetpanel.add(new JTextField("\nResets and Backups"));
-						JList<String> resetList = new JList<>();
-						//TODO refine this once the database calling is worked out
-						resetList = getResetAndBackupsFromDataBase();
-						sysresetpanel.add(resetList, BorderLayout.CENTER);
-						mainPanel.add(sysresetpanel, BorderLayout.CENTER);
+						mainPanel.add(getResetsPanel(),BorderLayout.CENTER);
 					}
+					
 					mainPanel.revalidate();
 					mainPanel.repaint();
 			}
@@ -137,6 +115,86 @@ public class CreateServerReportPanel {
 
 		return mainPanel;
 	}
+	
+	/**
+	 * creates a syste errors panel.
+	 * @return syErrorPanel.
+	 */
+	protected static JPanel getSysErrorPanel() {
+		JTable errorsList;
+		JTextField expandError = new JTextField();
+		JPanel sysErrorPanel = new JPanel(new BorderLayout());
+		//TODO refine this once the database calling is worked out
+		errorsList = getSysErrorsFromDataBase();
+		errorsList.setAutoCreateRowSorter(true);
+		errorsList.addMouseListener(new java.awt.event.MouseAdapter() {
+			@Override
+			public void mouseClicked(java.awt.event.MouseEvent evt) {
+				int row = errorsList.rowAtPoint(evt.getPoint());
+				int col = errorsList.columnAtPoint(evt.getPoint());
+				if (row >= 0 && col >= 0) {
+					expandError.setText((String)errorsList.getValueAt(row, 0));
+					expandError.repaint();
+					sysErrorPanel.repaint();
+				}
+			}
+		});
+		
+		JScrollPane errorScroll = new JScrollPane(errorsList);
+		errorScroll.setPreferredSize(new Dimension(200, 150));
+		expandError.setPreferredSize(new Dimension(100, 50));
+		//databaseErrorPanel.add(new JTextField(
+		//		"Current Database Errors"), BorderLayout.NORTH);
+		sysErrorPanel.add(errorScroll, BorderLayout.NORTH);
+		sysErrorPanel.add(expandError, BorderLayout.SOUTH);
+		return sysErrorPanel;
+	}//end method
+	
+	/**
+	 * creates a database errors panel.
+	 * @return syErrorPanel.
+	 */
+	protected static JPanel getDataBErrorPanel() {
+		JTable errorsList;
+		JTextField expandError = new JTextField();
+		JPanel databaseErrorPanel = new JPanel(new BorderLayout());
+		//TODO refine this once the database calling is worked out
+		errorsList = getrrorsfromDatabase();
+		errorsList.setAutoCreateRowSorter(true);
+		errorsList.addMouseListener(new java.awt.event.MouseAdapter() {
+			@Override
+			public void mouseClicked(java.awt.event.MouseEvent evt) {
+				int row = errorsList.rowAtPoint(evt.getPoint());
+				int col = errorsList.columnAtPoint(evt.getPoint());
+				if (row >= 0 && col >= 0) {
+					expandError.setText((String)errorsList.getValueAt(row, 0));
+					expandError.repaint();
+					databaseErrorPanel.repaint();
+				}
+			}
+		});
+		
+		JScrollPane errorScroll = new JScrollPane(errorsList);
+		errorScroll.setPreferredSize(new Dimension(200, 150));
+		expandError.setPreferredSize(new Dimension(100, 50));
+		//databaseErrorPanel.add(new JTextField(
+		//		"Current Database Errors"), BorderLayout.NORTH);
+		databaseErrorPanel.add(errorScroll, BorderLayout.NORTH);
+		databaseErrorPanel.add(expandError, BorderLayout.SOUTH);
+		return databaseErrorPanel; 
+		
+	}//end method
+	
+	protected static JPanel getResetsPanel() {
+		
+		JPanel sysresetpanel = new JPanel(new BorderLayout());
+		sysresetpanel.add(new JTextField("\nResets and Backups"));
+		JList<String> resetList = new JList<>();
+		//TODO refine this once the database calling is worked out
+		resetList = getResetAndBackupsFromDataBase();
+		sysresetpanel.add(resetList, BorderLayout.CENTER);
+		return sysresetpanel;
+	}//end method
 	
 	/**
 	 * Is the same as system errors but might change or be combined based on. 
@@ -152,9 +210,9 @@ public class CreateServerReportPanel {
 		/////////////////////////////////////////////
 		
 		for (int i = 0; i < Float.valueOf(errorCount); ++i) {
-			errorData[i][0] = "Culpa";//replace with calls to database
+			errorData[i][0] = "Culpa";
 			errorData[i][1] = "Datum";
-			errorData[i][2] = "Est";		
+			errorData[i][2] = "Est" ;		
 		}
 		JTable errorTable = new JTable( errorData, columnTitles);
 		return errorTable;
