@@ -19,11 +19,11 @@
  *
  */
 
-package edu.wright.cs.fa15.ceg3120.concon.common.net.message;
+package edu.wright.cs.fa15.ceg3120.concon.common.net.data;
 
 import edu.wright.cs.fa15.ceg3120.concon.common.net.MessageHolder;
 import edu.wright.cs.fa15.ceg3120.concon.common.net.NetworkHandler;
-import edu.wright.cs.fa15.ceg3120.concon.common.net.data.UserData;
+import edu.wright.cs.fa15.ceg3120.concon.server.TestClient;
 
 import java.io.Serializable;
 
@@ -54,15 +54,27 @@ public class ChatData implements Serializable {
 	}
 	
 	/**
-	 * Posts a chat message to the user's chat panel.
+	 * Posts a chat message to the server.
 	 * @return The message
 	 */
-	@NetworkHandler(channel = "chat")
+	@NetworkHandler(channel = "chatPost")
 	public static MessageHolder postChat(ChatData message) {
 		// TODO log chat messages to database
+		return new MessageHolder("chatPostConfirmation", message);
+	}
+	
+	/**
+	 * Receives a chat message, and updates the user's chat panel.
+	 * @return The message
+	 */
+	@NetworkHandler(channel = "chatPostConfirmation")
+	public static MessageHolder receiveChat(ChatData message) {
+		// TODO update chat panel
+		String text = message.to  + ": " + message.text + "\n";
+		TestClient.getChatPanel().appendToChatLog(text);
 		return new MessageHolder("end", null);
 	}
-
+	
 	/**
 	 * Get text.
 	 * @return the text

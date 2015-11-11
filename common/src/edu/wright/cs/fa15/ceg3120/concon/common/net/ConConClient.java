@@ -106,16 +106,21 @@ public class ConConClient {
 					MessageHolder result =
 							(MessageHolder)NetworkManager.decodeFromXml(response.toString());
 					if (result != null) {
-						message = NetworkManager.encodeToXml(
-								NetworkManager.post(result.getChannel(), result.getMessage()));
+						MessageHolder mh = 
+								NetworkManager.post(result.getChannel(), result.getMessage());
+						if (mh.getChannel().equals("end")) {
+							break;
+						}
+						message = NetworkManager.encodeToXml(mh);
 					} else {
 						message = null;
 					}
 				}
-				toServer.close();
-				fromServer.close();
-				clientSocket.shutdownOutput();
-				clientSocket.close();
+				if (clientSocket.isConnected()) {
+					clientSocket.shutdownInput();
+					clientSocket.shutdownOutput();
+					clientSocket.close();
+				}
 			} catch (IOException e) {
 				LOG.error("Dispatch Message IO: ", e);
 			}

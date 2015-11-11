@@ -23,8 +23,8 @@ package edu.wright.cs.fa15.ceg3120.concon.common.ui;
 
 import edu.wright.cs.fa15.ceg3120.concon.common.net.ConConClient;
 import edu.wright.cs.fa15.ceg3120.concon.common.net.NetworkManager;
+import edu.wright.cs.fa15.ceg3120.concon.common.net.data.ChatData;
 import edu.wright.cs.fa15.ceg3120.concon.common.net.data.UserData;
-import edu.wright.cs.fa15.ceg3120.concon.common.net.message.ChatData;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -109,7 +109,7 @@ public class ChatPanel extends JPanel {
 	 */
 	private void sendMessage(String text) {
 		NetworkManager.sendMessage(
-				"chat", 
+				"chatPost", 
 				new ChatData(text, client.getCurrentUser().getAccountName(),
 						recipient.getAccountName()));
 	}

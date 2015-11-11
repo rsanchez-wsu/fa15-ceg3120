@@ -65,15 +65,28 @@ public class UserData implements Serializable {
 		this.accountName = accountName;
 		this.uuid = uuid; //TODO need methods to generate new UUID
 	}
+	
+	/**
+	 * Persist updated user data to the database.
+	 * @param user given user
+	 * @return end connection message
+	 */
+	@NetworkHandler(channel = "persistUserData")
+	public static MessageHolder persistUserData(UserData user) {
+		// TODO write updated user to the database here
+		return new MessageHolder("end", null);
+	}
 
 	/**
 	 * Sets the current user for the client.
+	 * @param user given user
+	 * @return end connection message
 	 */
-	@NetworkHandler(channel = "userData")
+	@NetworkHandler(channel = "returnUserData")
 	public static MessageHolder setCurrentUser(UserData user) {
 		ConConClient client = NetworkManager.getClient();
 		client.setCurrentUser(user);
-		TestClient.getChatPanel().appendToChatLog("You are connected.");;
+		TestClient.getChatPanel().appendToChatLog("You are connected.\n");
 		return new MessageHolder("end", null);
 	}	
 	

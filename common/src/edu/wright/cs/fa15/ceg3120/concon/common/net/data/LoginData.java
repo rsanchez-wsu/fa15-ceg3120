@@ -19,11 +19,10 @@
  *
  */
 
-package edu.wright.cs.fa15.ceg3120.concon.common.net.message;
+package edu.wright.cs.fa15.ceg3120.concon.common.net.data;
 
 import edu.wright.cs.fa15.ceg3120.concon.common.net.MessageHolder;
 import edu.wright.cs.fa15.ceg3120.concon.common.net.NetworkHandler;
-import edu.wright.cs.fa15.ceg3120.concon.common.net.data.UserData;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,8 +35,8 @@ import java.io.Serializable;
  * @version 1
  * 
  */
-public class LoginRequestMessage implements Serializable {
-	private static final Logger LOG = LoggerFactory.getLogger(LoginRequestMessage.class);
+public class LoginData implements Serializable {
+	private static final Logger LOG = LoggerFactory.getLogger(LoginData.class);
 
 	private static final long serialVersionUID = -2279299798905393963L;
 	private String username;
@@ -47,14 +46,15 @@ public class LoginRequestMessage implements Serializable {
 	 * Create login message.
 	 * Default constructor required for java beans.
 	 */
-	public LoginRequestMessage() {} // 
+	public LoginData() {} // 
 
 	/**
-	 * Create login message.
+	 * Create login message. Passwords should be encrypted before
+	 * adding to this class.
 	 * @param username The user logging in.
-	 * @param password Password for the user.
+	 * @param password The encrypted password string for the user. 
 	 */
-	public LoginRequestMessage(String username, String password) {
+	public LoginData(String username, String password) {
 		this.username = username;
 		this.password = password;
 	}
@@ -62,13 +62,13 @@ public class LoginRequestMessage implements Serializable {
 	/**
 	 * This method is called when logging on to the server.
 	 */
-	@NetworkHandler(channel = "loginRequest")
-	public static MessageHolder login(LoginRequestMessage login) {
+	@NetworkHandler(channel = "login")
+	public static MessageHolder login(LoginData login) {
 		LOG.trace("Logging in...");
-		//TODO verify user and password with database and fetch user data
+		//TODO decrypt password then verify user and password with database and fetch user data
 		// for now just return generic user data
-		UserData user = new UserData(login.getUsername(), login.getPassword());
-		return new MessageHolder("loginResponse", user);
+		UserData user = new UserData(login.getUsername(), "testUserUUID");
+		return new MessageHolder("returnUserData", user);
 	}
 
 	/**

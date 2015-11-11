@@ -22,9 +22,9 @@
 package edu.wright.cs.fa15.ceg3120.concon.server;
 
 import edu.wright.cs.fa15.ceg3120.concon.common.net.NetworkManager;
+import edu.wright.cs.fa15.ceg3120.concon.common.net.data.ChatData;
+import edu.wright.cs.fa15.ceg3120.concon.common.net.data.LoginData;
 import edu.wright.cs.fa15.ceg3120.concon.common.net.data.UserData;
-import edu.wright.cs.fa15.ceg3120.concon.common.net.message.ChatData;
-import edu.wright.cs.fa15.ceg3120.concon.common.net.message.LoginRequestMessage;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -42,7 +42,7 @@ public class TestServer {
 	 */
 	public static void main(String[] args) {
 		LOG.trace("Starting server...");
-		NetworkManager.registerNetworkHandlerClass(LoginRequestMessage.class);
+		NetworkManager.registerNetworkHandlerClass(LoginData.class);
 		NetworkManager.registerNetworkHandlerClass(UserData.class);
 		NetworkManager.registerNetworkHandlerClass(ChatData.class);
 		NetworkManager.startServer(9667);

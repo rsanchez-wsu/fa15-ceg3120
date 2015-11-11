@@ -119,6 +119,9 @@ public class ConConServer implements Runnable {
 					
 					MessageHolder mh = 
 							(MessageHolder)NetworkManager.decodeFromXml(message.toString());
+					if (mh.getChannel().equals("end")) {
+						break;
+					}
 					MessageHolder response = 
 							NetworkManager.post(mh.getChannel(), mh.getMessage());
 					if (response != null) {
@@ -126,10 +129,18 @@ public class ConConServer implements Runnable {
 						toClient.writeBytes(responseXml);
 					}
 				} 
-				toClient.close();
-				fromClient.close();
 			} catch (IOException e) {
 				LOG.error("Connection Worker IO: ", e);
+			} finally {
+				if (clientSocket.isConnected()) {
+					try {
+						clientSocket.shutdownInput();
+						clientSocket.shutdownOutput();
+						clientSocket.close();
+					} catch (IOException e) {
+						LOG.warn("Connection  already closed.");
+					}
+				}
 			}
 		}
 	}

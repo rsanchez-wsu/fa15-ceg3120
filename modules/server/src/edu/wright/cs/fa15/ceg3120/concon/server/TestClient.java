@@ -23,9 +23,9 @@ package edu.wright.cs.fa15.ceg3120.concon.server;
 
 import edu.wright.cs.fa15.ceg3120.concon.common.net.ConConClient;
 import edu.wright.cs.fa15.ceg3120.concon.common.net.NetworkManager;
+import edu.wright.cs.fa15.ceg3120.concon.common.net.data.ChatData;
+import edu.wright.cs.fa15.ceg3120.concon.common.net.data.LoginData;
 import edu.wright.cs.fa15.ceg3120.concon.common.net.data.UserData;
-import edu.wright.cs.fa15.ceg3120.concon.common.net.message.ChatData;
-import edu.wright.cs.fa15.ceg3120.concon.common.net.message.LoginRequestMessage;
 import edu.wright.cs.fa15.ceg3120.concon.common.ui.ChatPanel;
 
 import org.slf4j.Logger;
@@ -48,16 +48,18 @@ public class TestClient {
 	 * @param args Arguments.
 	 */
 	public static void main(String[] args) {
+		NetworkManager.registerNetworkHandlerClass(LoginData.class);
+		NetworkManager.registerNetworkHandlerClass(UserData.class);
+		NetworkManager.registerNetworkHandlerClass(ChatData.class);
+		
 		LOG.trace("Starting client...");
 		NetworkManager.startClient("127.0.0.1", 9667);
 		client = NetworkManager.getClient();
 		
 		// create a test user to send messages to
+		// normally you would initialize with the selected user from a list
 		UserData testUser = new UserData("ContractorGuy");
 		chatPanel = new ChatPanel(client, testUser);
-		NetworkManager.registerNetworkHandlerClass(LoginRequestMessage.class);
-		NetworkManager.registerNetworkHandlerClass(UserData.class);
-		NetworkManager.registerNetworkHandlerClass(ChatData.class);
 		
 		SwingUtilities.invokeLater(new Runnable() {
 
@@ -66,7 +68,7 @@ public class TestClient {
 				JFrame clientFrame = new JFrame();
 				String name = JOptionPane.showInputDialog(clientFrame, "Enter username:");
 				String pass = JOptionPane.showInputDialog(clientFrame, "Enter password:");
-				NetworkManager.sendMessage("loginRequest", new LoginRequestMessage(name, pass));
+				NetworkManager.sendMessage("login", new LoginData(name, pass));
 				
 				clientFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 				clientFrame.getContentPane().add(chatPanel);
