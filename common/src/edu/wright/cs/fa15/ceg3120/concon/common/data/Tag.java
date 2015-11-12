@@ -1,8 +1,8 @@
 /*
  * Copyright (C) 2015
- * 
- * 
- * 
+ *
+ *
+ *
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -23,7 +23,7 @@ package edu.wright.cs.fa15.ceg3120.concon.common.data;
 
 /**
  * Tag used to search jobs.
- * 
+ *
  * @author Jonathan Thomas
  *
  */
@@ -32,7 +32,7 @@ public class Tag {
 
 	/**
 	 * Construct a new Tag.
-	 * 
+	 *
 	 * @param text
 	 *			The name of the tag.
 	 */
@@ -41,8 +41,8 @@ public class Tag {
 	}
 
 	/**
-	 * Javadoc needed.
-	 *
+	 * Text content of the tag.
+	 * @return String object.
 	 */
 	public String getText() {
 		return text;

@@ -39,13 +39,12 @@ public class DataMessage extends NetworkMessage {
 
 	/**
 	 * Javadoc needed.
-	 *
 	 */
 	public DataMessage() {} // Default constructor required for java beans.
 
 	/**
 	 * Javadoc needed.
-	 *
+	 * @param data.
 	 */
 	public void add(NetworkData data) {
 		dataList.add(data);
@@ -53,7 +52,7 @@ public class DataMessage extends NetworkMessage {
 
 	/**
 	 * Javadoc needed.
-	 *
+	 * @return.
 	 */
 	public List<NetworkData> getDataList() {
 		return dataList;
@@ -61,7 +60,7 @@ public class DataMessage extends NetworkMessage {
 
 	/**
 	 * Javadoc needed.
-	 *
+	 * @param dataList.
 	 */
 	public void setDataList(List<NetworkData> dataList) {
 		this.dataList = dataList;

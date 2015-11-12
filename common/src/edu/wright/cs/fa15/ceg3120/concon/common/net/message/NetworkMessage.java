@@ -33,7 +33,6 @@ public abstract class NetworkMessage implements Serializable {
 
 	/**
 	 * Javadoc needed.
-	 *
 	 */
 	public NetworkMessage() {}
 	

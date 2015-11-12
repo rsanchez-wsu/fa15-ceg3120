@@ -54,48 +54,48 @@ public class SchedulingData implements Serializable {
 	}
 
 	/**
-	 * Javadoc needed.
-	 *
+	 * Get month.
+	 * @return the month
 	 */
 	public String getMonth() {
 		return month;
 	}
 
 	/**
-	 * Javadoc needed.
-	 *
+	 * Set month.
+	 * @param month the month to set
 	 */
 	public void setMonth(String month) {
 		this.month = month;
 	}
 
 	/**
-	 * Javadoc needed.
-	 *
+	 * Get day.
+	 * @return the day
 	 */
 	public int getDay() {
 		return day;
 	}
 
 	/**
-	 * Javadoc needed.
-	 *
+	 * Set day.
+	 * @param day the day to set
 	 */
 	public void setDay(int day) {
 		this.day = day;
 	}
 
 	/**
-	 * Javadoc needed.
-	 *
+	 * Get timeRange.
+	 * @return the timeRange
 	 */
 	public String getTimeRange() {
 		return timeRange;
 	}
 
 	/**
-	 * Javadoc needed.
-	 *
+	 * Set timeRange.
+	 * @param timeRange the timeRange to set
 	 */
 	public void setTimeRange(String timeRange) {
 		this.timeRange = timeRange;
