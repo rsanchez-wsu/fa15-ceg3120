@@ -24,6 +24,7 @@ package edu.wright.cs.fa15.ceg3120.concon.client.customer;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
+
 import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollBar;
@@ -55,11 +56,11 @@ public class MainTab extends JLayeredPane {
 		JLayeredPane layeredPane = new JLayeredPane();
 		panel.add(layeredPane, BorderLayout.CENTER);
 		layeredPane.setLayout(new BorderLayout(0, 0));
-		
-		JLayeredPane layeredPane1 = new JLayeredPane();
-		add(layeredPane1, BorderLayout.NORTH);
-		layeredPane1.setBackground(Color.ORANGE);
-		layeredPane1.setLayout(new BorderLayout(0, 0));
+
+		JLayeredPane layeredPaneNews = new JLayeredPane();
+		add(layeredPaneNews, BorderLayout.NORTH);
+		layeredPaneNews.setBackground(Color.ORANGE);
+		layeredPaneNews.setLayout(new BorderLayout(0, 0));
 		
 		JTextPane txtpnNews = new JTextPane();
 		txtpnNews.setForeground(Color.BLUE);
@@ -67,10 +68,13 @@ public class MainTab extends JLayeredPane {
 		txtpnNews.setFont(new Font("Tahoma", Font.BOLD, 24));
 		txtpnNews.setText("News\r\n");
 		txtpnNews.setBackground(Color.ORANGE);
-		layeredPane1.add(txtpnNews, BorderLayout.CENTER);
+		
+		layeredPaneNews.add(txtpnNews, BorderLayout.CENTER);
 		
 		JSeparator separator = new JSeparator();
-		layeredPane1.add(separator, BorderLayout.SOUTH);
+
+		layeredPaneNews.add(separator, BorderLayout.SOUTH);
+
 		separator.setBackground(Color.BLUE);
 		separator.setToolTipText("");
 		
