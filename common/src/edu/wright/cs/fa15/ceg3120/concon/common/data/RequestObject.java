@@ -22,15 +22,27 @@
 
 package edu.wright.cs.fa15.ceg3120.concon.common.data;
 
+import java.io.Serializable;
+
 /**
  * Class that will be used to hold the request data and request type together in a queue.
+ * 
+ * <p>This class is a JavaBean.
  * @author Moorman
  *
  */
-public class RequestObject {
+public class RequestObject implements Serializable {
 
+	private static final long serialVersionUID = -5760907638618079855L;
 	private Object data;
 	private RequestType requestType;
+	
+	/**
+	 * Default no-arg constructor.
+	 */
+	public RequestObject() {
+		
+	}
 	
 	/**
 	 * Construct a RequestObject.
@@ -56,5 +68,21 @@ public class RequestObject {
 	 */
 	public RequestType getRequestType() {
 		return this.requestType;
+	}
+	
+	/**
+	 * Set the data property of this object.
+	 * @param data Any Object that is being sent as an argument to the database.
+	 */
+	public void setData(Object data) {
+		this.data = data;
+	}
+	
+	/**
+	 * Set the request type.
+	 * @param reqType RequestType enum field.
+	 */
+	public void setRequestType(RequestType reqType) {
+		this.requestType = reqType;
 	}
 }
