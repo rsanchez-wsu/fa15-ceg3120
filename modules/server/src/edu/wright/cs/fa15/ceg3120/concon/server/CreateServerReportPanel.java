@@ -191,7 +191,6 @@ public class CreateServerReportPanel {
 		JPanel sysresetpanel = new JPanel(new BorderLayout());
 		sysresetpanel.add(new JTextField("\nResets and Backups"));
 		//JList<String> resetList;
-		//TODO refine this once the database calling is worked out
 		sysresetpanel.add(getResetAndBackupsFromDataBase(), BorderLayout.CENTER);
 		return sysresetpanel;
 	}//end method
@@ -202,7 +201,7 @@ public class CreateServerReportPanel {
 	 **/
 	protected static JTable getrrorsfromDatabase() {
 		String errorCount;
-		errorCount = "10";//TODO add database call for this
+		errorCount = "10";
 		
 		//CHANGE IF COLUMNS ARE CHANGED FOR THE REPORTS
 		Object[] columnTitles = {"Error", "Date", "Status"};
