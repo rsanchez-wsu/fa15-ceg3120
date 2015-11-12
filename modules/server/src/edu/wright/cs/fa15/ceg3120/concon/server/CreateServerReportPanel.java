@@ -121,9 +121,9 @@ public class CreateServerReportPanel {
 	 * @return syErrorPanel.
 	 */
 	protected static JPanel getSysErrorPanel() {
-		JTable errorsList;
-		JTextField expandError = new JTextField();
-		JPanel sysErrorPanel = new JPanel(new BorderLayout());
+		final JTable errorsList;
+		final JTextField expandError = new JTextField();
+		final JPanel sysErrorPanel = new JPanel(new BorderLayout());
 		//TODO refine this once the database calling is worked out
 		errorsList = getSysErrorsFromDataBase();
 		errorsList.setAutoCreateRowSorter(true);
@@ -155,9 +155,9 @@ public class CreateServerReportPanel {
 	 * @return syErrorPanel.
 	 */
 	protected static JPanel getDataBErrorPanel() {
-		JTable errorsList;
-		JTextField expandError = new JTextField();
-		JPanel databaseErrorPanel = new JPanel(new BorderLayout());
+		final JTable errorsList;
+		final JTextField expandError = new JTextField();
+		final JPanel databaseErrorPanel = new JPanel(new BorderLayout());
 		//TODO refine this once the database calling is worked out
 		errorsList = getrrorsfromDatabase();
 		errorsList.setAutoCreateRowSorter(true);
@@ -189,7 +189,7 @@ public class CreateServerReportPanel {
 	 */
 	protected static JPanel getResetsPanel() {
 		
-		JPanel sysresetpanel = new JPanel(new BorderLayout());
+		final JPanel sysresetpanel = new JPanel(new BorderLayout());
 		sysresetpanel.add(new JTextField("\nResets and Backups"));
 		JList<String> resetList = new JList<>();
 		//TODO refine this once the database calling is worked out
