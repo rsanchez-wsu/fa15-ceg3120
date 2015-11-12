@@ -21,15 +21,13 @@
 
 package edu.wright.cs.fa15.ceg3120.concon.common.data;
 
-import java.io.Serializable;
-
 /**
  * This class is intended to be the super class for all account types.
  *
  * @author Quack
  *
  */
-public class UserAccount implements Serializable{
+public class UserAccount implements DatabaseEntity {
 	private static final long serialVersionUID = 1L;
 	/** Username. */
 	private String uuid;

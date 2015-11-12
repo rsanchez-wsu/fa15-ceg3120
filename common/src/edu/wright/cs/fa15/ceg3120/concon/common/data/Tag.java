@@ -27,7 +27,8 @@ package edu.wright.cs.fa15.ceg3120.concon.common.data;
  * @author Jonathan Thomas
  *
  */
-public class Tag {
+public class Tag implements DatabaseEntity {
+	private static final long serialVersionUID = 4709866382702628607L;
 	private String text;
 
 	/**

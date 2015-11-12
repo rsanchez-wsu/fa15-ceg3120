@@ -29,8 +29,9 @@ import java.awt.Image;
  * @author Quack
  *
  */
-public class JobRequest {
+public class JobRequest implements DatabaseEntity {
 
+	private static final long serialVersionUID = 3240132603096376471L;
 	/**
 	 * Signifies whether this request is a new job or a request for all jobs from a given account.
 	 */

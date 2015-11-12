@@ -25,7 +25,9 @@ package edu.wright.cs.fa15.ceg3120.concon.common.data;
  * Javadoc needed.
  *
  */
-public class HomeownerReview extends Review {
+public class HomeownerReview extends Review implements DatabaseEntity {
+
+	private static final long serialVersionUID = -6593153458410013006L;
 
 	/**
 	 * Javadoc needed.

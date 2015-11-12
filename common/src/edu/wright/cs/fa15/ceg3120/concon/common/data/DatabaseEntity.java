@@ -21,26 +21,14 @@
 
 package edu.wright.cs.fa15.ceg3120.concon.common.data;
 
+import java.io.Serializable;
+
 /**
- * ServerAdminAccount holds user data for an admin-type user.
- *
- * @author Quack
+ * General superclass that all objects stored in the database will inherit from. 
+ * Necessary, since all of the database objects need to be serialziable.
+ * @author Jonathan Thomas
  *
  */
-public class ServerAdminAccount extends UserAccount implements DatabaseEntity {
-
-	private static final long serialVersionUID = 1L;
-
-	/**
-	 * Construct a new server admin account.
-	 */
-	public ServerAdminAccount() {
-		super(AccountType.SERVER_ADMIN);
-	}
-
-	@Override
-	public void launchGui() {
-
-	}
+public interface DatabaseEntity extends Serializable {
 
 }

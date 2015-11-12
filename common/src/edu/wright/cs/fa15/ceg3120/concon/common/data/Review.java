@@ -27,7 +27,8 @@ package edu.wright.cs.fa15.ceg3120.concon.common.data;
  * @author Jonathan Thomas
  *
  */
-public abstract class Review {
+public abstract class Review implements DatabaseEntity {
+	private static final long serialVersionUID = -8844610057484026737L;
 	protected int id;
 	protected int reviewerId;
 	protected int subjectId;
