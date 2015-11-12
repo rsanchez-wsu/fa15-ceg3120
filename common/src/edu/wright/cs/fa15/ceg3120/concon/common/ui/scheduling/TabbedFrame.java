@@ -301,8 +301,8 @@ public class TabbedFrame extends JFrame{
 	}// </editor-fold>//GEN-END:initComponents
 
 	/**
-	 * Javadoc needed.
-	 * @param evt.
+	 * Listens for mouse button1 events to display the contents of the combo box.
+	 * @param evt value changes when a MouseEvent occurs.
 	 */
 	private void jbutton1MouseClicked(java.awt.event.MouseEvent evt) {
 		//GEN-FIRST:event_jButton1MouseClicked
@@ -315,8 +315,8 @@ public class TabbedFrame extends JFrame{
 	}//GEN-LAST:event_jButton1MouseClicked
 
 	/**
-	 * Javadoc needed.
-	 * @param evt.
+	 * Listens for mouse button2 event.
+	 * @param evt value changes when a MouseEvent occurs.
 	 */
 	private void jbutton2MouseClicked(java.awt.event.MouseEvent evt) {
 		//GEN-FIRST:event_jButton2MouseClicked
@@ -324,8 +324,8 @@ public class TabbedFrame extends JFrame{
 	}//GEN-LAST:event_jButton2MouseClicked
 
 	/**
-	 * Javadoc needed.
-	 * @param evt.
+	 * Listens for mouse button3 events.
+	 * @param evt value changes when a MouseEvent occurs.
 	 */
 	private void jbutton3MouseClicked(java.awt.event.MouseEvent evt) {
 		//GEN-FIRST:event_jButton3MouseClicked
@@ -333,8 +333,8 @@ public class TabbedFrame extends JFrame{
 	}//GEN-LAST:event_jButton3MouseClicked
 
 	/**
-	 * Javadoc needed.
-	 * @param evt.
+	 * Listens for an action event on jtextField2.
+	 * @param evt value changes when an ActionEvent occurs.
 	 */
 	private void jtextField2ActionPerformed(java.awt.event.ActionEvent evt) {
 		//GEN-FIRST:event_jTextField2ActionPerformed
@@ -342,8 +342,8 @@ public class TabbedFrame extends JFrame{
 	}//GEN-LAST:event_jTextField2ActionPerformed
 
 	/**
-	 * Javadoc needed.
-	 * @param evt.
+	 * LIstens for an action event on jtextField3.
+	 * @param evt value changes when an ActionEvent occurs.
 	 */
 	private void jtextField3ActionPerformed(java.awt.event.ActionEvent evt) {
 		//GEN-FIRST:event_jTextField3ActionPerformed

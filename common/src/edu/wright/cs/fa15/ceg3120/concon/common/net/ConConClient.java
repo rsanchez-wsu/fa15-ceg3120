@@ -21,24 +21,34 @@
 
 package edu.wright.cs.fa15.ceg3120.concon.common.net;
 
+import edu.wright.cs.fa15.ceg3120.concon.common.net.data.UserData;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.Socket;
+import java.nio.charset.StandardCharsets;
 
 //TODO have security
 /**
- * Javadoc needed.
- *
+ * Class which handles non-blocking communication with a server.
  */
 public class ConConClient {
+	private static final Logger LOG = LoggerFactory.getLogger(ConConClient.class);
+	
 	private String host;
 	private int port;
+
+	private static UserData currentUser;
 	
 	/**
-	 * Javadoc needed.
-	 *
+	 * Constructs a client which will talk to the designated host:port.
+	 * @param host an IP address or similar.
+	 * @param port will fail if in use.
 	 */
 	public ConConClient(String host, int port) {
 		this.host = host;
@@ -46,23 +56,22 @@ public class ConConClient {
 	}
 
 	/**
-	 * Javadoc needed.
-	 *
+	 * Sends an XML-encoded message to the server.
+	 * @param message Message to be sent
 	 */
-	public void sendMessage(String message) {
-		new DispatchMessage(message).start();
+	protected void sendMessage(String message) {
+		new Thread(new DispatchMessage(message)).start();
 	}
 
 	/**
-	 * Javadoc needed.
-	 *
+	 * The threaded class which will handle the actual sending of messages.
 	 */
-	private class DispatchMessage extends Thread {
+	private class DispatchMessage implements Runnable {
 		private String message;
 
 		/**
-		 * Javadoc needed.
-		 *
+		 * Constructor.
+		 * @param message the message.
 		 */
 		public DispatchMessage(String message) {
 			this.message = message;
@@ -74,21 +83,46 @@ public class ConConClient {
 				Socket clientSocket = new Socket(host, port);
 				DataOutputStream toServer = new DataOutputStream(clientSocket.getOutputStream());
 				BufferedReader fromServer = new BufferedReader(
-						new InputStreamReader(clientSocket.getInputStream(), "UTF-8"));
+						new InputStreamReader(clientSocket.getInputStream(),
+								StandardCharsets.UTF_8));
 
-				toServer.writeBytes(message);
-				StringBuilder response = new StringBuilder();
-				int ch = 0;
-				while ((ch = fromServer.read()) != -1) {
-					response.append(ch);
+				while (message != null) {
+					toServer.writeBytes(message);
+					StringBuilder response = new StringBuilder();
+					int ch = 0;
+					while ((ch = fromServer.read()) != -1) {
+						response.append(ch);
+					}
+					MessageHolder result =
+							(MessageHolder)NetworkManager.decodeFromXml(response.toString());
+					if (result != null) {
+						message = NetworkManager.encodeToXml(
+								NetworkManager.post(result.channel, result.message));
+					} else {
+						message = null;
+					}
 				}
-
-				NetworkManager.post(NetworkManager.decodeFromXml(response.toString()));
 
 				clientSocket.close();
 			} catch (IOException e) {
-				e.printStackTrace();
+				LOG.error("Dispatch Message IO: ", e);
 			}
 		}
+	}
+
+	/**
+	 * Sets the current user.
+	 * @param user current user
+	 */
+	public static void setCurrentUser(UserData user) {
+		ConConClient.currentUser = user;
+	}
+	
+	/**
+	 * Get the current user.
+	 * @return current logged in user if connected
+	 */
+	public static UserData getCurrentUser() {
+		return currentUser;
 	}
 }

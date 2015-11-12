@@ -175,7 +175,7 @@ public class CreateNewAccount {
 				System.out.println("new HomeownerPane created and added");
 			} else if (selected == 1 && !(window.centers instanceof NewContractorPane)) {
 				window.newAccountFrame.remove(window.centers);
-				window.centers = new NewContractorPane();
+				window.centers = new NewContractorPane(null);
 				window.newAccountFrame.add(window.centers, BorderLayout.CENTER);
 				window.newAccountFrame.validate();
 				System.out.println("new NewContractorPane created and added");
