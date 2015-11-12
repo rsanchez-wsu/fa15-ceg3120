@@ -188,8 +188,7 @@ public class CreateServerReportPanel {
 	 *creates a resetPanel. 
 	 */
 	protected static JPanel getResetsPanel() {
-		
-		final JPanel sysresetpanel = new JPanel(new BorderLayout());
+		JPanel sysresetpanel = new JPanel(new BorderLayout());
 		sysresetpanel.add(new JTextField("\nResets and Backups"));
 		JList<String> resetList = new JList<>();
 		//TODO refine this once the database calling is worked out
