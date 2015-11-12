@@ -34,7 +34,7 @@ import java.io.Serializable;
 public class RequestObject implements Serializable {
 
 	private static final long serialVersionUID = -5760907638618079855L;
-	private Object data;
+	private DatabaseEntity data;
 	private RequestType requestType;
 	
 	/**
@@ -49,16 +49,16 @@ public class RequestObject implements Serializable {
 	 * @param inputData Data being requested.
 	 * @param reqType Type of request.
 	 */
-	public RequestObject( Object inputData, RequestType reqType ) {
+	public RequestObject( DatabaseEntity inputData, RequestType reqType ) {
 		this.data = inputData;
 		this.requestType = reqType;
 	}
 	
 	/**
 	 * Get the data being requested.
-	 * @return data Object.
+	 * @return data DatabaseEntity.
 	 */
-	public Object getData() {
+	public DatabaseEntity getData() {
 		return this.data;
 	}
 	
@@ -74,7 +74,7 @@ public class RequestObject implements Serializable {
 	 * Set the data property of this object.
 	 * @param data Any Object that is being sent as an argument to the database.
 	 */
-	public void setData(Object data) {
+	public void setData(DatabaseEntity data) {
 		this.data = data;
 	}
 	

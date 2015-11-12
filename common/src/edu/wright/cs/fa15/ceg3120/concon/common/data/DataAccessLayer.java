@@ -65,7 +65,7 @@ public class DataAccessLayer extends Thread{
 	 * @param reqType Type of request being served.
 	 * @return false if the request was not added to the list.
 	 */
-	public boolean sendDatabaseRequest(final Object inputData, final RequestType reqType) {
+	public boolean sendDatabaseRequest(final DatabaseEntity inputData, final RequestType reqType) {
 
 
 		// -- Make sure that we have the data that we need.
