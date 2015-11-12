@@ -77,7 +77,7 @@ public class CreateServerReportPanel {
 	 * I think it would make the most sense to put this here.
 	 **/
 	protected static JComponent reportPanel() {
-		JPanel mainPanel = new JPanel(new BorderLayout());
+		final JPanel mainPanel = new JPanel(new BorderLayout());
 
 		String[] dataOptions = { "System Errors", "Database Errors", 
 								"System Resets and Backups"};
