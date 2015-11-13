@@ -22,20 +22,32 @@
 package edu.wright.cs.fa15.ceg3120.concon.common.data;
 
 /**
- * Javadoc needed.
+ * Enumeration of valid request types.
+ * 
+ * @author Connor
  *
  */
-public class HomeownerReview extends Review {
-
-	private static final long serialVersionUID = -6593153458410013006L;
-
+public enum TableDictionary {
 	/**
-	 * Javadoc needed.
+	 * Enumeration of valid request types.
+	 * <p>
+	 * Valid options:
+	 * </p>
+	 * <p>
+	 * CREATE, READ, UPDATE, DELETE
+	 * </p>
+	 * 
+	 * @author Connor
 	 *
 	 */
-	public HomeownerReview(int id, int reviewerId, int subjectId, int jobId, String date,
-			String text, int rating) {
-		super(id, reviewerId, subjectId, jobId, date, text, rating);
-	}
-
+		/** All bids that have been created. */
+		BIDS, PLACED_BIDS, OPEN_BIDS, COMPLETED_BIDS, JOBS, 
+		OPEN_JOB, ENDING_JOBS, COMPLETED_JOBS, USER_ACCOUNTS, 
+		HOMEOWNER_ACCOUNTS, CONTRACTOR_ACCOUNTS, 
+		SERVER_ADMIN_ACCOUNTS, REVIEWS, CONTRACTOR_REVIEWS, 
+		HOMEOWNER_REVIEWS, JOB_REVIEWS, TRANSACTION, PAYMENTS, 
+		REFUNDS, PAYMENT_PLANS, REFUND_PLANS, PLANS_IN_PROGRESS, 
+		FINISHED_PLANS, FINISHED_PAYMENT_PLANS, FINISHED_REFUND_PLANS, 
+		PAYMENT_ACCOUNTS, HOMEOWNER_PAYMENT_ACCOUNTS, 
+		CONTRACTOR_PAYMENT_ACCOUNTS
 }

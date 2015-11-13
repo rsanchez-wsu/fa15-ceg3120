@@ -27,7 +27,7 @@ package edu.wright.cs.fa15.ceg3120.concon.common.data;
  * @author Jonathan Thomas
  *
  */
-public class ContractorReview extends Review implements DatabaseEntity {
+public class ContractorReview extends Review {
 
 	private static final long serialVersionUID = 3063883974982640486L;
 

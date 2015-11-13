@@ -30,7 +30,7 @@ import java.lang.reflect.Method;
  * @author Quack
  *
  */
-public class HomeownerAccount extends UserAccount implements DatabaseEntity {
+public class HomeownerAccount extends UserAccount {
 	private static final long serialVersionUID = 1L;
 
 	/**

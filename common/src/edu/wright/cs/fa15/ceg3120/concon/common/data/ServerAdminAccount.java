@@ -27,7 +27,7 @@ package edu.wright.cs.fa15.ceg3120.concon.common.data;
  * @author Quack
  *
  */
-public class ServerAdminAccount extends UserAccount implements DatabaseEntity {
+public class ServerAdminAccount extends UserAccount {
 
 	private static final long serialVersionUID = 1L;
 
