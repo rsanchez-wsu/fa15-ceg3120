@@ -29,7 +29,6 @@ import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
-
 /**
  * XXX temp. 
  *
@@ -60,7 +59,7 @@ public class HomeownerMainPanel extends JTabbedPane {
 		JPanel createNewJobTab = new CreateJobTab();
 		addTab("Create New Job", null, createNewJobTab, null);
 
-		ShowContractorsTab showContractorTab = new ShowContractorsTab();
+		JLayeredPane showContractorTab = new ShowContractorsTab();
 		addTab("Show Contractors", null, showContractorTab, null);
 
 		JLayeredPane messagingTab = new JLayeredPane();
