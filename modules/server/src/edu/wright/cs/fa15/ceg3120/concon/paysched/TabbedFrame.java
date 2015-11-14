@@ -125,7 +125,6 @@ public class TabbedFrame extends JFrame{
 		totalPaymentOverview = new JLabel();
 		totalPaymentLabel = new JTextField();
 		finalScheduledApptTime = new javax.swing.JLabel();
-		finalScheduledApptLabel = new javax.swing.JTextField();
 		confirmButton = new javax.swing.JButton();
 		cancelButton = new javax.swing.JButton();
 		chosenContractor = new javax.swing.JLabel();
@@ -351,11 +350,13 @@ public class TabbedFrame extends JFrame{
 //text for jbuttons.
 //////////////////////////////////////////////////////////
 		totalPaymentOverview.setText("Total Payment:");
-
+		
 		totalPaymentLabel.setText("$0.00");
+		totalPaymentLabel.setEditable(false);
 
 		finalScheduledApptTime.setText("Scheduled Appointment Time:");
-
+		finalScheduledApptLabel.setEditable(false);
+		
 		finalScheduledApptLabel.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
 				scheduledApptLabelListener(evt);
@@ -373,6 +374,7 @@ public class TabbedFrame extends JFrame{
 		});
 
 		chosenContractor.setText("Contractor Chosen:");
+		chosenContractorLabel.setEditable(false);
 
 		chosenContractorLabel.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
