@@ -21,7 +21,7 @@
 
 package edu.wright.cs.fa15.ceg3120.concon.client.customer;
 
-//import edu.wright.cs.fa15.ceg3120.concon.common.NewContractorPane;
+//import edu.wright.cs.fa15.ceg3120.concon.common.data.ContractorAccount;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
@@ -278,11 +278,19 @@ public class ShowContractorsTab extends JLayeredPane {
 			 * actual queried Contractor info.
 			 */
 			
+			/*
 			// Declare nodes
-			// Get set of Contractors (does DB even have something for this yet?)
+			// Get set of Contractors - temporarily just a new ContractorAccount 
+			ContractorAccount contractor = new ContractorAccount();
 			// Iterate through
-			// Get name, phone, website
+			// Get name, phone, website/email (company?)
+			name = new DefaultMutableTreeNode(contractor.getFirstName() + " " + 
+				contractor.getLastName());
+			phone = new DefaultMutableTreeNode(contractor.getPhoneNumber());
+			website = new DefaultMutableTreeNode(contractor.getEmailAddress());
 			// Add phone and website to name node
+			name.add(phone);
+			name.add(website);
 			// Get set of jobs/reviews associated with each Contractor
 			// Iterate through
 			// Get job ID, rating, review
@@ -290,6 +298,7 @@ public class ShowContractorsTab extends JLayeredPane {
 			// Add job ID to name
 			// Add name to tree
 			// Repeat for all Contractors
+			*/
 			
 		} // end of constructor
 	} // end of custom node class
