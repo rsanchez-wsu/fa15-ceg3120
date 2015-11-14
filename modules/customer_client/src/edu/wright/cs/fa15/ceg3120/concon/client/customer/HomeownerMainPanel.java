@@ -26,7 +26,9 @@ import edu.wright.cs.fa15.ceg3120.concon.common.data.HomeownerAccount;
 import java.awt.Color;
 
 import javax.swing.JLayeredPane;
+import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
+
 
 /**
  * XXX temp. 
@@ -35,7 +37,7 @@ import javax.swing.JTabbedPane;
  */
 public class HomeownerMainPanel extends JTabbedPane {
 	private static final long serialVersionUID = 1L;
-	private JLayeredPane createNewJobTab;
+//	private CreateJobTab createNewJobTab;
 
 	/**
 	 * Creates a new instance of <code>HomeownerMainPanel</code>.
@@ -50,12 +52,12 @@ public class HomeownerMainPanel extends JTabbedPane {
 		profileTab.buildPane();
 		addTab("Profile", null, profileTab, "View and change your profile here");
 		setEnabledAt(0, true);
-		setBackgroundAt(0, Color.WHITE);
+		setBackgroundAt(0, Color.ORANGE);
 
 		JLayeredPane openJobsTab = new JLayeredPane();
 		addTab("Open Jobs", null, openJobsTab, null);
 
-		createNewJobTab = new JLayeredPane();
+		JPanel createNewJobTab = new CreateJobTab();
 		addTab("Create New Job", null, createNewJobTab, null);
 
 		ShowContractorsTab showContractorTab = new ShowContractorsTab();

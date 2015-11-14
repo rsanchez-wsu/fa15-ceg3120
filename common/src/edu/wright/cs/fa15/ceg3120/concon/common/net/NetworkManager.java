@@ -21,10 +21,6 @@
 
 package edu.wright.cs.fa15.ceg3120.concon.common.net;
 
-//import edu.wright.cs.fa15.ceg3120.concon.common.net.message.ChatMessage;
-//import edu.wright.cs.fa15.ceg3120.concon.common.net.message.DataMessage;
-import edu.wright.cs.fa15.ceg3120.concon.common.net.message.NetworkMessage;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -32,68 +28,82 @@ import java.beans.XMLDecoder;
 import java.beans.XMLEncoder;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.lang.annotation.Annotation;
-//import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
- * Javadoc needed.
- *
+ * This class is used to manage network connections.
+ * @author Networking Team
  */
 public class NetworkManager {
 	
 	private static final Logger LOG = LoggerFactory.getLogger(NetworkManager.class);
-	
 
-	private static final HashMap<Method, Class<?>> NETWORK_BUS = new HashMap<Method, Class<?>>();
+	private static final HashMap<String, Method> NETWORK_BUS = new HashMap<>();
 
 	private static ConConServer server;
 	private static ConConClient client;
 
 	/**
-	 * Description. TODO Fill out.
-	 * @param cl Class to register.
+	 * Searches a class for methods annotated with NetworkHandler and registers them to the bus.
+	 * Every NetworkHandler method in a module MUST have a unique channel.
+	 * @param cl Class to search.
+	 * @return List containing registered NetworkHandler method channels.
 	 */
-	public static void registerNetworkClass(Class<?> cl) {
+	public static List<String> registerNetworkHandlerClass(Class<?> cl) {
 		Method[] methods = cl.getMethods();
+		List<String> registered = new ArrayList<>();
 		for (Method m : methods) {
-			if (m.isAnnotationPresent((Class<? extends Annotation>) NetworkHandler.class)) {
+			if (m.isAnnotationPresent(NetworkHandler.class)) {
 				Class<?>[] argClasses = m.getParameterTypes();
-				if (argClasses.length != 1 
-						|| !NetworkMessage.class.isAssignableFrom(argClasses[0])) {
-					System.out.println("Invalid parameters on NetworkHandler method: " 
+				String channel = m.getAnnotation(NetworkHandler.class).channel();
+				if (argClasses.length != 1
+						|| (!m.getReturnType().equals(Void.TYPE)
+							&& !m.getReturnType().equals(MessageHolder.class))
+						|| !argClasses[0].equals(Object.class)
+						|| NETWORK_BUS.keySet().contains(channel)) {
+					LOG.error("Invalid parameters on NetworkHandler method: "
 							+ m.getName());
+					throw new RuntimeException();
 				} else {
-					NETWORK_BUS.put(m, argClasses[0]);
+					NETWORK_BUS.put(channel, m);
+					registered.add(channel);
 				}
 			}
 		}
+		return registered;
 	}
 
 	/**
-	 * Description. TODO Fill out.
-	 * @param message Message to post.
+	 * Post a message to the targeted channel.
+	 * @param targetChannel unique channel ID to target.
+	 * @param message message to post.
+	 * @return A response, or null.
 	 */
-	public static void post(NetworkMessage message) {
-		for (Map.Entry<Method, Class<?>> listener : NETWORK_BUS.entrySet()) {
-			if (listener.getValue().isAssignableFrom(message.getClass())) {
+	public static MessageHolder post(String targetChannel, Object message) {
+		for (Map.Entry<String, Method> listener : NETWORK_BUS.entrySet()) {
+			if (listener.getKey().equals(targetChannel)) {
 				try {
-					System.out.println("Recieved message: " + message);
-					//if (message instanceof NetworkMessageSomethingSomething)
-					//   listener.getKey().invoke(null, (NetworkMessageSomethingSomething)message);
-					// etc
-				} catch (Exception e) {
-					e.printStackTrace();
+					Object response = listener.getValue().invoke(null, message);
+					if (response instanceof MessageHolder) {
+						return (MessageHolder)response;
+					}
+				} catch (ReflectiveOperationException e) {
+					LOG.error("Error while posting to " + targetChannel, e);
 				}
 			}
 		}
+		return null;
 	}
 
+
 	/**
-	 * Description. TODO Fill out.
+	 * Start a listening server if a server or client isn't running already.
 	 * @param port Port to use.
 	 * @return false if failed.
 	 */
@@ -102,13 +112,12 @@ public class NetworkManager {
 			return false;
 		}
 		server = new ConConServer(port);
-		server.start();
+		new Thread(server).start();
 		return true;
 	}
-	
+
 	/**
-	 * Javadoc needed.
-	 *
+	 * Stops the running server.
 	 */
 	public static void stopServer() {
 		server.quit();
@@ -116,7 +125,7 @@ public class NetworkManager {
 	}
 
 	/**
-	 * Description. TODO Fill out.
+	 * Start a client to communicate with a server if a server or client isn't running already.
 	 * @param host Host to use.
 	 * @param port Port to use.
 	 * @return false if failed.
@@ -130,53 +139,58 @@ public class NetworkManager {
 	}
 
 	/**
-	 * Javadoc needed.
-	 *
+	 * Stops the client.
 	 */
 	public static void stopClient() {
 		client = null;
 	}
 
 	/**
-	 * Description. TODO Fill out.
+	 * Sends a message from the client (if it exists) to a channel.
+	 * @param targetChannel Channel to target.
 	 * @param message Message to send.
 	 * @return false if failed.
 	 */
-	public static boolean sendMessage(NetworkMessage message) {
+	public static boolean sendMessage(String targetChannel, Object message) {
 		if (client == null) {
 			return false;
 		}
 		try {
-			client.sendMessage(encodeToXml(message));
-		} catch (UnsupportedEncodingException e) {
-			LOG.warn("Improper message encoding: ", e);
+			client.sendMessage(encodeToXml(new MessageHolder(targetChannel, message)));
+		} catch (IOException e) {
+			LOG.error("Error while sending to " + targetChannel, e);
+			return false;
 		}
 		return true;
 	}
 
 	/**
-	 * Description. TODO Fill out.
+	 * Decodes a previously-encoded XML string to an Object.
 	 * @param xml Data to parse.
 	 * @return result.
-	 * @throws UnsupportedEncodingException TODO Reason.
+	 * @throws UnsupportedEncodingException //
 	 */
-	protected static NetworkMessage decodeFromXml(String xml) throws UnsupportedEncodingException {
-		//some reflection wizardry or switching or something
+	protected static Object decodeFromXml(String xml) throws UnsupportedEncodingException {
+		if (xml == null || xml.equals("")) {
+			return null;
+		}
 		XMLDecoder xmlWizard = new XMLDecoder(new ByteArrayInputStream(xml.getBytes("UTF-8")));
-		NetworkMessage result = (NetworkMessage) xmlWizard.readObject();
+		Object result = xmlWizard.readObject();
 		xmlWizard.close();
 		return result;
 	}
 
 	/**
-	 * Description. TODO Fill out.
+	 * Encodes an arbitrary Object into an XML string.
 	 * @param message Message to encode.
-	 * @return encoded data.
-	 * @throws UnsupportedEncodingException TODO Reason.
+	 * @return encoded XML data.
+	 * @throws UnsupportedEncodingException //
 	 */
-	protected static String encodeToXml(NetworkMessage message) 
+	protected static String encodeToXml(Object message)
 			throws UnsupportedEncodingException {
-		//some reflection wizardry or switching or something
+		if (message == null) {
+			return null;
+		}
 		ByteArrayOutputStream out = new ByteArrayOutputStream();
 		XMLEncoder xmlWizard = new XMLEncoder(out, "UTF-8", false, 0);
 		xmlWizard.writeObject(message);

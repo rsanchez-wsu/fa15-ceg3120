@@ -21,6 +21,9 @@
 
 package edu.wright.cs.fa15.ceg3120.concon.common.net;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -30,22 +33,21 @@ import java.net.Socket;
 
 //TODO have security
 /**
- * Javadoc needed.
- *
+ * Class which handles non-blocking communication with clients.
  */
-public class ConConServer extends Thread {
+public class ConConServer implements Runnable {
+	private static final Logger LOG = LoggerFactory.getLogger(ConConServer.class);
 
 	private int port;
 	private ServerSocket serverSocket = null;
 	private boolean listening = true;
 
 	/**
-	 * Javadoc needed.
-	 *
+	 * Constructor
+	 * @param port the port.
 	 */
 	public ConConServer(int port) {
 		this.port = port;
-	
 	}
 
 	@Override
@@ -53,7 +55,7 @@ public class ConConServer extends Thread {
 		try {
 			this.serverSocket = new ServerSocket(this.port);
 		} catch (IOException e) {
-			e.printStackTrace();
+			LOG.error("Server Socket init: ", e);
 		}
 		while (listening) {
 			Socket clientSocket = null;
@@ -61,38 +63,37 @@ public class ConConServer extends Thread {
 				clientSocket = this.serverSocket.accept();
 			} catch (IOException e) {
 				if (!listening) {
-					System.out.println("Server Stopped.");
+					LOG.error("Server Stopped: ", e);
 					return;
 				}
-				e.printStackTrace();
+				LOG.error("Client Socket: ", e);
 			}
-			new ConnectionWorker(clientSocket).start();
+			new Thread(new ConnectionWorker(clientSocket)).start();
 		}
 	}
 
 	/**
-	 * Description. TODO Fill out.
+	 * Stop the server.
 	 */
 	public void quit() {
 		this.listening = false;
 		try {
 			this.serverSocket.close();
 		} catch (IOException e) {
-			e.printStackTrace();
+			LOG.error("Server Socket: ", e);
 		}
 	}
 
 	/**
-	 * Javadoc needed.
-	 *
+	 * The threaded class which will handle the actual communication.
 	 */
-	private static class ConnectionWorker extends Thread {
+	private static class ConnectionWorker implements Runnable {
 
 		private Socket clientSocket = null;
 
 		/**
-		 * Javadoc needed.
-		 *
+		 * constructor.
+		 * @param clientSocket the client socket.
 		 */
 		public ConnectionWorker(Socket clientSocket) {
 			this.clientSocket = clientSocket;
@@ -101,23 +102,35 @@ public class ConConServer extends Thread {
 		@Override
 		public void run() {
 			try {
+				// Construct the reader and writer for the connection
 				DataOutputStream toClient = new DataOutputStream(clientSocket.getOutputStream());
 				BufferedReader fromClient = new BufferedReader(
 						new InputStreamReader(clientSocket.getInputStream(), "UTF-8"));
-
 
 				int ch = 0;
 				StringBuilder message = new StringBuilder();
 				while ((ch = fromClient.read()) != -1) {
 					message.append(ch);
-				}
+				}//Reads message from client into integer buffer
 
-				NetworkManager.post(NetworkManager.decodeFromXml(message.toString()));
+				while (message.toString().length() > 0) {
+					MessageHolder mh =
+							(MessageHolder)NetworkManager.decodeFromXml(message.toString());
+					MessageHolder response = NetworkManager.post(mh.channel, mh.message);
+					if (response != null) {
+						toClient.writeBytes(NetworkManager.encodeToXml(response));
+						ch = 0;
+						message = new StringBuilder();
+						while ((ch = fromClient.read()) != -1) {
+							message.append(ch);
+						}//Reads message from client into integer buffer
+					}
+				}
 
 				toClient.close();
 				fromClient.close();
 			} catch (IOException e) {
-				e.printStackTrace();
+				LOG.error("Connection Worker IO: ", e);
 			}
 		}
 	}

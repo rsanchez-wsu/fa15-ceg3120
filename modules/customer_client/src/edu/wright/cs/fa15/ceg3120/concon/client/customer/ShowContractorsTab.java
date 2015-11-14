@@ -22,12 +22,14 @@
 package edu.wright.cs.fa15.ceg3120.concon.client.customer;
 
 import java.awt.BorderLayout;
+//import java.awt.Component;
 import java.awt.FlowLayout;
 //import java.awt.Font;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.Enumeration;
 
+//import javax.swing.Box;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.JOptionPane;
@@ -54,6 +56,8 @@ public class ShowContractorsTab extends JLayeredPane {
 	private static final long serialVersionUID = 1L;
 	private JTextField searchField;
 	private JTree tree;
+	// temporary- should be variable from db query
+	private int numberOfContractors = 3;
 	
 	/**
 	 * ShowContractorsTab constructor.
@@ -115,6 +119,7 @@ public class ShowContractorsTab extends JLayeredPane {
 		
 		// Create tree
 		tree = new JTree();
+		tree.setVisibleRowCount(numberOfContractors + 1);
 		//tree.setFont(new Font("DejaVu Sans", Font.PLAIN, 15));
 		tree.setModel(new DefaultTreeModel(new CustomTreeNode()));
 		
