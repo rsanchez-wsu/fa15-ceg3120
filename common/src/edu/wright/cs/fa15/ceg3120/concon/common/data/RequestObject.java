@@ -19,17 +19,42 @@
  *
  */
 
+
 package edu.wright.cs.fa15.ceg3120.concon.common.data;
 
 /**
- * Enumeration of valid account types.
- * <p>Valid options:</p>
- * <p>HOMEOWNER, CONTRACTOR, SERVER_ADMIN</p>
- * 
- * @author Quack
+ * Class that will be used to hold the request data and request type together in a queue.
+ * @author Moorman
  *
- * @see edu.wright.cs.fa15.ceg3120.concon.common.data.UserAccount 
  */
-public enum AccountType {
-	HOMEOWNER, CONTRACTOR, SERVER_ADMIN
+public class RequestObject {
+
+	private Object data;
+	private RequestType requestType;
+	
+	/**
+	 * Javadoc needed.
+	 * @param inputData Object.
+	 * @param reqType RequestType.
+	 */
+	public RequestObject( Object inputData, RequestType reqType ) {
+		this.data = inputData;
+		this.requestType = reqType;
+	}
+	
+	/**
+	 * Javadoc needed.
+	 * @return Object data.
+	 */
+	public Object getData() {
+		return this.data;
+	}
+	
+	/**
+	 * Javadoc needed.
+	 * @return RequestType requestType;
+	 */
+	public RequestType getRequestType() {
+		return this.requestType;
+	}
 }

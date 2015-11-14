@@ -20,6 +20,6 @@
  */
 
 /**
- * Classes to handle payment and scheduling between users.
+ * Classes that represent different messages to be sent over the network.
  */
-package edu.wright.cs.fa15.ceg3120.concon.paysched;
+package edu.wright.cs.fa15.ceg3120.concon.common.net.message;

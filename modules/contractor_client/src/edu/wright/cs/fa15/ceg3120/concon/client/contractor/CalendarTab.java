@@ -19,7 +19,24 @@
  *
  */
 
+package edu.wright.cs.fa15.ceg3120.concon.client.contractor;
+
+import javax.swing.JLayeredPane;
+import javax.swing.JPanel;
+
 /**
- * Classes to handle payment and scheduling between users.
+ * Calendar Tab.
+ *
  */
-package edu.wright.cs.fa15.ceg3120.concon.paysched;
+public class CalendarTab extends JLayeredPane {
+	private static final long serialVersionUID = 1L;
+	
+	/**
+	 * Buil the tab.
+	 */
+	public CalendarTab() {
+		JPanel calendar = new JPanel();
+		add(calendar);
+		calendar.setLayout(null);
+	}
+}

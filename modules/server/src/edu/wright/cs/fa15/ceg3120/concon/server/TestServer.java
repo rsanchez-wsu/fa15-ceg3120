@@ -19,17 +19,26 @@
  *
  */
 
-package edu.wright.cs.fa15.ceg3120.concon.common.data;
+package edu.wright.cs.fa15.ceg3120.concon.server;
+
+import edu.wright.cs.fa15.ceg3120.concon.common.net.NetworkManager;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
- * Enumeration of valid account types.
- * <p>Valid options:</p>
- * <p>HOMEOWNER, CONTRACTOR, SERVER_ADMIN</p>
- * 
- * @author Quack
+ * Test server for testing network stuff.
  *
- * @see edu.wright.cs.fa15.ceg3120.concon.common.data.UserAccount 
  */
-public enum AccountType {
-	HOMEOWNER, CONTRACTOR, SERVER_ADMIN
+public class TestServer {
+	private static final Logger LOG = LoggerFactory.getLogger(TestServer.class);
+	
+	/**
+	 * Load the server with very simple initialization.
+	 * @param args Arguments.
+	 */
+	public static void main(String[] args) {
+		LOG.trace("Starting server...");
+		NetworkManager.startServer(9667);
+	}
 }

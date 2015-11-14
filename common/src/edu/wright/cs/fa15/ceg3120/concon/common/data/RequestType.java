@@ -22,14 +22,13 @@
 package edu.wright.cs.fa15.ceg3120.concon.common.data;
 
 /**
- * Enumeration of valid account types.
+ * Enumeration of valid request types.
  * <p>Valid options:</p>
- * <p>HOMEOWNER, CONTRACTOR, SERVER_ADMIN</p>
+ * <p>CREATE, READ, UPDATE, DELETE</p>
  * 
- * @author Quack
+ * @author Connor
  *
- * @see edu.wright.cs.fa15.ceg3120.concon.common.data.UserAccount 
  */
-public enum AccountType {
-	HOMEOWNER, CONTRACTOR, SERVER_ADMIN
+public enum RequestType {
+	CREATE, READ, UPDATE, DELETE
 }

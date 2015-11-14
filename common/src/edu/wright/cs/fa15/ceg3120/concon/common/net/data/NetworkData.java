@@ -19,7 +19,17 @@
  *
  */
 
+package edu.wright.cs.fa15.ceg3120.concon.common.net.data;
+
+import java.io.Serializable;
+
 /**
- * Classes to handle payment and scheduling between users.
+ * Implement this class for data objects that need to be
+ * sent over the network in DataMessage.
+ * 
+ * @author NathanJent
+ *
  */
-package edu.wright.cs.fa15.ceg3120.concon.paysched;
+public interface NetworkData extends Serializable {
+	
+}

@@ -21,15 +21,18 @@
 
 package edu.wright.cs.fa15.ceg3120.concon.client.customer;
 
+//import edu.wright.cs.fa15.ceg3120.concon.common.NewContractorPane;
+
 import java.awt.BorderLayout;
-//import java.awt.Component;
 import java.awt.FlowLayout;
-//import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+
 import java.util.Enumeration;
 
-//import javax.swing.Box;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.JOptionPane;
@@ -113,8 +116,6 @@ public class ShowContractorsTab extends JLayeredPane {
 		
 		// Create panel for tree
 		JPanel treePanel = new JPanel();
-		FlowLayout layout2 = (FlowLayout) treePanel.getLayout();
-		layout2.setAlignment(FlowLayout.CENTER);
 		add(treePanel, BorderLayout.CENTER);
 		
 		// Create tree
@@ -129,6 +130,20 @@ public class ShowContractorsTab extends JLayeredPane {
 				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		
 		treePanel.add(treeScroll);
+		
+		JButton messageButton = new JButton("Message Contractor");
+		messageButton.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent click) {
+				
+				// will actually implement once the messaging tab is set up
+				
+				// get selected node in tree
+				// open messaging tab, autofill to selected contractor
+				
+			}
+		});
+		add(messageButton, BorderLayout.SOUTH);
 		
 	} // end of initialize method
 	

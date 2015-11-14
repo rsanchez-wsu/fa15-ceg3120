@@ -29,6 +29,7 @@ import java.beans.XMLEncoder;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -49,9 +50,17 @@ public class NetworkManager {
 	private static ConConServer server;
 	private static ConConClient client;
 
+	//@NetworkHandler("echoChannel")
+	//public MessageHolder echo(Serializable msg) {
+	//	System.out.println(msg.toString);
+	//	return new MessageHolder("responseChannel", "Echo: " + msg.toString());
+	//}
+
 	/**
 	 * Searches a class for methods annotated with NetworkHandler and registers them to the bus.
 	 * Every NetworkHandler method in a module MUST have a unique channel.
+     * Additionally, methods must take only one Serializable parameter
+     * and must return either void or a MessageHolder containing a response.
 	 * @param cl Class to search.
 	 * @return List containing registered NetworkHandler method channels.
 	 */
@@ -61,11 +70,11 @@ public class NetworkManager {
 		for (Method m : methods) {
 			if (m.isAnnotationPresent(NetworkHandler.class)) {
 				Class<?>[] argClasses = m.getParameterTypes();
-				String channel = m.getAnnotation(NetworkHandler.class).channel();
+				String channel = m.getAnnotation(NetworkHandler.class).value();
 				if (argClasses.length != 1
 						|| (!m.getReturnType().equals(Void.TYPE)
 							&& !m.getReturnType().equals(MessageHolder.class))
-						|| !argClasses[0].equals(Object.class)
+						|| !argClasses[0].equals(Serializable.class)
 						|| NETWORK_BUS.keySet().contains(channel)) {
 					LOG.error("Invalid parameters on NetworkHandler method: "
 							+ m.getName());
@@ -85,7 +94,7 @@ public class NetworkManager {
 	 * @param message message to post.
 	 * @return A response, or null.
 	 */
-	public static MessageHolder post(String targetChannel, Object message) {
+	public static MessageHolder post(String targetChannel, Serializable message) {
 		for (Map.Entry<String, Method> listener : NETWORK_BUS.entrySet()) {
 			if (listener.getKey().equals(targetChannel)) {
 				try {
@@ -103,7 +112,11 @@ public class NetworkManager {
 
 
 	/**
+<<<<<<< HEAD
+	 * Start the server.
+=======
 	 * Start a listening server if a server or client isn't running already.
+>>>>>>> refs/remotes/origin/master
 	 * @param port Port to use.
 	 * @return false if failed.
 	 */
@@ -151,7 +164,7 @@ public class NetworkManager {
 	 * @param message Message to send.
 	 * @return false if failed.
 	 */
-	public static boolean sendMessage(String targetChannel, Object message) {
+	public static boolean sendMessage(String targetChannel, Serializable message) {
 		if (client == null) {
 			return false;
 		}
@@ -165,10 +178,18 @@ public class NetworkManager {
 	}
 
 	/**
+<<<<<<< HEAD
+	 * Decodes Java Bean objects from XML received over network.
+=======
 	 * Decodes a previously-encoded XML string to an Object.
+>>>>>>> refs/remotes/origin/master
 	 * @param xml Data to parse.
 	 * @return result.
+<<<<<<< HEAD
+	 * @throws UnsupportedEncodingException The Character Encoding is not supported.
+=======
 	 * @throws UnsupportedEncodingException //
+>>>>>>> refs/remotes/origin/master
 	 */
 	protected static Object decodeFromXml(String xml) throws UnsupportedEncodingException {
 		if (xml == null || xml.equals("")) {
@@ -183,10 +204,9 @@ public class NetworkManager {
 	/**
 	 * Encodes an arbitrary Object into an XML string.
 	 * @param message Message to encode.
-	 * @return encoded XML data.
 	 * @throws UnsupportedEncodingException //
 	 */
-	protected static String encodeToXml(Object message)
+	protected static String encodeToXml(Serializable message)
 			throws UnsupportedEncodingException {
 		if (message == null) {
 			return null;

@@ -59,7 +59,7 @@ public class MainTab extends JLayeredPane {
 
 		JLayeredPane layeredPaneNews = new JLayeredPane();
 		add(layeredPaneNews, BorderLayout.NORTH);
-		layeredPaneNews.setBackground(Color.ORANGE);
+		layeredPaneNews.setBackground(Color.WHITE);
 		layeredPaneNews.setLayout(new BorderLayout(0, 0));
 		
 		JTextPane txtpnNews = new JTextPane();
@@ -68,11 +68,11 @@ public class MainTab extends JLayeredPane {
 		txtpnNews.setFont(new Font("Tahoma", Font.BOLD, 24));
 		txtpnNews.setText("News\r\n");
 		txtpnNews.setBackground(Color.ORANGE);
-		
+
 		layeredPaneNews.add(txtpnNews, BorderLayout.CENTER);
 		
 		JSeparator separator = new JSeparator();
-
+		
 		layeredPaneNews.add(separator, BorderLayout.SOUTH);
 
 		separator.setBackground(Color.BLUE);

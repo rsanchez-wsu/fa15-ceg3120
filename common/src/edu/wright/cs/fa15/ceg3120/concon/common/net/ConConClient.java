@@ -21,6 +21,8 @@
 
 package edu.wright.cs.fa15.ceg3120.concon.common.net;
 
+import edu.wright.cs.fa15.ceg3120.concon.common.net.data.UserData;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -40,6 +42,8 @@ public class ConConClient {
 	
 	private String host;
 	private int port;
+
+	private static UserData currentUser;
 	
 	/**
 	 * Constructs a client which will talk to the designated host:port.
@@ -55,7 +59,7 @@ public class ConConClient {
 	 * Sends an XML-encoded message to the server.
 	 * @param message Message to be sent
 	 */
-	public void sendMessage(String message) {
+	protected void sendMessage(String message) {
 		new Thread(new DispatchMessage(message)).start();
 	}
 
@@ -104,5 +108,21 @@ public class ConConClient {
 				LOG.error("Dispatch Message IO: ", e);
 			}
 		}
+	}
+
+	/**
+	 * Sets the current user.
+	 * @param user current user
+	 */
+	public static void setCurrentUser(UserData user) {
+		ConConClient.currentUser = user;
+	}
+	
+	/**
+	 * Get the current user.
+	 * @return current logged in user if connected
+	 */
+	public static UserData getCurrentUser() {
+		return currentUser;
 	}
 }

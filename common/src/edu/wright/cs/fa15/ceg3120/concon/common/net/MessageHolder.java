@@ -21,19 +21,23 @@
 
 package edu.wright.cs.fa15.ceg3120.concon.common.net;
 
+import java.io.Serializable;
+
 /**
  * A basic tuple class for holding any object and a channel identifier.
  */
-public class MessageHolder {
+public class MessageHolder implements Serializable {
+	private static final long serialVersionUID = 31628748572L;
+
 	public String channel;
-	public Object message;
+	public Serializable message;
 
 	/**
 	 * Constructor.
 	 * @param channel the channel.
 	 * @param message the message.
 	 */
-	public MessageHolder(String channel, Object message) {
+	public MessageHolder(String channel, Serializable message) {
 		this.channel = channel;
 		this.message = message;
 	}
