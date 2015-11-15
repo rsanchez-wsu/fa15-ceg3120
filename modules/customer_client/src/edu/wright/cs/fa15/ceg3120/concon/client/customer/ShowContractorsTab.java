@@ -131,6 +131,7 @@ public class ShowContractorsTab extends JLayeredPane {
 		
 		treePanel.add(treeScroll);
 		
+		/*
 		JButton messageButton = new JButton("Message Contractor");
 		messageButton.addActionListener(new ActionListener() {
 
@@ -144,6 +145,7 @@ public class ShowContractorsTab extends JLayeredPane {
 			}
 		});
 		add(messageButton, BorderLayout.SOUTH);
+		*/
 		
 	} // end of initialize method
 	
