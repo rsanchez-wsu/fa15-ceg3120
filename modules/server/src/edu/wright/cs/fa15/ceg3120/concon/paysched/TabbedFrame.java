@@ -125,6 +125,7 @@ public class TabbedFrame extends JFrame{
 		totalPaymentOverview = new JLabel();
 		totalPaymentLabel = new JTextField();
 		finalScheduledApptTime = new javax.swing.JLabel();
+		finalScheduledApptLabel = new javax.swing.JTextField();
 		confirmButton = new javax.swing.JButton();
 		cancelButton = new javax.swing.JButton();
 		chosenContractor = new javax.swing.JLabel();
