@@ -25,14 +25,14 @@ package edu.wright.cs.fa15.ceg3120.concon.client.customer;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+//import java.awt.event.ActionEvent;
+//import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
 import java.util.Enumeration;
 
-import javax.swing.JButton;
+//import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.JOptionPane;
@@ -130,6 +130,11 @@ public class ShowContractorsTab extends JLayeredPane {
 				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		
 		treePanel.add(treeScroll);
+		
+		/**
+		 * Ignore below- commented out because it caused the build to fail
+		 * will uncomment when ready to implement.
+		 */
 		
 		/*
 		JButton messageButton = new JButton("Message Contractor");
