@@ -148,7 +148,7 @@ public class ServerGui extends JPanel implements ActionListener {
 		JFrame frame = new JFrame("Server Control GUI");
 
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
+		frame.setIconImage(CreateImageIcon.iconLogo.getImage());
 		// Add content to the window.
 		frame.add(new ServerGui(), BorderLayout.CENTER);
 

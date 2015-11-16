@@ -53,6 +53,7 @@
 package edu.wright.cs.fa15.ceg3120.concon.server;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -102,6 +103,8 @@ public class MakeDashBoard {
 		final JTextArea mergText = new JTextArea(10, 50);
 		JLabel mergLabel = new JLabel("Enter the message:");
 		mergLabel.setPreferredSize(new Dimension(5,30));
+		mergLabel.setOpaque(true);
+		mergLabel.setBackground(Color.ORANGE);
 		mergText.setLineWrap(true);
 		mergText.setWrapStyleWord(true);
 		
@@ -137,8 +140,11 @@ public class MakeDashBoard {
 		emerPane.add(jclose, BorderLayout.EAST);
 		
 		JPanel emerPane1 = new JPanel();
-		JScrollPane scrollPane = new JScrollPane(mergText);
+		
 		emerPane1.add(emerPane,  BorderLayout.CENTER);
+		emerPane1.setOpaque(true);
+		emerPane1.setBackground(Color.ORANGE);
+		JScrollPane scrollPane = new JScrollPane(mergText);
 		emerFrame.add(mergLabel, BorderLayout.NORTH);
 		emerFrame.add(scrollPane,BorderLayout.CENTER);
 		emerFrame.add(emerPane1, BorderLayout.SOUTH);
@@ -161,6 +167,9 @@ public class MakeDashBoard {
 		contentPane.setPreferredSize(new Dimension(400, 100));
 		contentPane.add(toolBar, BorderLayout.NORTH);
 		contentPane.add(pane, BorderLayout.WEST);
+		contentPane.setOpaque(true);
+		contentPane.setBackground(Color.ORANGE);
+		contentPane.add(new JLabel(CreateImageIcon.iconLogo2), BorderLayout.CENTER);
 		//pop up reviewing all news reports from users (abusive, scam...etc reports)
 		
 		JButton buttonReports = new JButton("Reports");
@@ -192,6 +201,8 @@ public class MakeDashBoard {
 					emerFrame.setVisible(true);
 				}
 		});
+		toolBar.setOpaque(true);
+		toolBar.setBackground(Color.ORANGE);
 		toolBar.add(emergencyMessages, BorderLayout.NORTH);
 		toolBar.add(buttonReports, BorderLayout.NORTH);
 		toolBar.add(currentUsers, BorderLayout.NORTH);
