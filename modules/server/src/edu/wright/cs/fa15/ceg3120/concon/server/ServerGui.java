@@ -84,6 +84,8 @@ public class ServerGui extends JPanel implements ActionListener {
 	public JRadioButton homeOwner;
 	public JRadioButton contractor;
 	public static final String newline = "\n";
+	
+	private JTabbedPane tabbedPane;
 
 /**
  * main GUI class call sub classes to form components.
@@ -95,13 +97,13 @@ public class ServerGui extends JPanel implements ActionListener {
 		super(new GridLayout(1, 1));
 		
 		// Create tabbedPane and add all need tabs to it
-		JTabbedPane tabbedPane = new JTabbedPane();
+		tabbedPane = new JTabbedPane();
 		
 		tabbedPane.addTab("Dash board", CreateImageIcon.iconDashBoard, 
 						MakeDashBoard.panelDashBoard, "Main Dashboard");
 		tabbedPane.setMnemonicAt(0, KeyEvent.VK_1);
 
-		JComponent panel2 = new CreateButtonsSearch();
+		JComponent panel2 = new CreateButtonsSearch(this);
 		tabbedPane.addTab("User's info", CreateImageIcon.icon, panel2,
 						"User Infor and Messaging");
 		tabbedPane.setMnemonicAt(1, KeyEvent.VK_2);
@@ -126,6 +128,15 @@ public class ServerGui extends JPanel implements ActionListener {
 
 		// The following line enables to use scrolling tabs.
 		tabbedPane.setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
+		
+	}
+	
+	/**
+	 * Changes the currently selected tab to newTabIndex.
+	 * @param newTabIndex the index of the tab to switch to.
+	 */
+	public void switchTabs(int newTabIndex) {
+		tabbedPane.setSelectedIndex(newTabIndex);
 	}
 
 	@Override
@@ -163,6 +174,7 @@ public class ServerGui extends JPanel implements ActionListener {
      * 
      */
 	public static void main(String[] args) {
+		
 		// Schedule a job for the event dispatch thread:
 		// creating and showing this application's GUI.
 		SwingUtilities.invokeLater(new Runnable() {
