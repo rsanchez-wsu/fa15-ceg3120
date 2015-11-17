@@ -31,6 +31,7 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import javax.swing.JButton;
 import javax.swing.JFormattedTextField;
 import javax.swing.JPanel;
@@ -100,7 +101,6 @@ public class ChatPanel extends JPanel {
 			}
 			
 		});
-
 	}
 
 	/**
@@ -138,6 +138,14 @@ public class ChatPanel extends JPanel {
 		this.recipient = recipient;
 	}
 
+	/**
+	 * Close client before JPanel closes.
+	 */
+	public void removeNotify() {
+		super.removeNotify();
+		client.close();
+	}
+	
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */

@@ -100,43 +100,41 @@ public class ConConServer implements Runnable {
 		public ConnectionWorker(Socket clientSocket) {
 			this.clientSocket = clientSocket;
 		}
-
+		
 		@Override
 		public void run() {
 			try {
-				// Construct the reader and writer for the connection
-				DataOutputStream toClient = 
-						new DataOutputStream(clientSocket.getOutputStream());
 				BufferedReader fromClient = new BufferedReader(
 						new InputStreamReader(clientSocket.getInputStream(), "UTF-8"));
-				StringBuilder message = new StringBuilder();					
-				String line;
-				while (clientSocket.isConnected()) {
+				String line = "";
+				while (clientSocket.isConnected() && line != null) {
+					StringBuilder message = new StringBuilder();					
 					while ((line = fromClient.readLine()) != null) {
 						message.append(line);
 						if (line.compareTo("</java>") == 0) {
-							break;
-						}
-					}
-					
-					MessageHolder mh = 
-							(MessageHolder)NetworkManager.decodeFromXml(message.toString());
-					if (mh.getChannel().equals("end")) {
-						break;
-					}
-					MessageHolder response = 
-							NetworkManager.post(mh.getChannel(), mh.getMessage());
-					if (response != null) {
-						String responseXml = NetworkManager.encodeToXml(response);
-						
-						if (mh.getMessage() instanceof ChatData) {
-							ChatData responseMessage = (ChatData)mh.getMessage();
-							String to = responseMessage.getTo();
 							
-							// Change this to send to the user specified in the "to" field
-							toClient.writeBytes(responseXml);
-						} else {
-							toClient.writeBytes(responseXml);
+							DataOutputStream toClient = null;
+							MessageHolder mh = 
+									(MessageHolder)NetworkManager.decodeFromXml(message.toString());
+							if (mh.getChannel().equals("end")) {
+								return;
+							}
+							MessageHolder response = 
+									NetworkManager.post(mh.getChannel(), mh.getMessage());
+							if (response != null) {
+								String responseXml = NetworkManager.encodeToXml(response);
+								
+								if (response.getMessage() instanceof ChatData) {
+									// TODO: Send the chat message to the person who should get it
+									
+									toClient = new DataOutputStream(clientSocket.getOutputStream());
+									toClient.writeBytes(responseXml);
+								} else {
+									toClient = new DataOutputStream(clientSocket.getOutputStream());
+									toClient.writeBytes(responseXml);
+								}
+							}
+							break;
 						}
 					}
 				}

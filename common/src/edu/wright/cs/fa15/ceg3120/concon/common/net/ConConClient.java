@@ -40,8 +40,7 @@ import java.nio.charset.StandardCharsets;
 public class ConConClient {
 	private static final Logger LOG = LoggerFactory.getLogger(ConConClient.class);
 	
-	private String host;
-	private int port;
+	private Socket sock;
 
 	private UserData currentUser;
 	
@@ -51,8 +50,11 @@ public class ConConClient {
 	 * @param port will fail if in use.
 	 */
 	public ConConClient(String host, int port) {
-		this.host = host;
-		this.port = port;
+		try {
+			this.sock = new Socket(host, port);
+		} catch (IOException e) {
+			LOG.error("ConCon Client IO: ", e);
+		}
 	}
 
 	/**
@@ -62,7 +64,22 @@ public class ConConClient {
 	public void sendMessage(String message) {
 		new Thread(new DispatchMessage(message)).start();
 	}
-
+	
+	/**
+	 * Closes the client.
+	 */
+	public void close() {
+		try {
+			if (sock.isConnected()) {
+				sock.shutdownInput();
+				sock.shutdownOutput();
+				sock.close();
+			}
+		} catch (IOException e) {
+			LOG.error("ConCon Client Close: ", e);
+		}
+	}
+	
 	/**
 	 * The threaded class which will handle the actual sending of messages.
 	 */
@@ -80,7 +97,7 @@ public class ConConClient {
 		@Override
 		public void run() {
 			try {
-				Socket clientSocket = new Socket(host, port);
+				Socket clientSocket = sock;
 				DataOutputStream toServer =
 						new DataOutputStream(clientSocket.getOutputStream());
 				BufferedReader fromServer =	new BufferedReader(
@@ -115,11 +132,6 @@ public class ConConClient {
 					} else {
 						message = null;
 					}
-				}
-				if (clientSocket.isConnected()) {
-					clientSocket.shutdownInput();
-					clientSocket.shutdownOutput();
-					clientSocket.close();
 				}
 			} catch (IOException e) {
 				LOG.error("Dispatch Message IO: ", e);
