@@ -28,6 +28,8 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -328,6 +330,46 @@ public class DataAccessLayer extends Thread {
 				// -- Finally, after handling the request, we must remove it
 				// from the queue.
 				requestQueue.remove(currentRequest);
+			}
+		}
+	}
+	
+	/**
+	 * Private inner class for connecting to the database and executing SQL statements.
+	 */
+	private class DatabaseConnection {
+		private int objectType;
+		private Connection conn = null;
+		private final String url = "jdbc:derby:/Users/Moorman/MyDB;create=true";
+		
+		/**
+		 * No argument constructor.
+		 */
+		public DatabaseConnection() {
+			
+		}
+		
+		/**
+		 * Connects to the database.
+		 */
+		public void connectDatabase() {
+			try {
+				Class.forName("org.apache.derby.jdbc.EmbeddedDriver").newInstance();
+				conn = DriverManager.getConnection(url);
+			} catch (SQLException | ClassNotFoundException
+					| IllegalAccessException | InstantiationException e) {
+				System.out.println(e);
+			}
+		}
+		
+		/**
+		 * Closes the connection to the database.
+		 */
+		public void closeConnection() {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				System.out.println(e);
 			}
 		}
 	}

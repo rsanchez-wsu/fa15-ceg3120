@@ -63,6 +63,14 @@ public class RequestObject implements Serializable {
 	}
 	
 	/**
+	 * Gets the class type of the data contained in the request object.
+	 * @return class type of data
+	 */
+	public Class<?> getDataClass() {
+		return this.data.getClass();
+	}
+	
+	/**
 	 * Get the type of request.
 	 * @return RequestType.
 	 */
