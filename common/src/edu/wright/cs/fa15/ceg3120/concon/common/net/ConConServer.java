@@ -21,6 +21,8 @@
 
 package edu.wright.cs.fa15.ceg3120.concon.common.net;
 
+import edu.wright.cs.fa15.ceg3120.concon.common.net.data.ChatData;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -126,9 +128,18 @@ public class ConConServer implements Runnable {
 							NetworkManager.post(mh.getChannel(), mh.getMessage());
 					if (response != null) {
 						String responseXml = NetworkManager.encodeToXml(response);
-						toClient.writeBytes(responseXml);
+						
+						if (mh.getMessage() instanceof ChatData) {
+							ChatData responseMessage = (ChatData)mh.getMessage();
+							String to = responseMessage.getTo();
+							
+							// Change this to send to the user specified in the "to" field
+							toClient.writeBytes(responseXml);
+						} else {
+							toClient.writeBytes(responseXml);
+						}
 					}
-				} 
+				}
 			} catch (IOException e) {
 				LOG.error("Connection Worker IO: ", e);
 			} finally {
