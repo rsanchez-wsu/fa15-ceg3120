@@ -54,16 +54,25 @@ package edu.wright.cs.fa15.ceg3120.concon.server;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
+import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
+import javax.swing.JComponent;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
+import javax.swing.event.PopupMenuEvent;
+import javax.swing.event.PopupMenuListener;
 import javax.swing.table.AbstractTableModel;
 
 /**
@@ -79,7 +88,7 @@ public class CreateButtonsSearch extends JPanel{
 	/**
 	 * Creates a panel for the User's Tab.
 	 */
-	public CreateButtonsSearch() {
+	public CreateButtonsSearch(ServerGui parent) {
 		super();
 		this.setLayout(new BorderLayout());
 		
@@ -126,7 +135,21 @@ public class CreateButtonsSearch extends JPanel{
 		this.add(functionality, BorderLayout.NORTH);
 		
 		JTable users = new JTable(new UserTableModel());
-		users.setFillsViewportHeight(true);		
+		users.setFillsViewportHeight(true);	
+		
+		JPopupMenu popupMenu = new JPopupMenu();
+		JMenuItem test = new JMenuItem("Send Message");
+		
+		test.addActionListener(new NewMessageListener(parent));
+		popupMenu.add(test);
+		
+		test = new JMenuItem("View Transactions");
+		
+		test.addActionListener(new LoadTransactionsListener(parent));
+		popupMenu.add(test);
+		popupMenu.addPopupMenuListener(new PopupListener(users, popupMenu));
+		
+		users.setComponentPopupMenu(popupMenu);
 		
 		this.add(new JScrollPane(users), BorderLayout.CENTER);
 	}//end constructor
@@ -258,4 +281,93 @@ public class CreateButtonsSearch extends JPanel{
 		}//end actionPerformed
 	}//end MessageListener
 	
+	/**
+	 * A listener that will switch the current tab to the messages tab.
+	 * @author Quintin
+	 *
+	 */
+	private static class NewMessageListener implements ActionListener{
+		private ServerGui parent;
+		
+		/**
+		 * Creates a listener that has access to the GUI's tabs.
+		 * @param parent the parent component that holds the view.
+		 */
+		public NewMessageListener(ServerGui parent) {
+			this.parent = parent;
+		}
+		
+		@Override
+		public void actionPerformed(ActionEvent event) {
+			parent.switchTabs(2);
+		}
+	}
+	
+	/**
+	 * A listener that will switch the current tab to the transaction tab.
+	 * @author Quintin
+	 *
+	 */
+	private static class LoadTransactionsListener implements ActionListener{
+		private ServerGui parent;
+		
+		/**
+		 * Creates a listener that has access to the GUI's tabs.
+		 * @param parent the parent component that holds the view.
+		 */
+		public LoadTransactionsListener(ServerGui parent) {
+			this.parent = parent;
+		}
+		
+		@Override
+		public void actionPerformed(ActionEvent event) {
+			parent.switchTabs(4);
+		}
+	}
+	
+	/**
+	 * A listener that will highlight the row of a table that was right-clicked.
+	 * @author Quintin
+	 *
+	 */
+	private static class PopupListener implements PopupMenuListener {
+		private JTable users;
+		private JPopupMenu menu;
+		
+		/**
+		 * Creates a listener that has access to the GUI's table.
+		 * @param table the table that the popup menu and listener is attached to.
+		 * @param menu the menu that the listener is attached to.
+		 */
+		public PopupListener(JTable table, JPopupMenu menu) {
+			this.users = table;
+			this.menu = menu;
+		}
+
+		@Override
+		public void popupMenuWillBecomeVisible(PopupMenuEvent event) {
+			SwingUtilities.invokeLater(new Runnable() {
+				@Override
+				public void run() {
+					int rowAtPoint = users.rowAtPoint(SwingUtilities.convertPoint(menu, 
+							new Point(0, 0), users));
+					if (rowAtPoint > -1) {
+						users.setRowSelectionInterval(rowAtPoint, rowAtPoint);
+					}
+				}
+			});
+		}
+
+		@Override
+		public void popupMenuWillBecomeInvisible(PopupMenuEvent event) {
+			//TODO Auto-generated method stub
+
+		}
+
+		@Override
+		public void popupMenuCanceled(PopupMenuEvent event) {
+			// TODO Auto-generated method stub
+
+		}
+	}
 }//end CreateButtonsSearch
