@@ -253,26 +253,22 @@ public class ContractorClient extends JFrame implements ActionListener {
 	public static void main(String[] args) {
 		LOG.trace("Starting Contractor client...");
 		EventQueue.invokeLater(new Runnable() {
+			@Override
 			public void run() {
-//				try {
-					ContractorAccount user = new ContractorAccount();
-					user.setUuid("Debug");
-					char[] ps = {'a','b', 'c'};
-					user.setPswd(ps);
-					user.setFirstName("Random");
-					user.setLastName("Person");
-					user.setAddress1("123 Main Street");
-					user.setAddress2("Suite 500");
-					user.setState("OH");
-					user.setZipCode("45402");
-					user.setPhoneNumber("123-456-7890");
-					user.setCity("Dayton");
-					user.setEmailAddress("test123@temp.com");
-					new ContractorClient().buildGui(user);
-//				} catch (Exception e) {
-	//				JOptionPane.showMessageDialog(myFrame, "The "
-		//					+ "GUI couldn't build", "GUI Failure", JOptionPane.ERROR_MESSAGE);
-		//		}
+				ContractorAccount user = new ContractorAccount();
+				user.setUuid("Debug");
+				char[] ps = {'a','b', 'c'};
+				user.setPswd(ps);
+				user.setFirstName("Random");
+				user.setLastName("Person");
+				user.setAddress1("123 Main Street");
+				user.setAddress2("Suite 500");
+				user.setState("OH");
+				user.setZipCode("45402");
+				user.setPhoneNumber("123-456-7890");
+				user.setCity("Dayton");
+				user.setEmailAddress("test123@temp.com");
+				new ContractorClient().buildGui(user);
 			}
 		});
 	}

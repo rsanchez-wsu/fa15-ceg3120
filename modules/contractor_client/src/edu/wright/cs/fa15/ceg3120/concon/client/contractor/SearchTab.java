@@ -142,6 +142,7 @@ public class SearchTab extends JLayeredPane {
 		/**
 		 * This method creates the custom renderer for the JTable.
 		 */
+		@Override
 		public Component prepareRenderer(TableCellRenderer renderer, int row, int column) {
 			Component c0 = super.prepareRenderer(renderer, row, column);
 			if (c0 instanceof JComponent) {
@@ -191,6 +192,7 @@ public class SearchTab extends JLayeredPane {
 		 * This method determines which row of the table is selected and calls 
 		 * the showJobDetailsDialog method.
 		 */
+		@Override
 		public void actionPerformed(ActionEvent arg0) {
 			intTableLength = tblSearchResults.getRowCount();
 			if (intTableLength > 0) {
@@ -280,6 +282,7 @@ public class SearchTab extends JLayeredPane {
 		 * This method calls the buildTable and populateJobListArray methods to 
 		 * create the table and populate the rows.
 		 */
+		@Override
 		public void actionPerformed(ActionEvent arg0) {
 			buildTable();
 			populateJobListArray();
@@ -552,6 +555,7 @@ public class SearchTab extends JLayeredPane {
 
 			private static final long serialVersionUID = 1L;
 			
+			@Override
 			public boolean isCellEditable(int row, int column) {
 				return false;
 			}
