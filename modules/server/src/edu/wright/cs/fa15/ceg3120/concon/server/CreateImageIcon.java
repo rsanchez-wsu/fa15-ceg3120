@@ -53,6 +53,9 @@
 
 package edu.wright.cs.fa15.ceg3120.concon.server;
 
+import java.awt.Component;
+import java.awt.Image;
+
 import javax.swing.ImageIcon;
 /**
  * Creates an Image Icon.
@@ -63,7 +66,8 @@ public class CreateImageIcon{
 	static ImageIcon iconMessage = createIcon("images/Message.png");
 	static ImageIcon icon = createIcon("images/Dash.png"); //import your own logo.
 	static ImageIcon iconDashBoard = createIcon("images/Dash.png");
-	
+	static ImageIcon iconLogo = createIcon("images/conLogo.png");
+	static ImageIcon iconLogo2 = createIcon("images/c2-image.png");
 	/** Returns an ImageIcon, or null if the path was invalid. */
 	protected static ImageIcon createIcon(String path) {
 		//final String path = null;
