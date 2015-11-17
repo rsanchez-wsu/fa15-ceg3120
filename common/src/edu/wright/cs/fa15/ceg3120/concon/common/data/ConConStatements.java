@@ -146,7 +146,7 @@ public class ConConStatements {
 				System.out.println(e);
 			}
 			
-		} else if (ob.getDataClass().equals(HomeownerAccount.class)) {
+		} /* else if (ob.getDataClass().equals(HomeownerAccount.class)) {
 			
 		} else if (ob.getDataClass().equals(ServerAdminAccount.class)) {
 			
@@ -158,7 +158,7 @@ public class ConConStatements {
 			
 		} else if (ob.getDataClass().equals(HomeownerReview.class)) {
 			
-		}
+		}*/
 		
 		return list;
 	}
@@ -172,7 +172,7 @@ public class ConConStatements {
 			RequestObject ob, Connection conn) {
 		ArrayList<PreparedStatement> list = new ArrayList<PreparedStatement>();
 		
-		if (ob.getDataClass().equals(ContractorAccount.class)) {
+		/*if (ob.getDataClass().equals(ContractorAccount.class)) {
 			
 		} else if (ob.getDataClass().equals(HomeownerAccount.class)) {
 			
@@ -186,7 +186,7 @@ public class ConConStatements {
 			
 		} else if (ob.getDataClass().equals(HomeownerReview.class)) {
 			
-		}
+		}*/
 		
 		return list;
 	}
@@ -200,7 +200,7 @@ public class ConConStatements {
 			RequestObject ob, Connection conn) {
 		ArrayList<PreparedStatement> list = new ArrayList<PreparedStatement>();
 		
-		if (ob.getDataClass().equals(ContractorAccount.class)) {
+		/*if (ob.getDataClass().equals(ContractorAccount.class)) {
 			
 		} else if (ob.getDataClass().equals(HomeownerAccount.class)) {
 			
@@ -214,7 +214,7 @@ public class ConConStatements {
 			
 		} else if (ob.getDataClass().equals(HomeownerReview.class)) {
 			
-		}
+		}*/
 		
 		return list;
 	}
@@ -228,7 +228,7 @@ public class ConConStatements {
 			RequestObject ob, Connection conn) {
 		ArrayList<PreparedStatement> list = new ArrayList<PreparedStatement>();
 		
-		if (ob.getDataClass().equals(ContractorAccount.class)) {
+		/*if (ob.getDataClass().equals(ContractorAccount.class)) {
 			
 		} else if (ob.getDataClass().equals(HomeownerAccount.class)) {
 			
@@ -242,7 +242,7 @@ public class ConConStatements {
 			
 		} else if (ob.getDataClass().equals(HomeownerReview.class)) {
 			
-		}
+		}*/
 		
 		return list;
 	}
