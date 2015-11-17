@@ -56,9 +56,12 @@ import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
@@ -84,7 +87,7 @@ public class CreateButtonsSearch extends JPanel{
 		this.setLayout(new BorderLayout());
 		
 		JPanel functionality = new JPanel();
-		functionality.setLayout(new GridLayout(2,3));
+		functionality.setLayout(new GridLayout(1,3));
 		
 		searchBar = new JTextField(25);
 		functionality.add(searchBar);
@@ -108,25 +111,11 @@ public class CreateButtonsSearch extends JPanel{
 		userButtons.add(contractor);
 		functionality.add(userButtons);
 		
-		JButton message = new JButton();
-		message.setText("Send Message");
-		message.addActionListener(new MessageListener());
-		functionality.add(message);
-
-		JButton disable = new JButton();
-		disable.setText("Disable Account");
-		disable.addActionListener(new DisableListener());
-		functionality.add(disable);
-
-		JButton reset = new JButton();
-		reset.setText("Reset Password");
-		reset.addActionListener(new ResetListener());
-		functionality.add(reset);
-		
 		this.add(functionality, BorderLayout.NORTH);
 		
 		JTable users = new JTable(new UserTableModel());
 		users.setFillsViewportHeight(true);		
+		users.addMouseListener(new EditListener());
 		
 		this.add(new JScrollPane(users), BorderLayout.CENTER);
 	}//end constructor
@@ -182,19 +171,19 @@ public class CreateButtonsSearch extends JPanel{
 		 */
 		@Override
 		public boolean isCellEditable(int row, int col) {
-			return true; // Could return true on different columns.
+			return false; // Could return true on different columns.
 		}
 		
 		@Override
 		public void setValueAt(Object value, int row, int col) {
-			// TODO validation
+			//validation
 			dummyData[row][col] = value;
 			fireTableCellUpdated(row, col);
 		}
 	}//end UserTableModel
 	
 	/**
-	 * Searched the database for the name input in the search bar.
+	 * Searches the database for the name input in the search bar.
 	 * */
 	private static class SearchListener implements ActionListener{
 		@Override
@@ -204,7 +193,7 @@ public class CreateButtonsSearch extends JPanel{
 				System.out.println("You must enter a name to search");
 //				} else {
 //					System.out.println("The search is not empty");
-//					//TODO add search functionality, probably return a 2D array
+//					//add search functionality, probably return a 2D array
 //				}
 			} catch (Exception ex) {
 				System.out.println("Error occured searching "
@@ -214,14 +203,94 @@ public class CreateButtonsSearch extends JPanel{
 	}//end SearchListener
 	
 	/**
+	 * opens a new window when you double click a user on the table.
+	 * */
+	private static class EditListener implements MouseListener{
+		@Override
+		public void mouseClicked(MouseEvent event) {
+			if (event.getClickCount() == 2) {
+				JPanel functionality = new JPanel();
+				functionality.setLayout(new GridLayout(2,4));
+				
+				JTextField name = new JTextField();
+				name.setText("Barbara");
+				functionality.add(name);
+				
+				JTextField phoneNumber = new JTextField();
+				phoneNumber.setText("(555)555-5555");
+				functionality.add(phoneNumber);
+				
+				JTextField address = new JTextField();
+				address.setText("1234 Main St.");
+				functionality.add(address);
+				
+				JTextField email = new JTextField();
+				email.setText("barbara@gmail.com");
+				functionality.add(email);
+				
+				JButton message = new JButton();
+				message.setText("Send Message");
+				message.addActionListener(new MessageListener());
+				functionality.add(message);
+
+				JButton disable = new JButton();
+				disable.setText("Disable Account");
+				disable.addActionListener(new DisableListener());
+				functionality.add(disable);
+
+				JButton reset = new JButton();
+				reset.setText("Reset Password");
+				reset.addActionListener(new ResetListener());
+				functionality.add(reset);
+
+				JButton save = new JButton();
+				save.setText("Save Changes");
+				//save.addActionListener(new SaveListener());
+				functionality.add(save);
+				
+				JFrame editInfo = new JFrame();
+				editInfo.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+				editInfo.setVisible(true);
+				editInfo.setSize(700, 100);
+				
+				editInfo.add(functionality);
+			}		
+		}
+
+		@Override
+		public void mousePressed(MouseEvent event) {
+			// It made me put these methods in here
+			System.out.println("Mouse Pressed");
+		}
+
+		@Override
+		public void mouseReleased(MouseEvent event) {
+			//I'm not even using these
+			System.out.println("Mouse Released");
+		}
+
+		@Override
+		public void mouseEntered(MouseEvent event) {
+			//Why do you make me do this
+			System.out.println("Mouse Entered");
+		}
+
+		@Override
+		public void mouseExited(MouseEvent event) {
+			//I will find a way to get rid of you
+			System.out.println("Mouse Exited");
+		}
+	}
+	
+	/**
 	 * Resets the selected user's password.
 	 * */
 	private static class ResetListener implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent event) {
 			try {
-				//TODO add functionality
-				System.out.println("Passward reset");
+				//add functionality
+				System.out.println("Password reset");
 			} catch (Exception ex) {
 				System.out.println("Error occured resetting");
 			} //end catch
@@ -235,7 +304,7 @@ public class CreateButtonsSearch extends JPanel{
 		@Override
 		public void actionPerformed(ActionEvent event) {
 			try {
-				//TODO add functionality
+				//add functionality
 				System.out.println("User's account disabled");
 			} catch (Exception ex) {
 				System.out.println("Error occured disabling");
@@ -250,7 +319,7 @@ public class CreateButtonsSearch extends JPanel{
 		@Override
 		public void actionPerformed(ActionEvent event) {
 			try {
-				//TODO add functionality
+				//add functionality
 				System.out.println("Message sent");
 			} catch (Exception ex) {
 				System.out.println("Error occured sending message");
