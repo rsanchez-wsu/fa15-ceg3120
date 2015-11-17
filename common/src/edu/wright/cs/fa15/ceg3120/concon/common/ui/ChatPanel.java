@@ -141,6 +141,7 @@ public class ChatPanel extends JPanel {
 	/**
 	 * Close client before JPanel closes.
 	 */
+	@Override
 	public void removeNotify() {
 		super.removeNotify();
 		client.close();

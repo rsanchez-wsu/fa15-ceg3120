@@ -107,12 +107,13 @@ public class ConConServer implements Runnable {
 				BufferedReader fromClient = new BufferedReader(
 						new InputStreamReader(clientSocket.getInputStream(), "UTF-8"));
 				String line = "";
+				// Loop until client closes their window
 				while (clientSocket.isConnected() && line != null) {
 					StringBuilder message = new StringBuilder();					
 					while ((line = fromClient.readLine()) != null) {
 						message.append(line);
 						if (line.compareTo("</java>") == 0) {
-							
+							// Process message and relay it to the right place
 							DataOutputStream toClient = null;
 							MessageHolder mh = 
 									(MessageHolder)NetworkManager.decodeFromXml(message.toString());
@@ -123,7 +124,7 @@ public class ConConServer implements Runnable {
 									NetworkManager.post(mh.getChannel(), mh.getMessage());
 							if (response != null) {
 								String responseXml = NetworkManager.encodeToXml(response);
-								
+								// Check if message is a chat message
 								if (response.getMessage() instanceof ChatData) {
 									// TODO: Send the chat message to the person who should get it
 									
@@ -141,6 +142,7 @@ public class ConConServer implements Runnable {
 			} catch (IOException e) {
 				LOG.error("Connection Worker IO: ", e);
 			} finally {
+				// Close client connection
 				if (clientSocket.isConnected()) {
 					try {
 						clientSocket.shutdownInput();
