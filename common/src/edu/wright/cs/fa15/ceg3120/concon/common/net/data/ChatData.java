@@ -70,7 +70,7 @@ public class ChatData implements Serializable {
 	@NetworkHandler(channel = "chatPostConfirmation")
 	public static MessageHolder receiveChat(ChatData message) {
 		// TODO update chat panel
-		String text = message.to  + ": " + message.text + "\n";
+		String text = message.from  + ": " + message.text + "\n";
 		TestClient.getChatPanel().appendToChatLog(text);
 		return new MessageHolder("end", null);
 	}

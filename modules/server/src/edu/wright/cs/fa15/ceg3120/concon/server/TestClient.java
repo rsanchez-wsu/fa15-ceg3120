@@ -58,8 +58,6 @@ public class TestClient {
 		
 		// create a test user to send messages to
 		// normally you would initialize with the selected user from a list
-		UserData testUser = new UserData("ContractorGuy");
-		chatPanel = new ChatPanel(client, testUser);
 		
 		SwingUtilities.invokeLater(new Runnable() {
 
@@ -68,7 +66,11 @@ public class TestClient {
 				JFrame clientFrame = new JFrame();
 				String name = JOptionPane.showInputDialog(clientFrame, "Enter username:");
 				String pass = JOptionPane.showInputDialog(clientFrame, "Enter password:");
+				String to = JOptionPane.showInputDialog(clientFrame, "Enter user to chat with:");
+				
 				NetworkManager.sendMessage("login", new LoginData(name, pass));
+				UserData testUser = new UserData(to);
+				chatPanel = new ChatPanel(client, testUser);
 				
 				clientFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 				clientFrame.getContentPane().add(chatPanel);

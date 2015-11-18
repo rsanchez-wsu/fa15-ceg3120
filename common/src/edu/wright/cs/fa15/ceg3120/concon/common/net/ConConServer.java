@@ -22,6 +22,7 @@
 package edu.wright.cs.fa15.ceg3120.concon.common.net;
 
 import edu.wright.cs.fa15.ceg3120.concon.common.net.data.ChatData;
+import edu.wright.cs.fa15.ceg3120.concon.common.net.data.UserData;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,6 +34,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.concurrent.ConcurrentHashMap;
 
 //TODO have security
 /**
@@ -100,7 +102,11 @@ public class ConConServer implements Runnable, Closeable {
 	 */
 	private static class ConnectionWorker implements Runnable {
 
+		private static ConcurrentHashMap<String, Socket> socketTable = 
+				new ConcurrentHashMap<String, Socket>();
+		
 		private Socket clientSocket = null;
+		private UserData user = null;
 
 		/**
 		 * constructor.
@@ -123,7 +129,8 @@ public class ConConServer implements Runnable, Closeable {
 						message.append(line);
 						if (line.compareTo("</java>") == 0) {
 							// Process message and relay it to the right place
-							DataOutputStream toClient = null;
+							DataOutputStream toThisClient = 
+									new DataOutputStream(clientSocket.getOutputStream());
 							MessageHolder mh = 
 									(MessageHolder)NetworkManager.decodeFromXml(message.toString());
 							if (mh.getChannel().equals("end")) {
@@ -133,17 +140,24 @@ public class ConConServer implements Runnable, Closeable {
 									NetworkManager.post(mh.getChannel(), mh.getMessage());
 							if (response != null) {
 								String responseXml = NetworkManager.encodeToXml(response);
-								// Check if message is a chat message
-								if (response.getMessage() instanceof ChatData) {
-									
-									// TODO: Send the chat message to the person who should get it
-									
-									toClient = new DataOutputStream(clientSocket.getOutputStream());
-									toClient.writeBytes(responseXml);
-								} else {
-									toClient = new DataOutputStream(clientSocket.getOutputStream());
-									toClient.writeBytes(responseXml);
+								
+								// Treat message according to type
+								if (response.getMessage() instanceof UserData) {
+									this.user = (UserData)response.getMessage();
+									socketTable.put(user.getAccountName(), this.clientSocket);
+								} else if (response.getMessage() instanceof ChatData) {
+									ChatData chat = (ChatData)response.getMessage();
+									if (socketTable.containsKey(chat.getTo())) {
+										Socket otherClientSocket = socketTable.get(chat.getTo());
+										DataOutputStream toOtherClient = 
+												new DataOutputStream(
+														otherClientSocket.getOutputStream());
+										toOtherClient.writeBytes(responseXml);
+									}
 								}
+								
+								// Send response back regardless of type
+								toThisClient.writeBytes(responseXml);
 							}
 							break;
 						}
@@ -153,6 +167,9 @@ public class ConConServer implements Runnable, Closeable {
 				LOG.error("Connection Worker IO: ", e);
 			} finally {
 				// Close client connection
+				if (socketTable.containsKey(user.getAccountName())) {
+					socketTable.remove(user.getAccountName());
+				}
 				if (clientSocket.isConnected()) {
 					try {
 						clientSocket.shutdownInput();
