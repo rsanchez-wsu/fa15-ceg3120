@@ -27,17 +27,20 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.BufferedReader;
+import java.io.Closeable;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.Socket;
 import java.nio.charset.StandardCharsets;
 
+
+
 //TODO have security
 /**
  * Class which handles non-blocking communication with a server.
  */
-public class ConConClient {
+public class ConConClient implements Closeable {
 	private static final Logger LOG = LoggerFactory.getLogger(ConConClient.class);
 	
 	private Socket sock;
@@ -68,6 +71,7 @@ public class ConConClient {
 	/**
 	 * Closes the client.
 	 */
+	@Override
 	public void close() {
 		try {
 			if (sock.isConnected()) {
