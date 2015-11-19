@@ -25,6 +25,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.BufferedReader;
+import java.io.Closeable;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -35,7 +36,7 @@ import java.net.Socket;
 /**
  * Class which handles non-blocking communication with clients.
  */
-public class ConConServer implements Runnable {
+public class ConConServer implements Runnable, Closeable {
 	private static final Logger LOG = LoggerFactory.getLogger(ConConServer.class);
 
 	private int port;
@@ -75,7 +76,8 @@ public class ConConServer implements Runnable {
 	/**
 	 * Stop the server.
 	 */
-	public void quit() {
+	@Override
+	public void close() {
 		this.listening = false;
 		try {
 			this.serverSocket.close();
@@ -83,12 +85,11 @@ public class ConConServer implements Runnable {
 			LOG.error("Server Socket: ", e);
 		}
 	}
-
+	
 	/**
 	 * The threaded class which will handle the actual communication.
 	 */
 	private static class ConnectionWorker implements Runnable {
-
 		private Socket clientSocket = null;
 
 		/**
@@ -98,18 +99,18 @@ public class ConConServer implements Runnable {
 		public ConnectionWorker(Socket clientSocket) {
 			this.clientSocket = clientSocket;
 		}
-
+		
 		@Override
 		public void run() {
 			try {
-				// Construct the reader and writer for the connection
 				DataOutputStream toClient = 
 						new DataOutputStream(clientSocket.getOutputStream());
 				BufferedReader fromClient = new BufferedReader(
 						new InputStreamReader(clientSocket.getInputStream(), "UTF-8"));
-				StringBuilder message = new StringBuilder();					
-				String line;
-				while (clientSocket.isConnected()) {
+				String line = "";
+				// Loop until client closes their window
+				while (clientSocket.isConnected() && line != null) {
+					StringBuilder message = new StringBuilder();					
 					while ((line = fromClient.readLine()) != null) {
 						message.append(line);
 						if (line.compareTo("</java>") == 0) {

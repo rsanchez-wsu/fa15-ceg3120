@@ -120,7 +120,7 @@ public class NetworkManager {
 	 * Stops the running server.
 	 */
 	public static void stopServer() {
-		server.quit();
+		server.close();
 		server = null;
 	}
 

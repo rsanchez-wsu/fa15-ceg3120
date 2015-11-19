@@ -108,28 +108,23 @@ public class ChatPanel extends JPanel {
 
 			@Override
 			public void keyPressed(KeyEvent arg0) {
-				// TODO Auto-generated method stub
-				
-			}
-
-			@Override
-			public void keyReleased(KeyEvent arg0) {
 				if (arg0.getKeyCode() == KeyEvent.VK_ENTER) {
 					sendMessage(
 							formattedTextField.getText()
 					);
 					formattedTextField.setText("");					
-				}
+				}	
+			}
+
+			@Override
+			public void keyReleased(KeyEvent arg0) {
 			}
 
 			@Override
 			public void keyTyped(KeyEvent arg0) {
-				// TODO Auto-generated method stub
-				
 			}
 			
 		});
-
 	}
 
 	/**
@@ -167,6 +162,15 @@ public class ChatPanel extends JPanel {
 		this.recipient = recipient;
 	}
 
+	/**
+	 * Close client before JPanel closes.
+	 */
+	@Override
+	public void removeNotify() {
+		super.removeNotify();
+		client.close();
+	}
+	
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
