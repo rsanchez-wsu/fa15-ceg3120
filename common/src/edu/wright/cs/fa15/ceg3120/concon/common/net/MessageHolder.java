@@ -27,13 +27,13 @@ import java.io.Serializable;
  * A basic tuple class for holding any object and a channel identifier.
  */
 public class MessageHolder implements Serializable {
+	private static final long serialVersionUID = 31628748572L;
 
-	private static final long serialVersionUID = 7203906416485915160L;
-	private String channel;
-	private Serializable message;
+	public String channel;
+	public Serializable message;
 
 	/**
-	 * Defaault Constructor for Javabeans.
+	 * Default Constructor for JavaBeans.
 	 */
 	public MessageHolder() { }
 
