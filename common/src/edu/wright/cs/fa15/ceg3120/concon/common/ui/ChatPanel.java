@@ -49,7 +49,7 @@ public class ChatPanel extends JPanel {
 
 	private static final long serialVersionUID = 9195112434638392386L;
 	private static JTextArea textArea = new JTextArea();
-	private ConConClient client;
+	private transient ConConClient client;
 	private UserData recipient;
 
 	/**
