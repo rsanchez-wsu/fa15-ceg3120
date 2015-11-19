@@ -54,6 +54,8 @@ public class NetworkManager {
 	/**
 	 * Searches a class for methods annotated with NetworkHandler and registers them to the bus.
 	 * Every NetworkHandler method in a module MUST have a unique channel.
+     * Additionally, methods must take only one Serializable parameter
+     * and must return either void or a MessageHolder containing a response.
 	 * @param cl Class to search.
 	 * @return List containing registered NetworkHandler method channels.
 	 */

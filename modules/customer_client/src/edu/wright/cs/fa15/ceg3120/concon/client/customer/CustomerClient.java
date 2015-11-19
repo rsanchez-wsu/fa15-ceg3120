@@ -29,6 +29,7 @@ import org.slf4j.LoggerFactory;
 import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.Arrays;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.WindowConstants;
@@ -77,7 +78,7 @@ public class CustomerClient {
 		// build UI here
 
 		custFrame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
-		custFrame.addWindowListener(new MyWindowAdapter());
+		custFrame.addWindowListener(new MyWindowAdapter(user));
 
 		custFrame.setVisible(true);
 	}// end buildGui
@@ -116,12 +117,33 @@ public class CustomerClient {
 	 *
 	 */
 	static class MyWindowAdapter extends WindowAdapter {
+		private HomeownerAccount user;
+		
+		/**
+		 * Creates a new instance of <code>MyWindowAdapter</code>.
+		 * 
+		 * @param user the user
+		 */
+		public MyWindowAdapter(HomeownerAccount user) {
+			this.user = user;
+		}
+		
 		@Override
 		public void windowClosing(WindowEvent ev) {
 			int result = JOptionPane.showConfirmDialog(null, "Do you really wish to exit?",
 					"Exit?", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 			if (result == 0) {
 				// release any network/file resources
+				if (user != null) {
+					if (user.getPswd() != null) {
+						char[] overwrite = new char[user.getPswd().length];
+						for (int i = 0; i < overwrite.length; ++i) {
+							overwrite[i] = '\0';
+						}
+						user.setPswd(overwrite);
+						System.out.println("overwrite:" + Arrays.toString(user.getPswd()));
+					}
+				} // end if(user != null)
 				System.exit(0);
 			}
 		}

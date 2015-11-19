@@ -34,16 +34,15 @@ import java.io.InputStreamReader;
 import java.net.Socket;
 import java.nio.charset.StandardCharsets;
 
-
-
 //TODO have security
 /**
  * Class which handles non-blocking communication with a server.
  */
-public class ConConClient implements Closeable {
+public class ConConClient {
 	private static final Logger LOG = LoggerFactory.getLogger(ConConClient.class);
 	
-	private Socket sock;
+	private String host;
+	private int port;
 
 	private UserData currentUser;
 
@@ -55,11 +54,8 @@ public class ConConClient implements Closeable {
 	 * @param port will fail if in use.
 	 */
 	public ConConClient(String host, int port) {
-		try {
-			this.sock = new Socket(host, port);
-		} catch (IOException e) {
-			LOG.error("ConCon Client IO: ", e);
-		}
+		this.host = host;
+		this.port = port;
 	}
 
 	/**
@@ -69,23 +65,7 @@ public class ConConClient implements Closeable {
 	public void sendMessage(String message) {
 		new Thread(new DispatchMessage(message)).start();
 	}
-	
-	/**
-	 * Closes the client.
-	 */
-	@Override
-	public void close() {
-		try {
-			if (sock.isConnected()) {
-				sock.shutdownInput();
-				sock.shutdownOutput();
-				sock.close();
-			}
-		} catch (IOException e) {
-			LOG.error("ConCon Client Close: ", e);
-		}
-	}
-	
+
 	/**
 	 * The threaded class which will handle the actual sending of messages.
 	 */
@@ -103,14 +83,12 @@ public class ConConClient implements Closeable {
 		@Override
 		public void run() {
 			try {
-				Socket clientSocket = sock;
-				DataOutputStream toServer =
-						new DataOutputStream(clientSocket.getOutputStream());
-				BufferedReader fromServer =	new BufferedReader(
-						new InputStreamReader(
-								clientSocket.getInputStream(), 
+				Socket clientSocket = new Socket(host, port);
+				DataOutputStream toServer = new DataOutputStream(clientSocket.getOutputStream());
+				BufferedReader fromServer = new BufferedReader(
+						new InputStreamReader(clientSocket.getInputStream(),
 								StandardCharsets.UTF_8));
-				
+
 				while (message != null) {
 					// Send message
 					toServer.writeBytes(message);
@@ -138,6 +116,11 @@ public class ConConClient implements Closeable {
 					} else {
 						message = null;
 					}
+				}
+				if (clientSocket.isConnected()) {
+					clientSocket.shutdownInput();
+					clientSocket.shutdownOutput();
+					clientSocket.close();
 				}
 			} catch (IOException e) {
 				LOG.error("Dispatch Message IO: ", e);

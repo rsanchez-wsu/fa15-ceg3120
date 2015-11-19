@@ -64,7 +64,7 @@ public class UserData implements Serializable {
 		this.accountName = accountName;
 		this.uuid = uuid; //TODO need methods to generate new UUID
 	}
-	
+
 	/**
 	 * Persist updated user data to the database.
 	 * @param user given user
