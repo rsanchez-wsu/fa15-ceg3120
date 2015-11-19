@@ -31,6 +31,9 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+
 import javax.swing.JButton;
 import javax.swing.JFormattedTextField;
 import javax.swing.JPanel;
@@ -100,6 +103,32 @@ public class ChatPanel extends JPanel {
 			}
 			
 		});
+		
+		formattedTextField.addKeyListener(new KeyListener() {
+
+			@Override
+			public void keyPressed(KeyEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void keyReleased(KeyEvent arg0) {
+				if (arg0.getKeyCode() == KeyEvent.VK_ENTER) {
+					sendMessage(
+							formattedTextField.getText()
+					);
+					formattedTextField.setText("");					
+				}
+			}
+
+			@Override
+			public void keyTyped(KeyEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+		});
 
 	}
 
@@ -115,10 +144,10 @@ public class ChatPanel extends JPanel {
 	}
 	
 	/**
-	 * Append a string to the chat log.
+	 * Append a string to the chat area.
 	 * @param str string to append
 	 */
-	public void appendToChatLog(String str) {
+	public void appendToChatArea(String str) {
 		textArea.append(str);
 	}
 

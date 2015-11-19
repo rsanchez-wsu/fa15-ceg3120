@@ -23,7 +23,6 @@ package edu.wright.cs.fa15.ceg3120.concon.common.net.data;
 
 import edu.wright.cs.fa15.ceg3120.concon.common.net.MessageHolder;
 import edu.wright.cs.fa15.ceg3120.concon.common.net.NetworkHandler;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -67,7 +66,7 @@ public class LoginData implements Serializable {
 		LOG.trace("Logging in...");
 		//TODO decrypt password then verify user and password with database and fetch user data
 		// for now just return generic user data
-		UserData user = new UserData(login.getUsername(), "testUserUUID");
+		UserData user = new UserData(login.username, "junkuuid");
 		return new MessageHolder("returnUserData", user);
 	}
 

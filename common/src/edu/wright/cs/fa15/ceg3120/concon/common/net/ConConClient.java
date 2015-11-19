@@ -44,6 +44,8 @@ public class ConConClient {
 	private int port;
 
 	private UserData currentUser;
+
+	private StringBuilder chatLog = new StringBuilder();
 	
 	/**
 	 * Constructs a client which will talk to the designated host:port.
@@ -108,7 +110,7 @@ public class ConConClient {
 					if (result != null) {
 						MessageHolder mh = 
 								NetworkManager.post(result.getChannel(), result.getMessage());
-						if (mh.getChannel().equals("end")) {
+						if (mh.getChannel().equals("end") || mh.getMessage() == null) {
 							break;
 						}
 						message = NetworkManager.encodeToXml(mh);
@@ -141,5 +143,22 @@ public class ConConClient {
 	 */
 	public UserData getCurrentUser() {
 		return currentUser;
+	}
+
+	/**
+     * Append text to the chat log. 
+     * UI components can grab the log from the client.
+     * @param text the text to append
+     */
+	public void appendToChatLog(String text) {
+		this.chatLog .append(text);
+	}
+
+	/**
+	 * Get chatLog.
+	 * @return the chatLog
+	 */
+	public String getChatLog() {
+		return chatLog.toString();
 	}
 }

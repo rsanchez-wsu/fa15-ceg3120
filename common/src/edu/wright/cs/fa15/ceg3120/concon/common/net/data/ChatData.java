@@ -21,9 +21,10 @@
 
 package edu.wright.cs.fa15.ceg3120.concon.common.net.data;
 
+import edu.wright.cs.fa15.ceg3120.concon.common.net.ConConClient;
 import edu.wright.cs.fa15.ceg3120.concon.common.net.MessageHolder;
 import edu.wright.cs.fa15.ceg3120.concon.common.net.NetworkHandler;
-import edu.wright.cs.fa15.ceg3120.concon.server.TestClient;
+import edu.wright.cs.fa15.ceg3120.concon.common.net.NetworkManager;
 
 import java.io.Serializable;
 
@@ -54,11 +55,19 @@ public class ChatData implements Serializable {
 	}
 	
 	/**
+	 * Constructor used when receiving the chat log.
+	 * @param chatLog the chat log\\
+	 */
+	public ChatData(String chatLog) {
+		this.text = chatLog;
+	}
+
+	/**
 	 * Posts a chat message to the server.
 	 * @return The message
 	 */
 	@NetworkHandler(channel = "chatPost")
-	public static MessageHolder postChat(ChatData message) {
+	public static MessageHolder postChatMessage(ChatData message) {
 		// TODO log chat messages to database
 		return new MessageHolder("chatPostConfirmation", message);
 	}
@@ -68,10 +77,33 @@ public class ChatData implements Serializable {
 	 * @return The message
 	 */
 	@NetworkHandler(channel = "chatPostConfirmation")
-	public static MessageHolder receiveChat(ChatData message) {
-		// TODO update chat panel
+	public static MessageHolder receiveChatMessage(ChatData message) {
+		ConConClient client = NetworkManager.getClient();
 		String text = message.to  + ": " + message.text + "\n";
-		TestClient.getChatPanel().appendToChatLog(text);
+		client.appendToChatLog(text);
+		return new MessageHolder("end", null);
+	}
+	
+	/**
+	 * Fetches messages from the chat log for the user.
+	 * @return The message
+	 */
+	@NetworkHandler(channel = "fetchMessages")
+	public static MessageHolder fetchChatMessages(ChatData message) {
+		// TODO fetch messages from database
+		String chatLog = "this is the chatlog";
+		ChatData chatLogReply = new ChatData(chatLog);
+		return new MessageHolder("receiveMessages", chatLogReply);
+	}
+	
+	/**
+	 * Receive messages from the chat log for the user.
+	 * @return The message
+	 */
+	@NetworkHandler(channel = "receiveMessages")
+	public static MessageHolder recieveChatMessages(ChatData message) {
+		ConConClient client = NetworkManager.getClient();
+		client.appendToChatLog(message.text);
 		return new MessageHolder("end", null);
 	}
 	

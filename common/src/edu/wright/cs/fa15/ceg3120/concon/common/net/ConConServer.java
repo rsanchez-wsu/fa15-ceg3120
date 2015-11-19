@@ -119,7 +119,7 @@ public class ConConServer implements Runnable {
 					
 					MessageHolder mh = 
 							(MessageHolder)NetworkManager.decodeFromXml(message.toString());
-					if (mh.getChannel().equals("end")) {
+					if (mh.getChannel().equals("end") || mh.getMessage() == null) {
 						break;
 					}
 					MessageHolder response = 

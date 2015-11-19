@@ -25,7 +25,6 @@ import edu.wright.cs.fa15.ceg3120.concon.common.net.ConConClient;
 import edu.wright.cs.fa15.ceg3120.concon.common.net.MessageHolder;
 import edu.wright.cs.fa15.ceg3120.concon.common.net.NetworkHandler;
 import edu.wright.cs.fa15.ceg3120.concon.common.net.NetworkManager;
-import edu.wright.cs.fa15.ceg3120.concon.server.TestClient;
 
 import java.io.Serializable;
 
@@ -86,7 +85,6 @@ public class UserData implements Serializable {
 	public static MessageHolder setCurrentUser(UserData user) {
 		ConConClient client = NetworkManager.getClient();
 		client.setCurrentUser(user);
-		TestClient.getChatPanel().appendToChatLog("You are connected.\n");
 		return new MessageHolder("end", null);
 	}	
 	

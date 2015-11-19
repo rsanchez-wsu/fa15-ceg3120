@@ -35,6 +35,7 @@ import java.lang.annotation.Target;
 public @interface NetworkHandler {
 	/**
 	 * This is an annotation argument.
+	 * The default argument"end" causes the socket exchange to cease.
 	 */
-	String channel();
+	String channel() default "end";
 }
