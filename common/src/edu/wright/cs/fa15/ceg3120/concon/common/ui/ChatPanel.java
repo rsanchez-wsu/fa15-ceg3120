@@ -161,15 +161,6 @@ public class ChatPanel extends JPanel {
 	public void setRecipient(UserData recipient) {
 		this.recipient = recipient;
 	}
-
-	/**
-	 * Close client before JPanel closes.
-	 */
-	@Override
-	public void removeNotify() {
-		super.removeNotify();
-		client.close();
-	}
 	
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
