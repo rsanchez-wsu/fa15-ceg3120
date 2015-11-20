@@ -97,6 +97,8 @@
             <compilerarg value="-Xlint:all"/>
             <compilerarg value="-Xlint:-path"/>
             <compilerarg value="-Werror"/>
+            <compilerarg value="-processorpath"/>
+            <compilerarg value="edu.wright.cs.fa15.ceg3120.concon.common.ConConAnnotationProcessor"/>
         </javac>
         <javac srcdir="${src.dir}" destdir="${classes.dir}" includeantruntime="false" classpathref="build.lib.path">
             <compilerarg value="-Xlint:all"/>
