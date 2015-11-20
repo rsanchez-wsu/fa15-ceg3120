@@ -30,26 +30,21 @@
 
 package edu.wright.cs.fa15.ceg3120.concon.paysched;
 
+import edu.wright.cs.fa15.ceg3120.concon.common.net.data.SchedulingData;
+
 import java.awt.Color;
-
-
-//import java.awt.Component;
-//import java.awt.Font;
 import java.text.DecimalFormat;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-//import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
-
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-//import javax.swing.SwingUtilities;
 
 /**Class for tabbed window.
  *
@@ -57,7 +52,7 @@ import javax.swing.event.ChangeListener;
  */
 @SuppressWarnings("serial")	//This class will never be serialized.
 public class TabbedFrame extends JFrame{
-	
+		
 	// Variables declaration - do not modify//GEN-BEGIN:variables
 	private javax.swing.JButton submitButton; //submit button for scheduling
 	private javax.swing.JButton confirmButton; //confirm button for overview
@@ -271,17 +266,15 @@ public class TabbedFrame extends JFrame{
 				"October", "November", "December" }));
 
 		//Combo box that lists available dates during selected months
-		daysList.setModel(new DefaultComboBoxModel(new String[] { "1", "2", "3", "4", "5",
-				"6", "7", "8", "9", "10", "11", "12", "13",
-				"14", "15", "16", "17", "18", "19", "20",
-				"21", "22", "23", "24", "25",
-				"26", "27", "28", "29", "30", "31" }));
+		daysList.setModel(new DefaultComboBoxModel(new Integer[] { 1,2,3,4,5}));
 
 		//Combo box that lists available dates during selected months
-		timesList.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "2:30 - 4:30" }));
+		timesList.setModel(new javax.swing.DefaultComboBoxModel(new String[] { 
+				"2:30 - 4:30 PM",
+				"10:30 AM - 12:30 PM"}));
 
 		schedulingTabHeader.setText("Select The Month, Day, and Perferred time frame");
-
+		
 		submitButton.setText("Submit");
 
 		submitButton.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -352,10 +345,11 @@ public class TabbedFrame extends JFrame{
 //////////////////////////////////////////////////////////
 		totalPaymentOverview.setText("Total Payment:");
 		
-		totalPaymentLabel.setText("$0.00");
+		totalPaymentLabel.setText("$" + currency.format(remaining));
 		totalPaymentLabel.setEditable(false);
 
-		finalScheduledApptTime.setText("Scheduled Appointment Time:");
+		finalScheduledApptTime.setText("Scheduled "
+				+ "Appointment Time:");
 		finalScheduledApptLabel.setEditable(false);
 		
 		finalScheduledApptLabel.addActionListener(new java.awt.event.ActionListener() {
@@ -438,9 +432,9 @@ public class TabbedFrame extends JFrame{
 				.addGroup(overviewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment
 						.BASELINE)
 					.addComponent(finalScheduledApptTime)
-					.addComponent(finalScheduledApptLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 
+					.addComponent(finalScheduledApptLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 
 							javax.swing.GroupLayout.DEFAULT_SIZE,
-							javax.swing.GroupLayout.PREFERRED_SIZE))
+							javax.swing.GroupLayout.DEFAULT_SIZE))
 				.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50,
 						Short.MAX_VALUE)
 				.addGroup(overviewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment
@@ -505,7 +499,10 @@ public class TabbedFrame extends JFrame{
      * @param evt temp.
      */
 	private void submitButtonListener(java.awt.event.MouseEvent evt) {
-
+		SchedulingData sd = new SchedulingData(monthsList.getSelectedItem().toString(), 
+				(int)daysList.getSelectedItem(), timesList.getSelectedItem().toString());
+		finalScheduledApptLabel.setText(sd.getMonth() + " " + sd.getDay() 
+					+ " " + sd.getTimeRange());
 	}//GEN-LAST:event_submitButtonListener
 
 	/**
