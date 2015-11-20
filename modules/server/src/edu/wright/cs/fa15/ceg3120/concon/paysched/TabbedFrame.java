@@ -31,25 +31,20 @@
 package edu.wright.cs.fa15.ceg3120.concon.paysched;
 
 import java.awt.Color;
-
-
-//import java.awt.Component;
-//import java.awt.Font;
 import java.text.DecimalFormat;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-//import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
-
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-//import javax.swing.SwingUtilities;
+//import edu.wright.cs.fa15.ceg3120.concon.common.net.data.SchedulingData;;
+
 
 /**Class for tabbed window.
  *
@@ -281,6 +276,8 @@ public class TabbedFrame extends JFrame{
 		timesList.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "2:30 - 4:30" }));
 
 		schedulingTabHeader.setText("Select The Month, Day, and Perferred time frame");
+		
+		//SchedulingData sd = new SchedulingData(monthsList.getSelectedItem().toString(), (int)daysList.getSelectedItem(), timesList.getSelectedItem().toString());
 
 		submitButton.setText("Submit");
 
