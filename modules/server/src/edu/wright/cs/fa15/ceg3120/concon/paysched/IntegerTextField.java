@@ -36,7 +36,7 @@ public class IntegerTextField extends JTextField {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	static final String badchars = "`~!@#$%^&*()_+=\\|\"':;?/>.<, ";
+	
 
 	/**a process key event to ensure nothing but numbers.
 	 * 
@@ -45,13 +45,10 @@ public class IntegerTextField extends JTextField {
 
 		char charA = ev.getKeyChar();
 
-		if ((Character.isLetter(charA) && !ev.isAltDown()) 
-				|| badchars.indexOf(charA) > -1) {
+		//allows only numbers and backspace
+		if (!(Character.isDigit(charA) || charA == '\b')) {
 			ev.consume();
 			return;
-		}
-		if (charA == '-' && getDocument().getLength() > 0) { 
-			ev.consume();
 		} else {
 			super.processKeyEvent(ev);
 		}

@@ -55,22 +55,6 @@ public class AddMoneyFrame extends JFrame {
 		//Initialize variables
 		amountToAddLabel = new javax.swing.JLabel();
 		amountToAddTextField = new IntegerTextField();
-//		{
-//			public void processKeyEvent(KeyEvent ev) {
-//				char charA = ev.getKeyChar();
-//				try {
-//						// Ignore all non-printable characters. Just check the printable ones.
-//						if (charA > 31 && charA < 127) {
-//							Integer.parseInt(charA + "");
-//						}
-//						super.processKeyEvent(ev); 
-//						
-//					} catch (NumberFormatException nfe) {
-//						// Do nothing. Character inputted is not a number, so ignore it.
-//					}
-//			}
-//		};
-	
 		okButton = new javax.swing.JButton();
 		cancelButton = new javax.swing.JButton();
 
