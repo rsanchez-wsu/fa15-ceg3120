@@ -43,6 +43,8 @@ import javax.swing.JTextField;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import edu.wright.cs.fa15.ceg3120.concon.common.net.data.SchedulingData;
+
 //import edu.wright.cs.fa15.ceg3120.concon.common.net.data.SchedulingData;;
 
 
@@ -52,7 +54,7 @@ import javax.swing.event.ChangeListener;
  */
 @SuppressWarnings("serial")	//This class will never be serialized.
 public class TabbedFrame extends JFrame{
-	
+		
 	// Variables declaration - do not modify//GEN-BEGIN:variables
 	private javax.swing.JButton submitButton; //submit button for scheduling
 	private javax.swing.JButton confirmButton; //confirm button for overview
@@ -266,18 +268,14 @@ public class TabbedFrame extends JFrame{
 				"October", "November", "December" }));
 
 		//Combo box that lists available dates during selected months
-		daysList.setModel(new DefaultComboBoxModel(new String[] { "1", "2", "3", "4", "5",
-				"6", "7", "8", "9", "10", "11", "12", "13",
-				"14", "15", "16", "17", "18", "19", "20",
-				"21", "22", "23", "24", "25",
-				"26", "27", "28", "29", "30", "31" }));
+		daysList.setModel(new DefaultComboBoxModel(new Integer[] { 1,2,3,4,5}));
 
 		//Combo box that lists available dates during selected months
 		timesList.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "2:30 - 4:30" }));
 
 		schedulingTabHeader.setText("Select The Month, Day, and Perferred time frame");
 		
-		//SchedulingData sd = new SchedulingData(monthsList.getSelectedItem().toString(), (int)daysList.getSelectedItem(), timesList.getSelectedItem().toString());
+		SchedulingData sd = new SchedulingData(monthsList.getSelectedItem().toString(), (int)daysList.getSelectedItem(), timesList.getSelectedItem().toString());
 
 		submitButton.setText("Submit");
 
@@ -353,6 +351,7 @@ public class TabbedFrame extends JFrame{
 		totalPaymentLabel.setEditable(false);
 
 		finalScheduledApptTime.setText("Scheduled Appointment Time:");
+		finalScheduledApptLabel.setText(sd.getMonth() + sd.getDay() + " between " + sd.getTimeRange());
 		finalScheduledApptLabel.setEditable(false);
 		
 		finalScheduledApptLabel.addActionListener(new java.awt.event.ActionListener() {
