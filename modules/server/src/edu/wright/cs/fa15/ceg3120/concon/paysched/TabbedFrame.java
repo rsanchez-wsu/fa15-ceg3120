@@ -29,7 +29,9 @@
  */
 
 package edu.wright.cs.fa15.ceg3120.concon.paysched;
+
 import edu.wright.cs.fa15.ceg3120.concon.common.net.data.SchedulingData;
+
 import java.awt.Color;
 import java.text.DecimalFormat;
 import javax.swing.DefaultComboBoxModel;
@@ -351,8 +353,8 @@ public class TabbedFrame extends JFrame{
 
 		finalScheduledApptTime.setText("Scheduled "
 				+ "Appointment Time:");
-		finalScheduledApptLabel.setText(sd.getMonth() + 
-				sd.getDay() + " between " + sd.getTimeRange());
+		finalScheduledApptLabel.setText(sd.getMonth() 
+				+ sd.getDay() + " between " + sd.getTimeRange());
 		finalScheduledApptLabel.setEditable(false);
 		
 		finalScheduledApptLabel.addActionListener(new java.awt.event.ActionListener() {
