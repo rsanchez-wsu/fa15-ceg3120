@@ -275,9 +275,6 @@ public class TabbedFrame extends JFrame{
 
 		schedulingTabHeader.setText("Select The Month, Day, and Perferred time frame");
 		
-		final SchedulingData sd = new SchedulingData(monthsList.getSelectedItem().toString(), 
-				(int)daysList.getSelectedItem(), timesList.getSelectedItem().toString());
-
 		submitButton.setText("Submit");
 
 		submitButton.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -348,13 +345,11 @@ public class TabbedFrame extends JFrame{
 //////////////////////////////////////////////////////////
 		totalPaymentOverview.setText("Total Payment:");
 		
-		totalPaymentLabel.setText("$0.00");
+		totalPaymentLabel.setText("$" + currency.format(remaining));
 		totalPaymentLabel.setEditable(false);
 
 		finalScheduledApptTime.setText("Scheduled "
 				+ "Appointment Time:");
-		finalScheduledApptLabel.setText(sd.getMonth() 
-				+ sd.getDay() + " between " + sd.getTimeRange());
 		finalScheduledApptLabel.setEditable(false);
 		
 		finalScheduledApptLabel.addActionListener(new java.awt.event.ActionListener() {
@@ -437,9 +432,9 @@ public class TabbedFrame extends JFrame{
 				.addGroup(overviewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment
 						.BASELINE)
 					.addComponent(finalScheduledApptTime)
-					.addComponent(finalScheduledApptLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 
+					.addComponent(finalScheduledApptLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 
 							javax.swing.GroupLayout.DEFAULT_SIZE,
-							javax.swing.GroupLayout.PREFERRED_SIZE))
+							javax.swing.GroupLayout.DEFAULT_SIZE))
 				.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50,
 						Short.MAX_VALUE)
 				.addGroup(overviewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment
@@ -504,7 +499,10 @@ public class TabbedFrame extends JFrame{
      * @param evt temp.
      */
 	private void submitButtonListener(java.awt.event.MouseEvent evt) {
-
+		SchedulingData sd = new SchedulingData(monthsList.getSelectedItem().toString(), 
+				(int)daysList.getSelectedItem(), timesList.getSelectedItem().toString());
+		finalScheduledApptLabel.setText(sd.getMonth() + " " + sd.getDay() 
+					+ " " + sd.getTimeRange());
 	}//GEN-LAST:event_submitButtonListener
 
 	/**
