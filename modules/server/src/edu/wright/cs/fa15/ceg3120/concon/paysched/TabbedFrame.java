@@ -42,10 +42,7 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-
 import edu.wright.cs.fa15.ceg3120.concon.common.net.data.SchedulingData;
-
-//import edu.wright.cs.fa15.ceg3120.concon.common.net.data.SchedulingData;;
 
 
 /**Class for tabbed window.
@@ -271,11 +268,14 @@ public class TabbedFrame extends JFrame{
 		daysList.setModel(new DefaultComboBoxModel(new Integer[] { 1,2,3,4,5}));
 
 		//Combo box that lists available dates during selected months
-		timesList.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "2:30 - 4:30" }));
+		timesList.setModel(new javax.swing.DefaultComboBoxModel(new String[] { 
+				"2:30 - 4:30 PM",
+				"10:30 AM - 12:30 PM"}));
 
 		schedulingTabHeader.setText("Select The Month, Day, and Perferred time frame");
 		
-		SchedulingData sd = new SchedulingData(monthsList.getSelectedItem().toString(), (int)daysList.getSelectedItem(), timesList.getSelectedItem().toString());
+		final SchedulingData sd = new SchedulingData(monthsList.getSelectedItem().toString(), 
+				(int)daysList.getSelectedItem(), timesList.getSelectedItem().toString());
 
 		submitButton.setText("Submit");
 
@@ -350,7 +350,8 @@ public class TabbedFrame extends JFrame{
 		totalPaymentLabel.setText("$0.00");
 		totalPaymentLabel.setEditable(false);
 
-		finalScheduledApptTime.setText("Scheduled Appointment Time:");
+		finalScheduledApptTime.setText("Scheduled "
+				+ "Appointment Time:");
 		finalScheduledApptLabel.setText(sd.getMonth() + sd.getDay() + " between " + sd.getTimeRange());
 		finalScheduledApptLabel.setEditable(false);
 		
