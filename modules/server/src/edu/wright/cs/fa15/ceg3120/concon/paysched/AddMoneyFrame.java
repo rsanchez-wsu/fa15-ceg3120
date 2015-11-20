@@ -21,7 +21,9 @@
 
 package edu.wright.cs.fa15.ceg3120.concon.paysched;
 
+import java.awt.Color;
 import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
 
 import javax.swing.JFrame;
 
@@ -52,11 +54,28 @@ public class AddMoneyFrame extends JFrame {
 	private void initComponents() {
 		//Initialize variables
 		amountToAddLabel = new javax.swing.JLabel();
-		amountToAddTextField = new javax.swing.JTextField();
+		amountToAddTextField = new javax.swing.JTextField(){
+			public void processKeyEvent(KeyEvent ev) {
+				char charA = ev.getKeyChar();
+				try {
+						// Ignore all non-printable characters. Just check the printable ones.
+						if (charA > 31 && charA < 127) {
+							Integer.parseInt(charA + "");
+						}
+						super.processKeyEvent(ev); 
+						
+					} catch (NumberFormatException nfe) {
+						// Do nothing. Character inputted is not a number, so ignore it.
+					}
+			}
+		};
+	
 		okButton = new javax.swing.JButton();
 		cancelButton = new javax.swing.JButton();
 
 
+		getContentPane().setBackground(Color.ORANGE);
+		//this.setBackground(Color.ORANGE);
 		setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
 
@@ -89,6 +108,7 @@ public class AddMoneyFrame extends JFrame {
 ////////////////////////////////////////////////////////
 /////Layout for GUI
 		javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+		
 		getContentPane().setLayout(layout);
 		//Set the horizontal positions of the label, text field, and buttons
 		layout.setHorizontalGroup(
@@ -156,5 +176,7 @@ public class AddMoneyFrame extends JFrame {
 		this.dispose();//Only exits out of AddMoneyFrame GUI
 	}//end of cencelButtonActionPerformed              
 
-
+	
 }
+
+
