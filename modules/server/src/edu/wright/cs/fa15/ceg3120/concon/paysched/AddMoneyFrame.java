@@ -23,7 +23,7 @@ package edu.wright.cs.fa15.ceg3120.concon.paysched;
 
 import java.awt.Color;
 import java.awt.event.ActionEvent;
-import java.awt.event.KeyEvent;
+//import java.awt.event.KeyEvent;
 
 import javax.swing.JFrame;
 
@@ -39,7 +39,7 @@ public class AddMoneyFrame extends JFrame {
 	private javax.swing.JButton okButton;
 	private javax.swing.JButton cancelButton;
 	private javax.swing.JLabel amountToAddLabel;
-	private javax.swing.JTextField amountToAddTextField;
+	private IntegerTextField amountToAddTextField;
 	
 	/**
      * Call components of GUI in constructor.
@@ -54,21 +54,22 @@ public class AddMoneyFrame extends JFrame {
 	private void initComponents() {
 		//Initialize variables
 		amountToAddLabel = new javax.swing.JLabel();
-		amountToAddTextField = new javax.swing.JTextField(){
-			public void processKeyEvent(KeyEvent ev) {
-				char charA = ev.getKeyChar();
-				try {
-						// Ignore all non-printable characters. Just check the printable ones.
-						if (charA > 31 && charA < 127) {
-							Integer.parseInt(charA + "");
-						}
-						super.processKeyEvent(ev); 
-						
-					} catch (NumberFormatException nfe) {
-						// Do nothing. Character inputted is not a number, so ignore it.
-					}
-			}
-		};
+		amountToAddTextField = new IntegerTextField();
+//		{
+//			public void processKeyEvent(KeyEvent ev) {
+//				char charA = ev.getKeyChar();
+//				try {
+//						// Ignore all non-printable characters. Just check the printable ones.
+//						if (charA > 31 && charA < 127) {
+//							Integer.parseInt(charA + "");
+//						}
+//						super.processKeyEvent(ev); 
+//						
+//					} catch (NumberFormatException nfe) {
+//						// Do nothing. Character inputted is not a number, so ignore it.
+//					}
+//			}
+//		};
 	
 		okButton = new javax.swing.JButton();
 		cancelButton = new javax.swing.JButton();
