@@ -36,8 +36,7 @@ public class SchedulingData implements Serializable {
 	private String timeRange = "";
 	
 	/**
-	 * Javadoc needed.
-	 *
+	 * Description. No argument constructor for SchedulingData.
 	 */
 	public SchedulingData() { }
 	
@@ -100,7 +99,13 @@ public class SchedulingData implements Serializable {
 	public void setTimeRange(String timeRange) {
 		this.timeRange = timeRange;
 	}
-
+	/*
+	 * Returns a string with all of the classes' data
+	 * in a readable form
+	 * 
+	 * @return A string with the classes' parameters
+	 * @see java.lang.Object#toString()
+	 */
 	@Override
 	public String toString() {
 		return "SchedulingData [month=" + month + ", day=" + day + ", timeRange=" + timeRange + "]";
