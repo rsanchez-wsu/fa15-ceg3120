@@ -46,7 +46,8 @@ public class IntegerTextField extends JTextField {
 		char charA = ev.getKeyChar();
 
 		//allows only numbers and backspace
-		if (!(Character.isDigit(charA) || charA == '\b')) {
+		if (!(Character.isDigit(charA) || charA == '\b' 
+				|| charA == '.')) {
 			ev.consume();
 			return;
 		} else {
