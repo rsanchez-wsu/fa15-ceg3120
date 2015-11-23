@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry excluding="edu/wright/cs/fa15/ceg3120/concon/common/images/" kind="src" path="common/src"/>
+	<classpathentry kind="src" path="modules/server/src"/>
 	<classpathentry kind="src" path="modules/contractor_client/src"/>
 	<classpathentry kind="src" path="modules/customer_client/src"/>
-	<classpathentry kind="src" path="modules/server/src"/>
 	<classpathentry kind="src" path="images"/>
 	<classpathentry kind="lib" path="wrapper/wrapper.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>

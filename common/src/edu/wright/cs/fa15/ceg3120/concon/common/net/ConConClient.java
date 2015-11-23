@@ -43,7 +43,9 @@ public class ConConClient {
 	private String host;
 	private int port;
 
-	private static UserData currentUser;
+	private UserData currentUser;
+
+	private StringBuilder chatLog = new StringBuilder();
 	
 	/**
 	 * Constructs a client which will talk to the designated host:port.
@@ -59,7 +61,7 @@ public class ConConClient {
 	 * Sends an XML-encoded message to the server.
 	 * @param message Message to be sent
 	 */
-	protected void sendMessage(String message) {
+	public void sendMessage(String message) {
 		new Thread(new DispatchMessage(message)).start();
 	}
 
@@ -87,23 +89,38 @@ public class ConConClient {
 								StandardCharsets.UTF_8));
 
 				while (message != null) {
+					// Send message
 					toServer.writeBytes(message);
+					
+					// Receive reply
 					StringBuilder response = new StringBuilder();
-					int ch = 0;
-					while ((ch = fromServer.read()) != -1) {
-						response.append(ch);
+					String line;
+					while ((line = fromServer.readLine()) != null) {
+						response.append(line);
+						if (line.compareTo("</java>") == 0) {
+							break;
+						}
 					}
+					
+					// Process reply
 					MessageHolder result =
 							(MessageHolder)NetworkManager.decodeFromXml(response.toString());
 					if (result != null) {
-						message = NetworkManager.encodeToXml(
-								NetworkManager.post(result.channel, result.message));
+						MessageHolder mh = 
+								NetworkManager.post(result.getChannel(), result.getMessage());
+						if (mh.getChannel().equals("end") || mh.getMessage() == null) {
+							break;
+						}
+						message = NetworkManager.encodeToXml(mh);
 					} else {
 						message = null;
 					}
 				}
-
-				clientSocket.close();
+				if (clientSocket.isConnected()) {
+					clientSocket.shutdownInput();
+					clientSocket.shutdownOutput();
+					clientSocket.close();
+				}
 			} catch (IOException e) {
 				LOG.error("Dispatch Message IO: ", e);
 			}
@@ -114,15 +131,32 @@ public class ConConClient {
 	 * Sets the current user.
 	 * @param user current user
 	 */
-	public static void setCurrentUser(UserData user) {
-		ConConClient.currentUser = user;
+	public void setCurrentUser(UserData user) {
+		currentUser = user;
 	}
 	
 	/**
 	 * Get the current user.
 	 * @return current logged in user if connected
 	 */
-	public static UserData getCurrentUser() {
+	public UserData getCurrentUser() {
 		return currentUser;
+	}
+
+	/**
+     * Append text to the chat log. 
+     * UI components can grab the log from the client.
+     * @param text the text to append
+     */
+	public void appendToChatLog(String text) {
+		this.chatLog .append(text);
+	}
+
+	/**
+	 * Get chatLog.
+	 * @return the chatLog
+	 */
+	public String getChatLog() {
+		return chatLog.toString();
 	}
 }
