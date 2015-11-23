@@ -21,7 +21,6 @@
 
 package edu.wright.cs.fa15.ceg3120.concon.client.customer;
 
-import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -95,7 +94,6 @@ public class CreateJobTab extends JPanel {
 		gbcbtnUploadImage.gridy = 0;
 		
 		image = new JLabel();
-		//image.setPreferredSize(new Dimension(200, 200));
 		imagePanel.add(image);
 		JButton btnUploadImage = new JButton("Upload Image");
 		imagePanel.add(btnUploadImage, gbcbtnUploadImage);
