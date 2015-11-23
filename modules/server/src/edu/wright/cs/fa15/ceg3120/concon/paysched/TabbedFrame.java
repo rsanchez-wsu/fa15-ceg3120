@@ -54,7 +54,6 @@ import javax.swing.event.ChangeListener;
 public class TabbedFrame extends JFrame{
 		
 	// Variables declaration - do not modify//GEN-BEGIN:variables
-	private javax.swing.JButton submitButton; //submit button for scheduling
 	private javax.swing.JButton confirmButton; //confirm button for overview
 	private javax.swing.JButton cancelButton; //cancel button for overview
 	private JComboBox<?> monthsList; //Months box for scheduling
@@ -73,8 +72,6 @@ public class TabbedFrame extends JFrame{
 	private JTextField chosenContractorLabel; //Chosen Contractor
 
 	//added by Jon
-	private javax.swing.JButton paymentApprove; //Button for payment approve on payment tab
-	private javax.swing.JButton paymentCancel; //Button for payment cancel on payment tab
 	private JButton addMoneyButton;
 	private JLabel amountOwedLabel; //Label attached to the amount owed text box
 	private JLabel amountInWalletLabel; // Label attached to the amount in wallet text box
@@ -114,7 +111,6 @@ public class TabbedFrame extends JFrame{
 		daysList = new JComboBox<>();
 		timesList = new JComboBox<>();
 		schedulingTabHeader = new JLabel();
-		submitButton = new JButton();
 
 		//Overview Tab Variables
 		totalPaymentOverview = new JLabel();
@@ -127,8 +123,7 @@ public class TabbedFrame extends JFrame{
 		chosenContractorLabel = new javax.swing.JTextField();
 
 		//Payment tab variables
-		paymentApprove = new javax.swing.JButton();
-		paymentCancel = new javax.swing.JButton();
+
 		addMoneyButton = new javax.swing.JButton();
 		amountOwedLabel = new JLabel();
 		amountInWalletLabel = new JLabel();
@@ -158,8 +153,6 @@ public class TabbedFrame extends JFrame{
 		amountOwed.setEditable(false);
 		amountInWallet.setEditable(false);
 		amountRemaining.setEditable(false);
-		paymentApprove.setText("Approve");
-		paymentCancel.setText("Cancel");
 		addMoneyButton.setText("Add ConCoin");
 		addMoneyButton.addMouseListener(new java.awt.event.MouseAdapter() {
 			public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -171,13 +164,6 @@ public class TabbedFrame extends JFrame{
 		paymentTabPanel.setLayout(paymentLayout);
 		paymentLayout.setHorizontalGroup(
 				paymentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-				.addGroup(paymentLayout.createSequentialGroup()
-				.addGap(100, 100, 100)
-				.addComponent(paymentApprove)
-				.addGap(46, 46, 46)
-				.addComponent(paymentCancel)
-
-				.addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 				.addGroup(paymentLayout.createSequentialGroup()
 				.addGap(34, 34, 34)
 				.addGroup(paymentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment
@@ -223,16 +209,12 @@ public class TabbedFrame extends JFrame{
 					.addComponent(amountInWallet, javax.swing.GroupLayout.PREFERRED_SIZE,
 							javax.swing.GroupLayout.DEFAULT_SIZE,
 							javax.swing.GroupLayout.PREFERRED_SIZE))
-
 				.addGroup(paymentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment
 						.BASELINE)
-
 						.addComponent(addMoneyButton, javax.swing.GroupLayout.PREFERRED_SIZE,
 							javax.swing.GroupLayout.DEFAULT_SIZE,
-							javax.swing.GroupLayout.PREFERRED_SIZE)
-						)
-
-
+							javax.swing.GroupLayout.PREFERRED_SIZE))
+				
 				.addGroup(paymentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment
 						.BASELINE)
 					.addComponent(amountRemainingLabel)
@@ -242,10 +224,7 @@ public class TabbedFrame extends JFrame{
 				.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50,
 						Short.MAX_VALUE)
 				.addGroup(paymentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment
-						.BASELINE)
-					.addComponent(paymentApprove)
-					.addComponent(paymentCancel))
-
+						.BASELINE))
 				.addGap(41, 41, 41))
 		);
 
@@ -275,20 +254,12 @@ public class TabbedFrame extends JFrame{
 
 		schedulingTabHeader.setText("Select The Month, Day, and Perferred time frame");
 		
-		submitButton.setText("Submit");
-
-		submitButton.addMouseListener(new java.awt.event.MouseAdapter() {
-			public void mouseClicked(java.awt.event.MouseEvent evt) {
-				submitButtonListener(evt);
-			}
-		});
-
 		javax.swing.GroupLayout schedulingLayout = new javax.swing.GroupLayout(schedulingTabPanel);
 		schedulingTabPanel.setLayout(schedulingLayout);
 		//Set horizontal layout for elements in tab
 		schedulingLayout.setHorizontalGroup(
 				schedulingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-				.addGroup(schedulingLayout.createSequentialGroup()
+				.addGroup(schedulingLayout.createSequentialGroup())
 				.addGroup(schedulingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment
 						.LEADING)
 					.addGroup(schedulingLayout.createSequentialGroup()
@@ -304,10 +275,7 @@ public class TabbedFrame extends JFrame{
 					.addGroup(schedulingLayout.createSequentialGroup()
 						.addGap(79, 79, 79)
 						.addComponent(schedulingTabHeader))
-					.addGroup(schedulingLayout.createSequentialGroup()
-						.addGap(160, 160, 160)
-						.addComponent(submitButton)))
-				.addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+					)
 		);
 		//Set vertical layout for elements in tab
 		schedulingLayout.setVerticalGroup(
@@ -329,7 +297,6 @@ public class TabbedFrame extends JFrame{
 							javax.swing.GroupLayout.PREFERRED_SIZE))
 				.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED,
 						85, Short.MAX_VALUE)
-				.addComponent(submitButton)
 				.addGap(59, 59, 59))
 		);
 
@@ -359,6 +326,12 @@ public class TabbedFrame extends JFrame{
 		});
 
 		confirmButton.setText("Confirm");
+		
+		confirmButton.addMouseListener(new java.awt.event.MouseAdapter() {
+			public void mouseClicked(java.awt.event.MouseEvent evt) {
+				confirmButtonListener(evt);
+			}
+		});
 
 
 		cancelButton.setText("Cancel");
@@ -498,13 +471,13 @@ public class TabbedFrame extends JFrame{
      * Action Listener for Submit Button.
      * @param evt temp.
      */
-	private void submitButtonListener(java.awt.event.MouseEvent evt) {
+	private void confirmButtonListener(java.awt.event.MouseEvent evt) {
 		SchedulingData sd = new SchedulingData(monthsList.getSelectedItem().toString(), 
 				(int)daysList.getSelectedItem(), timesList.getSelectedItem().toString());
 		finalScheduledApptLabel.setText(sd.getMonth() + " " + sd.getDay() 
 					+ " " + sd.getTimeRange());
-	}//GEN-LAST:event_submitButtonListener
-
+	}//GEN-LAST:event_confirmButtonListener
+	
 	/**
      * Action Listener for AddMoney Button
      * Calls AddMoneyFrame to let user enter more money into their account
