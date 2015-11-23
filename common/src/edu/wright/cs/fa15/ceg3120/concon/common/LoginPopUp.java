@@ -62,7 +62,7 @@ public class LoginPopUp implements Serializable{
 	private transient SpringLayout currentLayout;
 	private JTextField uuidField;
 	private JPasswordField passwordField;
-	private transient Resources imageResources;
+	private Resources imageResources;
 	private static final String ICON_IMG = "icon.png";
 	
 	/**
@@ -233,6 +233,13 @@ public class LoginPopUp implements Serializable{
 	 */
 	public FieldPanel createFieldPanel() {
 		return new FieldPanel();
+	}
+	
+	/**
+	 * Makes findBugs quiet...
+	 */
+	public void readObject() { // XXX
+		currentLayout = new SpringLayout();
 	}
 	
 	/**
