@@ -55,14 +55,18 @@
 package edu.wright.cs.fa15.ceg3120.concon.server;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 import javax.swing.JComponent;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTabbedPane;
@@ -98,7 +102,8 @@ public class ServerGui extends JPanel implements ActionListener {
 		
 		// Create tabbedPane and add all need tabs to it
 		tabbedPane = new JTabbedPane();
-		
+		//tabbedPane.setOpaque(true);
+		//tabbedPane.setBackground(Color.ORANGE);
 		tabbedPane.addTab("Dash board", CreateImageIcon.iconDashBoard, 
 						MakeDashBoard.panelDashBoard, "Main Dashboard");
 		tabbedPane.setMnemonicAt(0, KeyEvent.VK_1);
@@ -125,7 +130,8 @@ public class ServerGui extends JPanel implements ActionListener {
 
 		// Add the tab pane to this panel.
 		add(tabbedPane);
-
+		this.setOpaque(true);
+		this.setBackground(Color.ORANGE);
 		// The following line enables to use scrolling tabs.
 		tabbedPane.setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
 		
@@ -156,10 +162,21 @@ public class ServerGui extends JPanel implements ActionListener {
 	 */
 	private static void createAndshowgui() {
 		// Create and set up the window.
+		String message = "Exit the program?";
+		String title = "Exit";
 		JFrame frame = new JFrame("Server Control GUI");
 
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		//frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setIconImage(CreateImageIcon.iconLogo.getImage());
+		frame.addWindowListener( new WindowAdapter(){
+			public void windowClosing(WindowEvent w0) {
+					int showQuit = JOptionPane.showConfirmDialog(null,  
+							message, title, JOptionPane.YES_NO_OPTION);
+					if (showQuit == JOptionPane.YES_OPTION) {
+						System.exit(0);
+					}
+			}
+		});
 		// Add content to the window.
 		frame.add(new ServerGui(), BorderLayout.CENTER);
 

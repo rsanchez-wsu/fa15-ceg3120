@@ -53,6 +53,7 @@
 package edu.wright.cs.fa15.ceg3120.concon.server;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
@@ -111,6 +112,8 @@ public class TransactionTab extends JComponent{
 		usersList.setModel(usersModel);
 
 		JPanel usersPanel = new JPanel(new BorderLayout());
+		usersPanel.setOpaque(true);
+		usersPanel.setBackground(Color.ORANGE);
 		// Users label
 		JLabel usersLabel = new JLabel("Users:");
 		usersPanel.add(usersLabel, BorderLayout.NORTH);
@@ -125,8 +128,10 @@ public class TransactionTab extends JComponent{
 		// Transactions Table
 		JTable transactionTable = new JTable(new TransactionTableModel());
 		transactionTable.setFillsViewportHeight(true);
-		
+		transactionTable.setBackground(Color.ORANGE);
 		JPanel panel = new JPanel(new BorderLayout());
+		panel.setOpaque(true);
+		panel.setBackground(Color.ORANGE);
 		panel.add(new JScrollPane(transactionTable), BorderLayout.CENTER);
 		panel.add(usersPanel, BorderLayout.NORTH);
 		return panel;

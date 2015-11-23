@@ -53,6 +53,7 @@
 package edu.wright.cs.fa15.ceg3120.concon.server;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
@@ -78,7 +79,8 @@ public class CreateServerReportPanel {
 	 **/
 	protected static JComponent reportPanel() {
 		final JPanel mainPanel = new JPanel(new BorderLayout());
-
+		mainPanel.setOpaque(true);
+		mainPanel.setBackground(Color.ORANGE);
 		String[] dataOptions = { "System Errors", "Database Errors", 
 								"System Resets and Backups"};
 
@@ -86,7 +88,7 @@ public class CreateServerReportPanel {
 
 		dataOptionList.setSelectedIndex(0);
 		mainPanel.add(getSysErrorPanel(), BorderLayout.CENTER);
-		
+	
 		dataOptionList.addItemListener(new ItemListener() {
 			@Override
 				public void itemStateChanged(ItemEvent arg0) {
@@ -124,6 +126,8 @@ public class CreateServerReportPanel {
 		final JTable errorsList;
 		final JTextField expandError = new JTextField();
 		final JPanel sysErrorPanel = new JPanel(new BorderLayout());
+		sysErrorPanel.setOpaque(true);
+		sysErrorPanel.setBackground(Color.ORANGE);
 		//TODO refine this once the database calling is worked out
 		errorsList = getSysErrorsFromDataBase();
 		errorsList.setAutoCreateRowSorter(true);
@@ -158,6 +162,8 @@ public class CreateServerReportPanel {
 		final JTable errorsList;
 		final JTextField expandError = new JTextField();
 		final JPanel databaseErrorPanel = new JPanel(new BorderLayout());
+		databaseErrorPanel.setOpaque(true);
+		databaseErrorPanel.setBackground(Color.ORANGE);
 		//TODO refine this once the database calling is worked out
 		errorsList = getrrorsfromDatabase();
 		errorsList.setAutoCreateRowSorter(true);
@@ -175,6 +181,8 @@ public class CreateServerReportPanel {
 		});
 		
 		JScrollPane errorScroll = new JScrollPane(errorsList);
+		errorScroll.setOpaque(true);
+		errorScroll.setBackground(Color.ORANGE);
 		errorScroll.setPreferredSize(new Dimension(200, 150));
 		expandError.setPreferredSize(new Dimension(100, 50));
 		//databaseErrorPanel.add(new JTextField(
@@ -189,6 +197,8 @@ public class CreateServerReportPanel {
 	 */
 	protected static JPanel getResetsPanel() {
 		JPanel sysresetpanel = new JPanel(new BorderLayout());
+		sysresetpanel.setOpaque(true);
+		sysresetpanel.setBackground(Color.ORANGE);
 		sysresetpanel.add(new JTextField("\nResets and Backups"));
 		//JList<String> resetList;
 		sysresetpanel.add(getResetAndBackupsFromDataBase(), BorderLayout.CENTER);

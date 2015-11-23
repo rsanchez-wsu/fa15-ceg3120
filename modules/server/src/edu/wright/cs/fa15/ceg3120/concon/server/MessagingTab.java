@@ -53,6 +53,7 @@
 package edu.wright.cs.fa15.ceg3120.concon.server;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
@@ -107,22 +108,25 @@ public class MessagingTab {
 		buttonPanel.add(button, BorderLayout.NORTH);
 		button = new JButton("-->");
 		// TODO add listener
-		buttonPanel.add(button, BorderLayout.EAST);
+		buttonPanel.add(button, BorderLayout.CENTER);
 		button = new JButton("<--");
 		buttonPanel.add(button, BorderLayout.SOUTH);
 		northPanel.add(buttonPanel);
-
+		northPanel.setOpaque(true);
+		northPanel.setBackground(Color.ORANGE);
 		JPanel selectedPanel = new JPanel(new BorderLayout());
 		JLabel selectedLabel = new JLabel("Selected:");
+		selectedPanel.setOpaque(true);
+		selectedPanel.setBackground(Color.ORANGE);
+		selectedPanel.add(selectedLabel, BorderLayout.NORTH);
 		JList<String> selectedList = new JList<>();
 		DefaultListModel<String> selectedModel = new DefaultListModel<>();
 		selectedModel.addElement("Bob");
 		selectedList.setModel(selectedModel);
 		JScrollPane selectedScrollPane = new JScrollPane(selectedList);
-		selectedPanel.add(selectedLabel, BorderLayout.NORTH);
 		selectedPanel.add(selectedScrollPane, BorderLayout.CENTER);
 		northPanel.add(selectedPanel);
-
+		
 		/*
 		 * Instantiation of the center panel. This panel will hold the editor
 		 * pane that will be used to edit the message to be sent.
@@ -131,6 +135,8 @@ public class MessagingTab {
 		JLabel messageLabel = new JLabel("Message:");
 		JEditorPane messageText = new JEditorPane();
 		JScrollPane messageScrollPane = new JScrollPane(messageText);
+		centerPanel.setOpaque(true);
+		centerPanel.setBackground(Color.ORANGE);
 		centerPanel.add(messageLabel, BorderLayout.NORTH);
 		centerPanel.add(messageScrollPane, BorderLayout.CENTER);
 
@@ -145,9 +151,11 @@ public class MessagingTab {
 		button = new JButton("Send");
 		// TODO add listener
 		eastPanel.add(button);
-
+		eastPanel.setOpaque(true);
+		eastPanel.setBackground(Color.ORANGE);
 		JPanel panel = new JPanel(new BorderLayout());
-
+		panel.setOpaque(true);
+		panel.setBackground(Color.ORANGE);
 		panel.add(northPanel, BorderLayout.NORTH);
 		panel.add(centerPanel, BorderLayout.CENTER);
 		panel.add(eastPanel, BorderLayout.EAST);

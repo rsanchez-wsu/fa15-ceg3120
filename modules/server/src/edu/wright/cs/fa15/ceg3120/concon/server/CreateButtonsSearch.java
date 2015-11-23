@@ -53,6 +53,7 @@
 package edu.wright.cs.fa15.ceg3120.concon.server;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
@@ -94,7 +95,8 @@ public class CreateButtonsSearch extends JPanel{
 		
 		JPanel functionality = new JPanel();
 		functionality.setLayout(new GridLayout(1,3));
-		
+		functionality.setOpaque(true);
+		functionality.setBackground(Color.ORANGE);
 		searchBar = new JTextField(25);
 		functionality.add(searchBar);
 		JButton search = new JButton();
@@ -106,8 +108,11 @@ public class CreateButtonsSearch extends JPanel{
 		homeOwner.setText("Homeowner");
 		homeOwner.setSelected(true);
 		ButtonGroup userTypes = new ButtonGroup();
+		
 		userTypes.add(homeOwner);
 		JPanel userButtons = new JPanel();
+		userButtons.setOpaque(true);
+		userButtons.setBackground(Color.ORANGE);
 		userButtons.setLayout(new GridLayout(1,2));
 		userButtons.add(homeOwner);
 		
@@ -116,11 +121,12 @@ public class CreateButtonsSearch extends JPanel{
 		userTypes.add(contractor);
 		userButtons.add(contractor);
 		functionality.add(userButtons);
-		
+		this.setOpaque(true);
+		this.setBackground(Color.ORANGE);
 		this.add(functionality, BorderLayout.NORTH);
 		
 		JTable users = new JTable(new UserTableModel());
-
+		users.setBackground(Color.ORANGE);
 		users.setFillsViewportHeight(true);		
 		users.addMouseListener(new EditListener());
 
@@ -150,7 +156,7 @@ public class CreateButtonsSearch extends JPanel{
 		private static final long serialVersionUID = 1L;
 
 		private String[] columnNames = { "Name", "Phone Number","Address", "E-Mail" };
-
+		
 		private Object[][] dummyData = {
 										{ "Kathy", "(555)555-5555", "123 Main St.",
 			"Kathy@gmail.com" },
