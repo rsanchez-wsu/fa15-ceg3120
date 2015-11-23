@@ -98,7 +98,7 @@ public class ShowContractorsTab extends JLayeredPane {
 					// Get text and search tree
 					String searchTerm = searchField.getText();
 					TreePath[] paths = find(searchTerm);
-					if (paths != null) {
+					if (paths.length > 0) {
 						// Selects and expands to found nodes
 						tree.setSelectionPaths(paths);
 					} else {
