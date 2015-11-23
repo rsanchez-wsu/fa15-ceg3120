@@ -34,8 +34,6 @@ import java.awt.Desktop;
 import java.awt.EventQueue;
 import java.awt.Image;
 import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.net.URI;
@@ -58,7 +56,7 @@ import javax.swing.JTabbedPane;
  * 
  *
  */
-public class ContractorClient extends JFrame implements ActionListener {
+public class ContractorClient extends JFrame {
 
 	/**
 	 * Action for trying to close window by hitting X in corner.
@@ -271,11 +269,5 @@ public class ContractorClient extends JFrame implements ActionListener {
 				new ContractorClient().buildGui(user);
 			}
 		});
-	}
-
-	@Override
-	public void actionPerformed(ActionEvent e0) {
-		// TODO Auto-generated method stub
-		
 	}
 }
