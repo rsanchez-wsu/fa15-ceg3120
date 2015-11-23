@@ -29,8 +29,8 @@ import java.awt.FlowLayout;
 //import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-
 import java.util.Enumeration;
+import java.util.regex.Pattern;
 
 //import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -59,8 +59,6 @@ public class ShowContractorsTab extends JLayeredPane {
 	private static final long serialVersionUID = 1L;
 	private JTextField searchField;
 	private JTree tree;
-	// temporary- should be variable from db query
-	private int numberOfContractors = 3;
 	
 	/**
 	 * ShowContractorsTab constructor.
@@ -99,11 +97,10 @@ public class ShowContractorsTab extends JLayeredPane {
 				if (keyPressed.getKeyCode() == KeyEvent.VK_ENTER) {
 					// Get text and search tree
 					String searchTerm = searchField.getText();
-					TreePath path = find(searchTerm);
-					if (path != null) {
-						// Select and scroll to found node
-						tree.setSelectionPath(path);
-						tree.scrollPathToVisible(path);
+					TreePath[] paths = find(searchTerm);
+					if (paths != null) {
+						// Selects and expands to found nodes
+						tree.setSelectionPaths(paths);
 					} else {
 						// Display error message
 						JOptionPane.showMessageDialog(null, "Contractor not found", 
@@ -120,9 +117,9 @@ public class ShowContractorsTab extends JLayeredPane {
 		
 		// Create tree
 		tree = new JTree();
-		tree.setVisibleRowCount(numberOfContractors + 1);
 		//tree.setFont(new Font("DejaVu Sans", Font.PLAIN, 15));
 		tree.setModel(new DefaultTreeModel(new CustomTreeNode()));
+		tree.setExpandsSelectedPaths(true);
 		
 		// Make tree scrollable
 		JScrollPane treeScroll = new JScrollPane(tree, 
@@ -155,26 +152,44 @@ public class ShowContractorsTab extends JLayeredPane {
 	} // end of initialize method
 	
 	/**
-	 * The find method finds the queried term in the tree returns a
-	 * path to the node. As of now, the full node must be specified 
-	 * in order to be found.
+	 * The find method matches the queried term with nodes in the tree
+	 * and returns paths to the node. The term may be any case and anywhere
+	 * in the node.
 	 * 
 	 * @param searchTerm	The String the user searched
+	 * @return				Returns an array of paths to matching nodes, or
+	 * 						if none found, return null
 	 */
 	
-	private TreePath find(String searchTerm) {
+	private TreePath[] find(String searchTerm) {
 		
 		DefaultMutableTreeNode root = (DefaultMutableTreeNode)tree.getModel().getRoot();
 		@SuppressWarnings("unchecked")
 		Enumeration<DefaultMutableTreeNode> enumerator = root.depthFirstEnumeration();
+		// temporary - allows max of 50 nodes to be selected
+		TreePath[] allPaths = new TreePath[50];
+		int index = -1;
+		
+		// creates pattern to match searched term
+		String escapedFragment = Pattern.quote(searchTerm);
+		String fragmentAnywhereInString = ".*" + escapedFragment + ".*";
+		String caseInsensitiveFragment = "(?i)" + fragmentAnywhereInString;
 		
 		while (enumerator.hasMoreElements()) {
 			DefaultMutableTreeNode node = enumerator.nextElement();
-			if (node.toString().equalsIgnoreCase(searchTerm)) {
-				return new TreePath(node.getPath());
-			}
+			if (node.toString().matches(caseInsensitiveFragment)) {
+				index++;
+				allPaths[index] = new TreePath(node.getPath());
+			} // end of if-matched
+		} // end of enumerator while
+		
+		// if index is never incremented, return null
+		if (index == -1) {
+			return null;
+		// otherwise, return paths
+		} else {
+			return allPaths;
 		}
-		return null;
 		
 	} // end find method
 	
@@ -258,6 +273,31 @@ public class ShowContractorsTab extends JLayeredPane {
 			name = new DefaultMutableTreeNode("Can We Fix It Construction");
 			phone = new DefaultMutableTreeNode("616-846-9982");
 			website = new DefaultMutableTreeNode("www.cwficon.com");
+			name.add(phone);
+			name.add(website);
+			job = new DefaultMutableTreeNode("Job 6543");
+			rating = new DefaultMutableTreeNode("*****");
+			review = new DefaultMutableTreeNode("On time and fixed it perfectly!");
+			job.add(rating);
+			job.add(review);
+			name.add(job);
+			job = new DefaultMutableTreeNode("Job 4828");
+			rating = new DefaultMutableTreeNode("**");
+			review = new DefaultMutableTreeNode("Ruined my backyard");
+			job.add(rating);
+			job.add(review);
+			name.add(job);
+			job = new DefaultMutableTreeNode("Job 1863");
+			rating = new DefaultMutableTreeNode("****");
+			review = new DefaultMutableTreeNode("Exactly what I needed");
+			job.add(rating);
+			job.add(review);
+			name.add(job);
+			add(name);
+			
+			name = new DefaultMutableTreeNode("The Other Bob Corp.");
+			phone = new DefaultMutableTreeNode("624-987-4756");
+			website = new DefaultMutableTreeNode("www.notbobthebuilder.com");
 			name.add(phone);
 			name.add(website);
 			job = new DefaultMutableTreeNode("Job 6543");
