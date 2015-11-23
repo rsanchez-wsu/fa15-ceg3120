@@ -185,7 +185,7 @@ public class ShowContractorsTab extends JLayeredPane {
 		
 		// if index is never incremented, return null
 		if (index == -1) {
-			return null;
+			return new TreePath[0];
 		// otherwise, return paths
 		} else {
 			return allPaths;
