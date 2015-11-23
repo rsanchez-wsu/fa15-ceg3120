@@ -23,8 +23,6 @@ package edu.wright.cs.fa15.ceg3120.concon.paysched;
 
 import java.awt.Color;
 import java.awt.event.ActionEvent;
-//import java.awt.event.KeyEvent;
-
 import javax.swing.JFrame;
 
 /**
@@ -142,7 +140,7 @@ public class AddMoneyFrame extends JFrame {
      * @param evt temp.
      */
 	private void amountToAddActionPerformed(ActionEvent evt) { 
-
+			
 	}//end of amountToAddACtionPerformed                                           
 
 	/**
