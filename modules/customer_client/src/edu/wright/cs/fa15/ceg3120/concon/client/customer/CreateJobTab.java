@@ -21,12 +21,16 @@
 
 package edu.wright.cs.fa15.ceg3120.concon.client.customer;
 
+import java.awt.Dimension;
+import java.awt.Graphics2D;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Insets;
+import java.awt.RenderingHints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
 import java.io.File;
 
 import javax.imageio.ImageIO;
@@ -89,9 +93,11 @@ public class CreateJobTab extends JPanel {
 		gbcbtnUploadImage.insets = new Insets(0, 0, 0, 5);
 		gbcbtnUploadImage.gridx = 0;
 		gbcbtnUploadImage.gridy = 0;
-		JButton btnUploadImage = new JButton("Upload Image");
+		
 		image = new JLabel();
+		//image.setPreferredSize(new Dimension(200, 200));
 		imagePanel.add(image);
+		JButton btnUploadImage = new JButton("Upload Image");
 		imagePanel.add(btnUploadImage, gbcbtnUploadImage);
 		btnUploadImage.addActionListener(new MyListener(image));
 		
@@ -166,7 +172,8 @@ public class CreateJobTab extends JPanel {
 			String[] extensions = ImageIO.getReaderFileSuffixes();
 			
 			for (String ext : extensions) {
-				FileFilter filter = new FileNameExtensionFilter(ext + " files", ext);
+				FileFilter filter = new FileNameExtensionFilter(
+						"." + ext + " files", ext);
 				choose.addChoosableFileFilter(filter);
 			}
 			
@@ -176,6 +183,14 @@ public class CreateJobTab extends JPanel {
 			if (choice == JFileChooser.APPROVE_OPTION) {
 				File imageFile = choose.getSelectedFile();
 				ImageIcon profilePic = new ImageIcon(imageFile.getAbsolutePath());
+				BufferedImage resized = new BufferedImage(200, 200, BufferedImage.TYPE_INT_ARGB);
+				Graphics2D g2 = resized.createGraphics();
+				
+				g2.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
+						RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+				g2.drawImage(profilePic.getImage(), 0, 0, 200, 200, null);
+				g2.dispose();
+				profilePic.setImage(resized);
 				
 				image.setIcon(profilePic);
 			}
