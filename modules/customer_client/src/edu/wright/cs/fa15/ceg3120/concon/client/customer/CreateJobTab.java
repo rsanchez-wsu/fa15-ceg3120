@@ -27,12 +27,19 @@ import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 
+import javax.imageio.ImageIO;
 import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
+import javax.swing.filechooser.FileFilter;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  * This class is used to create our "create a job" tab, it uses text fields to read in data from
@@ -51,6 +58,7 @@ public class CreateJobTab extends JPanel {
 	private JTextField txtStartingBid;
 	private JTextPane txtpnJobDescription;
 	private JPanel imagePanel;
+	private JLabel image;
 	private JButton btnCreateJob;
 	
 	/**
@@ -82,8 +90,10 @@ public class CreateJobTab extends JPanel {
 		gbcbtnUploadImage.gridx = 0;
 		gbcbtnUploadImage.gridy = 0;
 		JButton btnUploadImage = new JButton("Upload Image");
+		image = new JLabel();
+		imagePanel.add(image);
 		imagePanel.add(btnUploadImage, gbcbtnUploadImage);
-		btnUploadImage.addActionListener(new MyListener());
+		btnUploadImage.addActionListener(new MyListener(image));
 		
 		txtpnJobDescription = new JTextPane();
 		txtpnJobDescription.setText(" Job Description");
@@ -139,10 +149,37 @@ public class CreateJobTab extends JPanel {
 	 *
 	 */
 	private static class MyListener implements ActionListener {
-//remove
+		private JLabel image;
+		
+		/**
+		 * Create a new instance of <code>MyListener</code>.
+		 * @param image JLabel to hold the image
+		 */
+		public MyListener(JLabel image) {
+			this.image = image;
+		}
+
 		@Override
 		public void actionPerformed(ActionEvent ex) {
 			// TODO Auto-generated method stub
+			final JFileChooser choose = new JFileChooser();
+			String[] extensions = ImageIO.getReaderFileSuffixes();
+			
+			for (String ext : extensions) {
+				FileFilter filter = new FileNameExtensionFilter(ext + " files", ext);
+				choose.addChoosableFileFilter(filter);
+			}
+			
+			choose.setAcceptAllFileFilterUsed(false);
+			
+			int choice = choose.showOpenDialog(null);
+			if (choice == JFileChooser.APPROVE_OPTION) {
+				File imageFile = choose.getSelectedFile();
+				ImageIcon profilePic = new ImageIcon(imageFile.getAbsolutePath());
+				
+				image.setIcon(profilePic);
+			}
+		
 			System.out.print("");
 		}
 		
