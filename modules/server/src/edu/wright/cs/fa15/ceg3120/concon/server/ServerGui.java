@@ -162,8 +162,8 @@ public class ServerGui extends JPanel implements ActionListener {
 	 */
 	private static void createAndshowgui() {
 		// Create and set up the window.
-		String message = "Exit the program?";
-		String title = "Exit";
+		final String message = "Exit the program?";
+		final String title = "Exit";
 		JFrame frame = new JFrame("Server Control GUI");
 
 		//frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
