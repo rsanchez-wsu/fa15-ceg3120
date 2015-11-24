@@ -24,6 +24,8 @@ package edu.wright.cs.fa15.ceg3120.concon.common.data;
 import java.awt.Image;
 import java.io.Serializable;
 
+import javax.swing.ImageIcon;
+
 /**
  * Model for a JobRequest.
  * 
@@ -46,8 +48,9 @@ public class JobRequest implements Serializable{
 	private String jobField;
 	/** User description of what they want done. */
 	private String jobDescr;
+	private String imagePath;
 	/** Images of what the future jobsite looks like now. */
-	private Image picsOfCurrentState;// do we want to allow multiple images?
+	private transient Image picsOfCurrentState;// do we want to allow multiple images?
 	// or maybe convert to a ByteArrayInputStream[] and pass raw data around?
 
 	/**
@@ -152,19 +155,32 @@ public class JobRequest implements Serializable{
 	public void setJobDescr(String jobDescr) {
 		this.jobDescr = jobDescr;
 	}
+	
 	/**
-	 * Javadoc needed.
-	 *
+	 * Gets the path to the Image.
+	 * 
+	 * @return path to the Image
+	 */
+	public String getImagePath() {
+		return imagePath;
+	}
+
+	/**
+	 * Sets the path to the image.
+	 * 
+	 * @param imagePath path to the image
+	 */
+	public void setImagePath(String imagePath) {
+		this.imagePath = imagePath;
+		picsOfCurrentState = new ImageIcon(imagePath).getImage();
+	}
+
+	/**
+	 * Gets the Image of the Job Request.
+	 * 
+	 * @return Image
 	 */
 	public Image getPicsOfCurrentState() {
 		return picsOfCurrentState;
 	}
-	/**
-	 * Javadoc needed.
-	 *
-	 */
-	public void setPicsOfCurrentState(Image picsOfCurrentState) {
-		this.picsOfCurrentState = picsOfCurrentState;
-	}
-
-}
+}//end JobRequest
