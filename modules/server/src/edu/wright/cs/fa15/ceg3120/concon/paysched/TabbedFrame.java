@@ -442,7 +442,7 @@ public class TabbedFrame extends JFrame{
 		);
 		layout.setVerticalGroup(
 				layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-				.addComponent(jtabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 300,
+				.addComponent(jtabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 240,
 						Short.MAX_VALUE)
 		);
 
