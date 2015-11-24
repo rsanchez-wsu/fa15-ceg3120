@@ -22,6 +22,7 @@
 package edu.wright.cs.fa15.ceg3120.concon.common.data;
 
 import java.awt.Image;
+import java.io.Serializable;
 
 /**
  * Model for a JobRequest.
@@ -29,8 +30,8 @@ import java.awt.Image;
  * @author Quack
  *
  */
-public class JobRequest {
-
+public class JobRequest implements Serializable{
+	private static final long serialVersionUID = 1L;
 	/**
 	 * Signifies whether this request is a new job or a request for all jobs from a given account.
 	 */
@@ -46,7 +47,7 @@ public class JobRequest {
 	/** User description of what they want done. */
 	private String jobDescr;
 	/** Images of what the future jobsite looks like now. */
-	private Image[] picsOfCurrentState;// do we want to allow multiple images?
+	private Image picsOfCurrentState;// do we want to allow multiple images?
 	// or maybe convert to a ByteArrayInputStream[] and pass raw data around?
 
 	/**
@@ -155,15 +156,15 @@ public class JobRequest {
 	 * Javadoc needed.
 	 *
 	 */
-	public Image[] getPicsOfCurrentState() {
-		return (picsOfCurrentState == null) ? null : picsOfCurrentState.clone();
+	public Image getPicsOfCurrentState() {
+		return picsOfCurrentState;
 	}
 	/**
 	 * Javadoc needed.
 	 *
 	 */
-	public void setPicsOfCurrentState(Image[] picsOfCurrentState) {
-		this.picsOfCurrentState = picsOfCurrentState.clone();
+	public void setPicsOfCurrentState(Image picsOfCurrentState) {
+		this.picsOfCurrentState = picsOfCurrentState;
 	}
 
 }

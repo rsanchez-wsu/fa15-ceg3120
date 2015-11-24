@@ -21,6 +21,7 @@
 
 package edu.wright.cs.fa15.ceg3120.concon.common;
 
+import edu.wright.cs.fa15.ceg3120.concon.common.data.RequestType;
 import edu.wright.cs.fa15.ceg3120.concon.common.data.UserAccount;
 
 import java.awt.Color;
@@ -284,7 +285,8 @@ public class LoginPopUp implements Serializable{
 			if (uuid.length() > 0) {
 				if (passwordField.getPassword().length > 0) {
 					// XXX encrypt pswd before creating new UserAccount
-					user = new UserAccount(uuid, null, passwordField.getPassword());
+					user = new UserAccount(uuid, null, passwordField.getPassword(),
+							RequestType.LOOK_UP);
 				} else {
 					JOptionPane.showMessageDialog(null,
 							"The password field is blank." + "\nPlease try agian...",
