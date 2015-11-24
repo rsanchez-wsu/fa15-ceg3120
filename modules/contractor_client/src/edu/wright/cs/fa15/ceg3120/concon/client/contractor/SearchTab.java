@@ -98,9 +98,26 @@ public class SearchTab extends JLayeredPane {
 
 		@Override
 		public void actionPerformed(ActionEvent e0) {
-			int intChecker = 0;
+//			int intChecker = 0;
 			currentJob.setJobCurBid(Double.parseDouble(txtBidText.getText()));
-			if (myJobList.size() < 1) {
+			boolean addJob = CurBidsTab.addToMyJobList(currentJob);
+			if (addJob) {
+				JOptionPane.showMessageDialog(null, "Bid accepted and job added "
+						+ "to your current bids.");
+			} else {
+				JOptionPane.showMessageDialog(null, "You have already bid on this "
+						+ "job. Please check your current bids.");
+			}
+			dlgJobDetails.dispose();
+			
+			
+			
+			
+			
+			
+			
+			
+/*			if (myJobList.size() < 1) {
 				myJobList.add(currentJob);
 				System.out.println("*** " + myJobList.indexOf(currentJob));
 				CurBidsTab.updateCurrentBidsTab();
@@ -119,7 +136,7 @@ public class SearchTab extends JLayeredPane {
 					CurBidsTab.updateCurrentBidsTab();
 					dlgJobDetails.dispose();
 				}
-			}
+			}*/
 		}
 	}
 
@@ -446,7 +463,7 @@ public class SearchTab extends JLayeredPane {
 	private static JLabel lblNumResults5 = new JLabel();
 	private static JLabel lblNumResults6 = new JLabel();
 	private static JButton btnJobDetails = new JButton();
-	private static ArrayList<OpenJobClass> myJobList = new ArrayList<OpenJobClass>();
+//	private static ArrayList<OpenJobClass> myJobList = new ArrayList<OpenJobClass>();
 	
 	private static final int WINDOW_WIDTH = Toolkit.getDefaultToolkit().getScreenSize().width
 			- 150;
