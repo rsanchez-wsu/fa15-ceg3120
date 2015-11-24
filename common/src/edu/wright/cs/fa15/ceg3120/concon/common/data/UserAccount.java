@@ -39,23 +39,23 @@ public class UserAccount implements Serializable{
 	private char[] pswd;
 	/** Response from database. */
 	private String dbResponse;
-	/** TODO description.*/
+	/** User's first name. */
 	private String strFirstName;
-	/** TODO description.*/
+	/** User's last name. */
 	private String strLastName;
-	/** TODO description.*/
+	/** First line of mailing address. */
 	private String strAddress1;
-	/** TODO description.*/
+	/** Line two of mailing address (optional?). */
 	private String strAddress2;
-	/** TODO description.*/
+	/** City of mailing address. */
 	private String strCity;
-	/** TODO description.*/
+	/** State of mailing address. */
 	private String strState;
-	/** TODO description.*/
+	/** User's Zip-Code. */
 	private String zipCode;
-	/** TODO description.*/
+	/** User's phone number. */
 	private String strPhoneNumber;
-	/** TODO description.*/
+	/** User's email address. */
 	private String strEmailAddress;
 	
 	/**
@@ -63,6 +63,7 @@ public class UserAccount implements Serializable{
 	 */
 	public UserAccount() {
 		uuid = "DEBUG";
+		pswd = new char[]{'p', 'a', 's', 's', 'w', 'o', 'r', 'd'}; //XXX REMOVE!!!
 	}
 
 	/**
