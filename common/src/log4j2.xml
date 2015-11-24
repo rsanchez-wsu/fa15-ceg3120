@@ -28,11 +28,11 @@
 		</Logger>
 		-->
 				
-		<Logger name="edu.wright.cs.fa15.ceg3120.concon.server" level="debug" additivity="false">
+		<Logger name="edu.wright.cs.fa15.ceg3120.concon.server" level="trace" additivity="true">
 			<AppenderRef ref="STDOUT"/>
 		</Logger>
 		
-		<Root level="trace">
+		<Root level="debug">
 			<AppenderRef ref="fileAppender"/>
 		</Root>
 	</Loggers>
