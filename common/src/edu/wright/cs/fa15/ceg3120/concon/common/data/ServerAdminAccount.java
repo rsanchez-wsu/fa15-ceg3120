@@ -43,12 +43,12 @@ public class ServerAdminAccount extends UserAccount {
 	@Override
 	public void launchGui() {
 		try {
-			Class<?> homeowner =
+			Class<?> admin =
 					Class.forName("edu.wright.cs.fa15.ceg3120.concon.server"
 							+ ".ServerGui");
-			Method meth = homeowner.getMethod("main", String[].class);
+			Method meth = admin.getMethod("main", String[].class);
 			String[] dummy = null;
-			meth.invoke(homeowner.newInstance(), (Object)dummy);
+			meth.invoke(admin.newInstance(), (Object)dummy);
 		} catch (RuntimeException e) {
 			throw e;
 		} catch (Exception e) {
