@@ -57,6 +57,13 @@ public class UserAccount implements Serializable{
 	private String strPhoneNumber;
 	/** TODO description.*/
 	private String strEmailAddress;
+	
+	/**
+	 * Creates a new instance of <code>UserAccount</code>.
+	 */
+	public UserAccount() {
+		uuid = "DEBUG";
+	}
 
 	/**
 	 * Creates a new instance of <code>UserAccount</code>.
