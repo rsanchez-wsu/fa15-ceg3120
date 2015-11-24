@@ -21,6 +21,8 @@
 
 package edu.wright.cs.fa15.ceg3120.concon.common.data;
 
+import java.lang.reflect.Method;
+
 /**
  * ServerAdminAccount holds user data for an admin-type user.
  *
@@ -40,7 +42,18 @@ public class ServerAdminAccount extends UserAccount {
 
 	@Override
 	public void launchGui() {
-
+		try {
+			Class<?> homeowner =
+					Class.forName("edu.wright.cs.fa15.ceg3120.concon.server"
+							+ ".ServerGui");
+			Method meth = homeowner.getMethod("main", String[].class);
+			String[] dummy = null;
+			meth.invoke(homeowner.newInstance(), (Object)dummy);
+		} catch (RuntimeException e) {
+			throw e;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 }

@@ -131,7 +131,7 @@ public class UserAccount implements Serializable{
 	 * @return encrypted password
 	 */
 	public char[] getPswd() {
-		return pswd.clone();
+		return pswd == null ? null : pswd.clone();
 	}
 
 	/**

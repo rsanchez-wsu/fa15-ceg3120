@@ -158,6 +158,7 @@ public class LoginPopUp implements Serializable{
 											loginFrame.dispose();
 										}
 									});
+									//user = new ServerAdminAccount();
 									user.launchGui();
 								} else {
 									JOptionPane.showMessageDialog(null,
