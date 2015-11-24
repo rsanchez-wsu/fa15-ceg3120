@@ -55,7 +55,7 @@ public class ConConClient {
 	 * Sends an XML-encoded message to the server.
 	 * @param message Message to be sent
 	 */
-	public void sendMessage(String message) {
+	protected void sendMessage(String message) {
 		new Thread(new DispatchMessage(message)).start();
 	}
 
