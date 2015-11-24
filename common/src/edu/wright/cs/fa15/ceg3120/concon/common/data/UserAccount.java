@@ -86,7 +86,7 @@ public class UserAccount implements Serializable{
 	public UserAccount(String uuid, AccountType type, char[] pswd) {
 		this.uuid = uuid;
 		accountType = type;
-		this.pswd = pswd.clone(); // XXX this WILL need changed
+		this.pswd = (pswd == null ? new char[]{} : pswd.clone()); // XXX this WILL need changed
 	}
 
 	/**
@@ -132,7 +132,7 @@ public class UserAccount implements Serializable{
 	 * @return encrypted password
 	 */
 	public char[] getPswd() {
-		return pswd == null ? null : pswd.clone();
+		return pswd == null ? new char[]{} : pswd.clone();
 	}
 
 	/**
@@ -141,7 +141,7 @@ public class UserAccount implements Serializable{
 	 * @param pswd char[] representation of the password
 	 */
 	public void setPswd(char[] pswd) {
-		this.pswd = pswd.clone();
+		this.pswd = (pswd == null ? new char[]{} : pswd.clone());
 	}
 
 	/**
