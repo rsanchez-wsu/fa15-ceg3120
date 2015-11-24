@@ -31,7 +31,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.TimeUnit;
 
@@ -45,6 +48,7 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.SpringLayout;
 import javax.swing.SwingUtilities;
+import javax.swing.WindowConstants;
 
 /**
  * This is the main launch point for the UIs.  It is responsible for creating
@@ -90,6 +94,9 @@ public class LoginPopUp implements Serializable{
 		uuidField.requestFocus();
 		
 		loginFrame.setIconImage(imageResources.getImage(ICON_IMG ).getImage());
+		
+		loginFrame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+		loginFrame.addWindowListener(new MyWindowAdapter(user));
 
 		loginFrame.setVisible(true);
 
@@ -302,6 +309,40 @@ public class LoginPopUp implements Serializable{
 			return true;
 		}//end verifyFields
 	}//end LoginListener
+	
+	/**
+	 * temp.
+	 * @author Quack
+	 *
+	 */
+	private class MyWindowAdapter extends WindowAdapter{
+		//private UserAccount user;
+		
+		/**
+		 * Creates a new instance of <code>MyWindowAdapter</code>.
+		 * 
+		 * @param user the user
+		 */
+		public MyWindowAdapter(UserAccount user) {
+			//this.user = user;
+		}
+		
+		@Override
+		public void windowClosing(WindowEvent ev) {
+				// release any network/file resources
+			if (user != null) {
+				if (user.getPswd() != null) {
+					char[] overwrite = new char[user.getPswd().length];
+					for (int i = 0; i < overwrite.length; ++i) {
+						overwrite[i] = '\0';
+					}
+					user.setPswd(overwrite);
+					System.out.println("overwrite:" + Arrays.toString(user.getPswd()));
+				}
+			} // end if(user != null)
+			System.exit(0);
+		}
+	}//end MyWindowAdapter
 
 /*############################################################################*/
 /*############################################################################*/
