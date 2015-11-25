@@ -86,12 +86,11 @@ public class CreateButtonsSearch extends JPanel{
 	static JRadioButton contractor = new JRadioButton();
 	static JRadioButton homeOwner = new JRadioButton();
 	static JTextField searchBar = new JTextField();
-	static JTable users;
+	static JTable users = new JTable();
 	static JTextField name = new JTextField();
 	static JTextField phoneNumber = new JTextField();
 	static JTextField address = new JTextField(); 
 	static JTextField email = new JTextField();
-	static int selectedRow;
 	
 	/**
 	 * Creates a panel for the User's Tab.
@@ -134,7 +133,6 @@ public class CreateButtonsSearch extends JPanel{
 		this.setBackground(Color.ORANGE);
 		this.add(functionality, BorderLayout.NORTH);
 		
-		users = new JTable(new UserTableModel());
 		users.setBackground(Color.ORANGE);
 		users.setFillsViewportHeight(true);		
 		users.addMouseListener(new EditListener());
@@ -234,6 +232,8 @@ public class CreateButtonsSearch extends JPanel{
 					System.out.println("The search is not empty");
 					//add search functionality, probably return a 2D array
 				}
+			} catch (RuntimeException ex) {
+				throw ex;
 			} catch (Exception ex) {
 				System.out.println("Error occured searching "
 						+ "for users with that name");
@@ -247,8 +247,7 @@ public class CreateButtonsSearch extends JPanel{
 	private static class EditListener implements MouseListener{
 		@Override
 		public void mouseClicked(MouseEvent event) {
-			if (event.getClickCount() == 2) {
-				selectedRow = users.getSelectedRow();				
+			if (event.getClickCount() == 2) {				
 				
 				JPanel functionality = new JPanel();
 				functionality.setLayout(new GridLayout(2,1));
@@ -256,20 +255,16 @@ public class CreateButtonsSearch extends JPanel{
 				JPanel textFields = new JPanel();
 				textFields.setLayout(new GridLayout(1,4));
 				
-				name = new JTextField();
-				name.setText((String) users.getValueAt(selectedRow, 0));
+				name.setText((String) users.getValueAt(users.getSelectedRow(), 0));
 				textFields.add(name);
 				
-				phoneNumber = new JTextField();
-				phoneNumber.setText((String) users.getValueAt(selectedRow, 1));
+				phoneNumber.setText((String) users.getValueAt(users.getSelectedRow(), 1));
 				textFields.add(phoneNumber);
 				
-				address = new JTextField();
-				address.setText((String) users.getValueAt(selectedRow, 2));
+				address.setText((String) users.getValueAt(users.getSelectedRow(), 2));
 				textFields.add(address);
 				
-				email = new JTextField();
-				email.setText((String) users.getValueAt(selectedRow, 3));
+				email.setText((String) users.getValueAt(users.getSelectedRow(), 3));
 				textFields.add(email);
 				functionality.add(textFields);
 				
@@ -353,10 +348,12 @@ public class CreateButtonsSearch extends JPanel{
 		public void actionPerformed(ActionEvent event) {
 			try {
 				System.out.println("Saved info");	
-				users.setValueAt(name.getText(), selectedRow, 0);
-				users.setValueAt(phoneNumber.getText(), selectedRow, 1);
-				users.setValueAt(address.getText(), selectedRow, 2);
-				users.setValueAt(email.getText(), selectedRow, 3);
+				users.setValueAt(name.getText(), users.getSelectedRow(), 0);
+				users.setValueAt(phoneNumber.getText(), users.getSelectedRow(), 1);
+				users.setValueAt(address.getText(), users.getSelectedRow(), 2);
+				users.setValueAt(email.getText(), users.getSelectedRow(), 3);
+			} catch (RuntimeException ex) {
+				throw ex;
 			} catch (Exception ex) {
 				System.out.println("Error saving update");
 			}
