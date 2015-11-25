@@ -110,7 +110,7 @@ public class ServerGui extends JPanel implements ActionListener {
 
 		JComponent panel2 = new CreateButtonsSearch(this);
 		tabbedPane.addTab("User's info", CreateImageIcon.icon, panel2,
-						"User Infor and Messaging");
+						"Edit and View User Information");
 		tabbedPane.setMnemonicAt(1, KeyEvent.VK_2);
 
 		JComponent panel3 = MessagingTab.createMessagingTab();

@@ -78,13 +78,20 @@ import javax.swing.table.AbstractTableModel;
 
 /**
  * Creates a panel for the user's tab.
+ * @author Carly
  * */
 public class CreateButtonsSearch extends JPanel{
 	private static final long serialVersionUID = 1L;
 	
-	protected JRadioButton contractor;
-	protected JRadioButton homeOwner;
-	protected JTextField searchBar;
+	static JRadioButton contractor = new JRadioButton();
+	static JRadioButton homeOwner = new JRadioButton();
+	static JTextField searchBar = new JTextField();
+	static JTable users;
+	static JTextField name = new JTextField();
+	static JTextField phoneNumber = new JTextField();
+	static JTextField address = new JTextField(); 
+	static JTextField email = new JTextField();
+	static int selectedRow;
 	
 	/**
 	 * Creates a panel for the User's Tab.
@@ -97,14 +104,16 @@ public class CreateButtonsSearch extends JPanel{
 		functionality.setLayout(new GridLayout(1,3));
 		functionality.setOpaque(true);
 		functionality.setBackground(Color.ORANGE);
-		searchBar = new JTextField(25);
+		
+		//searchBar = new JTextField(25);
 		functionality.add(searchBar);
+		
 		JButton search = new JButton();
 		search.setText("Search");
 		search.addActionListener(new SearchListener());
 		functionality.add(search);
 		
-		homeOwner = new JRadioButton();
+		//JRadioButton homeOwner = new JRadioButton();
 		homeOwner.setText("Homeowner");
 		homeOwner.setSelected(true);
 		ButtonGroup userTypes = new ButtonGroup();
@@ -116,7 +125,7 @@ public class CreateButtonsSearch extends JPanel{
 		userButtons.setLayout(new GridLayout(1,2));
 		userButtons.add(homeOwner);
 		
-		contractor = new JRadioButton();
+		//JRadioButton contractor = new JRadioButton();
 		contractor.setText("Contractor");
 		userTypes.add(contractor);
 		userButtons.add(contractor);
@@ -125,7 +134,7 @@ public class CreateButtonsSearch extends JPanel{
 		this.setBackground(Color.ORANGE);
 		this.add(functionality, BorderLayout.NORTH);
 		
-		JTable users = new JTable(new UserTableModel());
+		users = new JTable(new UserTableModel());
 		users.setBackground(Color.ORANGE);
 		users.setFillsViewportHeight(true);		
 		users.addMouseListener(new EditListener());
@@ -218,12 +227,15 @@ public class CreateButtonsSearch extends JPanel{
 		@Override
 		public void actionPerformed(ActionEvent event) {
 			try {
-//				if (searchBar.getText().isEmpty()) {
-				System.out.println("You must enter a name to search");
-//				} else {
-//					System.out.println("The search is not empty");
-//					//add search functionality, probably return a 2D array
-//				}
+				if (searchBar.getText().isEmpty()) {
+					System.out.println("You must enter a name to search");
+					if (contractor.isSelected()) {
+						
+					}
+				} else {
+					System.out.println("The search is not empty");
+					//add search functionality, probably return a 2D array
+				}
 			} catch (Exception ex) {
 				System.out.println("Error occured searching "
 						+ "for users with that name");
@@ -238,44 +250,49 @@ public class CreateButtonsSearch extends JPanel{
 		@Override
 		public void mouseClicked(MouseEvent event) {
 			if (event.getClickCount() == 2) {
+				selectedRow = users.getSelectedRow();				
+				
 				JPanel functionality = new JPanel();
-				functionality.setLayout(new GridLayout(2,4));
+				functionality.setLayout(new GridLayout(2,1));
 				
-				JTextField name = new JTextField();
-				name.setText("Barbara");
-				functionality.add(name);
+				JPanel textFields = new JPanel();
+				textFields.setLayout(new GridLayout(1,4));
 				
-				JTextField phoneNumber = new JTextField();
-				phoneNumber.setText("(555)555-5555");
-				functionality.add(phoneNumber);
+				name = new JTextField();
+				name.setText((String) users.getValueAt(selectedRow, 0));
+				textFields.add(name);
 				
-				JTextField address = new JTextField();
-				address.setText("1234 Main St.");
-				functionality.add(address);
+				phoneNumber = new JTextField();
+				phoneNumber.setText((String) users.getValueAt(selectedRow, 1));
+				textFields.add(phoneNumber);
 				
-				JTextField email = new JTextField();
-				email.setText("barbara@gmail.com");
-				functionality.add(email);
+				address = new JTextField();
+				address.setText((String) users.getValueAt(selectedRow, 2));
+				textFields.add(address);
 				
-				JButton message = new JButton();
-				message.setText("Send Message");
-				message.addActionListener(new MessageListener());
-				functionality.add(message);
+				email = new JTextField();
+				email.setText((String) users.getValueAt(selectedRow, 3));
+				textFields.add(email);
+				functionality.add(textFields);
+				
+				JPanel buttons = new JPanel();
+				buttons.setLayout(new GridLayout(1,3));
 
 				JButton disable = new JButton();
 				disable.setText("Disable Account");
 				disable.addActionListener(new DisableListener());
-				functionality.add(disable);
+				buttons.add(disable);
 
 				JButton reset = new JButton();
 				reset.setText("Reset Password");
 				reset.addActionListener(new ResetListener());
-				functionality.add(reset);
+				buttons.add(reset);
 
 				JButton save = new JButton();
 				save.setText("Save Changes");
-				//save.addActionListener(new SaveListener());
-				functionality.add(save);
+				save.addActionListener(new SaveListener());
+				buttons.add(save);
+				functionality.add(buttons);
 				
 				JFrame editInfo = new JFrame();
 				editInfo.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
@@ -286,29 +303,18 @@ public class CreateButtonsSearch extends JPanel{
 			}		
 		}
 
+		//There are all required, but not used:
 		@Override
-		public void mousePressed(MouseEvent event) {
-			// It made me put these methods in here
-			System.out.println("Mouse Pressed");
-		}
+		public void mousePressed(MouseEvent event) {}
 
 		@Override
-		public void mouseReleased(MouseEvent event) {
-			//I'm not even using these
-			System.out.println("Mouse Released");
-		}
+		public void mouseReleased(MouseEvent event) {}
 
 		@Override
-		public void mouseEntered(MouseEvent event) {
-			//Why do you make me do this
-			System.out.println("Mouse Entered");
-		}
+		public void mouseEntered(MouseEvent event) {}
 
 		@Override
-		public void mouseExited(MouseEvent event) {
-			//I will find a way to get rid of you
-			System.out.println("Mouse Exited");
-		}
+		public void mouseExited(MouseEvent event) {}
 	}
 	
 	/**
@@ -342,19 +348,22 @@ public class CreateButtonsSearch extends JPanel{
 	}//end DisableListener
 	
 	/**
-	 * Sends a message to the user.
+	 * Updates the table with the new user information.
 	 * */
-	private static class MessageListener implements ActionListener{
+	private static class SaveListener implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent event) {
 			try {
-				//add functionality
-				System.out.println("Message sent");
+				System.out.println("Saved info");	
+				users.setValueAt(name.getText(), selectedRow, 0);
+				users.setValueAt(phoneNumber.getText(), selectedRow, 1);
+				users.setValueAt(address.getText(), selectedRow, 2);
+				users.setValueAt(email.getText(), selectedRow, 3);
 			} catch (Exception ex) {
-				System.out.println("Error occured sending message");
-			} //end catch
-		}//end actionPerformed
-	}//end MessageListener
+				System.out.println("Error saving update");
+			}
+		}
+	}
 	
 	/**
 	 * A listener that will switch the current tab to the messages tab.
@@ -435,14 +444,12 @@ public class CreateButtonsSearch extends JPanel{
 
 		@Override
 		public void popupMenuWillBecomeInvisible(PopupMenuEvent event) {
-			//TODO Auto-generated method stub
-
+			//Auto-generated method stub
 		}
 
 		@Override
 		public void popupMenuCanceled(PopupMenuEvent event) {
-			// TODO Auto-generated method stub
-
+			//Auto-generated method stub
 		}
 	}
 }//end CreateButtonsSearch
