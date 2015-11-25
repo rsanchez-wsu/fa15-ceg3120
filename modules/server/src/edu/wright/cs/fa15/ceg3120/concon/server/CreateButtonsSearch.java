@@ -229,9 +229,7 @@ public class CreateButtonsSearch extends JPanel{
 			try {
 				if (searchBar.getText().isEmpty()) {
 					System.out.println("You must enter a name to search");
-					if (contractor.isSelected()) {
-						
-					}
+					//if (contractor.isSelected()) {}
 				} else {
 					System.out.println("The search is not empty");
 					//add search functionality, probably return a 2D array
