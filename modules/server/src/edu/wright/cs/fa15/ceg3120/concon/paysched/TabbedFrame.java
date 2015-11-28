@@ -31,7 +31,7 @@
 package edu.wright.cs.fa15.ceg3120.concon.paysched;
 
 import edu.wright.cs.fa15.ceg3120.concon.common.net.data.SchedulingData;
-import edu.wright.cs.fa15.ceg3120.concon.paysched.PaymentData;
+//import edu.wright.cs.fa15.ceg3120.concon.paysched.PaymentData;
 
 import java.awt.Color;
 import java.text.DecimalFormat;
@@ -133,7 +133,7 @@ public class TabbedFrame extends JFrame{
 		amountOwed = new JTextField();
 		amountInWallet = new JTextField();
 		amountRemaining = new JTextField();
-		final PaymentData pd = new PaymentData();
+		//final PaymentData pd = new PaymentData();
 
 		jtabbedPane.setBackground(Color.orange);   
 //////////////////////////////////////////////////////////
@@ -232,9 +232,9 @@ public class TabbedFrame extends JFrame{
 		);
 		
 		//Set values for payment object
-		pd.setAmountOwed(owed);
-		pd.setAmountInWallet(wallet);
-		pd.setAmountRemaining(remaining);
+		//pd.setAmountOwed(owed);
+		//pd.setAmountInWallet(wallet);
+		//pd.setAmountRemaining(remaining);
 		
 		
 		paymentTabPanel.setBackground(Color.orange);
@@ -326,7 +326,7 @@ public class TabbedFrame extends JFrame{
 //////////////////////////////////////////////////////////
 		totalPaymentOverview.setText("Total Payment:");
 		
-		totalPaymentLabel.setText("$" + currency.format(pd.getAmountRemaining()));
+		totalPaymentLabel.setText("$" + currency.format(remaining));
 		totalPaymentLabel.setEditable(false);
 
 		finalScheduledApptTime.setText("Scheduled "
