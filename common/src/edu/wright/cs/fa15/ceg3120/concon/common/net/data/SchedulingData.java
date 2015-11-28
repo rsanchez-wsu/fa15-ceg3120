@@ -27,20 +27,18 @@ import java.io.Serializable;
 
 
 /**
- * Description. TODO Fill out.
+ * Description.
  * @author Emily
  */
 public class SchedulingData implements Serializable {
 
-	private static final long serialVersionUID = 8642779085161182815L;
+	private static final long serialVersionUID = 1L;
 	
-	//NetworkManager networkManager = new NetworkManager();
 	
 	
 	private String month = "";
 	private int day = 0;
 	private String timeRange = "";
-	
 	
 	/**
 	 * Description. No argument constructor for SchedulingData.
@@ -48,7 +46,7 @@ public class SchedulingData implements Serializable {
 	public SchedulingData() { }
 	
 	/**
-	 * Description. TODO Fill out.
+	 * Description. 
 	 * @param month Month.
 	 * @param day Day.
 	 * @param timeRange Time range.
