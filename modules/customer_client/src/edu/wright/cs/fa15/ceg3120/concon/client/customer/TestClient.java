@@ -45,16 +45,16 @@ import javax.swing.SwingUtilities;
 /**
  * Test client for testing network message sending.
  */
-public class TestClient implements WindowListener {
+public class TestClient {
 	
 	private static final Logger LOG = LoggerFactory.getLogger(TestClient.class);
-	private static final int POLLING_RATE = 3;
-	private static final int POLLING_DELAY = 10;
+	private static final int POLLING_PERIOD = 10; //seconds
+	private static final int INIT_POLL_DELAY = 5; //seconds
 	
 	private static ConConClient client;
 	private static ChatPanel chatPanel;
 	private static ScheduledFuture<?> updateHandle;
-	private static boolean closing;
+	private static boolean closing = false;
 	
 	/**
 	 * Main entry point. TODO Expand.
@@ -73,12 +73,43 @@ public class TestClient implements WindowListener {
 		// normally you would initialize with the selected user from a list
 		UserData testUser = new UserData("ContractorGuy");
 		chatPanel = new ChatPanel(client, testUser);
-		
 		SwingUtilities.invokeLater(new Runnable() {
 
 			@Override
 			public void run() {
 				JFrame clientFrame = new JFrame();
+				clientFrame.addWindowListener(new WindowListener() {
+
+					@Override
+					public void windowActivated(WindowEvent evt) {
+					}
+
+					@Override
+					public void windowClosed(WindowEvent evt) {
+					}
+
+					@Override
+					public void windowClosing(WindowEvent evt) {
+						setClosing(true);
+					}
+
+					@Override
+					public void windowDeactivated(WindowEvent evt) {
+					}
+
+					@Override
+					public void windowDeiconified(WindowEvent evt) {
+					}
+
+					@Override
+					public void windowIconified(WindowEvent evt) {
+					}
+
+					@Override
+					public void windowOpened(WindowEvent evt) {
+					}
+					
+				});
 				String name = JOptionPane.showInputDialog(clientFrame, "Enter username:");
 				String pass = JOptionPane.showInputDialog(clientFrame, "Enter password:");
 				NetworkManager.sendMessage("login", new LoginData(name, pass));
@@ -108,7 +139,7 @@ public class TestClient implements WindowListener {
 		
 		};
 		updateHandle = updateScheduler.scheduleAtFixedRate(
-				fetcher, POLLING_DELAY, POLLING_RATE, TimeUnit.SECONDS);
+				fetcher, INIT_POLL_DELAY, POLLING_PERIOD, TimeUnit.SECONDS);
 	}
 
 	/**
@@ -133,67 +164,5 @@ public class TestClient implements WindowListener {
 	 */
 	public static ChatPanel getChatPanel() {
 		return chatPanel;
-	}
-
-	/* (non-Javadoc)
-	 * @see java.awt.event.WindowListener#windowActivated(java.awt.event.WindowEvent)
-	 */
-	@Override
-	public void windowActivated(WindowEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	/* (non-Javadoc)
-	 * @see java.awt.event.WindowListener#windowClosed(java.awt.event.WindowEvent)
-	 */
-	@Override
-	public void windowClosed(WindowEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	/* (non-Javadoc)
-	 * @see java.awt.event.WindowListener#windowClosing(java.awt.event.WindowEvent)
-	 */
-	@Override
-	public void windowClosing(WindowEvent arg0) {
-		setClosing(true);
-	}
-
-	/* (non-Javadoc)
-	 * @see java.awt.event.WindowListener#windowDeactivated(java.awt.event.WindowEvent)
-	 */
-	@Override
-	public void windowDeactivated(WindowEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	/* (non-Javadoc)
-	 * @see java.awt.event.WindowListener#windowDeiconified(java.awt.event.WindowEvent)
-	 */
-	@Override
-	public void windowDeiconified(WindowEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	/* (non-Javadoc)
-	 * @see java.awt.event.WindowListener#windowIconified(java.awt.event.WindowEvent)
-	 */
-	@Override
-	public void windowIconified(WindowEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	/* (non-Javadoc)
-	 * @see java.awt.event.WindowListener#windowOpened(java.awt.event.WindowEvent)
-	 */
-	@Override
-	public void windowOpened(WindowEvent arg0) {
-		// TODO Auto-generated method stub
-		
 	}
 }
