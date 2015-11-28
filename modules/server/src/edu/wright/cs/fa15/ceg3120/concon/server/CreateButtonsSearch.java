@@ -85,8 +85,8 @@ public class CreateButtonsSearch extends JPanel{
 	
 	static JRadioButton contractor = new JRadioButton();
 	static JRadioButton homeOwner = new JRadioButton();
-	static JTextField searchBar = new JTextField();
-	static JTable users = new JTable();
+	static JTextField searchBar = new JTextField(25);
+	static JTable users = new JTable(new UserTableModel());
 	static JTextField name = new JTextField();
 	static JTextField phoneNumber = new JTextField();
 	static JTextField address = new JTextField(); 
@@ -104,7 +104,6 @@ public class CreateButtonsSearch extends JPanel{
 		functionality.setOpaque(true);
 		functionality.setBackground(Color.ORANGE);
 		
-		//searchBar = new JTextField(25);
 		functionality.add(searchBar);
 		
 		JButton search = new JButton();
@@ -112,7 +111,6 @@ public class CreateButtonsSearch extends JPanel{
 		search.addActionListener(new SearchListener());
 		functionality.add(search);
 		
-		//JRadioButton homeOwner = new JRadioButton();
 		homeOwner.setText("Homeowner");
 		homeOwner.setSelected(true);
 		ButtonGroup userTypes = new ButtonGroup();
@@ -124,7 +122,6 @@ public class CreateButtonsSearch extends JPanel{
 		userButtons.setLayout(new GridLayout(1,2));
 		userButtons.add(homeOwner);
 		
-		//JRadioButton contractor = new JRadioButton();
 		contractor.setText("Contractor");
 		userTypes.add(contractor);
 		userButtons.add(contractor);
@@ -132,12 +129,12 @@ public class CreateButtonsSearch extends JPanel{
 		this.setOpaque(true);
 		this.setBackground(Color.ORANGE);
 		this.add(functionality, BorderLayout.NORTH);
-		
+			
 		users.setBackground(Color.ORANGE);
-		users.setFillsViewportHeight(true);		
 		users.addMouseListener(new EditListener());
-
 		users.setFillsViewportHeight(true);	
+		
+		this.add(users, BorderLayout.CENTER);
 		
 		JPopupMenu popupMenu = new JPopupMenu();
 		JMenuItem test = new JMenuItem("Send Message");
