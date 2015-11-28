@@ -21,6 +21,8 @@
 
 package edu.wright.cs.fa15.ceg3120.concon.common;
 
+import java.io.Serializable;
+
 import javax.swing.ImageIcon;
 
 /**
@@ -29,7 +31,8 @@ import javax.swing.ImageIcon;
  * @author NathanJent
  *
  */
-public final class Resources {
+public final class Resources implements Serializable{
+	private static final long serialVersionUID = 1L;
 
 	/**
 	 * Creates a new <code>Resources</code> instance.

@@ -33,6 +33,11 @@ public class MessageHolder implements Serializable {
 	public Serializable message;
 
 	/**
+	 * Default Constructor for JavaBeans.
+	 */
+	public MessageHolder() { }
+
+	/**
 	 * Constructor.
 	 * @param channel the channel.
 	 * @param message the message.
@@ -40,5 +45,45 @@ public class MessageHolder implements Serializable {
 	public MessageHolder(String channel, Serializable message) {
 		this.channel = channel;
 		this.message = message;
+	}
+
+	/**
+	 * Get channel.
+	 * @return the channel
+	 */
+	public String getChannel() {
+		return channel;
+	}
+
+	/**
+	 * Set channel.
+	 * @param channel the channel to set
+	 */
+	public void setChannel(String channel) {
+		this.channel = channel;
+	}
+
+	/**
+	 * Get message.
+	 * @return the message
+	 */
+	public Serializable getMessage() {
+		return message;
+	}
+
+	/**
+	 * Set message.
+	 * @param message the message to set
+	 */
+	public void setMessage(Serializable message) {
+		this.message = message;
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "MessageHolder [channel=" + channel + ", message=" + message + "]";
 	}
 }

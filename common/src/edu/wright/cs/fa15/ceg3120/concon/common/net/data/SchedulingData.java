@@ -21,7 +21,10 @@
 
 package edu.wright.cs.fa15.ceg3120.concon.common.net.data;
 
+//import edu.wright.cs.fa15.ceg3120.concon.common.net.NetworkManager;
 import java.io.Serializable;
+
+
 
 /**
  * Description. TODO Fill out.
@@ -31,13 +34,16 @@ public class SchedulingData implements Serializable {
 
 	private static final long serialVersionUID = 8642779085161182815L;
 	
+	//NetworkManager networkManager = new NetworkManager();
+	
+	
 	private String month = "";
 	private int day = 0;
 	private String timeRange = "";
 	
+	
 	/**
-	 * Javadoc needed.
-	 *
+	 * Description. No argument constructor for SchedulingData.
 	 */
 	public SchedulingData() { }
 	
@@ -100,7 +106,13 @@ public class SchedulingData implements Serializable {
 	public void setTimeRange(String timeRange) {
 		this.timeRange = timeRange;
 	}
-
+	/*
+	 * Returns a string with all of the classes' data
+	 * in a readable form
+	 * 
+	 * @return A string with the classes' parameters
+	 * @see java.lang.Object#toString()
+	 */
 	@Override
 	public String toString() {
 		return "SchedulingData [month=" + month + ", day=" + day + ", timeRange=" + timeRange + "]";
