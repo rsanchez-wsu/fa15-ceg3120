@@ -1,8 +1,8 @@
 /*
  * Copyright (C) 2015
- * 
- * 
- * 
+ *
+ *
+ *
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -21,21 +21,14 @@
 
 package edu.wright.cs.fa15.ceg3120.concon.common.data;
 
+import java.io.Serializable;
+
 /**
- * Javadoc needed.
+ * General superclass that all objects stored in the database will inherit from. 
+ * Necessary, since all of the database objects need to be serialziable.
+ * @author Jonathan Thomas
  *
  */
-public class HomeownerReview extends Review {
-
-	private static final long serialVersionUID = -6593153458410013006L;
-
-	/**
-	 * Javadoc needed.
-	 *
-	 */
-	public HomeownerReview(int id, int reviewerId, int subjectId, int jobId, String date,
-			String text, int rating) {
-		super(id, reviewerId, subjectId, jobId, date, text, rating);
-	}
+public interface DatabaseEntity extends Serializable {
 
 }

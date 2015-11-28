@@ -29,8 +29,9 @@ import java.awt.Image;
  * @author Quack
  *
  */
-public class JobRequest {
+public class JobRequest implements DatabaseEntity {
 
+	private static final long serialVersionUID = 3240132603096376471L;
 	/**
 	 * Signifies whether this request is a new job or a request for all jobs from a given account.
 	 */
@@ -46,7 +47,7 @@ public class JobRequest {
 	/** User description of what they want done. */
 	private String jobDescr;
 	/** Images of what the future jobsite looks like now. */
-	private Image[] picsOfCurrentState;// do we want to allow multiple images?
+	private transient Image[] picsOfCurrentState;// do we want to allow multiple images?
 	// or maybe convert to a ByteArrayInputStream[] and pass raw data around?
 
 	/**

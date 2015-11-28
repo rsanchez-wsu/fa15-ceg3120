@@ -22,20 +22,10 @@
 package edu.wright.cs.fa15.ceg3120.concon.common.data;
 
 /**
- * Javadoc needed.
- *
+ * Enum class to describe purpose of data object once sent through networking stack.
+ * @author Cody Bensman
  */
-public class HomeownerReview extends Review {
-
-	private static final long serialVersionUID = -6593153458410013006L;
-
-	/**
-	 * Javadoc needed.
-	 *
-	 */
-	public HomeownerReview(int id, int reviewerId, int subjectId, int jobId, String date,
-			String text, int rating) {
-		super(id, reviewerId, subjectId, jobId, date, text, rating);
-	}
-
+public enum ObjectPurpose {
+	CREATE_HOMEOWNER, GET_HOMEOWNER, CREATE_CONTRACTOR, GET_CONTRACTOR,CREATE_JOB, GET_JOB,
+	CREATE_REVIEW, GET_REVIEW 
 }

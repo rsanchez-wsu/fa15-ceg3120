@@ -22,20 +22,21 @@
 package edu.wright.cs.fa15.ceg3120.concon.common.data;
 
 /**
- * Javadoc needed.
- *
+ * Class to communicate objects to the network stack.
+ * @author Cody Bensman
  */
-public class HomeownerReview extends Review {
-
-	private static final long serialVersionUID = -6593153458410013006L;
-
+public class Send {
+	
 	/**
-	 * Javadoc needed.
-	 *
+	 * Constructor that takes in object to be sent to network stack,
+	 * along with the object purpose.
 	 */
-	public HomeownerReview(int id, int reviewerId, int subjectId, int jobId, String date,
-			String text, int rating) {
-		super(id, reviewerId, subjectId, jobId, date, text, rating);
+	public Send(DataAccessLayer dal, ObjectPurpose purp) {}
+	
+	/**
+	 * Will need networking code to communicate with networking stack.
+	 */
+	public void sendData(){
+		
 	}
-
 }

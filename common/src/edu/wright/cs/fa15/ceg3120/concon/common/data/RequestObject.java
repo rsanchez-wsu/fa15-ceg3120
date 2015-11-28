@@ -22,39 +22,75 @@
 
 package edu.wright.cs.fa15.ceg3120.concon.common.data;
 
+import java.io.Serializable;
+
 /**
  * Class that will be used to hold the request data and request type together in a queue.
+ * 
+ * <p>This class is a JavaBean.
  * @author Moorman
  *
  */
-public class RequestObject {
+public class RequestObject implements Serializable {
 
-	private Object data;
+	private static final long serialVersionUID = -5760907638618079855L;
+	private DatabaseEntity data;
 	private RequestType requestType;
 	
 	/**
-	 * Javadoc needed.
-	 * @param inputData Object.
-	 * @param reqType RequestType.
+	 * Default no-arg constructor.
 	 */
-	public RequestObject( Object inputData, RequestType reqType ) {
+	public RequestObject() {
+		
+	}
+	
+	/**
+	 * Construct a RequestObject.
+	 * @param inputData Data being requested.
+	 * @param reqType Type of request.
+	 */
+	public RequestObject( DatabaseEntity inputData, RequestType reqType ) {
 		this.data = inputData;
 		this.requestType = reqType;
 	}
 	
 	/**
-	 * Javadoc needed.
-	 * @return Object data.
+	 * Get the data being requested.
+	 * @return data DatabaseEntity.
 	 */
-	public Object getData() {
+	public DatabaseEntity getData() {
 		return this.data;
 	}
 	
 	/**
-	 * Javadoc needed.
-	 * @return RequestType requestType;
+	 * Gets the class type of the data contained in the request object.
+	 * @return class type of data
+	 */
+	public Class<?> getDataClass() {
+		return this.data.getClass();
+	}
+	
+	/**
+	 * Get the type of request.
+	 * @return RequestType.
 	 */
 	public RequestType getRequestType() {
 		return this.requestType;
+	}
+	
+	/**
+	 * Set the data property of this object.
+	 * @param data Any Object that is being sent as an argument to the database.
+	 */
+	public void setData(DatabaseEntity data) {
+		this.data = data;
+	}
+	
+	/**
+	 * Set the request type.
+	 * @param reqType RequestType enum field.
+	 */
+	public void setRequestType(RequestType reqType) {
+		this.requestType = reqType;
 	}
 }

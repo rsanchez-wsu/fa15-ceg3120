@@ -29,6 +29,8 @@ package edu.wright.cs.fa15.ceg3120.concon.common.data;
  */
 public class ContractorReview extends Review {
 
+	private static final long serialVersionUID = 3063883974982640486L;
+
 	/**
 	 * Construct a contractor review with the given data.
 	 * @param id uid of the review.
