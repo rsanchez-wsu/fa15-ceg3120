@@ -83,15 +83,6 @@ import javax.swing.table.AbstractTableModel;
 public class CreateButtonsSearch extends JPanel{
 	private static final long serialVersionUID = 1L;
 	
-	static JRadioButton contractor = new JRadioButton();
-	static JRadioButton homeOwner = new JRadioButton();
-	static JTextField searchBar = new JTextField(25);
-	static JTable users = new JTable(new UserTableModel());
-	static JTextField name = new JTextField();
-	static JTextField phoneNumber = new JTextField();
-	static JTextField address = new JTextField(); 
-	static JTextField email = new JTextField();
-	
 	/**
 	 * Creates a panel for the User's Tab.
 	 */
@@ -104,13 +95,16 @@ public class CreateButtonsSearch extends JPanel{
 		functionality.setOpaque(true);
 		functionality.setBackground(Color.ORANGE);
 		
+		JTextField searchBar = new JTextField(25);
 		functionality.add(searchBar);
 		
 		JButton search = new JButton();
 		search.setText("Search");
 		search.addActionListener(new SearchListener());
+		SearchListener.searchInfo(searchBar);
 		functionality.add(search);
 		
+		JRadioButton homeOwner = new JRadioButton();
 		homeOwner.setText("Homeowner");
 		homeOwner.setSelected(true);
 		ButtonGroup userTypes = new ButtonGroup();
@@ -122,6 +116,7 @@ public class CreateButtonsSearch extends JPanel{
 		userButtons.setLayout(new GridLayout(1,2));
 		userButtons.add(homeOwner);
 		
+		JRadioButton contractor = new JRadioButton();
 		contractor.setText("Contractor");
 		userTypes.add(contractor);
 		userButtons.add(contractor);
@@ -130,8 +125,11 @@ public class CreateButtonsSearch extends JPanel{
 		this.setBackground(Color.ORANGE);
 		this.add(functionality, BorderLayout.NORTH);
 			
+		JTable users = new JTable(new UserTableModel());
 		users.setBackground(Color.ORANGE);
 		users.addMouseListener(new EditListener());
+		EditListener.passValues(users);
+	
 		users.setFillsViewportHeight(true);	
 		
 		this.add(users, BorderLayout.CENTER);
@@ -219,6 +217,15 @@ public class CreateButtonsSearch extends JPanel{
 	 * Searches the database for the name input in the search bar.
 	 * */
 	private static class SearchListener implements ActionListener{
+		static JTextField searchBar;
+		
+		/**
+		 * Passes the search bar.
+		 * */
+		public static void searchInfo(JTextField searchBar2) {
+			searchBar = searchBar2;
+		}
+		
 		@Override
 		public void actionPerformed(ActionEvent event) {
 			try {
@@ -242,6 +249,15 @@ public class CreateButtonsSearch extends JPanel{
 	 * opens a new window when you double click a user on the table.
 	 * */
 	private static class EditListener implements MouseListener{
+		private static JTable users;
+		
+		/**
+		 * Passes the table.
+		 * */
+		public static void passValues(JTable users2) {
+			users = users2;
+		}
+		
 		@Override
 		public void mouseClicked(MouseEvent event) {
 			if (event.getClickCount() == 2) {				
@@ -252,15 +268,19 @@ public class CreateButtonsSearch extends JPanel{
 				JPanel textFields = new JPanel();
 				textFields.setLayout(new GridLayout(1,4));
 				
+				JTextField name = new JTextField();
 				name.setText((String) users.getValueAt(users.getSelectedRow(), 0));
 				textFields.add(name);
 				
+				JTextField phoneNumber = new JTextField();
 				phoneNumber.setText((String) users.getValueAt(users.getSelectedRow(), 1));
 				textFields.add(phoneNumber);
 				
+				JTextField address = new JTextField();
 				address.setText((String) users.getValueAt(users.getSelectedRow(), 2));
 				textFields.add(address);
 				
+				JTextField email = new JTextField();
 				email.setText((String) users.getValueAt(users.getSelectedRow(), 3));
 				textFields.add(email);
 				functionality.add(textFields);
@@ -281,6 +301,7 @@ public class CreateButtonsSearch extends JPanel{
 				JButton save = new JButton();
 				save.setText("Save Changes");
 				save.addActionListener(new SaveListener());
+				SaveListener.passUserInfo(users, name, phoneNumber, address, email);
 				buttons.add(save);
 				functionality.add(buttons);
 				
@@ -341,6 +362,24 @@ public class CreateButtonsSearch extends JPanel{
 	 * Updates the table with the new user information.
 	 * */
 	private static class SaveListener implements ActionListener{
+		static JTable users;
+		static JTextField name;
+		static JTextField phoneNumber;
+		static JTextField address;
+		static JTextField email;
+		
+		/**
+		 * Passes the table.
+		 * */
+		public static void passUserInfo(JTable users2, 
+				JTextField name2, JTextField phoneNumber2, JTextField address2, JTextField email2) {
+			users = users2;
+			name = name2;
+			phoneNumber = phoneNumber2;
+			address = address2;
+			email = email2;
+		}
+		
 		@Override
 		public void actionPerformed(ActionEvent event) {
 			try {
