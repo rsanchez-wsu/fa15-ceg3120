@@ -21,6 +21,8 @@
 
 package edu.wright.cs.fa15.ceg3120.concon.common.data;
 
+import java.lang.reflect.Method;
+
 /**
  * ContractorAccount holds user data for a contractor-type user. In addition to the normal fields in
  * a UserAccount, a ContractorAccount also holds the name of the contractor's employer.
@@ -62,6 +64,16 @@ public class ContractorAccount extends UserAccount {
 
 	@Override
 	public void launchGui() {
-
+		try {
+			Class<?> contractor =
+					Class.forName("edu.wright.cs.fa15.ceg3120.concon"
+							+ ".client.contractor.ContractorClient");
+			Method meth = contractor.getMethod("buildGui", this.getClass());
+			meth.invoke(contractor.newInstance(), this);
+		} catch (RuntimeException e) {
+			throw e;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 }

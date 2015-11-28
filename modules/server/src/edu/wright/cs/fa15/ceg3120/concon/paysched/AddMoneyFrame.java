@@ -21,8 +21,8 @@
 
 package edu.wright.cs.fa15.ceg3120.concon.paysched;
 
+import java.awt.Color;
 import java.awt.event.ActionEvent;
-
 import javax.swing.JFrame;
 
 /**
@@ -37,7 +37,7 @@ public class AddMoneyFrame extends JFrame {
 	private javax.swing.JButton okButton;
 	private javax.swing.JButton cancelButton;
 	private javax.swing.JLabel amountToAddLabel;
-	private javax.swing.JTextField amountToAddTextField;
+	private IntegerTextField amountToAddTextField;
 	
 	/**
      * Call components of GUI in constructor.
@@ -52,11 +52,13 @@ public class AddMoneyFrame extends JFrame {
 	private void initComponents() {
 		//Initialize variables
 		amountToAddLabel = new javax.swing.JLabel();
-		amountToAddTextField = new javax.swing.JTextField();
+		amountToAddTextField = new IntegerTextField();
 		okButton = new javax.swing.JButton();
 		cancelButton = new javax.swing.JButton();
 
 
+		getContentPane().setBackground(Color.ORANGE);
+		//this.setBackground(Color.ORANGE);
 		setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
 
@@ -89,6 +91,7 @@ public class AddMoneyFrame extends JFrame {
 ////////////////////////////////////////////////////////
 /////Layout for GUI
 		javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+		
 		getContentPane().setLayout(layout);
 		//Set the horizontal positions of the label, text field, and buttons
 		layout.setHorizontalGroup(
@@ -137,7 +140,7 @@ public class AddMoneyFrame extends JFrame {
      * @param evt temp.
      */
 	private void amountToAddActionPerformed(ActionEvent evt) { 
-
+			
 	}//end of amountToAddACtionPerformed                                           
 
 	/**
@@ -156,5 +159,7 @@ public class AddMoneyFrame extends JFrame {
 		this.dispose();//Only exits out of AddMoneyFrame GUI
 	}//end of cencelButtonActionPerformed              
 
-
+	
 }
+
+

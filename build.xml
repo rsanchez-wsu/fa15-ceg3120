@@ -4,17 +4,17 @@
         <sequential>
             <subant target="@{target}">
                 <fileset dir="modules" includes="*/build.xml"/>
-            </subant>
+           </subant>
         </sequential>
-    </macrodef>
+   </macrodef>
 
     <target name="compile">
         <iterate target="compile"/>
     </target>
 
     <target name="build">
-        <iterate target="build"/>
-    </target>
+      <iterate target="build"/>
+   </target>
 
     <target name="clean">
         <iterate target="clean"/>
@@ -25,4 +25,4 @@
     </target>
 
     <!-- more targets -->
-</project>
+</project> 
