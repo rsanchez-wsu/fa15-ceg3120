@@ -53,8 +53,8 @@
 
 package edu.wright.cs.fa15.ceg3120.concon.server;
 
-import java.awt.Component;
-import java.awt.Image;
+//import java.awt.Component;
+//import java.awt.Image;
 
 import javax.swing.ImageIcon;
 /**
