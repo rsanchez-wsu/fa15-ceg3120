@@ -31,6 +31,7 @@
 package edu.wright.cs.fa15.ceg3120.concon.paysched;
 
 import edu.wright.cs.fa15.ceg3120.concon.common.net.data.SchedulingData;
+import edu.wright.cs.fa15.ceg3120.concon.paysched.PaymentData;
 
 import java.awt.Color;
 import java.text.DecimalFormat;
@@ -111,6 +112,7 @@ public class TabbedFrame extends JFrame{
 		daysList = new JComboBox<>();
 		timesList = new JComboBox<>();
 		schedulingTabHeader = new JLabel();
+		final SchedulingData sd = new SchedulingData();
 
 		//Overview Tab Variables
 		totalPaymentOverview = new JLabel();
@@ -131,6 +133,7 @@ public class TabbedFrame extends JFrame{
 		amountOwed = new JTextField();
 		amountInWallet = new JTextField();
 		amountRemaining = new JTextField();
+		final PaymentData pd = new PaymentData();
 
 		jtabbedPane.setBackground(Color.orange);   
 //////////////////////////////////////////////////////////
@@ -227,7 +230,13 @@ public class TabbedFrame extends JFrame{
 						.BASELINE))
 				.addGap(41, 41, 41))
 		);
-
+		
+		//Set values for payment object
+		pd.setAmountOwed(owed);
+		pd.setAmountInWallet(wallet);
+		pd.setAmountRemaining(remaining);
+		
+		
 		paymentTabPanel.setBackground(Color.orange);
 
 		jtabbedPane.addTab("Payment", paymentTabPanel);
@@ -300,7 +309,12 @@ public class TabbedFrame extends JFrame{
 				.addGap(59, 59, 59))
 		);
 
-		//Add Payment tab to GUI
+		//Set values for scheduling object
+		sd.setMonth((String)monthsList.getSelectedItem());
+		sd.setDay((int)daysList.getSelectedItem());
+		sd.setTimeRange((String) timesList.getSelectedItem());
+		
+		//Add Scheduling tab to GUI
 		schedulingTabPanel.setBackground(Color.orange);
 		jtabbedPane.addTab("Scheduling *", schedulingTabPanel);
 
@@ -312,11 +326,13 @@ public class TabbedFrame extends JFrame{
 //////////////////////////////////////////////////////////
 		totalPaymentOverview.setText("Total Payment:");
 		
-		totalPaymentLabel.setText("$" + currency.format(remaining));
+		totalPaymentLabel.setText("$" + currency.format(pd.getAmountRemaining()));
 		totalPaymentLabel.setEditable(false);
 
 		finalScheduledApptTime.setText("Scheduled "
 				+ "Appointment Time:");
+		finalScheduledApptLabel.setText(sd.getMonth() + " " 
+				+ sd.getDay() + " between " + sd.getTimeRange());
 		finalScheduledApptLabel.setEditable(false);
 		
 		finalScheduledApptLabel.addActionListener(new java.awt.event.ActionListener() {
@@ -472,10 +488,7 @@ public class TabbedFrame extends JFrame{
      * @param evt temp.
      */
 	private void confirmButtonListener(java.awt.event.MouseEvent evt) {
-		SchedulingData sd = new SchedulingData(monthsList.getSelectedItem().toString(), 
-				(int)daysList.getSelectedItem(), timesList.getSelectedItem().toString());
-		finalScheduledApptLabel.setText(sd.getMonth() + " " + sd.getDay() 
-					+ " " + sd.getTimeRange());
+		
 	}//GEN-LAST:event_confirmButtonListener
 	
 	/**
