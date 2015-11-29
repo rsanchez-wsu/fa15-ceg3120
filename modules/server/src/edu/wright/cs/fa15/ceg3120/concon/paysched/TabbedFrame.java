@@ -133,8 +133,7 @@ public class TabbedFrame extends JFrame{
 		amountOwed = new JTextField();
 		amountInWallet = new JTextField();
 		amountRemaining = new JTextField();
-		PaymentData pd = new PaymentData();
-
+		
 		jtabbedPane.setBackground(Color.orange);   
 //////////////////////////////////////////////////////////
 //Payment Tab. Set label text, text field values and 
@@ -231,6 +230,8 @@ public class TabbedFrame extends JFrame{
 				.addGap(41, 41, 41))
 		);
 		
+		PaymentData pd = new PaymentData();
+
 		//Set values for payment object
 		pd.setAmountOwed(owed);
 		pd.setAmountInWallet(wallet);
