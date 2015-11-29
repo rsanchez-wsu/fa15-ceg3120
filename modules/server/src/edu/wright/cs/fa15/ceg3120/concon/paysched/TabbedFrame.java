@@ -112,7 +112,7 @@ public class TabbedFrame extends JFrame{
 		daysList = new JComboBox<>();
 		timesList = new JComboBox<>();
 		schedulingTabHeader = new JLabel();
-		final SchedulingData sd = new SchedulingData();
+		
 
 		//Overview Tab Variables
 		totalPaymentOverview = new JLabel();
@@ -310,11 +310,17 @@ public class TabbedFrame extends JFrame{
 				.addGap(59, 59, 59))
 		);
 
+		
+		
+		//Group I dont think we need this the listener below makes one for us
+		/*
+		SchedulingData sd = new SchedulingData();
 		//Set values for scheduling object
 		sd.setMonth((String)monthsList.getSelectedItem());
 		sd.setDay((int)daysList.getSelectedItem());
 		sd.setTimeRange((String) timesList.getSelectedItem());
 		
+		*/
 		//Add Scheduling tab to GUI
 		schedulingTabPanel.setBackground(Color.orange);
 		jtabbedPane.addTab("Scheduling *", schedulingTabPanel);
