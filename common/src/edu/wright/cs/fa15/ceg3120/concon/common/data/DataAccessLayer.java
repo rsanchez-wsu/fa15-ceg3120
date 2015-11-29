@@ -48,19 +48,18 @@ public class DataAccessLayer extends Thread {
 			.getLogger(DataAccessLayer.class);
 
 	/*
-	 * Final static string that will be used to help identify the objects coming
-	 * into the data access layer. The object that is coming in must have a
-	 * class type of the following:
-	 */
-	private static final String sContractorAccount = "ContractorAccount";
-	private static final String sContractorReview = "ContractorReview";
-	private static final String sHomeownerAccount = "HomeownerAccount";
-	private static final String sHomeownerReview = "HomeownerReview";
-	private static final String sJobRequest = "JobRequest";
-	private static final String sReview = "Review";
+	 * Final static string that will be used to help identify the objects coming into the
+	 * data access layer.  The object that is coming in must have a class type of the following:
+	 * */
+	private static final String sContractorAccount  = "ContractorAccount";
+	private static final String sContractorReview   = "ContractorReview";
+	private static final String sHomeownerAccount   = "HomeownerAccount";
+	private static final String sHomeownerReview    = "HomeownerReview";
+	private static final String sJobRequest		    = "JobRequest";
+	private static final String sReview			    = "Review";
 	private static final String sServerAdminAccount = "ServerAdminAccount";
-	private static final String sTag = "Tag";
-	private static final String sUserAccount = "UserAccount";
+	private static final String sTag			    = "Tag";
+	private static final String sUserAccount        = "UserAccount";
 
 	private static ArrayList<RequestObject> requestQueue = new ArrayList<>();
 
@@ -314,6 +313,7 @@ public class DataAccessLayer extends Thread {
 				RequestObject currentRequest = requestQueue.get(0);
 
 				// -- Check to see what type of request we are working with.
+
 				switch (currentRequest.getRequestType()) {
 				case CREATE:
 					processCreateRequest(currentRequest);

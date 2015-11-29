@@ -98,7 +98,7 @@ public class NewHomeownerPane extends JPanel {
 	 */
 	private Container addTextFields() {
 		Container cont = new Container();
-		cont.setLayout(new GridLayout(12, 2));
+		cont.setLayout(new GridLayout(12, 2, 0 , 2));
 		
 		try {
 			final JLabel uuidLabel = new JLabel("Username:");

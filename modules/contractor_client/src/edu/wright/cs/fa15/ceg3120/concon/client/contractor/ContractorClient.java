@@ -21,323 +21,106 @@
 
 package edu.wright.cs.fa15.ceg3120.concon.client.contractor;
 
-/*
- * The following imports will be utilized once we are able to create and save
- * account information other than locally
- * 
- * import edu.wright.cs.fa15.ceg3120.concon.common.data.AccountType;
- * import edu.wright.cs.fa15.ceg3120.concon.common.data.ContractorAccount;
- */
+import edu.wright.cs.fa15.ceg3120.concon.client.contractor.ContractorMainPanel;
 import edu.wright.cs.fa15.ceg3120.concon.common.data.AccountType;
 import edu.wright.cs.fa15.ceg3120.concon.common.data.ContractorAccount;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.w3c.dom.Document;
-import org.w3c.dom.NamedNodeMap;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-import org.xml.sax.SAXException;
 
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Container;
 import java.awt.Desktop;
 import java.awt.EventQueue;
-import java.awt.GridLayout;
 import java.awt.Image;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-//import java.util.Scanner;
 import java.util.Vector;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
-import javax.swing.JTable;
-import javax.swing.JTextField;
-import javax.swing.JTextPane;
-import javax.swing.JTree;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableCellRenderer;
-import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.DefaultTreeModel;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.stream.XMLStreamException;
 
 /**
- * Javadoc needed.
+ * This class creates the main frame and calls methods and classes to populate it.
  * 
  *
  */
-public class ContractorClient extends JFrame implements ActionListener {
+public class ContractorClient extends JFrame {
 
-/* The following variable to be implemented when AccountType and ContractorAccount
- * imports are implemented
- * 
- * 	private static ContractorAccount account = new ContractorAccount();
-*/
-	private static ContractorAccount account = new ContractorAccount();
-	private static final Logger LOG = LoggerFactory.getLogger(ContractorClient.class);
-	private static final long serialVersionUID = 1L;
-	private static JFrame frame;
-	private static JLabel lblShowCurLastName;
-	private static JLabel lblShowCurFirstName;
-	private static JLabel lblShowCurCompanyName;
-	private static JLabel lblShowCurAddress1;
-	private static JLabel lblShowCurAddress2;
-	private static JLabel lblShowCurCity;
-	private static JLabel lblShowCurState;
-	private static JLabel lblShowCurZipCode;
-	private static JLabel lblShowCurPhoneNumber;
-	private static JLabel lblShowCurEmailAddress;
-	private static JTextField txtLastNameUpdate;
-	private static JTextField txtFirstNameUpdate;
-	private static JTextField txtCompanyNameUpdate;
-	private static JTextField txtAddress1Update;
-	private static JTextField txtAddress2Update;
-	private static JTextField txtCityUpdate;
-	private static JTextField txtStateUpdate;
-	private static JTextField txtZipCodeUpdate;
-	private static JTextField txtPhoneNumberUpdate;
-	private static JTextField txtEmailAddressUpdate;
-	private static String strLastName = "Person";
-	private static String strFirstName = "Random";
-	private static String strCompanyName = "ConCon";
-	private static String strAddress1 = "123 Main Street";
-	private static String strAddress2 = "";
-	private static String strCity = "Dayton";
-	private static String strState = "OH";
-	private static int intZipCode = 45400;
-	private static String strPhoneNumber = "937-555-1212";
-	private static String strEmailAddress = "thomas.611@wright.edu";
-	private static JPanel profileTab;
-	private static JLabel lblNewProfile;
-	private static JLabel lblLastNameUpdate;
-	private static JLabel lblFirstNameUpdate;
-	private static JLabel lblCompanyNameUpdate;
-	private static JLabel lblAddress1Update;
-	private static JLabel lblAddress2Update;
-	private static JLabel lblCityUpdate;
-	private static JLabel lblStateUpdate;
-	private static JLabel lblZipCodeUpdate;
-	private static JLabel lblPhoneNumberUpdate;
-	private static JLabel lblEmailAddressUpdate;
-	private static JButton btnSave;
-	private static JButton btnCancel;
-	private static JButton btnClear;
-	private static ArrayList<OpenJob> jobList = new ArrayList<OpenJob>();
-	private static Vector<Object> tempVec = new Vector<Object>();
-	private static int intSearch = 0;
-	private static String[] columnNames = {"Job Number", "Title", "Description", "City", "Cost", 
-											"Duration", "Zip Code"};
-	private static DefaultTableModel model1 = null;
-	
 	/**
-	 * Class for populating job information in the search feature.
-	 * This class includes the setters and getters.
+	 * Action for trying to close window by hitting X in corner.
 	 *
 	 */
-	public static class OpenJob {
-		private int jobNumber;
-		private String jobTitle;
-		private String jobDescription;
-		private String jobCity;
-		private int jobCost;
-		private int jobDuration;
-		private int jobZipCode;
-		private double jobDistance;
-		
-		/**
-		 * Sets job number for OpenJob object.
-		 * @param num is int job number from method.
-		 */
-		public void setJobNumber(int num) {
-			jobNumber = num;
-		}
-		
-		/**
-		 * Sets job title for OpenJob object.
-		 * @param title is string job title from method.
-		 */
-		public void setJobTitle(String title) {
-			jobTitle = title;
-		}
-		
-		/**
-		 * Sets job description for OpenJob object.
-		 * @param desc is string job description from method.
-		 */
-		public void setJobDesc(String desc) {
-			jobDescription = desc;
-		}
-		
-		/**
-		 * Sets job city for OpenJob object.
-		 * @param city is string job city from method.
-		 */
-		public void setJobCity(String city) {
-			jobCity = city;
-		}
-		
-		/**
-		 * Sets job cost for OpenJob object.
-		 * @param cost is int job cost from method.
-		 */
-		public void setJobCost(int cost) {
-			jobCost = cost;
-		}
-		
-		/**
-		 * Sets job duration for OpenJob object.
-		 * @param dur is int job duration from method.
-		 */
-		public void setJobDuration(int dur) {
-			jobDuration = dur;
-		}
-		
-		/**
-		 * Sets job zip code for OpenJob object.
-		 * @param zip is int job zip code from method.
-		 */
-		public void setJobZipCode(int zip) {
-			jobZipCode = zip;
-		}
-		
-		/**
-		 * Sets job distance for OpenJob object.
-		 * @param distance is double distance from method.
-		 */
-		public void setJobDistance(double distance) {
-			jobDistance = distance;
-		}
-		
-		/**
-		 * Gets job number from OpenJob object.
-		 * @return int job number to method.
-		 */
-		public int getJobNumber() {
-			return jobNumber;
-		}
-		
-		/**
-		 * Gets job title from OpenJob object.
-		 * @return string job title to method.
-		 */
-		public String getJobTitle() {
-			return jobTitle;
-		}
-		
-		/**
-		 * Gets job description from OpenJob object.
-		 * @return string job description to method.
-		 */
-		public String getJobDesc() {
-			return jobDescription;
-		}
-		
-		/**
-		 * Gets job city from OpenJob object.
-		 * @return string job city to method.
-		 */
-		public String getJobCity() {
-			return jobCity;
-		}
-		
-		/**
-		 * Gets job cost from OpenJob object.
-		 * @return int job cost to method.
-		 */
-		public int getJobCost() {
-			return jobCost;
-		}
-		
-		/**
-		 * Gets job duration from OpenJob object.
-		 * @return int job duration to method.
-		 */
-		public int getJobDuration() {
-			return jobDuration;
-		}
-		
-		/**
-		 * Gets job zip code from OpenJob object.
-		 * @return int job zip code to method.
-		 */
-		public int getJobZipCode() {
-			return jobZipCode;
-		}
-		
-		/**
-		 * Gets job distane from OpenJob object.
-		 * @return double job distance to method.
-		 */
-		public double getJobDistance() {
-			return jobDistance;
+	public static final class ActionTryToCloseWindow extends WindowAdapter {
+		@Override
+		public void windowClosing(WindowEvent w0) { 
+			int exit = JOptionPane.showConfirmDialog(myFrame, "Do you want to exit?", 
+					"Exit", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+			if (exit == JOptionPane.YES_OPTION) {
+				System.exit(0);
+			}
 		}
 	}
 	
+	private static ContractorAccount account = new ContractorAccount();
+	private static final Logger LOG = LoggerFactory.getLogger(ContractorClient.class);
+	private static final long serialVersionUID = 1L;
+	private static JPanel curBidsTab;
+	private static ArrayList<OpenJobClass> myJobList = new ArrayList<OpenJobClass>();
+	private static ArrayList<OpenJobClass> myCurJobList = new ArrayList<OpenJobClass>();
+	public static final JTabbedPane pageTabs = new JTabbedPane(JTabbedPane.TOP);
+	private static DecimalFormat f1 = new DecimalFormat("$##.00");
+	private static JLabel[] lblCurrentBids = new JLabel[10];
+	private static JButton[] update = new JButton[10];
+	private static double[] currentBids = new double[10];
+	private static double[] previousBids = new double[10];
+	public static final JFrame myFrame = new JFrame();
+	private static final int WINDOW_WIDTH = Toolkit.getDefaultToolkit().getScreenSize().width
+			- 150;
+	private static final int WINDOW_HEIGHT = Toolkit.getDefaultToolkit().getScreenSize().height
+			- 150;
+	private static final int WINDOW_HEIGHT_QUARTER = Toolkit.getDefaultToolkit()
+			.getScreenSize().height	/ 4;
+	private ContractorAccount user;
 	
 	/**
 	 * Create the application.
 	 */
 	public ContractorClient() {		
-		initialize();
+		user = null;
 	}
-
+	
 	/**
-	 * Initialize the contents of the frame.
+	 * Build the GUI.
 	 */
-	private static void initialize() {
-/*
- * The following line to be implemented when AccountType and ContractorAccount
- * imports are implemented
- * 
- * 		account.setAccountType(AccountType.CONTRACTOR);
- */
-		account.setAccountType(AccountType.CONTRACTOR);
-		frame = new JFrame();		
-		frame.setBounds(100, 100, 725, 475);
-		frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+	public void buildGui(ContractorAccount inUser) {
+		user = inUser;
+		myFrame.setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
+		myFrame.setLocationRelativeTo(null);
+		myFrame.getContentPane().setLayout(null);
+		myFrame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 
-		Container c0 = frame.getContentPane();
+		Container c0 = myFrame.getContentPane();
 		c0.setBackground(Color.orange);
 		ImageIcon imgIcon = new ImageIcon("images/c2-icon.png");
-		frame.setIconImage(imgIcon.getImage());
-		frame.setTitle("Contractor Connect");
-		frame.addWindowListener(new WindowAdapter() {
-			@Override
-			public void windowClosing(WindowEvent w0) { 
-				int exit = JOptionPane.showConfirmDialog(frame, "Do you want to exit?");
-				if (exit == JOptionPane.YES_OPTION) {
-					System.exit(0);
-				}
-			}
-		});
-		frame.getContentPane().setLayout(null);
-
+		myFrame.setIconImage(imgIcon.getImage());
+		myFrame.setTitle("Contractor Connect");
+		myFrame.addWindowListener(new ActionTryToCloseWindow());
+		
 		JPanel banner = new JPanel();
 		banner.setLayout(null);
-		banner.setBounds(6, 0, 703, 127);
+		banner.setBounds(6, 0, (WINDOW_WIDTH - 12), WINDOW_HEIGHT_QUARTER);
 		ImageIcon imageIcon = new ImageIcon("images/c2-image.png");
 		Image image = imageIcon.getImage();
 		Image newImg = image.getScaledInstance((int) (banner.getHeight() * .9), 
@@ -351,1024 +134,32 @@ public class ContractorClient extends JFrame implements ActionListener {
 		picLabel.setOpaque(true);
 		picLabel.setBackground(Color.darkGray);
 
-		frame.getContentPane().add(banner);
+		myFrame.getContentPane().add(banner);
 		banner.setOpaque(false);
-		JTabbedPane pageTabs = new JTabbedPane(JTabbedPane.TOP);
-		pageTabs.setBounds(6, 127, 703, 309);
-		frame.getContentPane().add(pageTabs);
-
-		JPanel main = new JPanel();
-		pageTabs.addTab("Main", null, main, "Return to main page");
-		main.setLayout(null);
-
-		JTree mainTree = new JTree();
-		mainTree.setModel(new DefaultTreeModel(
-						new DefaultMutableTreeNode("Main") {
-							/**
-							 * Create the tree.
-							 */
-							private static final long serialVersionUID = 1L;
-
-							{
-								DefaultMutableTreeNode node1;
-								DefaultMutableTreeNode node2;
-								DefaultMutableTreeNode node3;
-								node1 = new DefaultMutableTreeNode("Previous Jobs");
-								node2 = new DefaultMutableTreeNode("Electrical");
-								node3 = new DefaultMutableTreeNode("Jan 12 2014");
-								node3.add(new DefaultMutableTreeNode("Description"));
-								node3.add(new DefaultMutableTreeNode("Photos"));
-								node2.add(node3);
-								node3 = new DefaultMutableTreeNode("Feb 9 2014");
-								node3.add(new DefaultMutableTreeNode("Description"));
-								node3.add(new DefaultMutableTreeNode("Photos"));
-								node2.add(node3);
-								node1.add(node2);
-								node2 = new DefaultMutableTreeNode("Plumbing");
-								node3 = new DefaultMutableTreeNode("Mar 24 2015");
-								node3.add(new DefaultMutableTreeNode("Description"));
-								node3.add(new DefaultMutableTreeNode("Photos"));
-								node2.add(node3);
-								node1.add(node2);
-								node2 = new DefaultMutableTreeNode("Outdoor");
-								node3 = new DefaultMutableTreeNode("Jul 17 2015");
-								node3.add(new DefaultMutableTreeNode("Description"));
-								node3.add(new DefaultMutableTreeNode("Photos"));
-								node2.add(node3);
-								node1.add(node2);
-								add(node1);
-								node1 = new DefaultMutableTreeNode("Reviews");
-								node1.add(new DefaultMutableTreeNode("All"));
-								node1.add(new DefaultMutableTreeNode("Positive"));
-								node1.add(new DefaultMutableTreeNode("Negative"));
-								add(node1);
-								}
-							}
-		));
-		main.add(mainTree);
-		mainTree.setBounds(6, 6, 160, 275);
-
-		JTextPane textPane = new JTextPane();
-		textPane.setBounds(172, 6, 526, 275);
-		main.add(textPane);
-
-		final JPanel curBidsTab = new JPanel();
-		pageTabs.addTab("Current Bids", null, curBidsTab, null);
-		GridLayout myLayout = new GridLayout(0, 2);
-		curBidsTab.setLayout(myLayout);
-		final DecimalFormat f0 = new DecimalFormat("##.00");
-		final JLabel[] lblCurrentBids = new JLabel[10];
-		final JButton[] update = new JButton[10];
-		final double[] currentBids = new double[10];
-		final double[] previousBids = new double[10];
-		for (int i = 0; i < 5; i++) {
-			final int j = i;
-			currentBids[i] = Math.random() * 115;
-			previousBids[i] = Math.random() * 115;
-			if (currentBids[i] > previousBids[i]) {
-				lblCurrentBids[i] = new JLabel("<html>You have a bid for "
-						+ f0.format(currentBids[i]) + "<br>You have been outbid by " 
-							+ f0.format(previousBids[i]) + "</html>");
-			} else {
-				lblCurrentBids[i] = new JLabel("You have a bid for " + f0.format(currentBids[i]));
-			}
-			curBidsTab.add(lblCurrentBids[i]);
-			update[i] = new JButton("Update Bid");
-			curBidsTab.add(update[i]);
-			update[i].addActionListener(new ActionListener() {
-
-				@Override
-				public void actionPerformed(ActionEvent a0) {
-					try {
-						String input = JOptionPane.showInputDialog(frame, "Enter new bid");
-						if (input != null) {
-							currentBids[j] = Double.parseDouble(input);
-							if (currentBids[j] > previousBids[j]) {
-								JOptionPane.showMessageDialog(frame, 
-										"You must enter a bid less than the previous bid",
-											"Invalid Bid", JOptionPane.ERROR_MESSAGE);
-							} else {
-								lblCurrentBids[j].setText("You have a bid for "
-										+ f0.format(currentBids[j]));
-								curBidsTab.validate();
-								curBidsTab.repaint();
-							}
-						}
-						
-					} catch (IllegalArgumentException e) {
-						JOptionPane.showMessageDialog(frame, "Invalid Input");
-					}
-
-				}
-
-			});
-		}
-
-		JPanel notificationsTab = new JPanel();
-		pageTabs.addTab("Notifications", null, notificationsTab, null);
-		String clientName;
-		String jobLocation;
-		String jobDate;
-		final JLabel[] jobs = new JLabel[10];
-		final JButton[] acknowledge = new JButton[10];
-		for (int i = 0; i <= 5; i++) {
-			final int list = i;
-			clientName = "Get name of client from database";
-			jobLocation = "Get location from database";
-			jobDate = "Get date from database";
-			jobs[i] = new JLabel(clientName + " needs work done at " 
-					+ jobLocation + " on " + jobDate);
-			notificationsTab.add(jobs[i]);
-			acknowledge[i] = new JButton("Okay");
-			notificationsTab.add(acknowledge[i]);
-			acknowledge[i].addActionListener(new ActionListener() {
-				@Override
-				public void actionPerformed(ActionEvent e0) {
-					Container parent = acknowledge[list].getParent();
-					parent.remove(acknowledge[list]);
-					parent.remove(jobs[list]);
-					parent.validate();
-					parent.repaint();
-				}
-			});
-		}
-
-		JPanel searchTab = new JPanel();
-		pageTabs.addTab("Search", null, searchTab, null);
-		searchTab.setLayout(null);
-		
-		populateJobListArray();
-		
-		JLabel lblSearchTabMain = new JLabel("Search Options:");
-		searchTab.add(lblSearchTabMain);
-		lblSearchTabMain.setBounds(5,5,120,20);
-		
-		final JTextField txtSearchOptions = new JTextField();
-		txtSearchOptions.setBounds(275, 5, 240, 20);
-		searchTab.add(txtSearchOptions);
-		txtSearchOptions.setVisible(false);
-		
-		String[] searchOptions = {"Show All", "Distance", "Max Cost", "Max Duration"};
-		final JComboBox<String> cboSearchOptions = new JComboBox<String>(searchOptions);
-		searchTab.add(cboSearchOptions);
-		cboSearchOptions.setBounds(140, 5, 120, 20);
-		cboSearchOptions.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e1) {
-				switch (cboSearchOptions.getSelectedItem().toString()) {
-				case "Show All":
-					intSearch = 0;
-					break;
-				case "Distance":
-					intSearch = 1;
-					txtSearchOptions.setVisible(true);
-					break;
-				case "Max Cost":
-					intSearch = 2;
-					txtSearchOptions.setVisible(true);
-					break;
-				case "Max Duration":
-					intSearch = 3;
-					txtSearchOptions.setVisible(true);
-					break;
-				default:
-					intSearch = 0;
-					break;
-				}
-				
-			}
-		});
-		
-		buildTable();
-		final JTable tblSearchResults = new JTable(model1) {
-			
-			private static final long serialVersionUID = 3500811875821636172L;
-
-			public Component prepareRenderer(TableCellRenderer renderer, int row, int column) {
-				Component c0 = super.prepareRenderer(renderer, row, column);
-				if (c0 instanceof JComponent) {
-					if (column > 0 && column < 3) {
-						JComponent jc = (JComponent) c0;
-						jc.setToolTipText((String) getValueAt(row, column));
-					} else {
-						JComponent jc = (JComponent) c0;
-						jc.setToolTipText("");
-					}
-				}
-				return c0;
-			}
-			
-		};
-//		tblSearchResults.setAutoCreateRowSorter(true);
-		JScrollPane jscSearchResults = new JScrollPane(tblSearchResults);
-		jscSearchResults.setBounds(45, 45, 605, 200);
-		searchTab.add(jscSearchResults);		
-		
-		JButton btnSearchGo = new JButton("Search");
-		btnSearchGo.setBounds(530, 5, 120, 20);
-		searchTab.add(btnSearchGo);
-		
-		btnSearchGo.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				buildTable();
-				populateJobListArray();
-				switch (intSearch) {
-				case 0:
-					model1.setRowCount(0);
-					columnNames[6] = "Zip Code";
-					tblSearchResults.setModel(model1);
-					for (int i = 0; i < jobList.size(); i++) {
-						tempVec = fillTempVec(jobList.get(i));
-						model1.addRow(tempVec);
-					}	
-					break;
-				case 1:
-					model1.addColumn("Distance");
-					tblSearchResults.setModel(model1);
-					int curZip = intZipCode;
-					final String tempDistance = txtSearchOptions.getText();
-					Double[][] curDistanceArray = new Double[50][2];
-					int tempDistanceInt = 0;
-					String strDistance = null;
-					if (tempDistance.length() > 0) {
-						tempDistanceInt = Integer.parseInt(tempDistance);
-					} else {
-						int issueChecker = 1;
-						while (issueChecker > 0) {
-							strDistance = JOptionPane.showInputDialog( 
-											profileTab,
-											"Please enter a distance (greater than 0)",
-											null);
-							if (strDistance.length() < 1 || Integer.parseInt(strDistance) < 1) {
-								issueChecker = 1;
-							} else {
-								int issueTracker = 0;
-								for (int j = 0; j < strDistance.length(); j++) {
-									char c1 = strDistance.charAt(j);
-									if (Character.isDigit(c1)) {
-										if (j == strDistance.length() - 1 && issueTracker == 0) {
-											txtSearchOptions.setText(strDistance);
-											issueChecker = 0;
-											break;
-										}
-									} else {
-										issueTracker++;
-									}
-								}
-							}
-						}
-						tempDistanceInt = Integer.parseInt(strDistance);
-					}
-					try {
-						curDistanceArray = distanceCalculator(curZip, tempDistanceInt);
-					} catch (IOException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					} catch (XMLStreamException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
-					
-					for (int j = 0; j < jobList.size(); j++) {
-						for (int k = 0; k < curDistanceArray.length; k++) {
-							if (jobList.get(j).getJobZipCode() 
-									== curDistanceArray[k][0].intValue()) {
-								tempVec = fillTempVec(jobList.get(j));
-								tempVec.add(7, f0.format(curDistanceArray[k][1]));
-								model1.addRow(tempVec);
-							}
-						}
-					}
-					break;
-				case 2:
-					model1.setRowCount(0);
-					columnNames[6] = "Zip Code";
-					tblSearchResults.setModel(model1);
-					final String tempCost = txtSearchOptions.getText(); 
-					int tempCostInt = 0;
-					if (tempCost.length() > 0) {
-						tempCostInt = Integer.parseInt(tempCost);
-					}
-					for (int i = 0; i < jobList.size(); i++) {
-						if (jobList.get(i).jobCost <= tempCostInt) {
-							tempVec = fillTempVec(jobList.get(i));
-							model1.addRow(tempVec);
-						}
-					}
-					break;
-				case 3:
-					model1.setRowCount(0);
-					columnNames[6] = "Zip Code";
-					tblSearchResults.setModel(model1);
-					final String tempDuration = txtSearchOptions.getText();
-					int tempDurationInt = 0;
-					if (tempDuration.length() > 0) {
-						tempDurationInt = Integer.parseInt(tempDuration);
-					}
-					for (int i = 0; i < jobList.size(); i++) {
-//						Object[] tempArray = jobList.elementData(i);
-						if (jobList.get(i).jobDuration <= tempDurationInt) {
-							tempVec = fillTempVec(jobList.get(i));
-							model1.addRow(tempVec);
-						}
-					}
-					break;
-				default:
-					model1.setRowCount(0);
-					columnNames[6] = "Zip Code";
-					tblSearchResults.setModel(model1);
-					for (int i = 0; i < jobList.size(); i++) {
-						tempVec = fillTempVec(jobList.get(i));
-						model1.addRow(tempVec);
-					}	
-					break;
-				}
-			}
-		});
-		
-		JPanel paymentsTab = new JPanel();
-		pageTabs.addTab("Payments", null, paymentsTab, null);
-		paymentsTab.setLayout(null);
-		
-		JLabel paymentsSearchLabel = new JLabel("Search job number:");
-		paymentsTab.add(paymentsSearchLabel);
-		paymentsSearchLabel.setBounds(5,5,120,20);
-		
-		JButton paymentsSearchButton = new JButton("Search");
-		paymentsSearchButton.setBounds(530, 5, 120, 20);
-		paymentsTab.add(paymentsSearchButton);
-		
-		final JTextField paymentsSearchOptions = new JTextField();
-		paymentsSearchOptions.setBounds(275, 5, 240, 20);
-		paymentsTab.add(paymentsSearchOptions);
-		
-		String[] columnName = {"Job Number", "Cost", "Payments", "Balance"};
-		final DefaultTableModel payments = new DefaultTableModel(columnName, 0);
-		JTable tblPaymentsResults2 = new JTable(payments);
-		tblPaymentsResults2.setModel(payments);
-		JScrollPane paymentsResults = new JScrollPane(tblPaymentsResults2);
-		paymentsResults.setBounds(45, 45, 605, 100);
-		paymentsTab.add(paymentsResults);
-
-		profileTab = new JPanel();
-		pageTabs.addTab("Edit Profile", null, profileTab, null);
-		profileTab.setLayout(null);
-
-		populateProfileTab();
-
-		JPanel calendarTab = new JPanel();
-		pageTabs.addTab("Calendar", null, calendarTab, null);
-
-		JPanel openJobsTab = new JPanel();
-		pageTabs.addTab("Open Jobs", null, openJobsTab, null);
+		JTabbedPane myPageTabs = pageTabs;
+		myPageTabs = new ContractorMainPanel(user);
+		myPageTabs.setBounds(6, WINDOW_HEIGHT_QUARTER, (WINDOW_WIDTH - 30), 
+				(((WINDOW_HEIGHT - WINDOW_HEIGHT_QUARTER) - 48)));
+		myFrame.getContentPane().add(myPageTabs, JTabbedPane.TOP);
+		myFrame.setVisible(true);
 	}
 
 	/**
-	 * This method populates the Profile Editor tab.
-	 * @author Joshua Thomas
+	 * Initialize the contents of the frame.
 	 */
-	public static void populateProfileTab() {
-		
-		JButton btnEdit = new JButton("Edit Profile");
-		profileTab.add(btnEdit);
-		btnEdit.setBounds(145, 247, 120, 23);
-		btnEdit.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				editProfile();
-			}
-		});
-		
-		JLabel lblCurProfile = new JLabel("Current Profile Settings:");
-		profileTab.add(lblCurProfile);
-		lblCurProfile.setBounds(30, 5, 200, 20);
-
-		JLabel lblFirstName = new JLabel("First Name:");
-		profileTab.add(lblFirstName);
-		lblFirstName.setBounds(15, 35, 120, 20);
-
-		lblShowCurFirstName = new JLabel();
-		profileTab.add(lblShowCurFirstName);
-		lblShowCurFirstName.setBounds(145, 35, 120, 20);
-
-		JLabel lblLastName = new JLabel("Last Name:");
-		profileTab.add(lblLastName);
-		lblLastName.setBounds(15, 55, 120, 20);
-
-		lblShowCurLastName = new JLabel();
-		profileTab.add(lblShowCurLastName);
-		lblShowCurLastName.setBounds(145, 55, 120, 20);
-
-		JLabel lblCompanyName = new JLabel("Company Name:");
-		profileTab.add(lblCompanyName);
-		lblCompanyName.setBounds(15, 75, 120, 20);
-
-		lblShowCurCompanyName = new JLabel();
-		profileTab.add(lblShowCurCompanyName);
-		lblShowCurCompanyName.setBounds(145, 75, 120, 20);
-
-		JLabel lblAddress1 = new JLabel("Address:");
-		profileTab.add(lblAddress1);
-		lblAddress1.setBounds(15, 95, 120, 20);
-
-		lblShowCurAddress1 = new JLabel();
-		profileTab.add(lblShowCurAddress1);
-		lblShowCurAddress1.setBounds(145, 95, 120, 20);
-
-		JLabel lblAddress2 = new JLabel("Address (cont):");
-		profileTab.add(lblAddress2);
-		lblAddress2.setBounds(15, 115, 120, 20);
-
-		lblShowCurAddress2 = new JLabel();
-		profileTab.add(lblShowCurAddress2);
-		lblShowCurAddress2.setBounds(145, 115, 120, 20);
-
-		JLabel lblCity = new JLabel("City:");
-		profileTab.add(lblCity);
-		lblCity.setBounds(15, 135, 120, 20);
-
-		lblShowCurCity = new JLabel();
-		profileTab.add(lblShowCurCity);
-		lblShowCurCity.setBounds(145, 135, 120, 20);
-
-		JLabel lblState = new JLabel("State:");
-		profileTab.add(lblState);
-		lblState.setBounds(15, 155, 120, 20);
-
-		lblShowCurState = new JLabel();
-		profileTab.add(lblShowCurState);
-		lblShowCurState.setBounds(145, 155, 120, 20);
-		
-		JLabel lblZipCode = new JLabel("Zip Code:");
-		profileTab.add(lblZipCode);
-		lblZipCode.setBounds(15, 175, 120, 20);
-
-		lblShowCurZipCode = new JLabel();
-		profileTab.add(lblShowCurZipCode);
-		lblShowCurZipCode.setBounds(145, 175, 120, 20);
-		
-		JLabel lblPhoneNumber = new JLabel("Phone Number:");
-		profileTab.add(lblPhoneNumber);
-		lblPhoneNumber.setBounds(15, 195, 120, 20);
-		
-		lblShowCurPhoneNumber = new JLabel();
-		profileTab.add(lblShowCurPhoneNumber);
-		lblShowCurPhoneNumber.setBounds(145, 195, 120, 20);
-		
-		JLabel lblEmailAddress = new JLabel("Email Address:");
-		profileTab.add(lblEmailAddress);
-		lblEmailAddress.setBounds(15, 215, 120, 20);
-		
-		lblShowCurEmailAddress = new JLabel();
-		profileTab.add(lblShowCurEmailAddress);
-		lblShowCurEmailAddress.setBounds(145, 215, 120, 20);
-
-		lblNewProfile = new JLabel("Updated Profile Settings:");
-		profileTab.add(lblNewProfile);
-		lblNewProfile.setBounds(360, 5, 200, 20);
-		lblNewProfile.setVisible(false);
-
-		lblFirstNameUpdate = new JLabel("First Name:");
-		profileTab.add(lblFirstNameUpdate);
-		lblFirstNameUpdate.setBounds(345, 35, 120, 20);
-		lblFirstNameUpdate.setVisible(false);
-
-		txtFirstNameUpdate = new JTextField();
-		profileTab.add(txtFirstNameUpdate);
-		txtFirstNameUpdate.setBounds(475, 35, 120, 20);
-		txtFirstNameUpdate.setVisible(false);
-
-		lblLastNameUpdate = new JLabel("Last Name:");
-		profileTab.add(lblLastNameUpdate);
-		lblLastNameUpdate.setBounds(345, 55, 120, 20);
-		lblLastNameUpdate.setVisible(false);
-
-		txtLastNameUpdate = new JTextField();
-		profileTab.add(txtLastNameUpdate);
-		txtLastNameUpdate.setBounds(475, 55, 120, 20);
-		txtLastNameUpdate.setVisible(false);
-
-		lblCompanyNameUpdate = new JLabel("Company Name:");
-		profileTab.add(lblCompanyNameUpdate);
-		lblCompanyNameUpdate.setBounds(345, 75, 120, 20);
-		lblCompanyNameUpdate.setVisible(false);
-
-		txtCompanyNameUpdate = new JTextField();
-		profileTab.add(txtCompanyNameUpdate);
-		txtCompanyNameUpdate.setBounds(475, 75, 120, 20);
-		txtCompanyNameUpdate.setVisible(false);
-
-		lblAddress1Update = new JLabel("Address:");
-		profileTab.add(lblAddress1Update);
-		lblAddress1Update.setBounds(345, 95, 120, 20);
-		lblAddress1Update.setVisible(false);
-
-		txtAddress1Update = new JTextField();
-		profileTab.add(txtAddress1Update);
-		txtAddress1Update.setBounds(475, 95, 120, 20);
-		txtAddress1Update.setVisible(false);
-
-		lblAddress2Update = new JLabel("Address (cont):");
-		profileTab.add(lblAddress2Update);
-		lblAddress2Update.setBounds(345, 115, 120, 20);
-		lblAddress2Update.setVisible(false);
-
-		txtAddress2Update = new JTextField();
-		profileTab.add(txtAddress2Update);
-		txtAddress2Update.setBounds(475, 115, 120, 20);
-		txtAddress2Update.setVisible(false);
-
-		lblCityUpdate = new JLabel("City:");
-		profileTab.add(lblCityUpdate);
-		lblCityUpdate.setBounds(345, 135, 120, 20);
-		lblCityUpdate.setVisible(false);
-
-		txtCityUpdate = new JTextField();
-		profileTab.add(txtCityUpdate);
-		txtCityUpdate.setBounds(475, 135, 120, 20);
-		txtCityUpdate.setVisible(false);
-
-		lblStateUpdate = new JLabel("State:");
-		profileTab.add(lblStateUpdate);
-		lblStateUpdate.setBounds(345, 155, 120, 20);
-		lblStateUpdate.setVisible(false);
-
-		txtStateUpdate = new JTextField();
-		profileTab.add(txtStateUpdate);
-		txtStateUpdate.setBounds(475, 155, 120, 20);
-		txtStateUpdate.setVisible(false);
-
-		lblZipCodeUpdate = new JLabel("Zip Code:");
-		profileTab.add(lblZipCodeUpdate);
-		lblZipCodeUpdate.setBounds(345, 175, 120, 20);
-		lblZipCodeUpdate.setVisible(false);
-
-		txtZipCodeUpdate = new JTextField();
-		profileTab.add(txtZipCodeUpdate);
-		txtZipCodeUpdate.setBounds(475, 175, 120, 20);
-		txtZipCodeUpdate.setVisible(false);
-		
-		lblPhoneNumberUpdate = new JLabel("Phone Number:");
-		profileTab.add(lblPhoneNumberUpdate);
-		lblPhoneNumberUpdate.setBounds(345, 195, 120, 20);
-		lblPhoneNumberUpdate.setVisible(false);
-		
-		txtPhoneNumberUpdate = new JTextField();
-		profileTab.add(txtPhoneNumberUpdate);
-		txtPhoneNumberUpdate.setBounds(475, 195, 120, 20);
-		txtPhoneNumberUpdate.setVisible(false);
-		
-		lblEmailAddressUpdate = new JLabel("Email Address:");
-		profileTab.add(lblEmailAddressUpdate);
-		lblEmailAddressUpdate.setBounds(345, 215, 120, 20);
-		lblEmailAddressUpdate.setVisible(false);
-		
-		txtEmailAddressUpdate = new JTextField();
-		profileTab.add(txtEmailAddressUpdate);
-		txtEmailAddressUpdate.setBounds(475, 215, 120, 20);
-		txtEmailAddressUpdate.setVisible(false);
-
-		btnSave = new JButton("Save");
-		profileTab.add(btnSave);
-		btnSave.setBounds(345, 247, 80, 23);
-		btnSave.setVisible(false);
-		btnSave.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				saveProfileUpdates();
-			}
-		});
-		
-		btnClear = new JButton("Clear");
-		profileTab.add(btnClear);
-		btnClear.setBounds(430, 247, 80, 23);
-		btnClear.setVisible(false);
-		btnClear.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				clearProfileUpdates();
-			}
-		});
-
-		btnCancel = new JButton("Cancel");
-		profileTab.add(btnCancel);
-		btnCancel.setBounds(515, 247, 80, 23);
-		btnCancel.setVisible(false);
-		btnCancel.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				clearProfileUpdates();
-				editProfileCancel();
-			}
-		});
-		
-		loadCurrentProfile();
+	public static void initialize() {
+		account.setAccountType(AccountType.CONTRACTOR);
 	}
 	
 	/**
-	 * This method loads the current profile.
+	 * This method opens a web browser.
 	 */
-	public static void loadCurrentProfile() {
-		lblShowCurFirstName.setText(strFirstName);
-		lblShowCurLastName.setText(strLastName);
-		lblShowCurCompanyName.setText(strCompanyName);
-		lblShowCurAddress1.setText(strAddress1);
-		lblShowCurAddress2.setText(strAddress2);
-		lblShowCurCity.setText(strCity);
-		lblShowCurState.setText(strState);
-		lblShowCurZipCode.setText(String.format("%05d", intZipCode));
-		lblShowCurPhoneNumber.setText(strPhoneNumber);
-		lblShowCurEmailAddress.setText(strEmailAddress);
-/*
- * The following code to be implemented when the AccountType and ContractorAccount
- * imports are implemented.
- *  
- *		lblShowCurFirstName.setText(account.getFirstName());
- *		lblShowCurLastName.setText(account.getLastName());
- *		lblShowCurCompanyName.setText(account.getCompanyName());
- *		lblShowCurAddress1.setText(account.getAddress1());
- *		lblShowCurAddress2.setText(account.getAddress2());
- *		lblShowCurCity.setText(account.getCity());
- *		lblShowCurState.setText(account.getState());
- *		lblShowCurZipCode.setText(String.format("%05d", account.getZipCode()));
- *		lblShowCurPhoneNumber.setText(account.getPhoneNumber());
- *		lblShowCurEmailAddress.setText(account.getEmailAddress());
- */
-	}
-
-	/**
-	 * This method makes the "updated information" elements of the edit profile tab visible.
-	 * @author Joshua Thomas
-	 */
-	public static void editProfile() {
-		lblNewProfile.setVisible(true);
-		lblLastNameUpdate.setVisible(true);
-		lblFirstNameUpdate.setVisible(true);
-		lblCompanyNameUpdate.setVisible(true);
-		lblAddress1Update.setVisible(true);
-		lblAddress2Update.setVisible(true);
-		lblCityUpdate.setVisible(true);
-		lblStateUpdate.setVisible(true);
-		lblZipCodeUpdate.setVisible(true);
-		lblPhoneNumberUpdate.setVisible(true);
-		lblEmailAddressUpdate.setVisible(true);
-		txtLastNameUpdate.setVisible(true);
-		txtFirstNameUpdate.setVisible(true);
-		txtCompanyNameUpdate.setVisible(true);
-		txtAddress1Update.setVisible(true);
-		txtAddress2Update.setVisible(true);
-		txtCityUpdate.setVisible(true);
-		txtStateUpdate.setVisible(true);
-		txtZipCodeUpdate.setVisible(true);
-		txtPhoneNumberUpdate.setVisible(true);
-		txtEmailAddressUpdate.setVisible(true);
-		btnSave.setVisible(true);
-		btnClear.setVisible(true);
-		btnCancel.setVisible(true);
-		profileTab.revalidate();
-	}
-
-	/**
-	 * This method saves the updated profile information to the local variables.
-	 * In time, it will push the updates to the database.
-	 * @author Joshua Thomas
-	 */
-	public static void saveProfileUpdates() {
-		
-		if (txtLastNameUpdate.getText().length() > 0) {
-			strLastName = txtLastNameUpdate.getText();
-/*
- * The following line to be implemented when the AccountType and ContractorAccount
- * imports are implemented. The above line will be removed.
- * 
- * 			account.setLastName(txtLastNameUpdate.getText());
- */
-		}
-		if (txtFirstNameUpdate.getText().length() > 0) {
-			strFirstName = txtFirstNameUpdate.getText();
-/*
- * The following line to be implemented when the AccountType and ContractorAccount
- * imports are implemented. The above line will be removed.
- * 
- * 			account.setFirstName(txtFirstNameUpdate.getText());
- */
-		}
-		if (txtCompanyNameUpdate.getText().length() > 0) {
-			strCompanyName = txtCompanyNameUpdate.getText();
-/*
- * The following line to be implemented when the AccountType and ContractorAccount
- * imports are implemented. The above line will be removed.
- * 
- * 			account.setCompanyName(txtCompanyNameUpdate.getText()); 
- */		
-		}
-		if (txtAddress1Update.getText().length() > 0) {
-			strAddress1 = txtAddress1Update.getText();
-/*
- * The following line to be implemented when the AccountType and ContractorAccount
- * imports are implemented. The above line will be removed.
- * 
- * 			account.setAddress1(txtAddress1Update.getText());
- */
-		}
-		if (txtAddress2Update.getText().length() > 0) {
-			strAddress2 = txtAddress2Update.getText();
-/*
- * The following line to be implemented when the AccountType and ContractorAccount
- * imports are implemented. The above line will be removed.
- * 
- * 			account.setAddress2(txtAddress2Update.getText());
- */
-		}
-		if (txtCityUpdate.getText().length() > 0) {
-			strCity = txtCityUpdate.getText();
-/*
- * The following line to be implemented when the AccountType and ContractorAccount
- * imports are implemented. The above line will be removed.
- * 
- * 			account.setCity(txtCityUpdate.getText());
- */
-		}
-		if (txtStateUpdate.getText().length() > 0) {
-			strState = txtStateUpdate.getText();
-/*
- * The following line to be implemented when the AccountType and ContractorAccount
- * imports are implemented. The above line will be removed.
- * 
- * 			account.setState(txtStateUpdate.getText());
- */
-		}
-		if (txtZipCodeUpdate.getText().length() > 0) {
-			int issueChecker = 0;
-			if (txtZipCodeUpdate.getText().length() != 5) {
-				issueChecker = 1;
-			}
-			for (int i = 0; i < txtZipCodeUpdate.getText().length(); i++) {
-				char c0 = txtZipCodeUpdate.getText().charAt(i);
-				if (Character.isDigit(c0)) {
-					// move to next index i in above for loop if character is a digit
-				} else {
-					issueChecker = 1;
-				}
-			}
-			while (issueChecker > 0) {
-				//strTzc stands for string Test Zip Code
-				String strTzc = JOptionPane.showInputDialog( 
-								profileTab,
-								"Please enter a valid Zip Code",
-								null);
-				if (strTzc.length() != 5) {
-					issueChecker = 1;
-				} else {
-					int issueTracker = 0;
-					for (int j = 0; j < strTzc.length(); j++) {
-						char c1 = strTzc.charAt(j);
-						if (Character.isDigit(c1)) {
-							if (j == 4 && issueTracker == 0) {
-								txtZipCodeUpdate.setText(strTzc);
-/*
- * The following line to be implemented when the AccountType and ContractorAccount
- * imports are implemented. The above line will be removed.
- * 
- * 								account.setZipCode(Integer.parseInt(txtZipCodeUpdate.getText()));
- */
-								issueChecker = 0;
-								break;
-							}
-						} else {
-							issueTracker++;
-						}
-					}
-				}
-			}
-			intZipCode = Integer.parseInt(txtZipCodeUpdate.getText());
-		}
-		if (txtPhoneNumberUpdate.getText().length() > 0) {
-			strPhoneNumber = txtPhoneNumberUpdate.getText();
-/*
- * The following line to be implemented when the AccountType and ContractorAccount
- * imports are implemented. The above line will be removed.
- * 
- * 			account.setPhoneNumber(txtPhoneNumberUpdate.getText());
- */		
-		}
-		if (txtEmailAddressUpdate.getText().length() > 0) {
-			strEmailAddress = txtEmailAddressUpdate.getText();
-/*
- * The following line to be implemented when the AccountType and ContractorAccount
- * imports are implemented. The above line will be removed.
- * 
- * 			account.setEmailAddress(txtEmailAddressUpdate.getText());
- */
-		}
-		loadCurrentProfile();
-		profileTab.revalidate();
-		profileTab.repaint();
-	}
-	
-	/**
-	 * This method populates a job list array for building and testing the Search functions.
-	 * Method will be modified when database access is implemented.
-	 */
-	public static void populateJobListArray() {
-		OpenJob job1 = new OpenJob();
-		job1.setJobNumber(1);
-		job1.setJobTitle("Hole in Wall");
-		job1.setJobDesc("Kid smashed head through drywall");
-		job1.setJobCity("Dayton");
-		job1.setJobCost(500);
-		job1.setJobDuration(1);
-		job1.setJobZipCode(45402);
-		job1.setJobDistance(-1);
-		OpenJob job2 = new OpenJob();
-		job2.setJobNumber(2);
-		job2.setJobTitle("New Toilet");
-		job2.setJobDesc("Would like new toilet installed");
-		job2.setJobCity("Englewood");
-		job2.setJobCost(100);
-		job2.setJobDuration(1);
-		job2.setJobZipCode(45322);
-		job2.setJobDistance(-1);
-		OpenJob job3 = new OpenJob();
-		job3.setJobNumber(17);
-		job3.setJobTitle("Replace Wall Outlet");
-		job3.setJobDesc("New new electrical outlet installed");
-		job3.setJobCity("Centerville");
-		job3.setJobCost(100);
-		job3.setJobDuration(1);
-		job3.setJobZipCode(45458);
-		job3.setJobDistance(-1);
-		OpenJob job4 = new OpenJob();
-		job4.setJobNumber(42);
-		job4.setJobTitle("New Porch");
-		job4.setJobDesc("I want a large enclosed porch built on the back of my house");
-		job4.setJobCity("Kettering");
-		job4.setJobCost(3500);
-		job4.setJobDuration(14);
-		job4.setJobZipCode(45429);
-		job4.setJobDistance(-1);
-		jobList.clear();
-		jobList.add(job1);
-		jobList.add(job2);
-		jobList.add(job3);
-		jobList.add(job4);
-	}
-	
-/* CHANGE TO BE MADE TO distanceCalculator() ONCE DATABASE IS IMPLEMENTED:
- * Change to "Zip Codes by Radius" via ZipCodeAPI and then compare results
- * with database results to limit requests pushed to ZipCodeAPI and streamline
- * search process
- */
-	
-/**
- * This method calculates the distance between two ZIP codes.
- * Contractor Connection registered with ZipCodeAPI.com on the free plan to get static API code.
- * Registered under Joshua Thomas' email address (thomas.611@wright.edu).
- * Units used: miles
- * @throws XMLStreamException 
- * 
- */
-	public static Double[][] distanceCalculator(int zip, int distance) throws IOException, 
-	XMLStreamException {
-		String strApiKey = "DyJlPe7F6MgACobvKEUcqeOMf5TCJ1VmAEIpSQ5YDlyfKKLuoFGOTuA9AuMkvHH6";
-		String url1 = "https://www.zipcodeapi.com/rest/";
-		String query = url1 + strApiKey + "/radius.xml/" + zip + "/" + distance + "/mile";		
-		
-		HttpURLConnection urlConnection = (HttpURLConnection) new URL(query).openConnection();	
-		InputStream result = urlConnection.getInputStream();
-		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-		DocumentBuilder builder;
-		Double[][] strDistanceArray = new Double[50][2];
-		try {
-			builder = factory.newDocumentBuilder();
-			Document doc = builder.parse(result);
-			NodeList list = doc.getElementsByTagName("zip_code");
-			if (list.getLength() <= 50) {
-				for (int j = 0; j < list.getLength(); j++) {
-					Node prop = list.item(j);
-					NamedNodeMap attr = prop.getAttributes();
-					if (null != attr) {
-						Node p0 = attr.getNamedItem("distance");
-						strDistanceArray[j][0] = Double.parseDouble(list.item(j).getTextContent());
-						strDistanceArray[j][1] = Double.parseDouble(p0.getNodeValue());
-					}
-				}
-			} else {
-				for (int j = 0; j < 50; j++) {
-					Node prop = list.item(j);
-					NamedNodeMap attr = prop.getAttributes();
-					if (null != attr) {
-						Node p0 = attr.getNamedItem("distance");
-						strDistanceArray[j][0] = Double.parseDouble(list.item(j).getTextContent());
-						strDistanceArray[j][1] = Double.parseDouble(p0.getNodeValue());
-					}
-				}
-			}
-		} catch (SAXException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ParserConfigurationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}  finally {
-			urlConnection.disconnect();
-			result.close();
-		}
-		return strDistanceArray;		
-	}
-
-	@Override
-	public void actionPerformed(ActionEvent e0) {
-
-	}
-	
-	/**
-	 * This method clears the entries in the "update profile" section of the profile editor tab.
-	 * @author Joshua Thomas 
-	 */
-	public static void clearProfileUpdates() {
-		txtLastNameUpdate.setText(null);
-		txtFirstNameUpdate.setText(null);
-		txtCompanyNameUpdate.setText(null);
-		txtAddress1Update.setText(null);
-		txtAddress2Update.setText(null);
-		txtCityUpdate.setText(null);
-		txtStateUpdate.setText(null);
-		txtZipCodeUpdate.setText(null);
-		txtPhoneNumberUpdate.setText(null);
-		txtEmailAddressUpdate.setText(null);
-	}
-
-	/**
-	 * This method sets visible to false for the "update profile" section of the profile editor tab.
-	 * @author Joshua Thomas
-	 */
-	public static void editProfileCancel() {
-		lblNewProfile.setVisible(false);
-		txtLastNameUpdate.setVisible(false);
-		txtFirstNameUpdate.setVisible(false);
-		txtCompanyNameUpdate.setVisible(false);
-		txtAddress1Update.setVisible(false);
-		txtAddress2Update.setVisible(false);
-		txtCityUpdate.setVisible(false);
-		txtStateUpdate.setVisible(false);
-		txtZipCodeUpdate.setVisible(false);
-		txtPhoneNumberUpdate.setVisible(false);
-		txtEmailAddressUpdate.setVisible(false);
-		btnSave.setVisible(false);
-		btnClear.setVisible(false);
-		btnCancel.setVisible(false);
-		lblLastNameUpdate.setVisible(false);
-		lblFirstNameUpdate.setVisible(false);
-		lblCompanyNameUpdate.setVisible(false);
-		lblAddress1Update.setVisible(false);
-		lblAddress2Update.setVisible(false);
-		lblCityUpdate.setVisible(false);
-		lblStateUpdate.setVisible(false);
-		lblZipCodeUpdate.setVisible(false);
-		lblPhoneNumberUpdate.setVisible(false);
-		lblEmailAddressUpdate.setVisible(false);
-		profileTab.validate();
-		profileTab.repaint();
-	}
-	
-	/**
-	 * This method sets the table model.
-	 */
-	public static void buildTable() {
-		model1 = new DefaultTableModel(columnNames, 0);
-	}
-	
-	/**
-	 * Populates tempVec with values from OpenJob class.
-	 * @param newJob is of type OpenJob.
-	 * @return returns tempVec.
-	 */
-	public static Vector<Object> fillTempVec(OpenJob newJob) {
-		System.out.println(newJob.getJobNumber());
-		Vector<Object> newVec = new Vector<Object>();
-		newVec.clear();
-		newVec.add(0, newJob.getJobNumber());
-		newVec.add(1, newJob.getJobTitle());
-		newVec.add(2, newJob.getJobDesc());
-		newVec.add(3, newJob.getJobCity());
-		newVec.add(4, newJob.getJobCost());
-		newVec.add(5, newJob.getJobDuration());
-		newVec.add(6, newJob.getJobZipCode());
-		if (newJob.getJobDistance() > -1) {
-			newVec.add(7, newJob.getJobDistance());
-		}
-		
-		return newVec;
-	}
-	
-	/**
-	 * Needs Javadoc.
-	 */
-	
 	public static void openWebpage(URL url) {
 		URI uri = null;
 		try {
 			uri = url.toURI();
 		} catch (URISyntaxException e1) {
-			JOptionPane.showMessageDialog(frame, "The given URL is invalid", 
+			JOptionPane.showMessageDialog(myFrame, "The given URL is invalid", 
 					"Invalid URL", JOptionPane.ERROR_MESSAGE);
 		}
 		Desktop desktop = Desktop.isDesktopSupported() ? Desktop.getDesktop() : null;
@@ -1376,26 +167,106 @@ public class ContractorClient extends JFrame implements ActionListener {
 			try {
 				desktop.browse(uri);
 			} catch (Exception e) {
-				JOptionPane.showMessageDialog(frame, "The webpage couldn't open",
+				JOptionPane.showMessageDialog(myFrame, "The webpage couldn't open",
 						"Couldn't Open Page", JOptionPane.ERROR_MESSAGE);
 			}
 		}
 	}
-
+	
+	/**
+	 * This method updates the Current Bids tab when a bid is submitted from the Search tab.
+	 */
+	public static void updateCurrentBidsTab() {
+		Vector<Integer> vecTest = new Vector<Integer>();
+		if (myCurJobList.isEmpty()) {
+			for (int i = 0; i < myJobList.size(); i++) {
+				myCurJobList.add(myJobList.get(i));
+			}
+			currentBids[0] = myCurJobList.get(0).getJobCurBid();
+			previousBids[0] = myCurJobList.get(0).getJobPrevBid();
+			update[0] = new JButton("Update Bid");
+			if (previousBids[0] < 1) {
+				lblCurrentBids[0] = new JLabel("You have a bid for " + f1.format(currentBids[0]));
+				curBidsTab.add(lblCurrentBids[0]);
+				curBidsTab.add(update[0]);
+			} else if (currentBids[0] > previousBids[0]) {
+				lblCurrentBids[0] = new JLabel("<html>You have a bid for "
+						+ f1.format(currentBids[0]) + "<br>You have been outbid by " 
+							+ f1.format(previousBids[0]) + "</html>");
+				curBidsTab.add(lblCurrentBids[0]);
+				curBidsTab.add(update[0]);
+			} else {
+				JOptionPane.showMessageDialog(myFrame, 
+						"You must enter a bid less than the previous bid",
+							"Invalid Bid", JOptionPane.ERROR_MESSAGE);
+			}
+		} else if (myCurJobList.size() != myJobList.size()) {
+			for (int i = 0; i < myCurJobList.size(); i++) {
+				vecTest.add(myCurJobList.get(i).getJobNumber());
+			}
+			for (int j = 0; j < myJobList.size(); j++) {
+				if (vecTest.contains(myJobList.get(j).getJobNumber()) == false) {
+					myCurJobList.add(myJobList.get(j));
+				}
+			}
+			for (int k = 0; k < myCurJobList.size(); k++) {
+				if (currentBids[k] == 0) {
+					currentBids[k] = myCurJobList.get(k).getJobCurBid();
+					previousBids[k] = myCurJobList.get(k).getJobPrevBid();
+					update[k] = new JButton("Update Bid");
+					if (previousBids[k] < 1) {
+						lblCurrentBids[k] = new JLabel("You have a bid for " 
+								+ f1.format(currentBids[k]));
+						if (lblCurrentBids[k].getParent() == curBidsTab) {
+							// Do nothing as label exists
+						} else {
+							curBidsTab.add(lblCurrentBids[k]);
+							curBidsTab.add(update[k]);
+						}
+					} else if (currentBids[k] > previousBids[k]) {
+						lblCurrentBids[k] = new JLabel("<html>You have a bid for "
+								+ f1.format(currentBids[k]) + "<br>You have been outbid by " 
+									+ f1.format(previousBids[k]) + "</html>");
+						if (lblCurrentBids[k].getParent() == curBidsTab) {
+							// Do nothing as label exists
+						} else {
+							curBidsTab.add(lblCurrentBids[k]);
+							curBidsTab.add(update[k]);
+						}
+					} else {
+						JOptionPane.showMessageDialog(myFrame, 
+								"You must enter a bid less than the previous bid",
+									"Invalid Bid", JOptionPane.ERROR_MESSAGE);
+					}
+				}
+			}			
+		}
+		curBidsTab.validate();
+		curBidsTab.repaint();
+	}
+	
 	/**
 	 * This method sets up the initial window.
 	 */
 	public static void main(String[] args) {
 		LOG.trace("Starting Contractor client...");
 		EventQueue.invokeLater(new Runnable() {
+			@Override
 			public void run() {
-				try {
-					ContractorClient.initialize();
-					ContractorClient.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-
+				ContractorAccount user = new ContractorAccount();
+				user.setUuid("Debug");
+				char[] ps = {'a','b', 'c'};
+				user.setPswd(ps);
+				user.setFirstName("Random");
+				user.setLastName("Person");
+				user.setAddress1("123 Main Street");
+				user.setAddress2("Suite 500");
+				user.setState("OH");
+				user.setZipCode("45402");
+				user.setPhoneNumber("123-456-7890");
+				user.setCity("Dayton");
+				user.setEmailAddress("test123@temp.com");
+				new ContractorClient().buildGui(user);
 			}
 		});
 	}

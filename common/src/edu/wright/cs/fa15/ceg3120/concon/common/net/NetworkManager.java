@@ -32,6 +32,7 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Method;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -50,12 +51,6 @@ public class NetworkManager {
 	private static ConConServer server;
 	private static ConConClient client;
 
-	//@NetworkHandler("echoChannel")
-	//public MessageHolder echo(Serializable msg) {
-	//	System.out.println(msg.toString);
-	//	return new MessageHolder("responseChannel", "Echo: " + msg.toString());
-	//}
-
 	/**
 	 * Searches a class for methods annotated with NetworkHandler and registers them to the bus.
 	 * Every NetworkHandler method in a module MUST have a unique channel.
@@ -70,11 +65,11 @@ public class NetworkManager {
 		for (Method m : methods) {
 			if (m.isAnnotationPresent(NetworkHandler.class)) {
 				Class<?>[] argClasses = m.getParameterTypes();
-				String channel = m.getAnnotation(NetworkHandler.class).value();
+				String channel = m.getAnnotation(NetworkHandler.class).channel();
 				if (argClasses.length != 1
 						|| (!m.getReturnType().equals(Void.TYPE)
 							&& !m.getReturnType().equals(MessageHolder.class))
-						|| !argClasses[0].equals(Serializable.class)
+						|| !Serializable.class.isAssignableFrom(argClasses[0])
 						|| NETWORK_BUS.keySet().contains(channel)) {
 					LOG.error("Invalid parameters on NetworkHandler method: "
 							+ m.getName());
@@ -97,11 +92,9 @@ public class NetworkManager {
 	public static MessageHolder post(String targetChannel, Serializable message) {
 		for (Map.Entry<String, Method> listener : NETWORK_BUS.entrySet()) {
 			if (listener.getKey().equals(targetChannel)) {
+				LOG.debug("Recieved message: " + message);
 				try {
-					Object response = listener.getValue().invoke(null, message);
-					if (response instanceof MessageHolder) {
-						return (MessageHolder)response;
-					}
+					return (MessageHolder) listener.getValue().invoke(null, message);
 				} catch (ReflectiveOperationException e) {
 					LOG.error("Error while posting to " + targetChannel, e);
 				}
@@ -129,7 +122,7 @@ public class NetworkManager {
 	 * Stops the running server.
 	 */
 	public static void stopServer() {
-		server.quit();
+		server.close();
 		server = null;
 	}
 
@@ -174,26 +167,28 @@ public class NetworkManager {
 	}
 
 	/**
-	 * Decodes a previously-encoded XML string to an Object.
+	 * Decodes a previously-encoded XML string to a Javabean Object.
 	 * @param xml Data to parse.
 	 * @return result.
-	 * @throws UnsupportedEncodingException //
+	 * @throws UnsupportedEncodingException The Character Encoding is not supported.
 	 */
-	protected static Object decodeFromXml(String xml) throws UnsupportedEncodingException {
+	protected static Serializable decodeFromXml(String xml) throws UnsupportedEncodingException {
 		if (xml == null || xml.equals("")) {
 			return null;
 		}
-		XMLDecoder xmlWizard = new XMLDecoder(new ByteArrayInputStream(xml.getBytes("UTF-8")));
-		Object result = xmlWizard.readObject();
+		XMLDecoder xmlWizard = new XMLDecoder(
+				new ByteArrayInputStream(xml.getBytes(StandardCharsets.UTF_8))
+			);
+		Serializable result = (Serializable) xmlWizard.readObject();
 		xmlWizard.close();
 		return result;
 	}
 
 	/**
-	 * Encodes an arbitrary Object into an XML string.
+	 * Encodes a Javabean Object into an XML string.
 	 * @param message Message to encode.
-	 * @return encoded XML data.
-	 * @throws UnsupportedEncodingException //
+	 * @return encoded data.
+	 * @throws UnsupportedEncodingException The Character Encoding is not supported.
 	 */
 	protected static String encodeToXml(Serializable message)
 			throws UnsupportedEncodingException {
@@ -201,9 +196,25 @@ public class NetworkManager {
 			return null;
 		}
 		ByteArrayOutputStream out = new ByteArrayOutputStream();
-		XMLEncoder xmlWizard = new XMLEncoder(out, "UTF-8", false, 0);
+		XMLEncoder xmlWizard = new XMLEncoder(out, StandardCharsets.UTF_8.name(), true, 0);
 		xmlWizard.writeObject(message);
 		xmlWizard.close();
-		return out.toString("UTF-8");
+		return out.toString(StandardCharsets.UTF_8.name());
+	}
+
+	/**
+	 * Get client.
+	 * @return the client
+	 */
+	public static ConConClient getClient() {
+		return client;
+	}
+
+	/**
+	 * Get server.
+	 * @return the server
+	 */
+	public static ConConServer getServer() {
+		return server;
 	}
 }
