@@ -133,7 +133,7 @@ public class TabbedFrame extends JFrame{
 		amountOwed = new JTextField();
 		amountInWallet = new JTextField();
 		amountRemaining = new JTextField();
-		final PaymentData pd = new PaymentData();
+		PaymentData pd = new PaymentData();
 
 		jtabbedPane.setBackground(Color.orange);   
 //////////////////////////////////////////////////////////
