@@ -69,25 +69,37 @@ public class DbRequestData implements Serializable {
 	}
 	
 	/**
-	 * Send a data request to the database over the network.
+	 * Send a data request to the server over the network.
 	 * @param request DbRequestData object containing the RequestObject to use.
-	 * @return A MessageHolder object containing the result of the request.
+	 * @return A MessageHolder object containing the request to be sent.
 	 */
-	@NetworkHandler(channel = "requestProcess")
-	public static MessageHolder processRequest(DbRequestData request) {
-		// TODO process request
-		DbRequestData result = new DbRequestData();
+	@NetworkHandler(channel = "toServer")
+	public static MessageHolder sendRequestToServer(DbRequestData request) {
 		
-		return new MessageHolder("requestProcessReturn", result);
+		return new MessageHolder("fromClient", request);
 	}
 	
 	/**
-	 * Return the results of a data request to the client over the network.
+	 * Receive a request from the client, process it, and send back any result.
+	 * @param request DbRequestData object containing the request to be processed.
+	 * @return MessageHolder object containing the result.
+	 */
+	@NetworkHandler(channel = "fromClient")
+	public static MessageHolder recieveRequestFromClient(DbRequestData request) {
+		// TODO Do something with the request
+		
+		DbRequestData result = new DbRequestData();
+		
+		return new MessageHolder("toClient", result);
+	}
+	
+	/**
+	 * Accept the results of a data request from the server over the network.
 	 * @param result The result of the database query, contained in a DbRequestObject.
 	 * @return Null MessageHolder that ends the communication.
 	 */
-	@NetworkHandler(channel = "requestProcessReturn")
-	public static MessageHolder requestResult(DbRequestData result) {
+	@NetworkHandler(channel = "toClient")
+	public static MessageHolder receiveResultFromServer(DbRequestData result) {
 		
 		return new MessageHolder("end", null);
 	}
