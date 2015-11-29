@@ -31,7 +31,7 @@
 package edu.wright.cs.fa15.ceg3120.concon.paysched;
 
 import edu.wright.cs.fa15.ceg3120.concon.common.net.data.SchedulingData;
-//import edu.wright.cs.fa15.ceg3120.concon.paysched.PaymentData;
+import edu.wright.cs.fa15.ceg3120.concon.paysched.PaymentData;
 
 import java.awt.Color;
 import java.text.DecimalFormat;
@@ -133,7 +133,7 @@ public class TabbedFrame extends JFrame{
 		amountOwed = new JTextField();
 		amountInWallet = new JTextField();
 		amountRemaining = new JTextField();
-		//final PaymentData pd = new PaymentData();
+		final PaymentData pd = new PaymentData();
 
 		jtabbedPane.setBackground(Color.orange);   
 //////////////////////////////////////////////////////////
@@ -232,9 +232,9 @@ public class TabbedFrame extends JFrame{
 		);
 		
 		//Set values for payment object
-		//pd.setAmountOwed(owed);
-		//pd.setAmountInWallet(wallet);
-		//pd.setAmountRemaining(remaining);
+		pd.setAmountOwed(owed);
+		pd.setAmountInWallet(wallet);
+		pd.setAmountRemaining(remaining);
 		
 		
 		paymentTabPanel.setBackground(Color.orange);
@@ -326,20 +326,24 @@ public class TabbedFrame extends JFrame{
 //////////////////////////////////////////////////////////
 		totalPaymentOverview.setText("Total Payment:");
 		
-		totalPaymentLabel.setText("$" + currency.format(remaining));
+		totalPaymentLabel.setText("$" + currency.format(pd.getAmountOwed()));
 		totalPaymentLabel.setEditable(false);
 
 		finalScheduledApptTime.setText("Scheduled "
 				+ "Appointment Time:");
-		finalScheduledApptLabel.setText(sd.getMonth() + " " 
-				+ sd.getDay() + " between " + sd.getTimeRange());
-		finalScheduledApptLabel.setEditable(false);
 		
 		finalScheduledApptLabel.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				scheduledApptLabelListener(evt);
+				SchedulingData sch = scheduledApptLabelListener(evt);
+				finalScheduledApptLabel.setText(sch.getMonth() + " " 
+						+ sch.getDay() + " between " + sch.getTimeRange());
+				
 			}
 		});
+		
+		finalScheduledApptLabel.setEditable(false);
+		
+		
 
 		confirmButton.setText("Confirm");
 		
@@ -519,8 +523,10 @@ public class TabbedFrame extends JFrame{
      * Action Listener for scheduledAppt Label.
      * @param evt temp.
      */
-	private void scheduledApptLabelListener(java.awt.event.ActionEvent evt) {
-
+	private SchedulingData scheduledApptLabelListener(java.awt.event.ActionEvent evt) {
+		SchedulingData sd = new SchedulingData((String)monthsList.getSelectedItem(), 
+				(int)daysList.getSelectedItem(), (String)monthsList.getSelectedItem());
+		return sd;
 	}//GEN-LAST:event_scheduledApptLabelListener
 
 	/**
