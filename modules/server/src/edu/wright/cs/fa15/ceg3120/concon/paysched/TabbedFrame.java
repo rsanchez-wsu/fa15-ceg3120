@@ -34,6 +34,7 @@ import edu.wright.cs.fa15.ceg3120.concon.common.net.data.SchedulingData;
 import edu.wright.cs.fa15.ceg3120.concon.paysched.PaymentData;
 
 import java.awt.Color;
+//import java.awt.event.ActionEvent;
 import java.text.DecimalFormat;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
@@ -83,7 +84,8 @@ public class TabbedFrame extends JFrame{
 	private JTextField amountRemaining; 
 	//will display the amount of money remaining after the
 	//amount owed is subtracted from the amount in wallet
-
+	
+	
 	// End of variables declaration//GEN-END:variables
 
 	/**
@@ -112,6 +114,7 @@ public class TabbedFrame extends JFrame{
 		daysList = new JComboBox<>();
 		timesList = new JComboBox<>();
 		schedulingTabHeader = new JLabel();
+		
 		
 
 		//Overview Tab Variables
@@ -313,14 +316,11 @@ public class TabbedFrame extends JFrame{
 		
 		
 		//Group I dont think we need this the listener below makes one for us
-		/*
 		SchedulingData sd = new SchedulingData();
-		//Set values for scheduling object
 		sd.setMonth((String)monthsList.getSelectedItem());
 		sd.setDay((int)daysList.getSelectedItem());
-		sd.setTimeRange((String) timesList.getSelectedItem());
+		sd.setTimeRange((String)timesList.getSelectedItem());
 		
-		*/
 		//Add Scheduling tab to GUI
 		schedulingTabPanel.setBackground(Color.orange);
 		jtabbedPane.addTab("Scheduling *", schedulingTabPanel);
@@ -339,15 +339,7 @@ public class TabbedFrame extends JFrame{
 		finalScheduledApptTime.setText("Scheduled "
 				+ "Appointment Time:");
 		
-		finalScheduledApptLabel.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				SchedulingData sch = scheduledApptLabelListener(evt);
-				finalScheduledApptLabel.setText(sch.getMonth() + " " 
-						+ sch.getDay() + " between " + sch.getTimeRange());
-				
-			}
-		});
-		
+		finalScheduledApptLabel.setText(sd.getMonth() + " " + sd.getDay());
 		finalScheduledApptLabel.setEditable(false);
 		
 		
@@ -370,12 +362,6 @@ public class TabbedFrame extends JFrame{
 
 		chosenContractor.setText("Contractor Chosen:");
 		chosenContractorLabel.setEditable(false);
-
-		chosenContractorLabel.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				choseCOntractorLabelListener(evt);
-			}
-		});
 
 		javax.swing.GroupLayout overviewLayout = new javax.swing.GroupLayout(overviewTabPanel);
 		overviewTabPanel.setLayout(overviewLayout);
@@ -525,24 +511,6 @@ public class TabbedFrame extends JFrame{
 	private void cancelButtonListener(java.awt.event.MouseEvent evt) {
 		this.dispose();
 	}//GEN-LAST:event_cancelButtonListener
-
-	/**
-     * Action Listener for scheduledAppt Label.
-     * @param evt temp.
-     */
-	private SchedulingData scheduledApptLabelListener(java.awt.event.ActionEvent evt) {
-		SchedulingData sd = new SchedulingData((String)monthsList.getSelectedItem(), 
-				(int)daysList.getSelectedItem(), (String)monthsList.getSelectedItem());
-		return sd;
-	}//GEN-LAST:event_scheduledApptLabelListener
-
-	/**
-     * Action Listener for scheduledAppt Label.
-     * @param evt temp.
-     */
-	private void choseCOntractorLabelListener(java.awt.event.ActionEvent evt) {
-
-	}//GEN-LAST:event_choseCOntractorLabelListener
 
 	/**
 	 * Javadoc needed.
