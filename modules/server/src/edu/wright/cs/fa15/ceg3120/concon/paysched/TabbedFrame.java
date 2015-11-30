@@ -34,6 +34,8 @@ import edu.wright.cs.fa15.ceg3120.concon.common.net.data.SchedulingData;
 import edu.wright.cs.fa15.ceg3120.concon.paysched.PaymentData;
 
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 //import java.awt.event.ActionEvent;
 import java.text.DecimalFormat;
 import javax.swing.DefaultComboBoxModel;
@@ -257,6 +259,7 @@ public class TabbedFrame extends JFrame{
 				"April", "June", "July", "August", "September",
 				"October", "November", "December" }));
 
+		
 		//Combo box that lists available dates during selected months
 		daysList.setModel(new DefaultComboBoxModel(new Integer[] { 1,2,3,4,5}));
 
@@ -320,6 +323,7 @@ public class TabbedFrame extends JFrame{
 		sd.setMonth((String)monthsList.getSelectedItem());
 		sd.setDay((int)daysList.getSelectedItem());
 		sd.setTimeRange((String)timesList.getSelectedItem());
+		
 		
 		//Add Scheduling tab to GUI
 		schedulingTabPanel.setBackground(Color.orange);
@@ -430,9 +434,47 @@ public class TabbedFrame extends JFrame{
 				.addGap(41, 41, 41))
 		);
 
+		ActionListener months = new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent evt) {
+				
+				monthsListener(evt, sd,finalScheduledApptLabel );
+				
+			}
+			
+			
+		};
+		monthsList.addActionListener(months);
+		
+		ActionListener day = new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent evt) {
+				dayListener(evt,sd,finalScheduledApptLabel);
+				
+			}
+			
+		};
+		daysList.addActionListener(day);
+		
+		ActionListener range = new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent evt) {
+				
+				rangeListener(evt, sd,finalScheduledApptLabel);
+				
+			}
+			
+			
+			
+			
+		};
+		timesList.addActionListener(range);
+		
 		overviewTabPanel.setBackground(Color.orange);
 		jtabbedPane.addTab("Overview *", overviewTabPanel);
-
+		
 		ChangeListener changeListener = new ChangeListener(){
 
 			public void stateChanged(ChangeEvent e2) {
@@ -529,4 +571,53 @@ public class TabbedFrame extends JFrame{
 
 		}
 	}
+	
+	/**This method changes the months part of the final appointment text field.
+	 * 
+	 * @param evt event that uses this listener
+	 * @param data the scheduling data to change
+	 * @param blah the text field to alter
+	 */
+	public void monthsListener(ActionEvent evt, SchedulingData data, JTextField blah) {
+		
+		JComboBox<?> temp = (JComboBox<?>) evt.getSource();
+		data.setMonth((String)temp.getSelectedItem());
+		String text = data.getMonth() + " " + Integer.toString(data.getDay()) + " " 
+				+ data.getTimeRange();
+		blah.setText(text);
+		
+	}
+	
+	/**A Listener that changes the day in the final appointment textbox.
+	 * 
+	 * @param evt the event that 
+	 * @param data the scheduling data that will be altered
+	 * @param blah the textfeild that will change in teh method
+	 */
+	public void dayListener(ActionEvent evt, SchedulingData data, JTextField blah) {
+		
+		JComboBox<?> temp = (JComboBox<?>) evt.getSource();
+		data.setDay((int)temp.getSelectedItem());
+		String text = data.getMonth() + " " + Integer.toString(data.getDay()) + " " 
+				+ data.getTimeRange();
+		blah.setText(text);
+		
+	}
+
+	/** This method changes the final appointment text box with updated data.
+	 * 
+	 * @param evt the event that uses this listener 
+	 * @param data the scheduling data that will be used to change the text field.
+	 * @param blah the text field that will be changed in this method.
+	 */
+	public void rangeListener(ActionEvent evt, SchedulingData data, JTextField blah) {
+	
+		JComboBox<?> temp = (JComboBox<?>) evt.getSource();
+		data.setTimeRange((String)temp.getSelectedItem());
+		String text = data.getMonth() + " " + Integer.toString(data.getDay()) + " " 
+				+ data.getTimeRange();
+		blah.setText(text);
+	
+	}
 }
+
