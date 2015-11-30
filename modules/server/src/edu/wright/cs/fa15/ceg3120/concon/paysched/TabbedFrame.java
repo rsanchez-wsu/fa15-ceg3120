@@ -319,7 +319,7 @@ public class TabbedFrame extends JFrame{
 		
 		
 		//Group I dont think we need this the listener below makes one for us
-		SchedulingData sd = new SchedulingData();
+		final SchedulingData sd = new SchedulingData();
 		sd.setMonth((String)monthsList.getSelectedItem());
 		sd.setDay((int)daysList.getSelectedItem());
 		sd.setTimeRange((String)timesList.getSelectedItem());
@@ -450,7 +450,7 @@ public class TabbedFrame extends JFrame{
 		ActionListener day = new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent evt) {
-				dayListener(evt,sd,finalScheduledApptLabel);
+				dayListener(evt, sd, finalScheduledApptLabel);
 				
 			}
 			
