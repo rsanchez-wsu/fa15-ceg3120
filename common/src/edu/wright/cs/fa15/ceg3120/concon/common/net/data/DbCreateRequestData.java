@@ -21,6 +21,9 @@
 
 package edu.wright.cs.fa15.ceg3120.concon.common.net.data;
 
+import edu.wright.cs.fa15.ceg3120.concon.common.data.RequestObject;
+import edu.wright.cs.fa15.ceg3120.concon.common.data.RequestType;
+
 /**
  * Data object containing a database "create" request.
  * 
@@ -28,5 +31,26 @@ package edu.wright.cs.fa15.ceg3120.concon.common.net.data;
  *
  */
 public class DbCreateRequestData {
+	
+	/**
+	 * Create an empty object.
+	 */
+	public DbCreateRequestData() {
+		
+	}
+	
+	/**
+	 * Create a DbCreateRequestData object to hold the RequestObject given.
+	 * @param request RequestObject to transfer.
+	 * @throws RequestTypeMismatchException Thrown if the request type of {@code request}
+	 * 				is not CREATE.
+	 */
+	public DbCreateRequestData(RequestObject request) throws RequestTypeMismatchException {
+		if (request.getRequestType() != RequestType.CREATE) {
+			throw new RequestTypeMismatchException(RequestType.CREATE, request.getRequestType());
+		}
+		
+		// Do stuff.
+	}
 
 }

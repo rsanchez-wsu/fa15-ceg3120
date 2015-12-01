@@ -21,6 +21,9 @@
 
 package edu.wright.cs.fa15.ceg3120.concon.common.net.data;
 
+import edu.wright.cs.fa15.ceg3120.concon.common.data.RequestObject;
+import edu.wright.cs.fa15.ceg3120.concon.common.data.RequestType;
+
 /**
  * Data object containing a database "update" request.
  * 
@@ -28,5 +31,26 @@ package edu.wright.cs.fa15.ceg3120.concon.common.net.data;
  *
  */
 public class DbUpdateRequestData {
+	
+	/**
+	 * Create an empty object.
+	 */
+	public DbUpdateRequestData() {
+		
+	}
+	
+	/**
+	 * Create a DbUpdateRequestData object to hold the RequestObject given.
+	 * @param request RequestObject to transfer.
+	 * @throws RequestTypeMismatchException Thrown if the request type of {@code request}
+	 * 				is not UPDATE.
+	 */
+	public DbUpdateRequestData(RequestObject request) throws RequestTypeMismatchException {
+		if (request.getRequestType() != RequestType.UPDATE) {
+			throw new RequestTypeMismatchException(RequestType.UPDATE, request.getRequestType());
+		}
+		
+		// Do stuff.
+	}
 
 }
