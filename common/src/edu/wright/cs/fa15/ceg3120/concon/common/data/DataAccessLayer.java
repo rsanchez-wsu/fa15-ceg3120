@@ -337,10 +337,11 @@ public class DataAccessLayer extends Thread {
 	/**
 	 * Private inner class for connecting to the database and executing SQL statements.
 	 */
-	private class DatabaseConnection {
-		private int objectType;
+	private static class DatabaseConnection {
+		// Findbugs says this is unused. Uncomment if otherwise.
+		//private int objectType;
 		private Connection conn = null;
-		private final String url = "jdbc:derby:/Users/Moorman/MyDB;create=true";
+		private static final String url = "jdbc:derby:/Users/Moorman/MyDB;create=true";
 		
 		/**
 		 * No argument constructor.
