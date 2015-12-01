@@ -30,7 +30,7 @@ import java.util.HashMap;
  * @author Jonathan Thomas
  *
  */
-public class RequestTypeMismatchException extends Throwable {
+public class RequestTypeMismatchException extends Exception {
 	private static final long serialVersionUID = 262001356481065106L;
 	
 	/**
