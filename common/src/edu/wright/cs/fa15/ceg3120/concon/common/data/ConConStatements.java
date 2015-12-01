@@ -111,6 +111,8 @@ public class ConConStatements {
 	 * for CREATE to be executed against the database.
 	 * @param ob Request object that will be needed for the prepared statement.
 	 */
+	// This method creates a false positive in findbugs. This is the only way to get rid of it.
+	@edu.umd.cs.findbugs.annotations.SuppressFBWarnings( "OBL_UNSATISFIED_OBLIGATION" )
 	private static ArrayList<PreparedStatement> createPreparedStatements(RequestObject ob, 
 																				Connection conn) {
 		ArrayList<PreparedStatement> list = new ArrayList<PreparedStatement>();
@@ -119,7 +121,7 @@ public class ConConStatements {
 			
 			ContractorAccount account = (ContractorAccount) ob.getData();
 			
-			PreparedStatement createUserAccount = null;
+			PreparedStatement createUserAccount;
 			
 			String stmt1 = "INSERT INTO USER_ACCOUNTS (ACCOUNT_TYPE, USERNAME, PASSWORD)"
 					+ "VALUES (?, ?, ?)";
