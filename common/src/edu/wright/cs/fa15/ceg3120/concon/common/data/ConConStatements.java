@@ -86,7 +86,7 @@ public class ConConStatements {
 			}
 		}
 		
-		list.removeAll(list);
+		list.clear();
 		
 		return resultList;
 	}
@@ -103,7 +103,7 @@ public class ConConStatements {
 				System.out.println(e);
 			}
 		}
-		list.removeAll(list);
+		list.clear();
 	}
 	
 	/**
