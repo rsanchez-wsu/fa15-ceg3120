@@ -44,7 +44,9 @@ public class DocumentEmailFilter extends DocumentFilter {
 	 * Creates a new instance of <code>DocumentEmailFilter</code>.
 	 */
 	public DocumentEmailFilter() {
-		regEx = Pattern.compile("^[A-Za-z0-9_]+?@.+?\\..+$");
+		regEx = Pattern.compile("^(?=[A-Z0-9][A-Z0-9._%+-]{5,253}+$)"
+				+ "[A-Z0-9._%+-]{1,64}+@(?:(?=[A-Z0-9-]{1,63}+\\.)"
+				+ "[A-Z0-9]++(?:-[A-Z0-9]++)*+\\.){1,8}+[A-Z]{2,63}+$");
 		filter = false;
 	}// ^[A-Za-z0-9_][^!#$%^&*()+=<>?,.\\/\\\\\\[\\]\\{\\}`~]+?@.+?\\..+$
 	
