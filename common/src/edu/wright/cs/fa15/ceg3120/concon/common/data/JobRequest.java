@@ -173,7 +173,7 @@ public class JobRequest implements Serializable{
 	public void setImagePath(String imagePath) {
 		this.imagePath = imagePath;
 		picsOfCurrentState = new ImageIcon(imagePath).getImage();
-	}
+	} // XXX This won't work. Need to find a hack to get the info from the XML.
 
 	/**
 	 * Gets the Image of the Job Request.

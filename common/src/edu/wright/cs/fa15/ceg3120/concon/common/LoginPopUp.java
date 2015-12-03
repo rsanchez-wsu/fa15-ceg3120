@@ -96,7 +96,7 @@ public class LoginPopUp implements Serializable{
 		loginFrame.setIconImage(imageResources.getImage(ICON_IMG ).getImage());
 		
 		loginFrame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
-		loginFrame.addWindowListener(new MyWindowAdapter(user));
+		loginFrame.addWindowListener(new MyWindowAdapter());
 
 		loginFrame.setVisible(true);
 
@@ -316,22 +316,13 @@ public class LoginPopUp implements Serializable{
 	 *
 	 */
 	private class MyWindowAdapter extends WindowAdapter{
-		//private UserAccount user;
-		
-		/**
-		 * Creates a new instance of <code>MyWindowAdapter</code>.
-		 * 
-		 * @param user the user
-		 */
-		public MyWindowAdapter(UserAccount user) {
-			//this.user = user;
-		}
 		
 		@Override
 		public void windowClosing(WindowEvent ev) {
 				// release any network/file resources
+			passwordField.setText("");
 			if (user != null) {
-				if (user.getPswd() != null) {
+				if (user.getPswd().length > 0) {
 					char[] overwrite = new char[user.getPswd().length];
 					for (int i = 0; i < overwrite.length; ++i) {
 						overwrite[i] = '\0';
