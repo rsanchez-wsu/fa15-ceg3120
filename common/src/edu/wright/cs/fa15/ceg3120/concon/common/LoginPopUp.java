@@ -28,10 +28,9 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.Externalizable;
-import java.io.IOException;
-import java.io.ObjectInput;
-import java.io.ObjectOutput;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.io.Serializable;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.TimeUnit;
 
@@ -55,14 +54,14 @@ import javax.swing.SwingUtilities;
  * @author Paul Quackenbush
  *
  */
-public class LoginPopUp implements Externalizable{
+public class LoginPopUp implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private UserAccount user;
 	private static ArrayBlockingQueue<UserAccount> incoming = new ArrayBlockingQueue<>(3);
 
 	private JButton loginButton;
 	private JButton btnCreateAccount;
-	private SpringLayout currentLayout;
+	private transient SpringLayout currentLayout;
 	private JTextField uuidField;
 	private JPasswordField passwordField;
 	private Resources imageResources;
@@ -118,86 +117,9 @@ public class LoginPopUp implements Externalizable{
 		 * Networking so user can be set properly. Preferably a blocking mechanism that will timeout
 		 * when we want it to.
 		 */
-		loginButton.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent ev) {
-				if (verifyFields()) {
-					// user has been set
-					// blah blah... shipped user to network, reset user to null
-					loginButton.setEnabled(false);
-					btnCreateAccount.setEnabled(false);
-					
-					/* Add invocation of ArrayBlockingQueue.poll(long, TimeUnit)
-					 * to the end of the EDT execution queue to ensure a "happens
-					 * before" relationship with the JButton.setEnabled(boolean)
-					 * calls. 
-					 */
-					SwingUtilities.invokeLater(new Runnable() {
-						@Override
-						public void run() {
-							try {
-								//this needs to come out
-								(new CreateNewAccount()).buildGui();
-								// remove above
-								user = incoming.poll(5, TimeUnit.SECONDS);
-							} catch (InterruptedException e) {
-								e.printStackTrace();
-								JOptionPane.showConfirmDialog(null,
-										"The program experienced an internal error."
-										+ "\nPlease try again...",
-										"Error", JOptionPane.OK_OPTION,
-										JOptionPane.ERROR_MESSAGE);
-							} finally {
-								System.out.println(user + " test");
-								if (user != null) {
-									/*
-									 * Schedule the loginFrame to be disposed on the EDT before
-									 * launching the new GUI.
-									 */
-									SwingUtilities.invokeLater(new Runnable() {
-										@Override
-										public void run() {
-											loginFrame.dispose();
-										}
-									});
-									user.launchGui();
-								} else {
-									JOptionPane.showMessageDialog(null,
-											"Your request timed out."
-											+ "\nPlease try again...",
-											"Error", JOptionPane.ERROR_MESSAGE);
-									loginButton.setEnabled(true);
-									btnCreateAccount.setEnabled(true);
-								}
-							} //end try/catch/finally
-						} //end run
-					});
-
-				}
-			}// end actionPerformed
-			
-			public boolean verifyFields() {
-				String uuid = uuidField.getText();
-				if (uuid.length() > 0) {
-					if (passwordField.getPassword().length > 0) {
-						// XXX encrypt pswd before creating new UserAccount
-						user = new UserAccount(uuid, null, passwordField.getPassword());
-					} else {
-						JOptionPane.showMessageDialog(null,
-								"The password field is blank." + "\nPlease try agian...",
-								"Error", JOptionPane.ERROR_MESSAGE);
-						return false;
-					}
-				} else {
-					JOptionPane.showMessageDialog(null,
-							"The Username field is blank.\nPlease try agian...",
-							"Error", JOptionPane.ERROR_MESSAGE);
-					return false;
-				}
-				return true;
-			}//end verifyFields
-		});
+		loginButton.addActionListener(new LoginListener(loginFrame));
+		uuidField.addKeyListener(new LoginListener(loginFrame));
+		passwordField.addKeyListener(new LoginListener(loginFrame));
 
 	}// end buildGui
 
@@ -239,6 +161,13 @@ public class LoginPopUp implements Externalizable{
 	}
 	
 	/**
+	 * Makes findBugs quiet...
+	 */
+	public void readObject() { // XXX
+		currentLayout = new SpringLayout();
+	}
+	
+	/**
 	 * Entry point for the main unit.
 	 * 
 	 * @param args Command line arguments
@@ -253,11 +182,133 @@ public class LoginPopUp implements Externalizable{
 		});
 
 	}
+	
+	/**
+	 * Listener for the login functionality.
+	 * 
+	 * @author Quack
+	 *
+	 */
+	private class LoginListener extends KeyAdapter implements ActionListener{
+		JFrame loginFrame;
+		
+		/**
+		 * Creates a new instance of <code>LoginListener</code>.
+		 * @param frame JFrame
+		 */
+		public LoginListener(JFrame frame) {
+			loginFrame = frame;
+		}
+		
+		@Override
+		public void keyPressed(KeyEvent ev) {
+			int keyPress = ev.getKeyCode();
+			if (keyPress == KeyEvent.VK_ENTER) {
+				actionPerformed(null);
+			}
+		}
+
+		@Override
+		public void actionPerformed(ActionEvent ev) {
+			if (verifyFields()) {
+				// user has been set
+				// blah blah... shipped user to network, reset user to null
+				loginButton.setEnabled(false);
+				btnCreateAccount.setEnabled(false);
+				
+				/* Add invocation of ArrayBlockingQueue.poll(long, TimeUnit)
+				 * to the end of the EDT execution queue to ensure a "happens
+				 * after" relationship with the JButton.setEnabled(boolean)
+				 * calls. 
+				 */
+				SwingUtilities.invokeLater(new Runnable() {
+					@Override
+					public void run() {
+						try {
+							//this needs to come out
+							(new CreateNewAccount()).buildGui();
+							// remove above
+							user = incoming.poll(5, TimeUnit.SECONDS);
+						} catch (InterruptedException e) {
+							e.printStackTrace();
+							JOptionPane.showConfirmDialog(null,
+									"The program experienced an internal error."
+									+ "\nPlease try again...",
+									"Error", JOptionPane.OK_OPTION,
+									JOptionPane.ERROR_MESSAGE);
+						} finally {
+							System.out.println(user + " test");
+							if (user != null) {
+								/*
+								 * Schedule the loginFrame to be disposed on the EDT before
+								 * launching the new GUI.
+								 */
+								SwingUtilities.invokeLater(new Runnable() {
+									@Override
+									public void run() {
+										loginFrame.dispose();
+									}
+								});
+								//user = new ServerAdminAccount();
+								if (user.getClass().equals(UserAccount.class)) {
+									JOptionPane.showMessageDialog(null,
+											"Database Response:\n   " 
+													+ (user.getdbResponse() == null 
+													? "ERROR" : user.getdbResponse()),
+											"Error", JOptionPane.ERROR_MESSAGE);
+									loginButton.setEnabled(true);
+									btnCreateAccount.setEnabled(true);
+								} else {
+									user.launchGui();
+								}
+							} else {
+								JOptionPane.showMessageDialog(null,
+										"Your request timed out."
+										+ "\nPlease try again...",
+										"Error", JOptionPane.ERROR_MESSAGE);
+								loginButton.setEnabled(true);
+								btnCreateAccount.setEnabled(true);
+							}
+						} //end try/catch/finally
+					} //end run
+				});
+			}
+		}// end actionPerformed
+		
+		/**
+		 * Verifies that the user has supplied input.
+		 * @return true iff all fields have been filled
+		 */
+		public boolean verifyFields() {
+			String uuid = uuidField.getText();
+			if (uuid.length() > 0) {
+				if (passwordField.getPassword().length > 0) {
+					// XXX encrypt pswd before creating new UserAccount
+					user = new UserAccount(uuid, null, passwordField.getPassword());
+				} else {
+					JOptionPane.showMessageDialog(null,
+							"The password field is blank." + "\nPlease try agian...",
+							"Error", JOptionPane.ERROR_MESSAGE);
+					return false;
+				}
+			} else {
+				JOptionPane.showMessageDialog(null,
+						"The Username field is blank.\nPlease try agian...",
+						"Error", JOptionPane.ERROR_MESSAGE);
+				return false;
+			}
+			return true;
+		}//end verifyFields
+	}//end LoginListener
+
+/*############################################################################*/
+/*############################################################################*/
+/*############################################################################*/
 
 	/**
 	 * TODO Explain.
 	 * 
-	 * @author Paul Quackenbush
+	 * @author Corey Miller
 	 *
 	 */
 	public static class StringFrame extends JFrame {
@@ -288,7 +339,7 @@ public class LoginPopUp implements Externalizable{
 	/**
 	 * JPanel containing the login text fields.
 	 * 
-	 * @author 
+	 * @author Corey Miller
 	 */
 	public class FieldPanel extends JPanel {
 		private static final long serialVersionUID = 1L;
@@ -402,16 +453,4 @@ public class LoginPopUp implements Externalizable{
 			add(lblPassword);
 		}
 	} //ends FieldPanel
-
-	@Override
-	public void writeExternal(ObjectOutput out) throws IOException {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
-		// TODO Auto-generated method stub
-		
-	}
-}
+}//end LoginPopUp

@@ -34,7 +34,8 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface NetworkHandler {
 	/**
-	 * This is an annotation argument.
+	 * This is the channel.
+	 * The default argument"end" causes the socket exchange to cease.
 	 */
-	String channel();
+	String channel() default "end";
 }

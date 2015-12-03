@@ -21,17 +21,18 @@
 
 package edu.wright.cs.fa15.ceg3120.concon.server;
 
+import edu.wright.cs.fa15.ceg3120.concon.common.net.ConConClient;
 import edu.wright.cs.fa15.ceg3120.concon.common.net.NetworkManager;
-//import edu.wright.cs.fa15.ceg3120.concon.common.net.data.UserData;
-import edu.wright.cs.fa15.ceg3120.concon.common.net.message.ChatMessage;
-//import edu.wright.cs.fa15.ceg3120.concon.common.net.message.LoginRequestMessage;
+import edu.wright.cs.fa15.ceg3120.concon.common.net.data.ChatData;
+import edu.wright.cs.fa15.ceg3120.concon.common.net.data.LoginData;
+import edu.wright.cs.fa15.ceg3120.concon.common.net.data.UserData;
 import edu.wright.cs.fa15.ceg3120.concon.common.ui.ChatPanel;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.swing.JFrame;
-//import javax.swing.JOptionPane;
+import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
 /**
@@ -39,32 +40,52 @@ import javax.swing.SwingUtilities;
  */
 public class TestClient {
 	private static final Logger LOG = LoggerFactory.getLogger(TestClient.class);
+	private static ConConClient client;
+	private static ChatPanel chatPanel;
 	
 	/**
 	 * Main entry point. TODO Expand.
 	 * @param args Arguments.
 	 */
 	public static void main(String[] args) {
+		NetworkManager.registerNetworkHandlerClass(LoginData.class);
+		NetworkManager.registerNetworkHandlerClass(UserData.class);
+		NetworkManager.registerNetworkHandlerClass(ChatData.class);
+		
 		LOG.trace("Starting client...");
 		NetworkManager.startClient("127.0.0.1", 9667);
-//		NetworkManager.registerNetworkHandlerClass(LoginRequestMessage.class);
-		NetworkManager.registerNetworkHandlerClass(ChatMessage.class);
+		client = NetworkManager.getClient();
+		
+		// create a test user to send messages to
+		// normally you would initialize with the selected user from a list
 		
 		SwingUtilities.invokeLater(new Runnable() {
 
 			@Override
 			public void run() {
 				JFrame clientFrame = new JFrame();
-//				String name = JOptionPane.showInputDialog(clientFrame, "Enter username:");
-//				String pass = JOptionPane.showInputDialog(clientFrame, "Enter password:");
-//				NetworkManager.sendMessage(null, new LoginRequestMessage(name, pass));
+				String name = JOptionPane.showInputDialog(clientFrame, "Enter username:");
+				String pass = JOptionPane.showInputDialog(clientFrame, "Enter password:");
+				String to = JOptionPane.showInputDialog(clientFrame, "Enter user to chat with:");
+				
+				NetworkManager.sendMessage("login", new LoginData(name, pass));
+				UserData testUser = new UserData(to);
+				chatPanel = new ChatPanel(client, testUser);
 				
 				clientFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-				clientFrame.getContentPane().add(new ChatPanel());
+				clientFrame.getContentPane().add(chatPanel);
 				clientFrame.setSize(400, 400);
 				clientFrame.setVisible(true);
 			}
 			
 		});
+	}
+
+	/**
+	 * Get chatPanel.
+	 * @return the chatPanel
+	 */
+	public static ChatPanel getChatPanel() {
+		return chatPanel;
 	}
 }

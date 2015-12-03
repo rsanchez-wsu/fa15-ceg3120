@@ -42,11 +42,8 @@ import javax.swing.text.BadLocationException;
 import javax.swing.text.DocumentFilter;
 import javax.swing.text.MaskFormatter;
 
-//import com.google.common.collect.ImmutableList;
-
 /**
- * temp.
- * @author Quack
+ * This class creates the contractor profile pane.
  *
  */
 public class NewContractorPane extends JPanel {
@@ -98,12 +95,6 @@ public class NewContractorPane extends JPanel {
 			"ID", "IL", "IN", "KS", "KY", "LA", "MA", "MD", "ME", "MI", "MN", "MO", "MS", 
 			"MT", "NC", "ND", "NE", "NH", "NJ", "NM", "NV", "NY", "OH", "OK", "OR", "PA", 
 			"RI", "SC", "SD", "TN", "TX", "UT", "VA", "VT", "WA", "WI", "WV", "WY"};
-//	private static final ImmutableList<String> states1 = ImmutableList.of(
-//			"NONE", "AK", "AL", "AR", "AZ", "CA", "CO", "CT", "DE", "FL", "GA", "HI", "IA", 
-//			"ID", "IL", "IN", "KS", "KY", "LA", "MA", "MD", "ME", "MI", "MN", "MO", "MS", 
-//			"MT", "NC", "ND", "NE", "NH", "NJ", "NM", "NV", "NY", "OH", "OK", "OR", "PA", 
-//			"RI", "SC", "SD", "TN", "TX", "UT", "VA", "VT", "WA", "WI", "WV", "WY"
-//			);
 	private static final JComboBox<String> cboStateUpdate = new JComboBox<String>(states);
 
 	/**
@@ -388,8 +379,8 @@ public class NewContractorPane extends JPanel {
 	}
 	
 	/**
-	 * Reads and verifies all user input creating a new HomeownerAccount with
-	 * user inputted data.
+	 * Reads and verifies all user input creating a new ContractorAccount with
+	 * user inputed data.
 	 * 
 	 * @return new ContractorAccount
 	 */
@@ -686,7 +677,7 @@ public class NewContractorPane extends JPanel {
 	}
 
 	/**
-	 * My very own variant of the FocusListener. 
+	 * Quack's variant of the FocusListener. 
 	 * 
 	 * @author Quack
 	 *

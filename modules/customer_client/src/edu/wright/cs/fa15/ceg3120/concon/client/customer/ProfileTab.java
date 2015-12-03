@@ -25,6 +25,7 @@ import edu.wright.cs.fa15.ceg3120.concon.common.NewHomeownerPane;
 import edu.wright.cs.fa15.ceg3120.concon.common.data.HomeownerAccount;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -48,6 +49,7 @@ public class ProfileTab extends JLayeredPane {
 	public ProfileTab(HomeownerAccount user) {
 		super();
 		setLayout(new BorderLayout());
+		setBackground(Color.ORANGE);
 		this.user = user;
 	}
 	
@@ -57,10 +59,12 @@ public class ProfileTab extends JLayeredPane {
 	public void buildPane() {
 		NewHomeownerPane profile = new NewHomeownerPane(user);
 		profile.setMaximumSize(new Dimension(300, 350));
+		profile.setBackground(Color.ORANGE);
 		add(profile, BorderLayout.CENTER);
 		//revalidate(); not resizing. may have to change the default size thingy
 		
 		Container subCont = new Container();
+		subCont.setBackground(Color.ORANGE);
 		subCont.setLayout(new FlowLayout(FlowLayout.RIGHT));
 		JButton submit = new JButton("Submit");
 		subCont.add(submit);

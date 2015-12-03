@@ -38,9 +38,6 @@ import javax.swing.table.DefaultTableModel;
  */
 public class OpenJobsTab extends JLayeredPane {
 
-	/**
-	 * Javadoc needed.
-	 */
 	private static final long serialVersionUID = 1L;
 	
 	private static final int WINDOW_WIDTH = Toolkit.getDefaultToolkit().getScreenSize().width

@@ -37,9 +37,8 @@ import javax.swing.JLayeredPane;
 import javax.swing.JOptionPane;
 
 /**
- * This JPanel will be used to construct the Profile tab in the Customer Client.
+ * This JPanel constructs the Profile tab in the Contractor Client.
  * 
- * @author Quack
  *
  */
 public class ProfileTab extends JLayeredPane {
@@ -51,6 +50,7 @@ public class ProfileTab extends JLayeredPane {
 		/**
 		 * Clears fields and sets their visibility to false.
 		 */
+		@Override
 		public void actionPerformed(ActionEvent arg0) {
 			clearProfileUpdates();
 			editProfileCancel();
@@ -65,6 +65,7 @@ public class ProfileTab extends JLayeredPane {
 		/**
 		 * Clears fields.
 		 */
+		@Override
 		public void actionPerformed(ActionEvent arg0) {
 			clearProfileUpdates();
 		}
@@ -78,6 +79,7 @@ public class ProfileTab extends JLayeredPane {
 		/**
 		 * Sets fields' visibility to true.
 		 */
+		@Override
 		public void actionPerformed(ActionEvent arg0) {
 			editProfile();
 		}
@@ -91,6 +93,7 @@ public class ProfileTab extends JLayeredPane {
 		/**
 		 * Saves field data to ContractorAccount user.
 		 */
+		@Override
 		public void actionPerformed(ActionEvent arg0) {
 			saveProfileUpdates();
 		}

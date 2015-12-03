@@ -26,19 +26,16 @@ import edu.wright.cs.fa15.ceg3120.concon.common.data.ContractorAccount;
 import javax.swing.JTabbedPane;
 
 /**
- * XXX temp. 
+ * This class creates the <code>JTabbedPane</code> and adds the tabs.
  *
  */
 public class ContractorMainPanel extends JTabbedPane {
 	private static final long serialVersionUID = 1L;
-//	private JLayeredPane createNewJobTab;
 
 	/**
 	 * Creates a new instance of <code>ContractorMainPanel</code>.
 	 */
 	public ContractorMainPanel(ContractorAccount user) {
-//		setBackground(Color.ORANGE);
-		
 		MainTab mainTab = new MainTab();
 		addTab("Main", null, mainTab, "Return to main page");
 		
@@ -64,14 +61,5 @@ public class ContractorMainPanel extends JTabbedPane {
 
 		OpenJobsTab openJobsTab = new OpenJobsTab();
 		addTab("Open Jobs", null, openJobsTab, null);
-
-		setupPanel();
-	}
-
-	/**
-	 * XXX temp.
-	 */
-	private void setupPanel() {
-
 	}
 }

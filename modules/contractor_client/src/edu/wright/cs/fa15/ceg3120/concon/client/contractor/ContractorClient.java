@@ -34,19 +34,13 @@ import java.awt.Desktop;
 import java.awt.EventQueue;
 import java.awt.Image;
 import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.Vector;
 
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -54,11 +48,11 @@ import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
 /**
- * Javadoc needed.
+ * This class creates the main frame and calls methods and classes to populate it.
  * 
  *
  */
-public class ContractorClient extends JFrame implements ActionListener {
+public class ContractorClient extends JFrame {
 
 	/**
 	 * Action for trying to close window by hitting X in corner.
@@ -75,34 +69,17 @@ public class ContractorClient extends JFrame implements ActionListener {
 		}
 	}
 	
-/* The following variable to be implemented when AccountType and ContractorAccount
- * imports are implemented
- * 
- * 	private static ContractorAccount account = new ContractorAccount();
-*/
 	private static ContractorAccount account = new ContractorAccount();
 	private static final Logger LOG = LoggerFactory.getLogger(ContractorClient.class);
 	private static final long serialVersionUID = 1L;
-//	private static JPanel profileTab;
-	private static JPanel curBidsTab;
-	private static ArrayList<OpenJobClass> myJobList = new ArrayList<OpenJobClass>();
-	private static ArrayList<OpenJobClass> myCurJobList = new ArrayList<OpenJobClass>();
 	public static final JTabbedPane pageTabs = new JTabbedPane(JTabbedPane.TOP);
-	private static DecimalFormat f1 = new DecimalFormat("$##.00");
-	private static JLabel[] lblCurrentBids = new JLabel[10];
-	private static JButton[] update = new JButton[10];
-	private static double[] currentBids = new double[10];
-	private static double[] previousBids = new double[10];
-	
 	public static final JFrame myFrame = new JFrame();
-	
 	private static final int WINDOW_WIDTH = Toolkit.getDefaultToolkit().getScreenSize().width
 			- 150;
 	private static final int WINDOW_HEIGHT = Toolkit.getDefaultToolkit().getScreenSize().height
 			- 150;
 	private static final int WINDOW_HEIGHT_QUARTER = Toolkit.getDefaultToolkit()
 			.getScreenSize().height	/ 4;
-	
 	private ContractorAccount user;
 	
 	/**
@@ -161,18 +138,10 @@ public class ContractorClient extends JFrame implements ActionListener {
 	public static void initialize() {
 		account.setAccountType(AccountType.CONTRACTOR);
 	}
-
-	/**
-	 * Javadoc needed.
-	 */
-	public void actionPerformed(ActionEvent e0) {
-
-	}
 	
 	/**
-	 * Needs Javadoc.
+	 * This method opens a web browser.
 	 */
-	
 	public static void openWebpage(URL url) {
 		URI uri = null;
 		try {
@@ -192,86 +161,13 @@ public class ContractorClient extends JFrame implements ActionListener {
 		}
 	}
 	
-
-	
-	/**
-	 * This method updates the Current Bids tab when a bid is submitted from the Search tab.
-	 */
-	public static void updateCurrentBidsTab() {
-		Vector<Integer> vecTest = new Vector<Integer>();
-		if (myCurJobList.isEmpty()) {
-			for (int i = 0; i < myJobList.size(); i++) {
-				myCurJobList.add(myJobList.get(i));
-			}
-			currentBids[0] = myCurJobList.get(0).getJobCurBid();
-			previousBids[0] = myCurJobList.get(0).getJobPrevBid();
-			update[0] = new JButton("Update Bid");
-			if (previousBids[0] < 1) {
-				lblCurrentBids[0] = new JLabel("You have a bid for " + f1.format(currentBids[0]));
-				curBidsTab.add(lblCurrentBids[0]);
-				curBidsTab.add(update[0]);
-			} else if (currentBids[0] > previousBids[0]) {
-				lblCurrentBids[0] = new JLabel("<html>You have a bid for "
-						+ f1.format(currentBids[0]) + "<br>You have been outbid by " 
-							+ f1.format(previousBids[0]) + "</html>");
-				curBidsTab.add(lblCurrentBids[0]);
-				curBidsTab.add(update[0]);
-			} else {
-				JOptionPane.showMessageDialog(myFrame, 
-						"You must enter a bid less than the previous bid",
-							"Invalid Bid", JOptionPane.ERROR_MESSAGE);
-			}
-		} else if (myCurJobList.size() != myJobList.size()) {
-			for (int i = 0; i < myCurJobList.size(); i++) {
-				vecTest.add(myCurJobList.get(i).getJobNumber());
-			}
-			for (int j = 0; j < myJobList.size(); j++) {
-				if (vecTest.contains(myJobList.get(j).getJobNumber()) == false) {
-					myCurJobList.add(myJobList.get(j));
-				}
-			}
-			for (int k = 0; k < myCurJobList.size(); k++) {
-				if (currentBids[k] == 0) {
-					currentBids[k] = myCurJobList.get(k).getJobCurBid();
-					previousBids[k] = myCurJobList.get(k).getJobPrevBid();
-					update[k] = new JButton("Update Bid");
-					if (previousBids[k] < 1) {
-						lblCurrentBids[k] = new JLabel("You have a bid for " 
-								+ f1.format(currentBids[k]));
-						if (lblCurrentBids[k].getParent() == curBidsTab) {
-							// Do nothing as label exists
-						} else {
-							curBidsTab.add(lblCurrentBids[k]);
-							curBidsTab.add(update[k]);
-						}
-					} else if (currentBids[k] > previousBids[k]) {
-						lblCurrentBids[k] = new JLabel("<html>You have a bid for "
-								+ f1.format(currentBids[k]) + "<br>You have been outbid by " 
-									+ f1.format(previousBids[k]) + "</html>");
-						if (lblCurrentBids[k].getParent() == curBidsTab) {
-							// Do nothing as label exists
-						} else {
-							curBidsTab.add(lblCurrentBids[k]);
-							curBidsTab.add(update[k]);
-						}
-					} else {
-						JOptionPane.showMessageDialog(myFrame, 
-								"You must enter a bid less than the previous bid",
-									"Invalid Bid", JOptionPane.ERROR_MESSAGE);
-					}
-				}
-			}			
-		}
-		curBidsTab.validate();
-		curBidsTab.repaint();
-	}
-	
 	/**
 	 * This method sets up the initial window.
 	 */
 	public static void main(String[] args) {
 		LOG.trace("Starting Contractor client...");
 		EventQueue.invokeLater(new Runnable() {
+			@Override
 			public void run() {
 				ContractorAccount user = new ContractorAccount();
 				user.setUuid("Debug");
@@ -287,26 +183,6 @@ public class ContractorClient extends JFrame implements ActionListener {
 				user.setCity("Dayton");
 				user.setEmailAddress("test123@temp.com");
 				new ContractorClient().buildGui(user);
-/*				try {
-					ContractorAccount user = new ContractorAccount();
-					user.setUuid("Debug");
-					char[] ps = {'a','b', 'c'};
-					user.setPswd(ps);
-					user.setFirstName("Random");
-					user.setLastName("Person");
-					user.setAddress1("123 Main Street");
-					user.setAddress2("Suite 500");
-					user.setState("OH");
-					user.setZipCode("45402");
-					user.setPhoneNumber("123-456-7890");
-					user.setCity("Dayton");
-					user.setEmailAddress("test123@temp.com");
-					new ContractorClient().buildGui(user);
-				} catch (Exception e) {
-					JOptionPane.showMessageDialog(myFrame, "The "
-							+ "GUI couldn't build", "GUI Failure", JOptionPane.ERROR_MESSAGE);
-				}*/
-
 			}
 		});
 	}

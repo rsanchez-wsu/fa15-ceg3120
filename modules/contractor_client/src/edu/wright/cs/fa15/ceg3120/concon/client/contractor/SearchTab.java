@@ -67,7 +67,7 @@ import javax.xml.stream.XMLStreamException;
 
 
 /**
- * Calendar Tab.
+ * This is the class for the Search tab.
  *
  */
 public class SearchTab extends JLayeredPane {
@@ -75,7 +75,73 @@ public class SearchTab extends JLayeredPane {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * Javaoc needed.
+	 * Action for when Submit Bid <code>JButton</code> is clicked.
+	 *
+	 */
+	public static final class ActionBtnSubmitBidClick implements ActionListener {
+		private final JDialog dlgJobDetails;
+		private final OpenJobClass currentJob;
+		private final JTextField txtBidText;
+
+		/**
+		 * This method creates the job details dialog.
+		 * @param dlgJobDetails.
+		 * @param currentJob.
+		 * @param txtBidText.
+		 */
+		public ActionBtnSubmitBidClick(JDialog dlgJobDetails,
+				OpenJobClass currentJob, JTextField txtBidText) {
+			this.dlgJobDetails = dlgJobDetails;
+			this.currentJob = currentJob;
+			this.txtBidText = txtBidText;
+		}
+
+		@Override
+		public void actionPerformed(ActionEvent e0) {
+//			int intChecker = 0;
+			currentJob.setJobCurBid(Double.parseDouble(txtBidText.getText()));
+			boolean addJob = CurBidsTab.addToMyJobList(currentJob);
+			if (addJob) {
+				JOptionPane.showMessageDialog(null, "Bid accepted and job added "
+						+ "to your current bids.");
+			} else {
+				JOptionPane.showMessageDialog(null, "You have already bid on this "
+						+ "job. Please check your current bids.");
+			}
+			dlgJobDetails.dispose();
+			
+			
+			
+			
+			
+			
+			
+			
+/*			if (myJobList.size() < 1) {
+				myJobList.add(currentJob);
+				System.out.println("*** " + myJobList.indexOf(currentJob));
+				CurBidsTab.updateCurrentBidsTab();
+				dlgJobDetails.dispose();
+			} else {
+				for (int i = 0; i < myJobList.size(); i++) {
+					if (myJobList.get(i).getJobNumber() == currentJob.getJobNumber()) {
+						intChecker++;
+						JOptionPane.showMessageDialog(null, "You have already bid "
+								+ "on this job. Please check your current bids.");
+						dlgJobDetails.dispose();
+					}
+				}
+				if (intChecker < 1) {
+					myJobList.add(currentJob);
+					CurBidsTab.updateCurrentBidsTab();
+					dlgJobDetails.dispose();
+				}
+			}*/
+		}
+	}
+
+	/**
+	 * This method sets up the custom renderer for the table, allowing for ToolTip text.
 	 *
 	 */
 	public static final class RenderPrepare extends JTable {
@@ -83,16 +149,17 @@ public class SearchTab extends JLayeredPane {
 		static final long serialVersionUID = 1L;
 
 		/**
-		 * Javadoc needed.
-		 * @param dm.
+		 * This method is called and sets up the custom renderer.
+		 * @param dm is a TableModel.
 		 */
 		public RenderPrepare(TableModel dm) {
 			super(dm);
 		}
 
 		/**
-		 * Javaoc needed.
+		 * This method creates the custom renderer for the JTable.
 		 */
+		@Override
 		public Component prepareRenderer(TableCellRenderer renderer, int row, int column) {
 			Component c0 = super.prepareRenderer(renderer, row, column);
 			if (c0 instanceof JComponent) {
@@ -131,16 +198,18 @@ public class SearchTab extends JLayeredPane {
 		int intSelectedRow = -1;
 
 		/**
-		 * Javadoc needed.
-		 * @param tblSearchResults.
+		 * This method creates an instance of tblSearchResuts.
+		 * @param tblSearchResults is a JTable.
 		 */
 		public ActionBtnJobDetailsClick(JTable tblSearchResults) {
 			this.tblSearchResults = tblSearchResults;
 		}
 
 		/**
-		 * Javadoc needed.
+		 * This method determines which row of the table is selected and calls 
+		 * the showJobDetailsDialog method.
 		 */
+		@Override
 		public void actionPerformed(ActionEvent arg0) {
 			intTableLength = tblSearchResults.getRowCount();
 			if (intTableLength > 0) {
@@ -168,9 +237,9 @@ public class SearchTab extends JLayeredPane {
 		private final JTextField txtSearchOptions;
 
 		/**
-		 * Javadoc needed.
-		 * @param cboSearchOptions.
-		 * @param txtSearchOptions.
+		 * This method creates instances of the Search Options JComboBox and JTextField.
+		 * @param cboSearchOptions is a JComboBox.
+		 * @param txtSearchOptions is a JTextField.
 		 */
 		public ComboBoxSelectionMade(JComboBox<String> cboSearchOptions,
 				JTextField txtSearchOptions) {
@@ -215,9 +284,10 @@ public class SearchTab extends JLayeredPane {
 		int intResultCount = 0;
 
 		/**
-		 * Javadoc needed.
-		 * @param txtSearchOptions.
-		 * @param tblSearchResults.
+		 * This method creates instances of the Search Options JTextField 
+		 * and Search Results JTable.
+		 * @param txtSearchOptions is a JTextField.
+		 * @param tblSearchResults is a JTable.
 		 */
 		public ActionBtnSearchGoClick(JTextField txtSearchOptions,
 				JTable tblSearchResults) {
@@ -226,8 +296,10 @@ public class SearchTab extends JLayeredPane {
 		}
 
 		/**
-		 * Javadoc needed.
+		 * This method calls the buildTable and populateJobListArray methods to 
+		 * create the table and populate the rows.
 		 */
+		@Override
 		public void actionPerformed(ActionEvent arg0) {
 			buildTable();
 			populateJobListArray();
@@ -391,7 +463,7 @@ public class SearchTab extends JLayeredPane {
 	private static JLabel lblNumResults5 = new JLabel();
 	private static JLabel lblNumResults6 = new JLabel();
 	private static JButton btnJobDetails = new JButton();
-	private static ArrayList<OpenJobClass> myJobList = new ArrayList<OpenJobClass>();
+//	private static ArrayList<OpenJobClass> myJobList = new ArrayList<OpenJobClass>();
 	
 	private static final int WINDOW_WIDTH = Toolkit.getDefaultToolkit().getScreenSize().width
 			- 150;
@@ -401,7 +473,7 @@ public class SearchTab extends JLayeredPane {
 			.getScreenSize().height - 150) / 4;
 	
 	/**
-	 * Build the tab.
+	 * This method builds the tab and adds it to the main panel.
 	 */
 	public SearchTab() {
 		JPanel search = new JPanel();
@@ -500,6 +572,7 @@ public class SearchTab extends JLayeredPane {
 
 			private static final long serialVersionUID = 1L;
 			
+			@Override
 			public boolean isCellEditable(int row, int column) {
 				return false;
 			}
@@ -594,7 +667,7 @@ public class SearchTab extends JLayeredPane {
 	}
 	
 	/**
-	 * Javadoc needed.
+	 * This method creates and displays a dialog containing details of the passed job.
 	 */
 	public static void showJobDetailsDialog(OpenJobClass curJob) {
 		final OpenJobClass currentJob = curJob;
@@ -681,34 +754,8 @@ public class SearchTab extends JLayeredPane {
 		btnSubmitBid.setBounds(245, 205, 100, 20);
 		dlgJobDetails.add(btnSubmitBid);
 		
-		btnSubmitBid.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				int intChecker = 0;
-				currentJob.setJobCurBid(Double.parseDouble(txtBidText.getText()));
-				if (myJobList.size() < 1) {
-					myJobList.add(currentJob);
-					System.out.println("*** " + myJobList.indexOf(currentJob));
-					CurBidsTab.updateCurrentBidsTab();
-					dlgJobDetails.dispose();
-				} else {
-					for (int i = 0; i < myJobList.size(); i++) {
-						if (myJobList.get(i).getJobNumber() == currentJob.getJobNumber()) {
-							intChecker++;
-							JOptionPane.showMessageDialog(null, "You have already bid "
-									+ "on this job. Please check your current bids.");
-							dlgJobDetails.dispose();
-						}
-					}
-					if (intChecker < 1) {
-						myJobList.add(currentJob);
-						CurBidsTab.updateCurrentBidsTab();
-						dlgJobDetails.dispose();
-					}
-				}
-			}
-		});
+		btnSubmitBid.addActionListener(new ActionBtnSubmitBidClick(
+				dlgJobDetails, currentJob, txtBidText));
 	}
 	
 	/**

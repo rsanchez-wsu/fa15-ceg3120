@@ -21,8 +21,6 @@
 
 package edu.wright.cs.fa15.ceg3120.concon.client.contractor;
 
-//import edu.wright.cs.fa15.ceg3120.concon.client.contractor.MainTab.SelectionListener;
-
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Toolkit;
@@ -187,6 +185,7 @@ public class MainTab extends JLayeredPane {
 		/**
 		 * Method that changes text based on tree selection.
 		 */
+		@Override
 		public void valueChanged(TreeSelectionEvent se) {
 			JTree tree = (JTree) se.getSource();
 			DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode) tree
