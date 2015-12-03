@@ -65,7 +65,7 @@ import java.sql.Connection;
  *
  */
 public class DatabaseHelper {
-	Connection connection = null;
+//	Connection connection = null;
 	
 	/**
 	 * Constructor to instantiate and connect to the database.
@@ -89,11 +89,11 @@ public class DatabaseHelper {
 	 */
 	public ResultSet getUsers(String... argument) {
 		ResultSet results = null;
-		if (argument[0] == null) {
-			// Return all users
-		} else {
-			// Return users using arguments
-		}
+//		if (argument[0] == null) {
+//			// Return all users
+//		} else {
+//			// Return users using arguments
+//		}
 		return results;
 	}
 	
