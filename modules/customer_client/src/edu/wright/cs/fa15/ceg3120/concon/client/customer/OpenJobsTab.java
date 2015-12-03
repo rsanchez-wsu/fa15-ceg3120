@@ -31,6 +31,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.JTree;
@@ -40,26 +41,11 @@ import javax.swing.tree.DefaultTreeModel;
 /**
  * Class.
  */
-public class OpenJobsTab {
+public class OpenJobsTab extends JLayeredPane{
 
-	private JFrame frame;
+	private static final long serialVersionUID = 1L;
+	//private JFrame frame;
 	private JTextField textField;
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					OpenJobsTab window = new OpenJobsTab();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	 * Create the application.
@@ -72,15 +58,13 @@ public class OpenJobsTab {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frame = new JFrame();
-		frame.setBounds(100, 100, 450, 300);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(new BorderLayout(0, 0));
+		setBounds(100, 100, 450, 300);
+		setLayout(new BorderLayout(0, 0));
 
 		JPanel panel = new JPanel();
 		FlowLayout flowLayout = (FlowLayout) panel.getLayout();
 		flowLayout.setAlignment(FlowLayout.RIGHT);
-		frame.getContentPane().add(panel, BorderLayout.SOUTH);
+		add(panel, BorderLayout.SOUTH);
 
 		JButton btnNewButton = new JButton("Submit");
 		btnNewButton.addActionListener(new SubmitButtonListener());
@@ -95,7 +79,7 @@ public class OpenJobsTab {
 		panel.add(btnNewButton);
 
 		JPanel panel1 = new JPanel();
-		frame.getContentPane().add(panel1, BorderLayout.CENTER);
+		add(panel1, BorderLayout.CENTER);
 
 		JTree tree = new JTree();
 		tree.setFont(new Font("DejaVu Sans", Font.PLAIN, 15));

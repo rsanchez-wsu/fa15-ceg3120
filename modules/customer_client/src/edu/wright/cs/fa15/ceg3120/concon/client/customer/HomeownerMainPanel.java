@@ -53,7 +53,7 @@ public class HomeownerMainPanel extends JTabbedPane {
 		setEnabledAt(0, true);
 		setBackgroundAt(0, Color.ORANGE);
 
-		JLayeredPane openJobsTab = new JLayeredPane();
+		JLayeredPane openJobsTab = new OpenJobsTab();
 		addTab("Open Jobs", null, openJobsTab, null);
 
 		JPanel createNewJobTab = new CreateJobTab();
