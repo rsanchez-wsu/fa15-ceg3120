@@ -168,7 +168,7 @@ public class ShowContractorsTab extends JLayeredPane {
 		Enumeration<DefaultMutableTreeNode> enumerator = root.depthFirstEnumeration();
 		// temporary - allows max of 50 nodes to be selected
 		TreePath[] allPaths = new TreePath[50];
-		int index = -1;
+		int index = 0;
 		
 		// creates pattern to match searched term
 		String escapedFragment = Pattern.quote(searchTerm);
@@ -178,13 +178,13 @@ public class ShowContractorsTab extends JLayeredPane {
 		while (enumerator.hasMoreElements()) {
 			DefaultMutableTreeNode node = enumerator.nextElement();
 			if (node.toString().matches(caseInsensitiveFragment)) {
-				index++;
 				allPaths[index] = new TreePath(node.getPath());
+				index++;
 			} // end of if-matched
 		} // end of enumerator while
 		
 		// if index is never incremented, return null
-		if (index == -1) {
+		if (index == 0) {
 			return null;
 		// otherwise, return paths
 		} else {
