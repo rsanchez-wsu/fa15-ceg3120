@@ -84,7 +84,7 @@ public class MessagingTab {
 		 */
 		JPanel centerPanel = new JPanel(new BorderLayout());
 		JLabel messageLabel = new JLabel("Message:");
-		JEditorPane messageText = new JEditorPane();
+		final JEditorPane messageText = new JEditorPane();
 		JScrollPane messageScrollPane = new JScrollPane(messageText);
 		centerPanel.setOpaque(true);
 		centerPanel.setBackground(Color.ORANGE);
