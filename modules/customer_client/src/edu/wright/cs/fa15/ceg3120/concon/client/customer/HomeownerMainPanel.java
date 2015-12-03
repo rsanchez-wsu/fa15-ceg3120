@@ -62,10 +62,6 @@ public class HomeownerMainPanel extends JTabbedPane {
 		JLayeredPane showContractorTab = new ShowContractorsTab();
 		addTab("Show Contractors", null, showContractorTab, null);
 
-		JLayeredPane messagingTab = new JLayeredPane();
-		addTab("Messaging", null, messagingTab, null);
-		
-
 		setupPanel();
 	}
 
