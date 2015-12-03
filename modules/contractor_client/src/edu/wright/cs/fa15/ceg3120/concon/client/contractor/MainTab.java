@@ -27,6 +27,7 @@ import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 
+import javax.swing.JButton;
 import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 import javax.swing.JTextPane;
@@ -161,11 +162,17 @@ public class MainTab extends JLayeredPane {
 				(WINDOW_HEIGHT - WINDOW_HEIGHT_QUARTER));
 		thisTextPane.setMaximumSize(thisTextPaneMaxSize);
 		thisTextPane.setBounds((mainTreeMaxSize.width + 6), 0,
-				thisTextPaneMaxSize.width, thisTextPaneMaxSize.height);
+				thisTextPaneMaxSize.width, thisTextPaneMaxSize.height - 150);
 		
+		Dimension thisButtonMaxSize = new Dimension(((WINDOW_WIDTH - (WINDOW_WIDTH / 4))),
+				(WINDOW_HEIGHT - WINDOW_HEIGHT_QUARTER));	
+		final JButton editMain = new JButton("Edit");
+		editMain.setBounds((thisButtonMaxSize.width), (thisButtonMaxSize.height - 145), 
+				130, 25);
+		
+		cont.add(editMain);
 		cont.add(mainTree);
 		cont.add(thisTextPane);
-		
 		return cont;
 
 	}
