@@ -178,6 +178,7 @@ public class MainTab extends JLayeredPane {
 		/**
 		 * Method that changes text based on tree selection.
 		 */
+		@Override
 		public void valueChanged(TreeSelectionEvent se) {
 			JTree tree = (JTree) se.getSource();
 			DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode) tree

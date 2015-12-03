@@ -24,7 +24,10 @@ package edu.wright.cs.fa15.ceg3120.concon.client.customer;
 //import edu.wright.cs.fa15.ceg3120.concon.common.data.ContractorAccount;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 //import java.awt.event.ActionEvent;
 //import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
@@ -32,6 +35,7 @@ import java.awt.event.KeyEvent;
 import java.util.Enumeration;
 import java.util.regex.Pattern;
 
+import javax.swing.JButton;
 //import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
@@ -40,6 +44,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.JTree;
+import javax.swing.SwingConstants;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreePath;
@@ -80,6 +85,7 @@ public class ShowContractorsTab extends JLayeredPane {
 
 		// Create panel for search bar
 		JPanel searchPanel = new JPanel();
+		searchPanel.setBackground(Color.ORANGE);
 		FlowLayout layout1 = (FlowLayout) searchPanel.getLayout();
 		layout1.setAlignment(FlowLayout.RIGHT);
 		add(searchPanel, BorderLayout.NORTH);
@@ -98,7 +104,7 @@ public class ShowContractorsTab extends JLayeredPane {
 					// Get text and search tree
 					String searchTerm = searchField.getText();
 					TreePath[] paths = find(searchTerm);
-					if (paths != null) {
+					if (paths.length > 0) {
 						// Selects and expands to found nodes
 						tree.setSelectionPaths(paths);
 					} else {
@@ -113,6 +119,7 @@ public class ShowContractorsTab extends JLayeredPane {
 		
 		// Create panel for tree
 		JPanel treePanel = new JPanel();
+		treePanel.setBackground(Color.ORANGE);
 		add(treePanel, BorderLayout.CENTER);
 		
 		// Create tree
@@ -127,27 +134,29 @@ public class ShowContractorsTab extends JLayeredPane {
 				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		
 		treePanel.add(treeScroll);
-		
-		/**
-		 * Ignore below- commented out because it caused the build to fail
-		 * will uncomment when ready to implement.
-		 */
-		
-		/*
-		JButton messageButton = new JButton("Message Contractor");
-		messageButton.addActionListener(new ActionListener() {
 
+		JPanel buttonPanel = new JPanel();
+		buttonPanel.setBackground(Color.ORANGE);
+		buttonPanel.setLayout(new BorderLayout());
+		
+		JButton messageButton = new JButton("Message Contractor");
+		messageButton.setSize(50, 20);
+		messageButton.setAlignmentX(SwingConstants.RIGHT);
+		messageButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent click) {
-				
-				// will actually implement once the messaging tab is set up
-				
+
 				// get selected node in tree
+				TreePath selectedPath = tree.getSelectionPath();
+				String selectedContractor = selectedPath.getLastPathComponent().toString();
+
 				// open messaging tab, autofill to selected contractor
+				ChatPanel chat = new ChatPanel();
+				chat.getTextField().setText("@" + selectedContractor);
 				
 			}
 		});
-		add(messageButton, BorderLayout.SOUTH);
-		*/
+		buttonPanel.add(messageButton, BorderLayout.EAST);
+		add(buttonPanel, BorderLayout.SOUTH);
 		
 	} // end of initialize method
 	
@@ -168,7 +177,7 @@ public class ShowContractorsTab extends JLayeredPane {
 		Enumeration<DefaultMutableTreeNode> enumerator = root.depthFirstEnumeration();
 		// temporary - allows max of 50 nodes to be selected
 		TreePath[] allPaths = new TreePath[50];
-		int index = 0;
+		int index = -1;
 		
 		// creates pattern to match searched term
 		String escapedFragment = Pattern.quote(searchTerm);
@@ -178,14 +187,14 @@ public class ShowContractorsTab extends JLayeredPane {
 		while (enumerator.hasMoreElements()) {
 			DefaultMutableTreeNode node = enumerator.nextElement();
 			if (node.toString().matches(caseInsensitiveFragment)) {
-				allPaths[index] = new TreePath(node.getPath());
 				index++;
+				allPaths[index] = new TreePath(node.getPath());
 			} // end of if-matched
 		} // end of enumerator while
 		
 		// if index is never incremented, return null
-		if (index == 0) {
-			return null;
+		if (index == -1) {
+			return new TreePath[0];
 		// otherwise, return paths
 		} else {
 			return allPaths;

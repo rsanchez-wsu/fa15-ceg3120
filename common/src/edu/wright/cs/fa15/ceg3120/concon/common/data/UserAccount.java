@@ -37,26 +37,36 @@ public class UserAccount implements Serializable{
 	private AccountType accountType;
 	/** Encrypted user password. */
 	private char[] pswd;
+	/** The type of account needed to be performed with this UserAccount. */
+	private RequestType reqType;
 	/** Response from database. */
 	private String dbResponse;
-	/** TODO description.*/
+	/** User's first name. */
 	private String strFirstName;
-	/** TODO description.*/
+	/** User's last name. */
 	private String strLastName;
-	/** TODO description.*/
+	/** First line of mailing address. */
 	private String strAddress1;
-	/** TODO description.*/
+	/** Line two of mailing address (optional?). */
 	private String strAddress2;
-	/** TODO description.*/
+	/** City of mailing address. */
 	private String strCity;
-	/** TODO description.*/
+	/** State of mailing address. */
 	private String strState;
-	/** TODO description.*/
+	/** User's Zip-Code. */
 	private String zipCode;
-	/** TODO description.*/
+	/** User's phone number. */
 	private String strPhoneNumber;
-	/** TODO description.*/
+	/** User's email address. */
 	private String strEmailAddress;
+	
+	/**
+	 * Creates a new instance of <code>UserAccount</code>.
+	 */
+	public UserAccount() {
+		uuid = "DEBUG";
+		pswd = new char[]{'p', 'a', 's', 's', 'w', 'o', 'r', 'd'}; //XXX REMOVE!!!
+	}
 
 	/**
 	 * Creates a new instance of <code>UserAccount</code>.
@@ -72,13 +82,15 @@ public class UserAccount implements Serializable{
 	 * Creates a new instance of <code>UserAccount</code>.
 	 *
 	 * @param uuid (String)
-	 * @param type (AccountType)
+	 * @param type ({@link edu.wright.cs.fa15.ceg3120.concon.common.data.AccountType})
 	 * @param pswd (char[])
+	 * @param reqType ({@link edu.wright.cs.fa15.ceg3120.concon.common.data.RequestType})
 	 */
-	public UserAccount(String uuid, AccountType type, char[] pswd) {
+	public UserAccount(String uuid, AccountType type, char[] pswd, RequestType reqType) {
 		this.uuid = uuid;
 		accountType = type;
-		this.pswd = pswd.clone(); // XXX this WILL need changed
+		this.pswd = (pswd == null ? new char[]{} : pswd.clone()); // XXX this WILL need changed
+		this.reqType = reqType;
 	}
 
 	/**
@@ -124,7 +136,7 @@ public class UserAccount implements Serializable{
 	 * @return encrypted password
 	 */
 	public char[] getPswd() {
-		return pswd.clone();
+		return pswd == null ? new char[]{} : pswd.clone();
 	}
 
 	/**
@@ -133,7 +145,23 @@ public class UserAccount implements Serializable{
 	 * @param pswd char[] representation of the password
 	 */
 	public void setPswd(char[] pswd) {
-		this.pswd = pswd.clone();
+		this.pswd = (pswd == null ? new char[]{} : pswd.clone());
+	}
+
+	/**
+	 * Gets the RequestType of this UserAccount.
+	 * @return {@link edu.wright.cs.fa15.ceg3120.concon.common.data.RequestType}
+	 */
+	public RequestType getReqType() {
+		return reqType;
+	}
+
+	/**
+	 * Sets the RequestType of this UserAccount.
+	 * @param reqType {@link edu.wright.cs.fa15.ceg3120.concon.common.data.RequestType}
+	 */
+	public void setReqType(RequestType reqType) {
+		this.reqType = reqType;
 	}
 
 	/**
