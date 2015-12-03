@@ -79,55 +79,6 @@ public class MessagingTab {
 	 */
 	public static JComponent createMessagingTab() {
 		/*
-		 * Instantiation of the north panel. This panel will hold the two list
-		 * views to select the users that will receive the message.
-		 */
-		DefaultListModel<String> usersModel = new DefaultListModel<>();
-		// Create dummy data for JList
-		usersModel.addElement("Bob");
-		usersModel.addElement("Susan");
-		usersModel.addElement("ConstructionsRUs");
-		usersModel.addElement("Bob's Building Builders");
-
-		JList<String> usersList = new JList<>();
-		usersList.setModel(usersModel);
-
-		JLabel usersLabel = new JLabel("Users:"); // TODO add label to view
-		JPanel usersPanel = new JPanel(new BorderLayout());
-		JScrollPane usersScrollPane = new JScrollPane(usersList);
-		usersPanel.add(usersLabel, BorderLayout.NORTH);
-		usersPanel.add(usersScrollPane, BorderLayout.CENTER);
-
-		JPanel northPanel = new JPanel();
-		northPanel.add(usersPanel);
-
-		// Buttons for moving selections from one pane to another.
-		JPanel buttonPanel = new JPanel(new BorderLayout());
-		JButton button = new JButton("Add all");
-		// TODO add listener
-		buttonPanel.add(button, BorderLayout.NORTH);
-		button = new JButton("-->");
-		// TODO add listener
-		buttonPanel.add(button, BorderLayout.CENTER);
-		button = new JButton("<--");
-		buttonPanel.add(button, BorderLayout.SOUTH);
-		northPanel.add(buttonPanel);
-		northPanel.setOpaque(true);
-		northPanel.setBackground(Color.ORANGE);
-		JPanel selectedPanel = new JPanel(new BorderLayout());
-		JLabel selectedLabel = new JLabel("Selected:");
-		selectedPanel.setOpaque(true);
-		selectedPanel.setBackground(Color.ORANGE);
-		selectedPanel.add(selectedLabel, BorderLayout.NORTH);
-		JList<String> selectedList = new JList<>();
-		DefaultListModel<String> selectedModel = new DefaultListModel<>();
-		selectedModel.addElement("Bob");
-		selectedList.setModel(selectedModel);
-		JScrollPane selectedScrollPane = new JScrollPane(selectedList);
-		selectedPanel.add(selectedScrollPane, BorderLayout.CENTER);
-		northPanel.add(selectedPanel);
-		
-		/*
 		 * Instantiation of the center panel. This panel will hold the editor
 		 * pane that will be used to edit the message to be sent.
 		 */
@@ -145,7 +96,7 @@ public class MessagingTab {
 		 * One to clear all data one to send message.
 		 */
 		JPanel eastPanel = new JPanel();
-		button = new JButton("Clear");
+		JButton button = new JButton("Clear");
 		// TODO add listener
 		eastPanel.add(button);
 		button = new JButton("Send");
@@ -156,7 +107,6 @@ public class MessagingTab {
 		JPanel panel = new JPanel(new BorderLayout());
 		panel.setOpaque(true);
 		panel.setBackground(Color.ORANGE);
-		panel.add(northPanel, BorderLayout.NORTH);
 		panel.add(centerPanel, BorderLayout.CENTER);
 		panel.add(eastPanel, BorderLayout.EAST);
 

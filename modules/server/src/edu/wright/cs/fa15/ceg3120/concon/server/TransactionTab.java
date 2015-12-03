@@ -85,44 +85,12 @@ public class TransactionTab extends JComponent{
 	 * @return the panel to be used.
 	 */
 	public static JComponent createTransactionTable() {
-		/* Model used for the list of users. This has to be a ListModel so that the information can
-		 * be pulled from the database.
-		 */
-		DefaultListModel<String> usersModel = new DefaultListModel<>();
-		
-		// Create dummy data for JList
-		usersModel.addElement("Bob");
-		usersModel.addElement("Susan");
-		usersModel.addElement("ConstructionsRUs");
-		usersModel.addElement("Bob's Building Builders");
-		usersModel.addElement("Bob");
-		usersModel.addElement("Susan");
-		usersModel.addElement("ConstructionsRUs");
-		usersModel.addElement("Bob's Building Builders");
-		usersModel.addElement("Bob");
-		usersModel.addElement("Susan");
-		usersModel.addElement("ConstructionsRUs");
-		usersModel.addElement("Bob's Building Builders");
-		usersModel.addElement("Bob");
-		usersModel.addElement("Susan");
-		usersModel.addElement("ConstructionsRUs");
-		usersModel.addElement("Bob's Building Builders");
-
-		JList<String> usersList = new JList<>();
-		usersList.setModel(usersModel);
-
 		JPanel usersPanel = new JPanel(new BorderLayout());
 		usersPanel.setOpaque(true);
 		usersPanel.setBackground(Color.ORANGE);
-		// Users label
-		JLabel usersLabel = new JLabel("Users:");
-		usersPanel.add(usersLabel, BorderLayout.NORTH);
-		
-		JScrollPane usersScrollPane = new JScrollPane(usersList);
-		usersPanel.add(usersScrollPane, BorderLayout.CENTER);
 		
 		JButton refreshButton = new JButton("Refresh");
-		//TODO add click listener
+		//TODO add click listener: Listener will requery database
 		usersPanel.add(refreshButton, BorderLayout.EAST);
 		
 		// Transactions Table
