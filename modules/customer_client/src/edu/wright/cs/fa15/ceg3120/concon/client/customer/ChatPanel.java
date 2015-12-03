@@ -104,6 +104,8 @@ public class ChatPanel extends JDialog {
 				getRootPane().setDefaultButton(sendButton);
 			}
 		}
+		
+		setVisible(true);
 	}
 	
 	/**
@@ -117,6 +119,18 @@ public class ChatPanel extends JDialog {
 			// TODO implement action for send button
 		
 		}
+		
+	}
+	
+	/**
+	 * Gets the JTextField for user text entry so that other classes can use it.
+	 * 
+	 * @return	returns the message field
+	 */
+	
+	public JTextField getTextField() {
+		
+		return this.textField;
 		
 	}
 }
