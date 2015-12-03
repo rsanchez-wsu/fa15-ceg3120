@@ -29,7 +29,8 @@ import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import javax.swing.JButton;
 import javax.swing.JLayeredPane;
 
@@ -70,6 +71,39 @@ public class ProfileTab extends JLayeredPane {
 		subCont.add(submit);
 		
 		add(subCont, BorderLayout.SOUTH);
+		
+		addComponentListener(new MycomponentAdapter(profile));
+	}
+	
+	/**
+	 * Component Listener to clear and fill passwordFields.
+	 * 
+	 * @author Quack
+	 *
+	 */
+	public static class MycomponentAdapter extends ComponentAdapter{
+		NewHomeownerPane profile;
+		
+		/**
+		 * Creates new instance of <code>MycomponentAdapter</code>.
+		 * 
+		 * @param panel NewHomeownerPane
+		 */
+		public MycomponentAdapter(NewHomeownerPane panel) {
+			profile = panel;
+		}
+		
+		@Override
+		public void componentShown(ComponentEvent ev) {
+			profile.fillPswdField();
+			
+		}
+		
+		@Override
+		public void componentHidden(ComponentEvent ev) {
+			profile.clearPswdField();
+			System.out.println("Clearing pswd");
+		}
 	}
 
 }
