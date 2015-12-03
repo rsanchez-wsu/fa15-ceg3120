@@ -208,6 +208,24 @@ public class NewHomeownerPane extends JPanel {
 	}
 	
 	/**
+	 * Clears password text fields.
+	 */
+	public void clearPswdField() {
+		pswd1Field.setText("");
+		pswd2Field.setText("");
+	}
+	
+	/**
+	 * Refills password fields.
+	 */
+	public void fillPswdField() {
+		pswd1Field.setText(
+				(user.getPswd().length == 0 ? "" : Arrays.toString(user.getPswd())));
+		pswd2Field.setText(
+				(user.getPswd().length == 0 ? "" : Arrays.toString(user.getPswd())));
+	}
+	
+	/**
 	 * My very own variant of the FocusListener. 
 	 * 
 	 * @author Quack

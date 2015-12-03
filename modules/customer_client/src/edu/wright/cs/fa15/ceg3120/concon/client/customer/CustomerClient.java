@@ -135,7 +135,7 @@ public class CustomerClient {
 			if (result == 0) {
 				// release any network/file resources
 				if (user != null) {
-					if (user.getPswd() != null) {
+					if (user.getPswd().length > 0) {
 						char[] overwrite = new char[user.getPswd().length];
 						for (int i = 0; i < overwrite.length; ++i) {
 							overwrite[i] = '\0';

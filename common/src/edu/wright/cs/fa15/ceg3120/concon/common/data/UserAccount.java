@@ -37,6 +37,8 @@ public class UserAccount implements Serializable{
 	private AccountType accountType;
 	/** Encrypted user password. */
 	private char[] pswd;
+	/** The type of account needed to be performed with this UserAccount. */
+	private RequestType reqType;
 	/** Response from database. */
 	private String dbResponse;
 	/** User's first name. */
@@ -80,13 +82,15 @@ public class UserAccount implements Serializable{
 	 * Creates a new instance of <code>UserAccount</code>.
 	 *
 	 * @param uuid (String)
-	 * @param type (AccountType)
+	 * @param type ({@link edu.wright.cs.fa15.ceg3120.concon.common.data.AccountType})
 	 * @param pswd (char[])
+	 * @param reqType ({@link edu.wright.cs.fa15.ceg3120.concon.common.data.RequestType})
 	 */
-	public UserAccount(String uuid, AccountType type, char[] pswd) {
+	public UserAccount(String uuid, AccountType type, char[] pswd, RequestType reqType) {
 		this.uuid = uuid;
 		accountType = type;
 		this.pswd = (pswd == null ? new char[]{} : pswd.clone()); // XXX this WILL need changed
+		this.reqType = reqType;
 	}
 
 	/**
@@ -142,6 +146,22 @@ public class UserAccount implements Serializable{
 	 */
 	public void setPswd(char[] pswd) {
 		this.pswd = (pswd == null ? new char[]{} : pswd.clone());
+	}
+
+	/**
+	 * Gets the RequestType of this UserAccount.
+	 * @return {@link edu.wright.cs.fa15.ceg3120.concon.common.data.RequestType}
+	 */
+	public RequestType getReqType() {
+		return reqType;
+	}
+
+	/**
+	 * Sets the RequestType of this UserAccount.
+	 * @param reqType {@link edu.wright.cs.fa15.ceg3120.concon.common.data.RequestType}
+	 */
+	public void setReqType(RequestType reqType) {
+		this.reqType = reqType;
 	}
 
 	/**
