@@ -21,7 +21,9 @@
 
 package edu.wright.cs.fa15.ceg3120.concon.common;
 
+import edu.wright.cs.fa15.ceg3120.concon.common.data.ContractorAccount;
 import edu.wright.cs.fa15.ceg3120.concon.common.data.HomeownerAccount;
+import edu.wright.cs.fa15.ceg3120.concon.common.data.ServerAdminAccount;
 
 import java.awt.BorderLayout;
 import java.awt.Container;
@@ -205,14 +207,24 @@ public class CreateNewAccount {
 		 * Create a new ContractorAccount.
 		 */
 		private void createContractor() {
-			
+			ContractorAccount user = new ContractorAccount();
+			try {
+				LoginPopUp.addUserToQueue(user);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			} // XXX end functionality test stuffs
 		}
 		
 		/**
 		 * Create a new ServerAdminAccount.
 		 */
 		private void createServerAdmin() {
-			
+			ServerAdminAccount user = new ServerAdminAccount();
+			try {
+				LoginPopUp.addUserToQueue(user);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			} // XXX end functionality test stuffs
 		}
 	}//end SubmitListener
 }//end CreateNewAccount
