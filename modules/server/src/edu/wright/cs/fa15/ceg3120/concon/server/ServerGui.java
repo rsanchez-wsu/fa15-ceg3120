@@ -56,7 +56,6 @@ package edu.wright.cs.fa15.ceg3120.concon.server;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -117,12 +116,6 @@ public class ServerGui extends JPanel implements ActionListener {
 		tabbedPane.addTab("Messages", CreateImageIcon.icon, panel3, "Message Users");
 		tabbedPane.setMnemonicAt(2, KeyEvent.VK_3);
 
-		JComponent panel4 = DatabaseControlTab.createDbControlTab();
-		panel4.setPreferredSize(new Dimension(410, 50));
-		tabbedPane.addTab("Remote Control", CreateImageIcon.icon, 
-						panel4, "Schedule Tasks");
-		tabbedPane.setMnemonicAt(3, KeyEvent.VK_5);
-
 		JComponent panel5 = TransactionTab.createTransactionTable();
 		tabbedPane.addTab("Transactions", CreateImageIcon.icon, 
 						panel5, "User Transactions");
@@ -169,6 +162,7 @@ public class ServerGui extends JPanel implements ActionListener {
 		//frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setIconImage(CreateImageIcon.iconLogo.getImage());
 		frame.addWindowListener( new WindowAdapter(){
+			@Override
 			public void windowClosing(WindowEvent w0) {
 					int showQuit = JOptionPane.showConfirmDialog(null,  
 							message, title, JOptionPane.YES_NO_OPTION);

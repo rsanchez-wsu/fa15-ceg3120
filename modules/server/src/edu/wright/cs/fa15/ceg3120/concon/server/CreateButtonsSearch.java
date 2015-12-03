@@ -436,7 +436,7 @@ public class CreateButtonsSearch extends JPanel{
 		
 		@Override
 		public void actionPerformed(ActionEvent event) {
-			parent.switchTabs(4);
+			parent.switchTabs(3);
 		}
 	}
 	
