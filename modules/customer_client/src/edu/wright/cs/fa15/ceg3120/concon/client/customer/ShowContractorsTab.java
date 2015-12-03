@@ -147,7 +147,7 @@ public class ShowContractorsTab extends JLayeredPane {
 
 				// get selected node in tree
 				TreePath selectedPath = tree.getSelectionPath();
-				String selectedContractor = selectedPath.getLastPathComponent().toString();
+				String selectedContractor = selectedPath.getPathComponent(1).toString();
 
 				// open messaging tab, autofill to selected contractor
 				ChatPanel chat = new ChatPanel();
