@@ -35,7 +35,7 @@ import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 /**
- * Calendar Tab.
+ * Payments Tab.
  *
  */
 public class PaymentsTab extends JLayeredPane {
