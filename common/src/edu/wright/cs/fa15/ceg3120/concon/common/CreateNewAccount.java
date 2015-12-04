@@ -21,7 +21,9 @@
 
 package edu.wright.cs.fa15.ceg3120.concon.common;
 
+import edu.wright.cs.fa15.ceg3120.concon.common.data.ContractorAccount;
 import edu.wright.cs.fa15.ceg3120.concon.common.data.HomeownerAccount;
+import edu.wright.cs.fa15.ceg3120.concon.common.data.ServerAdminAccount;
 
 import java.awt.BorderLayout;
 import java.awt.Container;
@@ -98,46 +100,14 @@ public class CreateNewAccount {
 		JButton submit = new JButton("Submit");
 		subCont.add(submit);
 		
+		submit.addActionListener(new SubmitListener());
+		
 		newAccountFrame.add(norths, BorderLayout.NORTH);
 		newAccountFrame.add(centers, BorderLayout.CENTER);
 		newAccountFrame.add(subCont, BorderLayout.SOUTH);
 		
 		newAccountFrame.setVisible(true);
 
-		// XXX This is solely for functionality testings and I didn't want to stash it
-//		SwingUtilities.invokeLater(new Runnable() {
-//			
-//			@Override
-//			public void run() {
-//				try {
-//					Thread.sleep(2000);
-//					newAccountFrame.dispose();
-//				} catch (InterruptedException e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		});
-
-		try {
-			HomeownerAccount user = new HomeownerAccount();
-			user.setUuid("Debug");
-			char[] ps = {'a','b', 'c'};
-			user.setPswd(ps);
-			user.setFirstName("John");
-			user.setLastName("Doe");
-			user.setAddress1("123 Nowhere St");
-			user.setAddress2("Don't really know what goes here");
-			user.setState("FL");
-			user.setZipCode("12345");
-			user.setPhoneNumber("123-456-7890");
-			user.setCity("Lost");
-			user.setEmailAddress("test123@temp.com");
-			LoginPopUp.addUserToQueue(user);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		} // XXX end functionality test stuffs
-		
-		
 		return true;
 	}
 
@@ -188,4 +158,73 @@ public class CreateNewAccount {
 			}
 		}//end actionPerformed
 	}//end ComboListener
+	
+	/**
+	 * Listener for the submit button.
+	 * 
+	 * @author Quack
+	 *
+	 */
+	public class SubmitListener implements ActionListener{
+		
+		@Override
+		public void actionPerformed(ActionEvent ev) {
+			if (centers instanceof NewHomeownerPane) {
+				createHomeowner();
+			} else if (centers instanceof NewContractorPane) {
+				createContractor();
+			} else if (centers instanceof NewServerAdminPane) {
+				createServerAdmin();
+			}
+			
+		}
+		
+		/**
+		 * Create a new HomeownerAccount.
+		 */
+		private void createHomeowner() {
+			try {
+				HomeownerAccount user = new HomeownerAccount();
+				user.setUuid("Debug");
+				char[] ps = {'a','b', 'c'};
+				user.setPswd(ps);
+				user.setFirstName("John");
+				user.setLastName("Doe");
+				user.setAddress1("123 Nowhere St");
+				user.setAddress2("Don't really know what goes here");
+				user.setState("FL");
+				user.setZipCode("12345");
+				user.setPhoneNumber("123-456-7890");
+				user.setCity("Lost");
+				user.setEmailAddress("test123@temp.com");
+				LoginPopUp.addUserToQueue(user);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			} // XXX end functionality test stuffs
+		}//end createHomeowner
+		
+		/**
+		 * Create a new ContractorAccount.
+		 */
+		private void createContractor() {
+			ContractorAccount user = new ContractorAccount();
+			try {
+				LoginPopUp.addUserToQueue(user);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			} // XXX end functionality test stuffs
+		}
+		
+		/**
+		 * Create a new ServerAdminAccount.
+		 */
+		private void createServerAdmin() {
+			ServerAdminAccount user = new ServerAdminAccount();
+			try {
+				LoginPopUp.addUserToQueue(user);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			} // XXX end functionality test stuffs
+		}
+	}//end SubmitListener
 }//end CreateNewAccount

@@ -24,11 +24,23 @@ package edu.wright.cs.fa15.ceg3120.concon.common.data;
 /**
  * Enumeration of valid request types.
  * <p>Valid options:</p>
- * <p>CREATE, READ, UPDATE, DELETE</p>
+ * <p>CREATE, READ, UPDATE, DELETE, LOOK_UP</p>
+ * <p>**********************************************************</p>
+ * <br>
+ * <p>CREATE:</p>
+ * <p>&nbsp;&nbsp;&nbsp;&nbsp;Request to create new entry in DB</p>
+ * <p>READ:</p>
+ * <p>&nbsp;&nbsp;&nbsp;&nbsp;Request data for provided entry from DB</p>
+ * <p>UPDATE:</p>
+ * <p>&nbsp;&nbsp;&nbsp;&nbsp;Request to update entry in DB</p>
+ * <p>DELETE:</p>
+ * <p>&nbsp;&nbsp;&nbsp;&nbsp;Request to delete entry in DB</p>
+ * <p>LOOK_UP:</p>
+ * <p>&nbsp;&nbsp;&nbsp;&nbsp;Request to validate and return entry in DB</p>
  * 
  * @author Connor
  *
  */
 public enum RequestType {
-	CREATE, READ, UPDATE, DELETE
+	CREATE, READ, UPDATE, DELETE, LOOK_UP
 }

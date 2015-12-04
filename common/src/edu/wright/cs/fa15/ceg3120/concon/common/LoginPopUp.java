@@ -21,6 +21,7 @@
 
 package edu.wright.cs.fa15.ceg3120.concon.common;
 
+import edu.wright.cs.fa15.ceg3120.concon.common.data.RequestType;
 import edu.wright.cs.fa15.ceg3120.concon.common.data.UserAccount;
 
 import java.awt.Color;
@@ -30,7 +31,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.TimeUnit;
 
@@ -44,6 +48,7 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.SpringLayout;
 import javax.swing.SwingUtilities;
+import javax.swing.WindowConstants;
 
 /**
  * This is the main launch point for the UIs.  It is responsible for creating
@@ -89,6 +94,9 @@ public class LoginPopUp implements Serializable{
 		uuidField.requestFocus();
 		
 		loginFrame.setIconImage(imageResources.getImage(ICON_IMG ).getImage());
+		
+		loginFrame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+		loginFrame.addWindowListener(new MyWindowAdapter());
 
 		loginFrame.setVisible(true);
 
@@ -284,7 +292,8 @@ public class LoginPopUp implements Serializable{
 			if (uuid.length() > 0) {
 				if (passwordField.getPassword().length > 0) {
 					// XXX encrypt pswd before creating new UserAccount
-					user = new UserAccount(uuid, null, passwordField.getPassword());
+					user = new UserAccount(uuid, null, passwordField.getPassword(),
+							RequestType.LOOK_UP);
 				} else {
 					JOptionPane.showMessageDialog(null,
 							"The password field is blank." + "\nPlease try agian...",
@@ -300,6 +309,31 @@ public class LoginPopUp implements Serializable{
 			return true;
 		}//end verifyFields
 	}//end LoginListener
+	
+	/**
+	 * temp.
+	 * @author Quack
+	 *
+	 */
+	private class MyWindowAdapter extends WindowAdapter{
+		
+		@Override
+		public void windowClosing(WindowEvent ev) {
+				// release any network/file resources
+			passwordField.setText("");
+			if (user != null) {
+				if (user.getPswd().length > 0) {
+					char[] overwrite = new char[user.getPswd().length];
+					for (int i = 0; i < overwrite.length; ++i) {
+						overwrite[i] = '\0';
+					}
+					user.setPswd(overwrite);
+					System.out.println("overwrite:" + Arrays.toString(user.getPswd()));
+				}
+			} // end if(user != null)
+			System.exit(0);
+		}
+	}//end MyWindowAdapter
 
 /*############################################################################*/
 /*############################################################################*/
