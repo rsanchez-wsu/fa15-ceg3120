@@ -108,3 +108,4 @@ modules/*/tools/
 *_LOCAL_*
 *_REMOTE_*
 /*.jar
+*.orig

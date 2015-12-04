@@ -72,6 +72,17 @@ public class Database {
 			System.out.println(e);
 		}
 	}
+
+	/**
+	 * Get connection.
+	 * @return database connection
+	 */
+	public Connection getConnection() {
+		if (conn == null) {
+			connect();
+		}
+		return conn;
+	}
 	
 	/**
 	 * Method to update database.

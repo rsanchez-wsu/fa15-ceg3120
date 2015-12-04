@@ -86,7 +86,7 @@ public class ConConStatements {
 			}
 		}
 		
-		list.removeAll(list);
+		list.clear();
 		
 		return resultList;
 	}
@@ -103,7 +103,7 @@ public class ConConStatements {
 				System.out.println(e);
 			}
 		}
-		list.removeAll(list);
+		list.clear();
 	}
 	
 	/**
@@ -114,7 +114,7 @@ public class ConConStatements {
 	private static ArrayList<PreparedStatement> createPreparedStatements(RequestObject ob, 
 																				Connection conn) {
 		ArrayList<PreparedStatement> list = new ArrayList<PreparedStatement>();
-		
+		/*
 		if (ob.getDataClass().equals(ContractorAccount.class)) {
 			
 			ContractorAccount account = (ContractorAccount) ob.getData();
@@ -146,7 +146,7 @@ public class ConConStatements {
 				System.out.println(e);
 			}
 			
-		} /* else if (ob.getDataClass().equals(HomeownerAccount.class)) {
+		} else if (ob.getDataClass().equals(HomeownerAccount.class)) {
 			
 		} else if (ob.getDataClass().equals(ServerAdminAccount.class)) {
 			
