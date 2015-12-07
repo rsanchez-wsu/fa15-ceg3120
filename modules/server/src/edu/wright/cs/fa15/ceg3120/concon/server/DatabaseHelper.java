@@ -56,6 +56,10 @@ import org.apache.derby.iapi.sql.PreparedStatement;
 import org.apache.derby.iapi.sql.ResultSet;
 
 import java.sql.Connection;
+import java.sql.DriverManager;
+//import java.sql.ResultSetMetaData;
+//import java.sql.SQLException;
+//import java.sql.Statement;
 
 
 /**
@@ -65,8 +69,11 @@ import java.sql.Connection;
  *
  */
 public class DatabaseHelper {
-//	Connection connection = null;
-	
+	private static String dbURL = "jdbc:derby:/home/jkern/MyDB;create=true;upgrade=true";
+//	private static String tableName = "HOMEOWNER_ACOUNTS";
+	// jdbc Connection
+	private static Connection conn = null;
+//	private static Statement stmt = null;
 	/**
 	 * Constructor to instantiate and connect to the database.
 	 */
@@ -74,10 +81,13 @@ public class DatabaseHelper {
 		//Connect to database 
 		try {
 			// Code to connect here
+			conn = DriverManager.getConnection(dbURL);
+			System.out.println("Connected");
 			
-		} catch (Exception CHaNGe_THiS) {
+		} catch (Exception except) {
 			// Log connection failure and possible reason
 			System.out.println("Connection failed");
+			except.printStackTrace();
 		}
 	}
 	
