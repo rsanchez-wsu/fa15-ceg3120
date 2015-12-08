@@ -62,6 +62,9 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import javax.swing.JComponent;
 import javax.swing.JFrame;
@@ -73,6 +76,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
+
 
 /**
  * ServerGui is the main JPanel class that contains a tabbedPane of
@@ -89,6 +93,7 @@ public class ServerGui extends JPanel implements ActionListener {
 	public static final String newline = "\n";
 	
 	private JTabbedPane tabbedPane;
+	private static DatabaseHelper db;
 
 /**
  * main GUI class call sub classes to form components.
@@ -119,7 +124,7 @@ public class ServerGui extends JPanel implements ActionListener {
 		JComponent panel5 = TransactionTab.createTransactionTable();
 		tabbedPane.addTab("Transactions", CreateImageIcon.icon, 
 						panel5, "User Transactions");
-		tabbedPane.setMnemonicAt(4, KeyEvent.VK_4);
+		tabbedPane.setMnemonicAt(3, KeyEvent.VK_4);
 
 		// Add the tab pane to this panel.
 		add(tabbedPane);
@@ -158,6 +163,20 @@ public class ServerGui extends JPanel implements ActionListener {
 		final String message = "Exit the program?";
 		final String title = "Exit";
 		JFrame frame = new JFrame("Server Control GUI");
+		
+		PreparedStatement statement = db.prepareStatement("select * from test");
+		ResultSet set = db.buildQuery(statement);
+		if (set != null) {
+			try {
+				while (set.next()) {
+					String col1 = set.getString(1);
+					String col2 = set.getString(2);
+					System.out.println("col1: " + col1 + " col2: " + col2);
+				}
+			} catch (SQLException e) {
+				System.out.println("Error reading columns from database");
+			}
+		}
 
 		//frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setIconImage(CreateImageIcon.iconLogo.getImage());
@@ -167,6 +186,9 @@ public class ServerGui extends JPanel implements ActionListener {
 					int showQuit = JOptionPane.showConfirmDialog(null,  
 							message, title, JOptionPane.YES_NO_OPTION);
 					if (showQuit == JOptionPane.YES_OPTION) {
+						if (db != null) {
+							db.disconnect();
+						}
 						System.exit(0);
 					}
 			}
@@ -193,7 +215,7 @@ public class ServerGui extends JPanel implements ActionListener {
 			public void run() {
 				// Turn off metal's use of bold fonts
 				UIManager.put("swing.boldMetal", Boolean.FALSE);
-				DatabaseHelper db = new DatabaseHelper();
+				db = new DatabaseHelper();
 				createAndshowgui();
 			}
 		});

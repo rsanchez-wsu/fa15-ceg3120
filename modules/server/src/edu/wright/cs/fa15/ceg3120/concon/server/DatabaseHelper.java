@@ -52,14 +52,15 @@
 
 package edu.wright.cs.fa15.ceg3120.concon.server;
 
-import org.apache.derby.iapi.sql.PreparedStatement;
-import org.apache.derby.iapi.sql.ResultSet;
-
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 //import java.sql.ResultSetMetaData;
 //import java.sql.SQLException;
 //import java.sql.Statement;
+import java.sql.SQLException;
+
 
 
 /**
@@ -69,7 +70,7 @@ import java.sql.DriverManager;
  *
  */
 public class DatabaseHelper {
-	private static String dbURL = "jdbc:derby:/home/jkern/MyDB;create=true;upgrade=true";
+	private static String dbURL = "jdbc:derby:C:\\Users\\Quintin\\MyDB;create=true";
 //	private static String tableName = "HOMEOWNER_ACOUNTS";
 	// jdbc Connection
 	private static Connection conn = null;
@@ -88,6 +89,21 @@ public class DatabaseHelper {
 			// Log connection failure and possible reason
 			System.out.println("Connection failed");
 			except.printStackTrace();
+		}
+	}
+	
+	/**
+	 * Disconnects the database.
+	 */
+	public void disconnect() {
+		if (conn != null) {
+			try {
+				conn.close();
+				conn = null;
+				System.out.println("Database closed successfully");
+			} catch (SQLException e) {
+				System.out.println("Database could not be closed");
+			}
 		}
 	}
 	
@@ -139,8 +155,29 @@ public class DatabaseHelper {
 	 */
 	public ResultSet buildQuery(PreparedStatement statement) {
 		ResultSet results = null;
-		// Execute statement and return the results.
+		try {
+			if (statement != null) {
+				results = statement.executeQuery();
+			}
+		} catch (SQLException e) {
+			System.out.println("Query could not be built");
+		}
 		return results;
+	}
+	
+	/**
+	 * Creates a prepared statement to run on the database.
+	 * @param statement The statement to prepare.
+	 * @return a prepared statement.
+	 */
+	public PreparedStatement prepareStatement(String statement) {
+		PreparedStatement preparedStatement = null;
+		try {
+			preparedStatement = conn.prepareStatement(statement);
+		} catch (SQLException e) {
+			System.out.println("Unable to prepare statment");
+		}
+		return preparedStatement;
 	}
 
 }
