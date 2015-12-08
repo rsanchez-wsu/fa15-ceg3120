@@ -78,17 +78,17 @@ public class OpenJobsTab extends JLayeredPane {
 		
 		JLabel openJobSearchLabel = new JLabel("Search for open jobs");
 		cont.add(openJobSearchLabel);
-		openJobSearchLabel.setBounds(400, 5, 120, 20);
+		openJobSearchLabel.setBounds(900, 5, 120, 20);
 		
 		JButton openJobSearchButton = new JButton("Search");
-		openJobSearchButton.setBounds(530, 5, 120, 20);
+		openJobSearchButton.setBounds(1025, 5, 120, 20);
 		cont.add(openJobSearchButton);
 		
 		String[] columnName = {"Job Number", "Location", "Date Started", "Balance"};
 		final DefaultTableModel openJob = new DefaultTableModel(columnName, 0);
 		JTable tblOpenJobResults = new JTable(openJob);
 		JScrollPane openJobResults = new JScrollPane(tblOpenJobResults);
-		openJobResults.setBounds(45, 45, 605, 100);
+		openJobResults.setBounds(45, 45, 1100, 275);
 		cont.add(openJobResults);
 		
 		return cont;

@@ -24,6 +24,8 @@ package edu.wright.cs.fa15.ceg3120.concon.client.contractor;
 import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -76,14 +78,38 @@ public class PaymentsTab extends JLayeredPane {
 		
 		JLabel paymentsSearchLabel = new JLabel("Search job number:");
 		cont.add(paymentsSearchLabel);
-		paymentsSearchLabel.setBounds(5,5,120,20);
+		paymentsSearchLabel.setBounds(650,5,120,20);
+		
+		JLabel paymentsSchedulingLabel = new JLabel("Enter Payments and Scheduling:");
+		cont.add(paymentsSchedulingLabel);
+		paymentsSchedulingLabel.setBounds(45,5,200,20);
 		
 		JButton paymentsSearchButton = new JButton("Search");
-		paymentsSearchButton.setBounds(530, 5, 120, 20);
+		paymentsSearchButton.setBounds(1025, 5, 120, 20);
 		cont.add(paymentsSearchButton);
 		
+		//paymentsSearchButton.addActionListener(new ActionListener() {
+
+			//@Override
+			//public void actionPerformed(ActionEvent e1) {
+			
+			//}
+		//});
+		
+		JButton paymentsScheduleButton = new JButton("Pay & Sched");
+		paymentsScheduleButton.setBounds(235,5,120,20);
+		cont.add(paymentsScheduleButton);
+		
+		paymentsScheduleButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e1) {
+				
+			}
+		});
+		
 		final JTextField paymentsSearchOptions = new JTextField();
-		paymentsSearchOptions.setBounds(275, 5, 240, 20);
+		paymentsSearchOptions.setBounds(775, 5, 240, 20);
 		cont.add(paymentsSearchOptions);
 		
 		String[] columnName = {"Job Number", "Cost", "Payments", "Balance"};
@@ -91,7 +117,7 @@ public class PaymentsTab extends JLayeredPane {
 		JTable tblPaymentsResults2 = new JTable(paymentsModel);
 		tblPaymentsResults2.setModel(paymentsModel);
 		JScrollPane paymentsResults = new JScrollPane(tblPaymentsResults2);
-		paymentsResults.setBounds(45, 45, 605, 100);
+		paymentsResults.setBounds(45, 45, 1100, 275);
 		cont.add(paymentsResults);
 		
 		return cont;
