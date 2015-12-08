@@ -22,9 +22,8 @@
 package edu.wright.cs.fa15.ceg3120.concon.client.contractor;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Container;
-import java.awt.GridLayout;
+import java.awt.FlowLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -40,58 +39,15 @@ import javax.swing.JPanel;
  */
 public class NotifTab extends JLayeredPane {
 	private static final JPanel notifications = new JPanel();
-	private static Container cont = new Container();
-	private static Color defaultColor = null;
-	private static int list = 0;
-	private static JButton[] acknowledge = null;
-	private static JLabel[] jobs = null;
-	
+	private static Container cont = new Container();	
 	private static final int WINDOW_WIDTH = Toolkit.getDefaultToolkit().getScreenSize().width
 			- 150;
 	private static final int WINDOW_HEIGHT = Toolkit.getDefaultToolkit().getScreenSize().height
 			- 150;
 	private static final int WINDOW_HEIGHT_QUARTER = (Toolkit.getDefaultToolkit()
 			.getScreenSize().height - 150) / 4;
-	
-	/**
-	 * Action for when all notifications have been cleared.
-	 *
-	 */
-	public static final class ActionAllNotificationsCleared implements
-			ActionListener {
-
-		/**
-		 * Javadoc needed.
-		 * @param defaultColor.
-		 * @param list.
-		 * @param acknowledge.
-		 * @param jobs.
-		 */
-		public ActionAllNotificationsCleared(Color defaultColor1, int list1,
-				JButton[] acknowledge1, JLabel[] jobs1) {
-			defaultColor = defaultColor1;
-			list = list1;
-			acknowledge = acknowledge1;
-			jobs = jobs1;
-			
-		}
-
-		@Override  
-		public void actionPerformed(ActionEvent e0) {
-			cont.remove(acknowledge[list]);
-			cont.remove(jobs[list]);
-			list--;
-			setNotif(getNotif() - 1);  
-			if (getNotif() < 1) {  
-				notifications.setBackground(defaultColor);  
-			}
-			cont.validate();
-			cont.repaint(); 
-		}
-	}
-
 	private static final long serialVersionUID = 1L;
-	private static int curNotif = 0;
+	private static int curIndex = 0;
 	
 	/**
 	 * Build the tab.
@@ -117,50 +73,64 @@ public class NotifTab extends JLayeredPane {
 //		Container cont = new Container();
 		cont.setBounds(6, 6, WINDOW_WIDTH, 
 				(WINDOW_HEIGHT - WINDOW_HEIGHT_QUARTER));
-		cont.setLayout(new GridLayout(0,2));
-		
-		setNotif(6);  
-		if (getNotif() > 0) {  
-			notifications.setBackground(Color.RED);  
-		}  
-		final Color defaultColor = new Color(238,238,238);  
-		String clientName;  
-		String jobLocation;  
-		String jobDate;  
-		final JLabel[] jobs = new JLabel[10];  
-		final JButton[] acknowledge = new JButton[10];  
-		for (int i = 0; i <= 5; i++) {  
-			final int list = i;  
-			clientName = "Get name of client from database";  
-			jobLocation = "Get location from database";  
-			jobDate = "Get date from database";  
-			jobs[i] = new JLabel(clientName + " needs work done at "   
-			+ jobLocation + " on " + jobDate);  
-			cont.add(jobs[i]);  
-			acknowledge[i] = new JButton("Okay");  
-			cont.add(acknowledge[i]);  
-			acknowledge[i].addActionListener(
-					new ActionAllNotificationsCleared(defaultColor, list, acknowledge,
-					jobs));  
-		} 
-		
+		cont.setLayout(new FlowLayout());
+		String[] populateArray = new String[6];
+		final int size = populateArray.length;
+		final String[] notifArray = populateArray(populateArray);
+		final JLabel notif = new JLabel();
+		notif.setSize(100, 50);
+		notif.setText(notifArray[getIndex()]);
+		final JButton accept = new JButton("Dismiss Notification");
+		accept.setSize(200, 50);
+		cont.add(notif);
+		cont.add(accept);
+		accept.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				if (getIndex() + 1 > size - 1) {
+					cont.remove(notif);
+					cont.remove(accept);
+					cont.revalidate();
+					cont.repaint();
+				} else {
+					setIndex(getIndex() + 1);
+					notif.setText(notifArray[getIndex()]);
+				}
+				
+			}
+			
+		});
 		return cont;
 	}
-	
 	/**
-	 * This method sets the current amount of notifications for the user. Used to
-	 * set the color of the tab to notify the user.
-	 * @param notif New value of the current notifications.
+	 * This method populates the array of values for the label.
+	 * @param notifArray The array to be populated
+	 * @return Returns the populated array
 	 */
-	public static void setNotif(int notif) {
-		curNotif = notif;
+	
+	private static String[] populateArray(String[] notifArray) {
+		for (int i = 0; i < notifArray.length; i++) {
+			notifArray[i] = "This is notif number " + (i + 1);
+		}
+		return notifArray;
 	}
 	
 	/**
-	 * Gets and returns the current number of notifications.
-	 * @return Returns the current value.
+	 * This method sets the index.
+	 * @param index New value for the index
 	 */
-	public static int getNotif() {
-		return curNotif;
+	
+	private static void setIndex(int index) {
+		curIndex = index;
+	}
+	
+	/**
+	 * This method gets the value of the index.
+	 * @return Returns the value of the index
+	 */
+	
+	private static int getIndex() {
+		return curIndex;
 	}
 }
